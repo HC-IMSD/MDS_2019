@@ -183,7 +183,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   //note ng-select expects an array of values even with a single select
   selected(rec) {
-    console.log('This is selected');
+
     //this.adressFormLocalModel.controls.country.setValue([rec.id]);
     //this.adressFormLocalModel.controls.country.setValue([rec]);
   }

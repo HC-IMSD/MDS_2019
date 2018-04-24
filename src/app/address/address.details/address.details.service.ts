@@ -3,15 +3,16 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 //import {TheraClassService} from '../../therapeutic/therapeutic-classification/thera-class.service';
 import {GlobalsService} from '../../globals/globals.service';
 import {ValidationService} from '../../validation.service';
+import {ListService} from '../../list-service';
 
 @Injectable()
-export class AddressDetailsService  {
+export class AddressDetailsService {
 
   private countryList: Array<any>;
   private stateList: Array<any>;
-  public provinces: Array<any>=[
-    {"id":"ON","label_en":"Ontario","label_fr":"Ontario"},
-    {"id":"MN","label_en":"Manitoba","label_fr":"Manitoba"}
+  public provinces: Array<any> = [
+    {'id': 'ON', 'label_en': 'Ontario', 'label_fr': 'Ontario'},
+    {'id': 'MN', 'label_en': 'Manitoba', 'label_fr': 'Manitoba'}
   ];
 
 
@@ -32,7 +33,7 @@ export class AddressDetailsService  {
       provList: '',
       city: ['', [Validators.required, Validators.min(5)]],
       country: [null, Validators.required],
-      postal:['',[]]
+      postal: ['', []]
     });
   }
 
@@ -40,18 +41,18 @@ export class AddressDetailsService  {
    * Gets an empty
    *
    */
-  public static getEmptyModel(){
+  public static getEmptyModel() {
 
-   return(
-     {
-       address:'',
-       provText: '',
-       provList: '',
-       city: '',
-       country: '',
-       postal: ''
-     }
-    )
+    return (
+      {
+        address: '',
+        provText: '',
+        provList: '',
+        city: '',
+        country: '',
+        postal: ''
+      }
+    );
   };
 
 
@@ -59,27 +60,36 @@ export class AddressDetailsService  {
     addressModel.address = formRecord.controls.address.value;
     addressModel.city = formRecord.controls.city.value;
     if (formRecord.controls.country.value && formRecord.controls.country.value.length > 0) {
-      let country_record= AddressDetailsService.findRecordByTerm(countryList,formRecord.controls.country.value[0],"id");
-      //this removes the 'text' property that the control needs
-      addressModel.country={
-        "__text":country_record.id,
-        "_label_en":country_record.en,
-        "_label_fr":country_record.fr
+      const country_record = AddressDetailsService.findRecordByTerm(countryList, formRecord.controls.country.value[0], 'id');
+      // this removes the 'text' property that the control needs
+      addressModel.country = {
+        '__text': country_record.id,
+        '_label_en': country_record.en,
+        '_label_fr': country_record.fr
       };
     } else {
       addressModel.country = null;
     }
-    addressModel.postal=formRecord.controls.postal.value;
-    addressModel.provList=formRecord.controls.provList.value;
-    addressModel.provText=formRecord.controls.provText.value;
+    addressModel.postal = formRecord.controls.postal.value;
+    addressModel.provList = formRecord.controls.provList.value;
+    addressModel.provText = formRecord.controls.provText.value;
   }
 
-  public static mapDataModelToFormModel(addressModel, formRecord: FormGroup,) {
+  public static mapDataModelToFormModel(addressModel, formRecord: FormGroup, countryList) {
     formRecord.controls.address.setValue(addressModel.address);
     formRecord.controls.city.setValue(addressModel.city);
-    console.log(addressModel.country);
+    const recordIndex = ListService.getRecord(countryList, addressModel.country.__text, 'id');
+    let labelText = '';
+    if (recordIndex > -1) {
+      labelText = countryList[recordIndex].text;
+    }
     if (addressModel.country) {
-      formRecord.controls.country.setValue([addressModel.country]);
+      formRecord.controls.country.setValue([
+        {
+          'id': addressModel.country.__text,
+          'text': labelText
+        }
+      ]);
     } else {
       formRecord.controls.country.setValue(null);
     }
@@ -94,17 +104,16 @@ export class AddressDetailsService  {
     record.controls.id.setValue(value);
   }
 
-  public  setProvinceState(record: FormGroup, eventValue) {
+  public setProvinceState(record: FormGroup, eventValue) {
 
     if (AddressDetailsService.isCanadaOrUSA(eventValue)) {
 
-      record.controls.provText.setValue("");
+      record.controls.provText.setValue('');
       record.controls.provList.setValidators([Validators.required]);
 
-      if(AddressDetailsService.isCanada(eventValue.id))
-      {
+      if (AddressDetailsService.isCanada(eventValue.id)) {
         record.controls.postal.setValidators([Validators.required, ValidationService.canadaPostalValidator]);
-      }else{
+      } else {
         record.controls.postal.setValidators([Validators.required, ValidationService.usaPostalValidator]);
       }
       record.controls.provList.updateValueAndValidity();
@@ -112,7 +121,7 @@ export class AddressDetailsService  {
       return this.provinces;
     } else {
       record.controls.provList.setValidators([]);
-      record.controls.provList.setValue("");
+      record.controls.provList.setValue('');
       record.controls.postal.setValidators([]);
       record.controls.provList.updateValueAndValidity();
       record.controls.postal.updateValueAndValidity();
@@ -125,20 +134,19 @@ export class AddressDetailsService  {
    * Sets the country list to be used for all addres details records
    * @param {Array<any>} value
    */
-  public setCountryList(value:Array<any>) {
+  public setCountryList(value: Array<any>) {
     this.countryList = value;
 
   }
 
-  public static isCanadaOrUSA(value){
-    let countryValue:string;
-    if(value){
-      countryValue=value.id;
-    }else{
+  public static isCanadaOrUSA(value) {
+    let countryValue: string;
+    if (value) {
+      countryValue = value.id;
+    } else {
       return false;
     }
-    console.log(value);
-   return (AddressDetailsService.isCanada(countryValue)|| AddressDetailsService.isUsa(countryValue ));
+    return (AddressDetailsService.isCanada(countryValue) || AddressDetailsService.isUsa(countryValue));
   }
 
   /**
@@ -146,14 +154,14 @@ export class AddressDetailsService  {
    * @param value the value to check can be the json object with an id index.
    * @returns {boolean}
    */
-  public static isCanada(value){
-    let updatedValue="";
-    if(value && value.id){
-      updatedValue=value.id;
-    }else{
-      updatedValue=value;
+  public static isCanada(value) {
+    let updatedValue = '';
+    if (value && value.id) {
+      updatedValue = value.id;
+    } else {
+      updatedValue = value;
     }
-    return (updatedValue===GlobalsService.CANADA);
+    return (updatedValue === GlobalsService.CANADA);
   }
 
   /**
@@ -161,14 +169,14 @@ export class AddressDetailsService  {
    * @param value - the value to check can be the json object with an id index.
    * @returns {boolean}
    */
-  public static isUsa(value){
-    let updatedValue="";
-    if(value && value.id){
-      updatedValue=value.id;
-    }else{
-      updatedValue=value;
+  public static isUsa(value) {
+    let updatedValue = '';
+    if (value && value.id) {
+      updatedValue = value.id;
+    } else {
+      updatedValue = value;
     }
-    return (updatedValue===GlobalsService.USA);
+    return (updatedValue === GlobalsService.USA);
   }
 
   /**
@@ -177,11 +185,11 @@ export class AddressDetailsService  {
    * @param criteria
    * @returns {any}
    */
-  public static findRecordByTerm(list,criteria,searchTerm){
+  public static findRecordByTerm(list, criteria, searchTerm) {
 
-    let result= list.filter(
+    let result = list.filter(
       item => item[searchTerm] === criteria[searchTerm]);
-    if(result && result.length>0) {
+    if (result && result.length > 0) {
       return result[0];
     }
     return null;

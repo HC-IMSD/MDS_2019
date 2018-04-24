@@ -14,20 +14,20 @@ export class ErrorSummaryComponent implements AfterViewInit {
   @Input() errorList;
   @Input() compId = 'error-summary-';
   @Input() label: string;
-  @Input() headingLevel:string;
-  public validService:ValidationService;
+  @Input() headingLevel: string;
+  public validService: ValidationService;
   public type: string;
 
   public errors = {};
   public componentId = '';
-  public hdingLevel='h1';
-  public index:number;
-  public expander:ExpanderComponent;
+  public hdingLevel = 'h1';
+  public index: number;
+  public expander: ExpanderComponent ;
 
   constructor(private cdr: ChangeDetectorRef) {
     this.type = GlobalsService.errorSummClassName;
-    this.index=-1;
-    this.expander=null;
+    this.index = -1;
+    this.expander = null;
   }
 
   ngAfterViewInit() {
@@ -37,8 +37,8 @@ export class ErrorSummaryComponent implements AfterViewInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['errorList']) {
       this.processErrors(changes['errorList'].currentValue);
-     // console.log("........process errors in error summary ");
-     // console.log(changes['errorList'].currentValue)
+      // console.log("........process errors in error summary ");
+      // console.log(changes['errorList'].currentValue)
     }
     if (changes['compId']) {
       this.componentId = changes['compId'].currentValue;
@@ -63,21 +63,21 @@ export class ErrorSummaryComponent implements AfterViewInit {
     for (let err of errorList) {
       if (!err) continue;
       let controlError = this.getEmptyError();
-      controlError.index=1;
+      controlError.index = 1;
       controlError.label = err.label;
-      controlError.controlId= err.controlId;
+      controlError.controlId = err.controlId;
       controlError.error = err.currentError;
       controlError.type = err.type;
       controlError.tabSet = err.tabSet;
       controlError.tabId = err.tabId;
       controlError.componentId = err.componentId; //error summary only uses this
-      controlError.expander=err.expander; //error summary only uses
-      controlError.compRef=err;
+      controlError.expander = err.expander; //error summary only uses
+      controlError.compRef = err;
       //Case 1: an error summary Component
       if (err.hasOwnProperty('type') && err.type === GlobalsService.errorSummClassName) {
-        let parentError = {parentLabel: '', index:-1, controls: []};
+        let parentError = {parentLabel: '', index: -1, controls: []};
         parentError.parentLabel = err.componentId;
-        parentError.index=err.index;
+        parentError.index = err.index;
         parentError.controls.push(controlError); //TODO needed for eerror summary
         this.errors[err.componentId] = parentError;
       } else {
@@ -107,8 +107,8 @@ export class ErrorSummaryComponent implements AfterViewInit {
       error.tabSet.select(error.tabId);
     }
     //expander if needed
-    if(error && error.expander && error.index>-1){
-      if(!error.expander.getExpandedState(error.index)){
+    if (error && error.expander && error.index > -1) {
+      if (!error.expander.getExpandedState(error.index)) {
         error.expander.selectTableRow(error.index);
       }
     }
@@ -118,19 +118,19 @@ export class ErrorSummaryComponent implements AfterViewInit {
    * Creates a flat json object for the error summary component UI
    * @returns {object}
    */
-  public getEmptyError():ErrorSummaryObject {
+  public getEmptyError(): ErrorSummaryObject {
     let controlError = {
 
-      index:-1,
-      label:'',
-      controlId:'',
-      error:'',
-      type:'',
-      tabSet:null,
-      tabId:-1,
-      componentId:'',
-      expander:null,
-      compRef:null
+      index: -1,
+      label: '',
+      controlId: '',
+      error: '',
+      type: '',
+      tabSet: null,
+      tabId: -1,
+      componentId: '',
+      expander: null,
+      compRef: null
     };
     return (controlError);
   }

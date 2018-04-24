@@ -1,9 +1,6 @@
 import {FormArray, FormGroup} from '@angular/forms';
 
 
-
-
-
 export abstract class ListService {
 
   /**
@@ -17,6 +14,14 @@ export abstract class ListService {
 
   }
 
+  static getRecord(recordList: Array<any>, value, prop) {
+    for (let i = 0; i < recordList.length; i++) {
+      if (recordList[i][prop] === value) {
+        return i;
+      }
+    }
+    return -1;
+  }
 
   /**
    * Parses the current data and finds the largest ID
@@ -29,7 +34,7 @@ export abstract class ListService {
         this._indexValue = record.id;
       }
     }
-   // console.log("The index value "+  this._indexValue)
+    // console.log("The index value "+  this._indexValue)
   }
 
   /**

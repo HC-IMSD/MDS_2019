@@ -27,7 +27,7 @@
                   <h3 class="panel-title">{{'heading.addressInfo'|translate}}</h3>
                 </header>
                 <div class="panel-body">
-            <address-list [(group)]="myForm.controls.addresses" [countries]="countryList" (errors)="processAddressErrors($event)"></address-list>
+            <address-list  [countries]="countryList" (errors)="processAddressErrors($event)"></address-list>
                   </div>
               </section>
               </div>

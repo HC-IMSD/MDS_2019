@@ -13,8 +13,8 @@ export class CompanyModelService {
       city: 'city1',
       country:
         {
-          "id": "ABW",
-          "text": "Aruba"
+          'id': 'ABW',
+          'text': 'Aruba'
         }
     },
     {
@@ -23,14 +23,14 @@ export class CompanyModelService {
       city: 'city2',
       country:
         {
-          "id": "ABW",
-          "text": "Aruba"
+          'id': 'ABW',
+          'text': 'Aruba'
         }
 
     }
 
   ];
- // private addressList=[];
+  // private addressList=[];
   private _indexValue = -1;
 
 
@@ -47,6 +47,7 @@ export class CompanyModelService {
     this._indexValue++;
     return this._indexValue;
   }
+
   resetIndex() {
     this._indexValue = -1;
   }
@@ -71,39 +72,39 @@ export class CompanyModelService {
       id: -1,
       address: null,
       city: null,
-      country:null
+      country: null
     };
   }
-  getAddressFormRecord(fb:FormBuilder){
+
+  getAddressFormRecord(fb: FormBuilder) {
 
     return CompanyAddressRecordService.getReactiveModel(fb);
   }
 
 
-  addressFormToData(record,addressModel){
+  addressFormToData(record, addressModel) {
 
-    //CompanyAddressRecordService.mapFormModelToDataModel(record,addressModel);
-    return(addressModel);
+    // CompanyAddressRecordService.mapFormModelToDataModel(record,addressModel);
+    return (addressModel);
 
   }
 
-  addressDataToForm(addressModel,record){
-    CompanyAddressRecordService.mapDataModelFormModel(addressModel,record);
-    return(addressModel);
+  addressDataToForm(addressModel, record, countryList) {
+    CompanyAddressRecordService.mapDataModelFormModel(addressModel, record, countryList);
+    return (addressModel);
   }
 
 
-
-  saveRecord(record:FormGroup) {
-   /* if (record.controls.id.value === -1) {
-      record.controls.id.setValue(this.getNextIndex());
-      let addressModel=this.getAddressModel();
-      this.addressList.push(this.addressFormToData(record,addressModel));
-      return addressModel.id;
-    }else{
-       let modelRecord= this.getModelAddress(record.controls.id.value);
-        this.addressFormToData(record,modelRecord);
-    }*/
+  saveRecord(record: FormGroup) {
+    /* if (record.controls.id.value === -1) {
+       record.controls.id.setValue(this.getNextIndex());
+       let addressModel=this.getAddressModel();
+       this.addressList.push(this.addressFormToData(record,addressModel));
+       return addressModel.id;
+     }else{
+        let modelRecord= this.getModelAddress(record.controls.id.value);
+         this.addressFormToData(record,modelRecord);
+     }*/
   }
 
   getModelAddress(id) {
