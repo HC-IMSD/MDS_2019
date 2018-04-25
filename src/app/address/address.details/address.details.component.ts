@@ -26,8 +26,8 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Output() errorList = new EventEmitter();
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  //For the searchable select box, only accepts/saves id and text.
-  //Will need to convert
+  // For the searchable select box, only accepts/saves id and text.
+  // Will need to convert
   public countries: Array<any> = [
     {'id': 'ABW', 'text': 'Aruba', en: 'Aruba', fr: 'fr_Aruba'},
     {'id': 'AFG', 'text': 'Afghanistan', en: 'Afghanistan', fr: 'fr_Afghanistan'},

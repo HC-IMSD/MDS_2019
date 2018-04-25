@@ -22,7 +22,7 @@ import {GlobalsService} from '../../globals/globals.service';
 export class AddressListComponent extends ListOperations implements OnInit, OnChanges, AfterViewInit, DoCheck {
   @Input() public addressModel = [];
   @Input() public saveAddress;
-  @Input() public showErrors: boolean = false;
+  @Input() public showErrors: boolean;
   @Input() public countries = [];
   @Output() public errors = new EventEmitter();
 
@@ -64,11 +64,13 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
   }
 
   ngOnInit() {
-    this.addressListForm = this._fb.group({
-      addresses: this._fb.array([])
-    });
+    if (!this.addressListForm) {
+      this.addressListForm = this._fb.group({
+        addresses: this._fb.array([])
+      });
+    }
     console.log(this.addressListForm);
-    this.dataModel = this.service.getModelRecordList(); // TODO this is temporary. Normally respond to events
+    // this.dataModel = this.service.getModelRecordList(); // TODO this is temporary. Normally respond to events
 
 
   }
@@ -107,7 +109,10 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
       }
     ];
     this.dataModel = modelData3;
-   // console.log(this.countryList);
+    // console.log(this.countryList);
+    this.addressListForm = this._fb.group({
+      addresses: this._fb.array([])
+    });
     this.addressListForm.controls['addresses'] = this.service.createFormDataList(modelData3, this.countryList, this._fb);
     this.validRec = true;
     // this.companyAddressChild.adressFormRecord. markAsPristine();
@@ -179,12 +184,12 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
     if (changes['countries']) {
       this.countryList = changes['countries'].currentValue;
       this.service.setCountryList(this.countryList); //  mechanism to share country List
-      this._loadAddressListData();
+      // this._loadAddressListData();
     }
     if (changes['addressModel']) {
-      this.service.setModelRecordList(changes['addressModel']);
-      this.dataModel = this.service.getModelRecordList();
-      this.service.createFormDataList(this.dataModel, this.countryList, this._fb);
+      // this.service.setModelRecordList(changes['addressModel']);
+      // this.dataModel = this.service.getModelRecordList();
+      // this.service.createFormDataList(this.dataModel, this.countryList, this._fb);
     }
 
     //  TODO  add a service to accept country list for a model
@@ -235,11 +240,13 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
     // add address to the list
     // console.log('adding an address');
     // 1. Get the list of reactive form Records
-    let addressFormList = this.getFormAddressList();
+    let addressFormList = <FormArray>this.addressListForm.controls['addresses'];
+    console.log(addressFormList);
     // 2. Get a blank Form Model for the new record
     let formAddress = CompanyAddressRecordService.getReactiveModel(this._fb);
     // 3. Add the form record using the super class. New form is addded at the end
     this.addRecord(formAddress, addressFormList);
+    console.log(addressFormList);
     // 4. Set the new form to the new address form reference.
     this.newAddressForm = <FormGroup> addressFormList.controls[addressFormList.length - 1];
 
@@ -316,7 +323,7 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
     }
     let rec = this._getFormAddress(recordId);
     if (rec) {
-      CompanyAddressRecordService.mapDataModelFormModel(modelRecord, rec,this.countryList);
+      CompanyAddressRecordService.mapDataModelFormModel(modelRecord, rec, this.countryList);
     } else {
       // should never happen, there should always be a UI record
       console.warn('AddressList:rec is null');

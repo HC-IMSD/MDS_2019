@@ -103,6 +103,7 @@ export abstract class ListOperations {
   public addRecord(formRecord: FormGroup, formList: FormArray) {
     this.collapseExpanderRows(); //if you don't do this view will not look right
     formList.push(formRecord);
+    console.log(formList);
     this.newRecordIndicator = true;// TODO why does superclass variable not update
   }
 

@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
   name: 'keys'
@@ -12,9 +12,9 @@ export class JsonKeysPipe implements PipeTransform {
    * @param {string[]} args
    * @returns {any}
    */
-  transform(value, args:string[]) : any {
-    let keys = [];
-    for (let key in value) {
+  transform(value, args: string[]): any {
+    const keys = [];
+    for (const key in value) {
       keys.push({key: key, value: value[key]});
     }
     return keys;

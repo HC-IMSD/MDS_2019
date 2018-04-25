@@ -1,7 +1,7 @@
 <div class="container-fluid" [formGroup]="adressRecordModel">
   <h3>{{'heading.addressDetails'| translate}}</h3>
   <error-summary *ngIf="showErrorSummary && errorList.length>0" [errorList]="errorList" headingPreamble="heading.addressRecord"
-                 label="Company Address Record" compId="adressRec"></error-summary>
+                 headingLevel="h2" label="Company Address Record" compId="adressRec"></error-summary>
 
   <div class="row">
     <div class="form-group col-xs-12" [ngClass]="{'has-error':adressRecordModel.controls.companyName.invalid}">

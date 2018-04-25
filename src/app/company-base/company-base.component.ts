@@ -37,7 +37,7 @@ export class CompanyBaseComponent implements OnInit {
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private dataLoader: CompanyDataLoaderService,
-  private http: HttpClient, private translate: TranslateService) {
+              private http: HttpClient, private translate: TranslateService) {
 
     // this.customSettings = tinymceDefaultSettings();
 
@@ -59,17 +59,6 @@ export class CompanyBaseComponent implements OnInit {
     this.countryList = await (this.dataLoader.getCountries(this.translate.currentLang));
   }
 
-
-  initAddress() {
-    // initialize our address
-    // this.indexId++;
-    return this._fb.group({
-      id: [14],
-      address: ['test1', Validators.required],
-      city: ['test1']
-    });
-  }
-
   processErrors() {
     // console.log('@@@@@@@@@@@@ Processing errors in Company base component @@@@@@@@@@@@');
 
@@ -86,33 +75,35 @@ export class CompanyBaseComponent implements OnInit {
 
   processTheraErrors(errorList) {
     this._theraErrors = errorList;
-    //update values for tab
+    // update values for tab
     for (let err of this._theraErrors) {
       err.tabSet = this.tabs;
       err.tabId = 'tab-thera';
     }
 
 
-    //TODO how to update the tab titles. Doesn't seem to work in Html
+    // TODO how to update the tab titles. Doesn't seem to work in Html
     if (this._theraErrors.length > 0) {
       this.title = 'Errors';
     } else {
       this.title = '';
     }
-    //console.log("error lenght"+this._theraErrors.length);
+    // console.log("error lenght"+this._theraErrors.length);
     this.processErrors();
   }
 
   public hideErrorSummary() {
-    if (!this.errorList) return false;
-    return this.errorList.length == 0;
+    if (!this.errorList) {
+      return false;
+    }
+    return this.errorList.length === 0;
   }
 
   public saveFile() {
     /*let blob = new Blob([document.getElementById('exportDiv').innerHTML], {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-16le"
     });*/
-    var makeStrSave = 'test';
+    let makeStrSave = 'test';
 
     let fileServices: FileConversionService = new FileConversionService();
     fileServices.saveXmlToFile(this.testData.data, 'testFile', true, null);
