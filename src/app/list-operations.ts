@@ -83,11 +83,12 @@ export abstract class ListOperations {
    * @returns {number}
    */
   public saveRecord(record: FormGroup, service:IMasterDetails): number {
-    //Case 1 no record, just show error summary, shoud never happen
+    //  Case 1 no record, just show error summary, shoud never happen
     if (!record) {
       this.showErrorSummary = true;
       return -1;
     }
+    console.log(record)
     let recordId = service.saveRecord(record);
     this.showErrorSummary = false;
     this.newRecordIndicator = false; //in case this was a new record

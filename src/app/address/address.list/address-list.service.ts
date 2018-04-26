@@ -110,7 +110,8 @@ export class AddressListService extends ListService implements IMasterDetails {
     if (this.getRecordId(record) === -1) {
       this.setRecordId(record, this.getNextIndex());
       let addressModel = this.getAddressModel();
-      this.addressList.push(this.addressFormToData(record, addressModel));
+      this.addressFormToData(record, addressModel);
+      this.addressList.push(addressModel);
       return addressModel.id;
     } else {
       let modelRecord = this.getModelRecord(record.controls.id.value);
