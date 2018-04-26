@@ -33,6 +33,7 @@ export class CompanyBaseComponent implements OnInit {
   public title = '';
   // public theraModelList=[ {"id":0,"theraDetails":"Test"}];
   public theraModelList = [];
+  public addressModel = [];
   public foo = '';
 
   /* public customSettings: TinyMce.Settings | any;*/
@@ -119,4 +120,28 @@ export class CompanyBaseComponent implements OnInit {
     //console.log("Calling preload")
     this.theraModelList = [{'id': 0, 'theraDetails': 'Test'}];
   }
+
+  public loadAddressData() {
+    const modelData3 = [
+
+      {
+        'id': 0,
+        'company': 'asdaa',
+        'address': 'adasd',
+        'provText': '',
+        'provList': '',
+        'city': 'asdas',
+        'country': {
+          '__text': 'AIA',
+          '_label_en': 'Anguilla',
+          '_label_fr': 'Anguilla'
+        },
+        'postal': ''
+      }
+
+    ];
+    this.addressModel = modelData3;
+  }
+
+
 }

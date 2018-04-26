@@ -61,16 +61,13 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
     this.translate.get('error.msg.required').subscribe(res => {
       console.log(res);
     });
+    this.addressListForm = this._fb.group({
+      addresses: this._fb.array([])
+    });
   }
 
   ngOnInit() {
-    if (!this.addressListForm) {
-      this.addressListForm = this._fb.group({
-        addresses: this._fb.array([])
-      });
-    }
-    console.log(this.addressListForm);
-    // this.dataModel = this.service.getModelRecordList(); // TODO this is temporary. Normally respond to events
+
 
 
   }
@@ -90,7 +87,7 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
    * Loads the model data for the addresss into the form Model Used for Testing purposse
    * @private
    */
-  private _loadAddressListData() {
+  /*private _loadAddressListData() {
     const modelData3 = [
 
       {
@@ -109,14 +106,15 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
       }
     ];
     this.dataModel = modelData3;
+    this.service.setModelRecordList(modelData3);
     // console.log(this.countryList);
     this.addressListForm = this._fb.group({
       addresses: this._fb.array([])
     });
-    this.addressListForm.controls['addresses'] = this.service.createFormDataList(modelData3, this.countryList, this._fb);
+    this.service.createFormDataList(modelData3, this.countryList, this._fb, this.addressListForm.controls['addresses']);
     this.validRec = true;
     // this.companyAddressChild.adressFormRecord. markAsPristine();
-    /*  const addressDataList = this.service.getModelRecordList();
+    /!*  const addressDataList = this.service.getModelRecordList();
       const mycontrol = this.getFormAddressList();
       const mycontrol = this.getFormAddressList();
       // TODO temp setting some initial data
@@ -124,9 +122,9 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
         const formAddressRecord = this.service.getAddressFormRecord(this._fb);
         this.service.addressDataToForm(addressDataList[i], formAddressRecord);
         mycontrol.push(formAddressRecord);
-      }*/
+      }*!/
     console.log(this.addressListForm);
-  }
+  }*/
 
   /**
    * Updates the error list to include the error summaries. Messages upwards
@@ -187,9 +185,11 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
       // this._loadAddressListData();
     }
     if (changes['addressModel']) {
-      // this.service.setModelRecordList(changes['addressModel']);
-      // this.dataModel = this.service.getModelRecordList();
-      // this.service.createFormDataList(this.dataModel, this.countryList, this._fb);
+      this.service.setModelRecordList(changes['addressModel'].currentValue);
+      this.dataModel = this.service.getModelRecordList();
+      //this.addressListForm.controls['addresses'] = this._fb.array([]);
+      this.service.createFormDataList(this.dataModel, this.countryList, this._fb, this.addressListForm.controls['addresses']);
+      this.validRec = true;
     }
 
     //  TODO  add a service to accept country list for a model

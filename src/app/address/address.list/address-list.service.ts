@@ -15,7 +15,6 @@ export class AddressListService extends ListService implements IMasterDetails {
    */
   private addressList = [];
   private countryList = [];
-  private formDataList: FormArray;
 
   constructor() {
     super();
@@ -83,20 +82,17 @@ export class AddressListService extends ListService implements IMasterDetails {
 
 
   public addressFormToData(record: FormGroup, addressModel) {
-
     CompanyAddressRecordService.mapFormModelToDataModel(record, addressModel, this.countryList);
-    return (addressModel);
+    return (record);
 
   }
 
-  public createFormDataList(modelDataList, countryList, fb: FormBuilder): FormArray {
-    this.formDataList = fb.array([]); // reset the list
+  public createFormDataList(modelDataList, countryList, fb: FormBuilder, theList) {
     for (let i = 0; i < modelDataList.length; i++) {
       const formRecord = CompanyAddressRecordService.getReactiveModel(fb);
       this.addressDataToForm(modelDataList[i], formRecord, countryList);
-      this.formDataList.push(formRecord);
+      theList.push(formRecord);
     }
-    return this.formDataList;
   }
 
   public addressDataToForm(addressModel, record: FormGroup, countryList) {

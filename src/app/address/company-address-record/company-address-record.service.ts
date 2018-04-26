@@ -33,6 +33,8 @@ export class CompanyAddressRecordService {
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, addressRecordModel, countryList) {
+    console.log(addressRecordModel);
+    console.log(formRecord);
     addressRecordModel.id = formRecord.controls.id.value;
     addressRecordModel.company = formRecord.controls.companyName.value;
     AddressDetailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls.addressDetails), addressRecordModel, countryList);

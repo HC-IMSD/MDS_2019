@@ -3,7 +3,7 @@
     <!-- we will place our fields here -->
     <div>
       <h1>{{'company.title'|translate}}</h1>
-      <error-summary [hidden]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="'h1'"
+      <error-summary [hidden]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="h1"
                      headingPreamble="errorSummary.address"></error-summary>
 
       <div>
@@ -27,13 +27,14 @@
                   <h3 class="panel-title">{{'heading.addressInfo'|translate}}</h3>
                 </header>
                 <div class="panel-body">
-            <address-list  [countries]="countryList" (errors)="processAddressErrors($event)"></address-list>
+            <address-list  [countries]="countryList" (errors)="processAddressErrors($event)" [addressModel]="addressModel"></address-list>
                   </div>
               </section>
               </div>
             </div>
         </section>
       </div>
+      <button (click)="loadAddressData()">Load Address Data</button>
       <!--   <thera-list (errors)="processTheraErrors($event)"></thera-list>-->
     </div>
     <button type="submit" [disabled]="!myForm?.valid">Submit</button>
