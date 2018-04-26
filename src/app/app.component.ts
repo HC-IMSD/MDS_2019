@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+/*declare var xml2js: any;*/
 
 // TODO this needs to not be in the nase component. base should have almost nothing in it, generic
 @Component({

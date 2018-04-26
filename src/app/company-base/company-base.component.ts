@@ -107,7 +107,10 @@ export class CompanyBaseComponent implements OnInit {
     let makeStrSave = 'test';
 
     let fileServices: FileConversionService = new FileConversionService();
-    fileServices.saveXmlToFile(this.testData.data, 'testFile', true, null);
+
+    // TODO temp
+    let result = {'CO': {'address': this.addressModel}};
+    fileServices.saveXmlToFile(result, 'testFile', true, null);
   }
 
   public processFile(data: ConvertResults) {
@@ -125,7 +128,7 @@ export class CompanyBaseComponent implements OnInit {
     const modelData3 = [
 
       {
-        'id': 0,
+        'id': 124,
         'company': 'asdaa',
         'address': 'adasd',
         'provText': '',

@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
-import * as xml2js from 'xml2js';
+// import * as xml2js from 'xml2js';
 import {ConvertResults} from './convert-results';
 import {FileIoGlobalsService} from './file-io-globals.service';
 import * as FileSaver from 'file-saver';
+
+declare var X2JS: any;
 
 
 @Injectable()
@@ -33,23 +35,35 @@ export class FileConversionService {
    * @param convertResult
    */
   convertXMLToJSONObjects(data, convertResult: ConvertResults) {
-    //see https://www.npmjs.com/package/xml2js for list of options
-    let config = {
-      attrkey: FileIoGlobalsService.attributeKey, //when there are attributes, this is the key, default $
-      charkey: FileIoGlobalsService.innerTextKey, //when there are attributes, this what hte text value is of the tag
-      trim: true,
-      explicitArray: false, //Makes all the values an array
+
+    let xmlConfig = {
+      escapeMode: true,
+      emptyNodeForm: 'text',
+      useDoubleQuotes: true
     };
+    let jsonConverter = new X2JS(xmlConfig);
     convertResult.messages = [];
-    xml2js.parseString(data, config, function (err, result) {
-      convertResult.data = result;
-    });
-    if (convertResult.data === null) {
-      convertResult.messages.push(FileIoGlobalsService.parseFail);
-    } else {
-      convertResult.messages.push(FileIoGlobalsService.importSuccess);
-     // console.log(convertResult);
-    }
+    // converts XML as a string to a json
+    convertResult.data = jsonConverter.json2xml_str(data);
+    return (null);
+
+    /* //see https://www.npmjs.com/package/xml2js for list of options
+     let config = {
+       attrkey: FileIoGlobalsService.attributeKey, //when there are attributes, this is the key, default $
+       charkey: FileIoGlobalsService.innerTextKey, //when there are attributes, this what hte text value is of the tag
+       trim: true,
+       explicitArray: false, //Makes all the values an array
+     };
+     convertResult.messages = [];
+     xml2js.parseString(data, config, function (err, result) {
+       convertResult.data = result;
+     });
+     if (convertResult.data === null) {
+       convertResult.messages.push(FileIoGlobalsService.parseFail);
+     } else {
+       convertResult.messages.push(FileIoGlobalsService.importSuccess);
+       // console.log(convertResult);
+     }*/
   }
 
   /***
@@ -59,14 +73,23 @@ export class FileConversionService {
    */
   convertJSONObjectsToXML(jsonObj) {
     if (!jsonObj) return null;
-    let builder = new xml2js.Builder({
+   /* let builder = new xml2js.Builder({
       headless: true,    //make headless for easier addition of xsl. Add header manualt
       attrkey: FileIoGlobalsService.attributeKey, //when there are attributes, this is the key, default $
       charkey: FileIoGlobalsService.innerTextKey, //when there are attributes, this what hte text value is of the tag
+      explicitArray: false,
+      explicitChildren: true
     });
     //making headless so easier to add the stylesheet info
-    let xmlResult = builder.buildObject(jsonObj);
-
+    let xmlResult = builder.buildObject(jsonObj);*/
+    let xmlConfig = {
+      escapeMode: true,
+      emptyNodeForm: 'text',
+      useDoubleQuotes: true
+    };
+    let jsonConverter = new X2JS(xmlConfig);
+    // converts XML as a string to a json
+    let xmlResult = jsonConverter.json2xml_str(jsonObj);
     return xmlResult;
   }
 
@@ -90,22 +113,22 @@ export class FileConversionService {
    * @param {boolean} addXsl
    * @param {string} xslName
    */
-  public saveXmlToFile(jsonObj, fileName:string,addXsl:boolean=true,xslName:string=null){
+  public saveXmlToFile(jsonObj, fileName: string, addXsl: boolean = true, xslName: string = null) {
     if (!jsonObj) return;
     let xmlResult = this.convertJSONObjectsToXML(jsonObj);
 
-    if(addXsl) {
+    if (addXsl) {
       if (!xslName) {
         xmlResult = '<?xml version="1.0" encoding="UTF-8"?>' + '<?xml-stylesheet  type="text/xsl" href=' + FileIoGlobalsService.defaultXSLName + '?>' + xmlResult;
       } else {
         xmlResult = '<?xml version="1.0" encoding="UTF-8"?>' + '<?xml-stylesheet  type="text/xsl" href="' + xslName + '"?>' + xmlResult;
       }
     }
-    let blob = new Blob([xmlResult], {type: "text/plain;charset=utf-8"});
+    let blob = new Blob([xmlResult], {type: 'text/plain;charset=utf-8'});
     if (!fileName) {
-      fileName = "REPFinal."+FileIoGlobalsService.finalFileType;
+      fileName = 'REPFinal.' + FileIoGlobalsService.finalFileType;
     } else {
-      fileName += "."+FileIoGlobalsService.finalFileType;
+      fileName += '.' + FileIoGlobalsService.finalFileType;
     }
     FileSaver.saveAs(blob, fileName);
   }
