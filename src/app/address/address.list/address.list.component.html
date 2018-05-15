@@ -25,7 +25,7 @@
   <div class="row mrgn-tp-md mrgn-bttm-lg">
     <div class="btn-group-sm col-md-12 text-right">
       <button class="btn btn-primary" (click)="addAddress()"
-              [disabled]="!addressListForm.valid || addressDetailsChild?.adressFormRecord?.dirty">
+              [disabled]="!addressListForm.valid || companyAddressChild.addressDetailsChild?.adressFormRecord?.dirty">
        {{'add.address'|translate}}
       </button>
     </div>

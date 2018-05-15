@@ -31,6 +31,7 @@ export class CompanyBaseComponent implements OnInit {
   public _theraErrors = [];
   public countryList = [];
   public title = '';
+  public headingLevel = 'h1';
   // public theraModelList=[ {"id":0,"theraDetails":"Test"}];
   public theraModelList = [];
   public addressModel = [];

@@ -4,7 +4,7 @@
       <div class="col-md-12 form-group"
            [ngClass]="{'has-error':theraDetailsModel.controls.theraDetails.invalid}">
         <label for="theraDetails" class="required rep-required-offset">
-          <span class="field-name">Therapeutic Classification&nbsp;{{theraDetailsModel.id}}</span>
+          <span class="field-name">Therapeutic Classification&nbsp;{{theraDetailsModel.controls.id}}</span>
           <strong class="required">(required)</strong>
          <control-messages *ngIf="theraDetailsModel.controls.theraDetails.invalid"
                             [showError]="showFieldErrors"

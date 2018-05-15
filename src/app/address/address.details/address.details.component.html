@@ -9,7 +9,7 @@
           <control-messages *ngIf="adressFormLocalModel.controls.address.invalid"
                             [showError]="showFieldErrors"
                             [control]="adressFormLocalModel.controls.address"
-                            controlId="address" label="Street" parentId="addressDetails"
+                            controlId="address" label="addressDetails.street" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
         </label>
       </div>
@@ -36,9 +36,9 @@
                        [allowClear]="false"
                        [items]="countries"
                        (typed)="typed($event)"
-                       (blur)="typed()"
+                       (blur)="typed($event)"
                        (add)="typed($event)"
-                       (close)="onblur($event)"
+                       (close)="onblur()"
                        (selected)="processCountry($event)"
                        (removed)="removed($event)">
             </ng-select>
