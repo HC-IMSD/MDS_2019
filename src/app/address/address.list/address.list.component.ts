@@ -4,13 +4,13 @@ import {
 } from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
-import {ErrorSummaryComponent} from '../../error-msg/error-summary/error-summary.component';
+import {ErrorSummaryComponent} from '../../../../common/app/error-msg/error-summary/error-summary.component';
 import {CompanyAddressRecordComponent} from '../company-address-record/company-address-record.component';
 import {CompanyAddressRecordService} from '../company-address-record/company-address-record.service';
 import {AddressListService} from './address-list.service';
 import {ListOperations} from '../../list-operations';
 import {TranslateService} from '@ngx-translate/core';
-import {GlobalsService} from '../../globals/globals.service';
+import {GlobalsService} from '../../../../common/app/globals/globals.service';
 
 //  import {ExpanderComponent} from '../../common/expander/expander.component';
 @Component({

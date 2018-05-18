@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {GlobalsService} from '../globals/globals.service';
+import {GlobalsService} from '../../../common/app/globals/globals.service';
 
 @Injectable()
 export class CompanyDataLoaderService {

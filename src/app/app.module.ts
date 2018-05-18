@@ -3,18 +3,18 @@ import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
-import {ValidationService} from './validation.service';
-import {ErrorModule} from './error-msg/error-ui.module';
+import {ValidationService} from '../../common/app/validation.service';
+import {ErrorModule} from '../../common/app/error-msg/error-ui.module';
 import {CompanyBaseComponent} from './company-base/company-base.component';
-import {MainPipeModule} from './main-pipe/main-pipe.module';
-import {GlobalsService} from './globals/globals.service';
+import {MainPipeModule} from '../../common/app/main-pipe/main-pipe.module';
+import {GlobalsService} from '../../common/app/globals/globals.service';
 import {AddressModule} from './address/address.module';
 import {FileIoModule} from './filereader/file-io/file-io.module';
 
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {CommonFeatureModule} from './common/common-feature.module';
+import {CommonFeatureModule} from '../../common/app/common/common-feature.module';
 import {TherapeuticModule} from './therapeutic/therapeutic.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DataLoaderModule} from './data-loader/data-loader.module';

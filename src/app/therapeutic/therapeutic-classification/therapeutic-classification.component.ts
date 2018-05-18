@@ -3,7 +3,7 @@ import {
   ViewChildren
 } from '@angular/core';
 import {FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {ControlMessagesComponent} from '../../error-msg/control-messages.component/control-messages.component';
+import {ControlMessagesComponent} from '../../../../common/app/error-msg/control-messages.component/control-messages.component';
 import {TheraClassService} from './thera-class.service';
 
 @Component({
