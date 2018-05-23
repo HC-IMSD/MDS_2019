@@ -1,6 +1,6 @@
 import {FormArray, FormGroup} from '@angular/forms';
-import {ExpanderComponent} from '../../common/app/common/expander/expander.component';
-import {ErrorSummaryComponent} from '../../common/app/error-msg/error-summary/error-summary.component';
+import {ExpanderComponent} from './common/expander/expander.component';
+import {ErrorSummaryComponent} from './error-msg/error-summary/error-summary.component';
 import {ViewChild} from '@angular/core';
 import {IMasterDetails} from './master-details';
 

@@ -6,8 +6,8 @@ import {
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {AddressDetailsComponent} from '../address.details/address.details.component';
 import {CompanyAddressRecordService} from './company-address-record.service';
-import {ErrorSummaryComponent} from '../../../../common/app/error-msg/error-summary/error-summary.component';
-import {ControlMessagesComponent} from '../../../../common/app/error-msg/control-messages.component/control-messages.component';
+import {ErrorSummaryComponent} from '../../error-msg/error-summary/error-summary.component';
+import {ControlMessagesComponent} from '../../error-msg/control-messages.component/control-messages.component';
 
 
 @Component({

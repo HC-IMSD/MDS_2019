@@ -30,6 +30,33 @@
         "prod-en": "environments/environment.prod-en.ts",
         "prod-fr": "environments/environment.prod-fr.ts"
       }
+    },
+    {
+      "name":"company",
+      "root": "src",
+      "outDir": "dist/company",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main_company.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "co",
+      "styles": [
+        "styles.css"
+      ],
+      "scripts": [
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod-en": "environments/environment.prod-en.ts",
+        "prod-fr": "environments/environment.prod-fr.ts"
+      }
     }
   ],
   "e2e": {

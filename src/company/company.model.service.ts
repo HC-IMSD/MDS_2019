@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {FormGroup, Validators, FormBuilder, FormArray} from '@angular/forms';
-import {CompanyAddressRecordService} from './address/company-address-record/company-address-record.service';
-import {IMasterDetails} from './master-details';
+import {CompanyAddressRecordService} from '../app/address/company-address-record/company-address-record.service';
+import {IMasterDetails} from '../app/master-details';
 
 @Injectable()
 export class CompanyModelService {

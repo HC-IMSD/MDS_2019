@@ -1,8 +1,8 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 // import {TheraClassService} from '../../therapeutic/therapeutic-classification/thera-class.service';
-import {GlobalsService} from '../../../../common/app/globals/globals.service';
-import {ValidationService} from '../../../../common/app/validation.service';
+import {GlobalsService} from '../../globals/globals.service';
+import {ValidationService} from '../../validation.service';
 import {ListService} from '../../list-service';
 
 @Injectable()

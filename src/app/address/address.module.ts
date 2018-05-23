@@ -6,10 +6,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {SelectModule} from 'ng2-select';
 import {FileIoModule} from '../filereader/file-io/file-io.module';
-import {ErrorModule} from '../../../common/app/error-msg/error-ui.module';
+import {ErrorModule} from '../error-msg/error-ui.module';
 import {AddressListComponent} from './address.list/address.list.component';
 import {AddressListService} from './address.list/address-list.service';
-import {CommonFeatureModule} from '../../../common/app/common/common-feature.module';
+import {CommonFeatureModule} from '../common/common-feature.module';
 import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
