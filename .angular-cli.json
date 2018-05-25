@@ -34,7 +34,7 @@
     {
       "name":"company",
       "root": "src",
-      "outDir": "dist/company",
+      "outDir": "dist/dev/company",
       "assets": [
         "assets",
         "favicon.ico"
