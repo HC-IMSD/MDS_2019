@@ -20,7 +20,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles/styles.css"
       ],
       "scripts": [
       ],
@@ -37,6 +37,8 @@
       "outDir": "dist/dev/company",
       "assets": [
         "assets",
+        "GCWeb",
+        "wet-boew",
         "favicon.ico"
       ],
       "index": "index.html",
@@ -47,7 +49,8 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "co",
       "styles": [
-        "styles.css"
+        "styles/styles.css",
+        "styles/rep.css"
       ],
       "scripts": [
       ],

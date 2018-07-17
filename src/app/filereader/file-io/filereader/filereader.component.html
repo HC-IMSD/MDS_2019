@@ -1,16 +1,21 @@
 <section>
 <div class="row">
   <div class="form-group">
-    <div class="col-xs-3">
+    <div class="col-sm-4">
       <label for="fileLoad">
-        <span class="field-name" i18n>Select a file to load</span>
+        <span class="field-name rep-margin-left" i18n>Select a file to load</span>
       </label>
     </div>
-    <div class="col-xs-8">
+    <div class="col-sm-8">
       <input type="file" id="fileLoad"  accept=".xml, .hcsc" (change)="changeListener($event)"/>
     </div>
     <div>
     </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12" aria-live='polite'>
+    <p><br/><span>{{status}}</span></p>
   </div>
 </div>
 </section>

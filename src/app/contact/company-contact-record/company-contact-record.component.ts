@@ -4,20 +4,20 @@ import {
   ViewChildren
 } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {AddressDetailsComponent} from '../address.details/address.details.component';
-import {CompanyAddressRecordService} from './company-address-record.service';
+import {ContactDetailsComponent} from '../contact.details/contact.details.component';
+import {CompanyContactRecordService} from './company-contact-record.service';
 import {ErrorSummaryComponent} from '../../error-msg/error-summary/error-summary.component';
 import {ControlMessagesComponent} from '../../error-msg/control-messages.component/control-messages.component';
 
 
 @Component({
-  selector: 'company-address-record',
-  templateUrl: './company-address-record.component.html',
-  styleUrls: ['./company-address-record.component.css'],
+  selector: 'company-contact-record',
+  templateUrl: './company-contact-record.component.html',
+  styleUrls: ['./company-contact-record.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 
 })
-export class CompanyAddressRecordComponent implements OnInit, AfterViewInit {
+export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
 
   public adressRecordModel: FormGroup;
   @Input('group') public adressFormRecord: FormGroup;
@@ -30,7 +30,7 @@ export class CompanyAddressRecordComponent implements OnInit, AfterViewInit {
   @Output() createRecord; // TODO don't know if needed
 
 
-  @ViewChild(AddressDetailsComponent) addressDetailsChild;
+  @ViewChild(ContactDetailsComponent) contactDetailsChild;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
@@ -51,7 +51,7 @@ export class CompanyAddressRecordComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     if (!this.adressRecordModel) {
-      this.adressRecordModel = this._initAddress();
+      this.adressRecordModel = this._initContact();
     }
     this.detailsChanged = 0;
 
@@ -62,7 +62,7 @@ export class CompanyAddressRecordComponent implements OnInit, AfterViewInit {
       // update is handled directly in the function
       this.updateErrorList(null,true);
     });
-    /** this is processsing the errorSummary that is a child in  Address record **/
+    /** this is processsing the errorSummary that is a child in  Contact record **/
     this.errorSummaryChildList.changes.subscribe(list => {
       this.processSummaries(list);
     });
@@ -70,7 +70,7 @@ export class CompanyAddressRecordComponent implements OnInit, AfterViewInit {
   }
   private processSummaries(list: QueryList<ErrorSummaryComponent>): void {
     if (list.length > 1) {
-      console.warn('Address List found >1 Error Summary ' + list.length);
+      console.warn('Contact List found >1 Error Summary ' + list.length);
     }
     this.errorSummaryChild = list.first;
     this._emitErrors();
@@ -88,8 +88,8 @@ export class CompanyAddressRecordComponent implements OnInit, AfterViewInit {
   }
 
 
-  private _initAddress() {
-    return CompanyAddressRecordService.getReactiveModel(this._fb);
+  private _initContact() {
+    return CompanyContactRecordService.getReactiveModel(this._fb);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -98,7 +98,7 @@ export class CompanyAddressRecordComponent implements OnInit, AfterViewInit {
       if (this.adressFormRecord) {
         this.setToLocalModel();
       } else {
-        this.adressRecordModel = this._initAddress();
+        this.adressRecordModel = this._initContact();
         this.adressRecordModel.markAsPristine();
       }
       this.updateChild++;
@@ -109,7 +109,7 @@ export class CompanyAddressRecordComponent implements OnInit, AfterViewInit {
   }
 
   /***
-   *Sets the address record to the internal model
+   *Sets the contact record to the internal model
    */
   setToLocalModel() {
     this.adressRecordModel = this.adressFormRecord;
@@ -143,21 +143,21 @@ export class CompanyAddressRecordComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Changes the local model back to the last saved version of the address
+   * Changes the local model back to the last saved version of the contact
    */
-  public revertAddressRecord(): void {
+  public revertContactRecord(): void {
     this.revertRecord.emit(this.adressRecordModel);
     this.adressRecordModel.markAsPristine();
   }
 
   /***
-   * Deletes the address reocord with the selected id from both the model and the form
+   * Deletes the contact reocord with the selected id from both the model and the form
    */
-  public deleteAddressRecord(): void {
+  public deleteContactRecord(): void {
     this.deleteRecord.emit(this.adressRecordModel.value.id);
   }
 
-  public saveAddressRecord(): void {
+  public saveContactRecord(): void {
     if (this.adressRecordModel.valid) {
       this.saveRecord.emit((this.adressRecordModel));
       this.showErrorSummary = false;

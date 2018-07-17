@@ -17,7 +17,7 @@ export class AppComponent {
 // we will use form builder to simplify our syntax
   constructor(private translate: TranslateService) {
     translate.setDefaultLang(environment.lang);
-    console.log(environment.lang)
+    console.log(environment.lang);
     this.translateInstance = translate;
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     translate.use(environment.lang);

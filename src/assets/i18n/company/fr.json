@@ -1,5 +1,7 @@
 {
-	"company.title": "fr_Company Address Form",
+	"company.title": "fr_Company Template: Regulatory Enrolment Process (REP)",
+  "company.enrolment": "fr_Regulatory Company Enrolment",
+  "company.load.file": "fr_Load a Company Enrolment File",
 	"addressDetails.address": "fr_Street Address",
 	"addressDetails.city": "fr_City",
 	"addressDetails.country": "fr_Country",

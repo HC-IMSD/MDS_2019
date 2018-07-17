@@ -22,7 +22,8 @@
     "docs:build": "compodoc -p tsconfig.json -n companyFormTest -d docs --hideGenerator",
     "docs:serve": "npm run docs:build -- -s",
     "docs:watch": "npm run docs:build -- -s -w",
-    "serve app1": "ng serve --app app1"
+    "serve app1": "ng serve --app app1",
+    "serve company": "ng serve --app company"
   },
   "private": true,
   "dependencies": {

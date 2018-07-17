@@ -5,32 +5,32 @@
                         [columnDefinitions]="columnDefinitions"
                         [deleteRecord]="deleteRecordMsg">
       <company-address-record
-        [detailsChanged]="updateAddressDetails"
+        [detailsChanged]="updateContactDetails"
         [countries]="countryList"
-        (saveRecord)="saveAddressRecord($event)"
+        (saveRecord)="saveContactRecord($event)"
         (errors)="updateErrorList($event)"
-        (revertRecord)="revertAddress($event)" (deleteRecord)="deleteAddress($event)"></company-address-record>
+        (revertRecord)="revertContact($event)" (deleteRecord)="deleteContact($event)"></company-address-record>
 
     </expander-component>
     <div *ngIf="newRecordIndicator">
       <company-address-record
-        [detailsChanged]="updateAddressDetails"
+        [detailsChanged]="updateContactDetails"
         [countries]="countryList"
-        [group]="newAddressForm"
-        (saveRecord)="saveAddressRecord($event)"
+        [group]="newContactForm"
+        (saveRecord)="saveContactRecord($event)"
         (errors)="updateErrorList($event)"
-        (revertRecord)="revertAddress($event)" (deleteRecord)="deleteAddress($event)"></company-address-record>
+        (revertRecord)="revertContact($event)" (deleteRecord)="deleteContact($event)"></company-address-record>
     </div>
   </div>
   <div class="row mrgn-tp-md mrgn-bttm-lg">
     <div class="btn-group-sm col-md-12 text-right">
-      <button class="btn btn-primary" (click)="addAddress()"
+      <button class="btn btn-primary" (click)="addContact()"
               [disabled]="!addressListForm.valid || isDirty()">
        {{'add.address'|translate}}
       </button>
     </div>
   </div>
 <pre>Form Data {{addressListForm.value |json}}</pre>
-  <pre>Data Model for Address List {{dataModel|json}}</pre>
+  <pre>Data Model for Contact List {{dataModel|json}}</pre>
 </div>
 

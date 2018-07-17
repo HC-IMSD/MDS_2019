@@ -1,5 +1,7 @@
 import {Component, OnInit, EventEmitter, Output, Input, SimpleChanges} from '@angular/core';
 
+
+import {TranslateService} from '@ngx-translate/core';
 import {ConvertResults} from '../convert-results';
 import {FileConversionService} from '../file-conversion.service';
 import {FileIoGlobalsService} from '../file-io-globals.service';
@@ -17,7 +19,7 @@ export class FilereaderComponent implements OnInit {
   //@Input() saveType: string = FileIoGlobalsService.draftFileType;
   private rootId:string='';
 
-  constructor() {
+  constructor(private translate: TranslateService) {
   }
 
   ngOnInit() {
