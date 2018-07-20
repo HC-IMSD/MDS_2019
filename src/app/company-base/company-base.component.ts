@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, Input} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 // import {TranslateService} from '@ngx-translate/core';
@@ -19,6 +19,7 @@ import {TranslateService} from '@ngx-translate/core';
 
 export class CompanyBaseComponent implements OnInit {
   public errors;
+  @Input() isInternal: boolean;
 
   // @ViewChildren(AddressListComponent) addressLists: QueryList<AddressListComponent>;
   // @ViewChild(ErrorSummaryComponent) errorSummary: ErrorSummaryComponent;
@@ -29,12 +30,14 @@ export class CompanyBaseComponent implements OnInit {
   public testData: ConvertResults = null;
   private _addressErrors = [];
   public _theraErrors = [];
+  private _AppInfoErrors = [];
   public countryList = [];
   public title = '';
   public headingLevel = 'h1';
   // public theraModelList=[ {"id":0,"theraDetails":"Test"}];
   public theraModelList = [];
   public addressModel = [];
+  public appInfoModel = [];
   public foo = '';
 
   /* public customSettings: TinyMce.Settings | any;*/
@@ -66,12 +69,17 @@ export class CompanyBaseComponent implements OnInit {
 
     this.errorList = [];
     // concat the two array
-    this.errorList = this._addressErrors.concat(this._theraErrors);
+    this.errorList = this._addressErrors.concat(this._AppInfoErrors).concat(this._theraErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
   processAddressErrors(errorList) {
     this._addressErrors = errorList;
+    this.processErrors();
+  }
+
+  processAppInfoErrors(errorList) {
+    this._AppInfoErrors = errorList;
     this.processErrors();
   }
 

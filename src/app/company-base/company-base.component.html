@@ -18,6 +18,10 @@
           </div>
         </section>
       </div>
+
+      <error-summary [hidden]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
+                     headingPreamble="errorSummary.address"></error-summary>
+
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
@@ -27,8 +31,32 @@
           </header>
           <div class="panel-body">
 
-            <error-summary [hidden]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
-                           headingPreamble="errorSummary.address"></error-summary>
+            <application-info [showErrors]="showErrors" [isInternal]="isInternal" [inComplete]="false"
+                             [detailsChanged]="updateChild" [group]="applicationInfoFormLocalModel"
+                              (errors)="processAppInfoErrors($event)">
+            </application-info>
+
+            <div>
+              <section class="panel  panel-default">
+                <header class="panel-heading clearfix">
+                  <div class="btn-group pull-right">
+                    <!-- <button title="{{::'ADDRESS_INSTRUCT'|translate}}"
+                             class="btn-xs rep-help-button-primary"
+                             id="address-instructions-toggle" ng-click="main.addInstruct(3)"><span
+                       class="fa fa-question-circle fa-2x"></span><span class="wb-inv">"{{::'ADDRESS_INSTRUCT'|translate}}"</span>
+                     </button>-->
+                  </div>
+                  <h3 class="panel-title">{{'heading.addressInfo'|translate}}</h3>
+                </header>
+                <div class="panel-body">
+                  <address-details [showErrors]="showErrors" [countryList]="countryList"
+                                   [detailsChanged]="updateChild"
+                                   (errorList)="processAddressErrors($event)"></address-details>
+                  <!--todo: [group]="adressRecordModel.controls.addressDetails"-->
+                </div>
+              </section>
+            </div>
+
             <div>
               <section class="panel  panel-default">
                 <header class="panel-heading clearfix">
@@ -39,11 +67,12 @@
                       class="fa fa-question-circle fa-2x"></span><span class="wb-inv">"{{::'ADDRESS_INSTRUCT'|translate}}"</span>
                     </button>-->
                   </div>
-                  <h3 class="panel-title">{{'heading.addressInfo'|translate}}</h3>
+                  <h3 class="panel-title">{{'heading.contactInfo'|translate}}</h3>
                 </header>
                 <div class="panel-body">
-            <address-list  [countries]="countryList" (errors)="processAddressErrors($event)" [addressModel]="addressModel"></address-list>
-                  </div>
+                  <contact-list  (errors)="processAddressErrors($event)" [isInternal]="isInternal"
+                                 [contactModel]="contactModel"></contact-list>
+                </div>
               </section>
               </div>
             </div>

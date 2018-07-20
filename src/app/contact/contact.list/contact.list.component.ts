@@ -23,7 +23,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   @Input() public contactModel = [];
   @Input() public saveContact;
   @Input() public showErrors: boolean;
-  @Input() public countries = [];
+  @Input() isInternal: boolean;
   @Output() public errors = new EventEmitter();
 
   @ViewChild(CompanyContactRecordComponent) companyContactChild: CompanyContactRecordComponent;
@@ -39,18 +39,22 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   public deleteRecordMsg = 0;
   public errorList = [];
   public dataModel = [];
-  public countryList = [];
   public validRec = true;
   public columnDefinitions = [
     {
-      label: 'ADDRESS',
-      binding: 'contact',
-      width: '50'
+      label: 'First Name',
+      binding: 'firstName',
+      width: '25'
     },
     {
-      label: 'CITY',
-      binding: 'city',
-      width: '50'
+      label: 'Last Name',
+      binding: 'lastName',
+      width: '25'
+    },
+    {
+      label: 'Job Title',
+      binding: 'jobTitle',
+      width: '25'
     }
   ];
 
@@ -62,14 +66,20 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
       console.log(res);
     });
     this.contactListForm = this._fb.group({
-      contactes: this._fb.array([])
+      contacts: this._fb.array([])
     });
   }
 
   ngOnInit() {
-
-
-
+    if (this.isInternal) {
+      this.columnDefinitions.concat(
+        {
+          label: 'Status',
+          binding: 'contactStatus',
+          width: '25'
+        }
+      );
+    }
   }
 
   ngAfterViewInit() {
@@ -109,9 +119,9 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     this.service.setModelRecordList(modelData3);
     // console.log(this.countryList);
     this.contactListForm = this._fb.group({
-      contactes: this._fb.array([])
+      contacts: this._fb.array([])
     });
-    this.service.createFormDataList(modelData3, this.countryList, this._fb, this.contactListForm.controls['contactes']);
+    this.service.createFormDataList(modelData3, this.countryList, this._fb, this.contactListForm.controls['contacts']);
     this.validRec = true;
     // this.companyContactChild.adressFormRecord. markAsPristine();
     /!*  const contactDataList = this.service.getModelRecordList();
@@ -179,26 +189,13 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
       this.saveContactRecord(changes['saveContact'].currentValue);
 
     }
-    if (changes['countries']) {
-      this.countryList = changes['countries'].currentValue;
-      this.service.setCountryList(this.countryList); //  mechanism to share country List
-      // this._loadContactListData();
-    }
     if (changes['contactModel']) {
       this.service.setModelRecordList(changes['contactModel'].currentValue);
       this.dataModel = this.service.getModelRecordList();
-      // this.contactListForm.controls['contactes'] = this._fb.array([]);
-      this.service.createFormDataList(this.dataModel, this.countryList, this._fb, this.contactListForm.controls['contactes']);
+      // this.contactListForm.controls['contacts'] = this._fb.array([]);
+      this.service.createFormDataList(this.dataModel, this._fb, this.contactListForm.controls['contacts']);
       this.validRec = true;
     }
-
-    //  TODO  add a service to accept country list for a model
-    //  will have to convert them to the form model on the fly
-    /*  if (changes['countryListModel']) {
-        this.dataModel = changes['countryListModel'].currentValue;
-
-      }
-  */
 
   }
 
@@ -218,7 +215,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   }
 
   public getFormContactList(): FormArray {
-    return <FormArray>(this.contactListForm.controls['contactes']);
+    return <FormArray>(this.contactListForm.controls['contacts']);
   }
 
   /**
@@ -240,7 +237,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     // add contact to the list
     // console.log('adding an contact');
     // 1. Get the list of reactive form Records
-    let contactFormList = <FormArray>this.contactListForm.controls['contactes'];
+    let contactFormList = <FormArray>this.contactListForm.controls['contacts'];
     console.log(contactFormList);
     // 2. Get a blank Form Model for the new record
     let formContact = CompanyContactRecordService.getReactiveModel(this._fb);
@@ -323,7 +320,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     }
     let rec = this._getFormContact(recordId);
     if (rec) {
-      CompanyContactRecordService.mapDataModelFormModel(modelRecord, rec, this.countryList);
+      CompanyContactRecordService.mapDataModelFormModel(modelRecord, rec);
     } else {
       // should never happen, there should always be a UI record
       console.warn('ContactList:rec is null');

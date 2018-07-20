@@ -56,43 +56,17 @@ export class ContactDetailsService {
   }
 
 
-  public static mapFormModelToDataModel(formRecord: FormGroup, contactModel, countryList) {
+  public static mapFormModelToDataModel(formRecord: FormGroup, contactModel) {
     contactModel.contact = formRecord.controls.contact.value;
     contactModel.city = formRecord.controls.city.value;
-    if (formRecord.controls.country.value && formRecord.controls.country.value.length > 0) {
-      const country_record = ContactDetailsService.findRecordByTerm(countryList, formRecord.controls.country.value[0], 'id');
-      // this removes the 'text' property that the control needs
-      contactModel.country = {
-        '__text': country_record.id,
-        '_label_en': country_record.en,
-        '_label_fr': country_record.fr
-      };
-    } else {
-      contactModel.country = null;
-    }
     contactModel.postal = formRecord.controls.postal.value;
     contactModel.provList = formRecord.controls.provList.value;
     contactModel.provText = formRecord.controls.provText.value;
   }
 
-  public static mapDataModelToFormModel(contactModel, formRecord: FormGroup, countryList) {
+  public static mapDataModelToFormModel(contactModel, formRecord: FormGroup) {
     formRecord.controls.contact.setValue(contactModel.contact);
     formRecord.controls.city.setValue(contactModel.city);
-    const recordIndex = ListService.getRecord(countryList, contactModel.country.__text, 'id');
-    let labelText = '';
-    if (recordIndex > -1) {
-      labelText = countryList[recordIndex].text;
-    }
-    if (contactModel.country) {
-      formRecord.controls.country.setValue([
-        {
-          'id': contactModel.country.__text,
-          'text': labelText
-        }
-      ]);
-    } else {
-      formRecord.controls.country.setValue(null);
-    }
   }
 
   public static getRecordId(record: FormGroup) {

@@ -14,7 +14,6 @@ export class ContactListService extends ListService implements IMasterDetails {
    * @type {{id: number; contact: string; city: string; country: {id: string; text: string}}[]}
    */
   private contactList = [];
-  private countryList = [];
 
   constructor() {
     super();
@@ -82,29 +81,23 @@ export class ContactListService extends ListService implements IMasterDetails {
 
 
   public contactFormToData(record: FormGroup, contactModel) {
-    CompanyContactRecordService.mapFormModelToDataModel(record, contactModel, this.countryList);
+    CompanyContactRecordService.mapFormModelToDataModel(record, contactModel);
     return (record);
 
   }
 
-  public createFormDataList(modelDataList, countryList, fb: FormBuilder, theList) {
+  public createFormDataList(modelDataList, fb: FormBuilder, theList) {
     for (let i = 0; i < modelDataList.length; i++) {
       const formRecord = CompanyContactRecordService.getReactiveModel(fb);
-      this.contactDataToForm(modelDataList[i], formRecord, countryList);
+      this.contactDataToForm(modelDataList[i], formRecord);
       theList.push(formRecord);
     }
   }
 
-  public contactDataToForm(contactModel, record: FormGroup, countryList) {
-    CompanyContactRecordService.mapDataModelFormModel(contactModel, record, countryList);
+  public contactDataToForm(contactModel, record: FormGroup) {
+    CompanyContactRecordService.mapDataModelFormModel(contactModel, record);
     return (record);
   }
-
-
-  public setCountryList(countryList) {
-    this.countryList = countryList;
-  }
-
 
   public saveRecord(record: FormGroup) {
     if (this.getRecordId(record) === -1) {

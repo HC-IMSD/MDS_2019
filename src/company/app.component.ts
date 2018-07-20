@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import { environment } from '../environments/environment';
 /*declare var xml2js: any;*/
@@ -13,6 +13,7 @@ import { environment } from '../environments/environment';
 export class AppComponent {
 
   public translateInstance: TranslateService;
+  @Input() isInternal: boolean;
 
 // we will use form builder to simplify our syntax
   constructor(private translate: TranslateService) {

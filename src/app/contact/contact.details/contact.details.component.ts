@@ -18,11 +18,11 @@ import {isArray} from 'util';
  */
 export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit {
 
-  public adressFormLocalModel: FormGroup;
+  public contactFormLocalModel: FormGroup;
   @Input('group') public adressFormRecord: FormGroup;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
-  @Input() countryList:Array<any>;
+  @Input() countryList: Array<any>;
   @Output() errorList = new EventEmitter();
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
@@ -55,10 +55,10 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   ngOnInit() {
-    if (!this.adressFormLocalModel) {
-      this.adressFormLocalModel = ContactDetailsService.getReactiveModel(this._fb);
+    if (!this.contactFormLocalModel) {
+      this.contactFormLocalModel = ContactDetailsService.getReactiveModel(this._fb);
     }
-    //this._setCountryState(this.adressFormLocalModel.controls.country.value,this.adressFormLocalModel);
+    //this._setCountryState(this.contactFormLocalModel.controls.country.value,this.contactFormLocalModel);
     this.detailsChanged = 0;
 
   }
@@ -97,7 +97,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
     /*  this.isValid();
       this._syncCurrentExpandedRow();*/
     //this.processCountry()
-    //this._setCountryState(event,this.adressFormLocalModel);
+    //this._setCountryState(event,this.contactFormLocalModel);
   }
 
 
@@ -111,9 +111,9 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
         this.setToLocalModel();
 
       } else {
-        this.adressFormLocalModel = ContactDetailsService.getReactiveModel(this._fb);
-        this._setCountryState(this.adressFormLocalModel.controls.country.value, this.adressFormLocalModel);
-        this.adressFormLocalModel.markAsPristine();
+        this.contactFormLocalModel = ContactDetailsService.getReactiveModel(this._fb);
+        this._setCountryState(this.contactFormLocalModel.controls.country.value, this.contactFormLocalModel);
+        this.contactFormLocalModel.markAsPristine();
       }
 
     }
@@ -166,7 +166,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   processCountry(event) {
     //console.log(event);
-    this._setCountryState(event, this.adressFormLocalModel);
+    this._setCountryState(event, this.contactFormLocalModel);
   }
 
 
@@ -175,29 +175,29 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
    */
 
   setToLocalModel() {
-    this.adressFormLocalModel = this.adressFormRecord;
-    if (!this.adressFormLocalModel.pristine) {
-      this.adressFormLocalModel.markAsPristine();
+    this.contactFormLocalModel = this.adressFormRecord;
+    if (!this.contactFormLocalModel.pristine) {
+      this.contactFormLocalModel.markAsPristine();
     }
   }
 
   //note ng-select expects an array of values even with a single select
   selected(rec) {
 
-    //this.adressFormLocalModel.controls.country.setValue([rec.id]);
-    //this.adressFormLocalModel.controls.country.setValue([rec]);
+    //this.contactFormLocalModel.controls.country.setValue([rec.id]);
+    //this.contactFormLocalModel.controls.country.setValue([rec]);
   }
 
   removed(rec) {
     console.log(rec);
-    //this.adressFormLocalModel.controls.country.setValue(null)
+    //this.contactFormLocalModel.controls.country.setValue(null)
   }
 
   typed(rec) {
     var content = rec.replace(/[\x00-\x7F]/g, '', '');
     console.log('this is typed');
     if (content && this.existsInList(content)) {
-      this.adressFormLocalModel.controls.country.setValue([content]);
+      this.contactFormLocalModel.controls.country.setValue([content]);
     }
   }
 
@@ -217,7 +217,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   /* _showProvText(value):boolean{
      console.log(value)
-     this.detailsService.setProvinceState(this.adressFormLocalModel, value);
+     this.detailsService.setProvinceState(this.contactFormLocalModel, value);
      if(ContactDetailsService.isCanadaOrUSA(value)){
        console.log("hide province text")
        this.showProvText=false;

@@ -32,20 +32,20 @@ export class CompanyContactRecordService {
     return this.extend(companyModel, contactModel);
   }
 
-  public static mapFormModelToDataModel(formRecord: FormGroup, contactRecordModel, countryList) {
+  public static mapFormModelToDataModel(formRecord: FormGroup, contactRecordModel) {
     console.log(contactRecordModel);
     console.log(formRecord);
     contactRecordModel.id = formRecord.controls.id.value;
     contactRecordModel.company = formRecord.controls.companyName.value;
-    ContactDetailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls.contactDetails), contactRecordModel, countryList);
+    ContactDetailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls.contactDetails), contactRecordModel);
 
   }
 
 
-  public static mapDataModelFormModel(contactRecordModel, formRecord: FormGroup, countryList) {
+  public static mapDataModelFormModel(contactRecordModel, formRecord: FormGroup) {
     formRecord.controls.id.setValue(contactRecordModel.id);
     formRecord.controls.companyName.setValue(contactRecordModel.company);
-    ContactDetailsService.mapDataModelToFormModel(contactRecordModel, <FormGroup>formRecord.controls.contactDetails, countryList);
+    ContactDetailsService.mapDataModelToFormModel(contactRecordModel, <FormGroup>formRecord.controls.contactDetails);
   }
 
   public static extend(dest, src) {
