@@ -8,16 +8,29 @@ import {ListService} from '../../list-service';
 @Injectable()
 export class ContactDetailsService {
 
-  private countryList: Array<any>;
-  private stateList: Array<any>;
-  public provinces: Array<any> = [
-    {'id': 'ON', 'label_en': 'Ontario', 'label_fr': 'Ontario'},
-    {'id': 'MN', 'label_en': 'Manitoba', 'label_fr': 'Manitoba'}
+  public statusListExternal: Array<any> = [
+    {id: 'NEW', label_en: 'New', label_fr: 'fr_New'},
+    {id: 'AMEND', label_en: 'Amend', label_fr: 'fr_Amend'},
+    {id: 'DELETE', label_en: 'Delete', label_fr: 'fr_Delete'}
+  ];
+  public statusListAdd: Array<any> = [
+    {id: 'ACTIVE', label_en: 'Amend', label_fr: 'fr_Amend'},
+    {id: 'INACTIVE', label_en: 'Final', label_fr: 'fr_Final'}
+  ];
+  public statusListInternal: Array<any> = this.statusListExternal.concat(this.statusListAdd);
+
+  public salutationList: Array<any> = [
+    {id: 'DR', label_en: 'Dr.', label_fr: 'fr_New'},
+    {id: 'MR', label_en: 'Mr.', label_fr: 'fr_Mr.'},
+    {id: 'MRS', label_en: 'Mrs.', label_fr: 'fr_Mrs.'},
+    {id: 'MS', label_en: 'Ms.', label_fr: 'fr_Ms.'}
+  ];
+  public languageList: Array<any> = [
+    {'id': 'EN', 'label_en': 'English', 'label_fr': 'Anglais'},
+    {'id': 'FR', 'label_en': 'French', 'label_fr': 'Français'}
   ];
 
-
   constructor() {
-    this.countryList = [];
   }
 
   /**
@@ -28,12 +41,18 @@ export class ContactDetailsService {
   public static getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
-      contact: [null, Validators.required],
-      provText: '',
-      provList: '',
-      city: ['', [Validators.required, Validators.min(5)]],
-      country: [null, Validators.required],
-      postal: ['', []]
+      contactId: '',
+      status: '',
+      salutation: [null, Validators.required],
+      firstName: [null, Validators.required],
+      initials: '',
+      lastName: [null, Validators.required],
+      language: '',
+      jobTitle: '',
+      faxNumber: ['', [Validators.required, Validators.min(10)], Validators.pattern('[0-9]')],
+      phoneNumber: ['', [Validators.required, Validators.min(10)], Validators.pattern('0-9')],
+      phoneExtension: '',
+      email: [null, Validators.required, ValidationService.emailValidator]
     });
   }
 
@@ -45,28 +64,51 @@ export class ContactDetailsService {
 
     return (
       {
-        contact: '',
-        provText: '',
-        provList: '',
-        city: '',
-        country: '',
-        postal: ''
+        contactId: '',
+        status: '',
+        salutation: '',
+        firstName: '',
+        initials: '',
+        lastName: '',
+        language: '',
+        jobTitle: '',
+        faxNumber: '',
+        phoneNumber: '',
+        phoneExtension: '',
+        email: ''
       }
     );
   }
 
 
   public static mapFormModelToDataModel(formRecord: FormGroup, contactModel) {
-    contactModel.contact = formRecord.controls.contact.value;
-    contactModel.city = formRecord.controls.city.value;
-    contactModel.postal = formRecord.controls.postal.value;
-    contactModel.provList = formRecord.controls.provList.value;
-    contactModel.provText = formRecord.controls.provText.value;
+    contactModel.contactId = formRecord.controls.contactId.value;
+    contactModel.status = formRecord.controls.status.value;
+    contactModel.salutation = formRecord.controls.salutation.value;
+    contactModel.firstName = formRecord.controls.firstName.value;
+    contactModel.initials = formRecord.controls.initials.value;
+    contactModel.lastName = formRecord.controls.lastName.value;
+    contactModel.language = formRecord.controls.language.value;
+    contactModel.jobTitle = formRecord.controls.jobTitle.value;
+    contactModel.faxNumber = formRecord.controls.faxNumber.value;
+    contactModel.phoneNumber = formRecord.controls.phoneNumber.value;
+    contactModel.phoneExtension = formRecord.controls.phoneExtension.value;
+    contactModel.email = formRecord.controls.email.value;
   }
 
   public static mapDataModelToFormModel(contactModel, formRecord: FormGroup) {
-    formRecord.controls.contact.setValue(contactModel.contact);
-    formRecord.controls.city.setValue(contactModel.city);
+    formRecord.controls.contactId.setValue(contactModel.contactId);
+    formRecord.controls.status.setValue(contactModel.status);
+    formRecord.controls.salutation.setValue(contactModel.salutation);
+    formRecord.controls.firstName.setValue(contactModel.firstName);
+    formRecord.controls.initials.setValue(contactModel.initials);
+    formRecord.controls.lastName.setValue(contactModel.lastName);
+    formRecord.controls.language.setValue(contactModel.language);
+    formRecord.controls.jobTitle.setValue(contactModel.jobTitle);
+    formRecord.controls.faxNumber.setValue(contactModel.faxNumber);
+    formRecord.controls.phoneNumber.setValue(contactModel.phoneNumber);
+    formRecord.controls.phoneExtension.setValue(contactModel.phoneExtension);
+    formRecord.controls.email.setValue(contactModel.email);
   }
 
   public static getRecordId(record: FormGroup) {
@@ -78,41 +120,6 @@ export class ContactDetailsService {
       return;
     }
     record.controls.id.setValue(value);
-  }
-
-  public setProvinceState(record: FormGroup, eventValue) {
-
-    if (ContactDetailsService.isCanadaOrUSA(eventValue)) {
-
-      record.controls.provText.setValue('');
-      record.controls.provList.setValidators([Validators.required]);
-
-      if (ContactDetailsService.isCanada(eventValue.id)) {
-        record.controls.postal.setValidators([Validators.required, ValidationService.canadaPostalValidator]);
-      } else {
-        record.controls.postal.setValidators([Validators.required, ValidationService.usaPostalValidator]);
-      }
-      record.controls.provList.updateValueAndValidity();
-      record.controls.postal.updateValueAndValidity();
-      return this.provinces;
-    } else {
-      record.controls.provList.setValidators([]);
-      record.controls.provList.setValue('');
-      record.controls.postal.setValidators([]);
-      record.controls.provList.updateValueAndValidity();
-      record.controls.postal.updateValueAndValidity();
-      return [];
-    }
-
-  }
-
-  /**
-   * Sets the country list to be used for all addres details records
-   * @param {Array<any>} value
-   */
-  public setCountryList(value: Array<any>) {
-    this.countryList = value;
-
   }
 
   public static isCanadaOrUSA(value) {

@@ -14,7 +14,7 @@ import {isArray} from 'util';
 })
 
 /**
- * Sample component is used for nothing
+ *  Application Info Component is used for Company Form
  */
 export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewInit {
 

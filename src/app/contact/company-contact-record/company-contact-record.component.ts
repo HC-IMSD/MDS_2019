@@ -19,8 +19,8 @@ import {ControlMessagesComponent} from '../../error-msg/control-messages.compone
 })
 export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
 
-  public adressRecordModel: FormGroup;
-  @Input('group') public adressFormRecord: FormGroup;
+  public contactRecordModel: FormGroup;
+  @Input('group') public contactFormRecord: FormGroup;
   @Input() detailsChanged: number;
   @Input() countries: Array<any>;
   @Output() saveRecord = new EventEmitter();
@@ -50,8 +50,8 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    if (!this.adressRecordModel) {
-      this.adressRecordModel = this._initContact();
+    if (!this.contactRecordModel) {
+      this.contactRecordModel = this._initContact();
     }
     this.detailsChanged = 0;
 
@@ -95,11 +95,11 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   ngOnChanges(changes: SimpleChanges) {
 
     if (changes['detailsChanged']) { // used as a change indicator for the model
-      if (this.adressFormRecord) {
+      if (this.contactFormRecord) {
         this.setToLocalModel();
       } else {
-        this.adressRecordModel = this._initContact();
-        this.adressRecordModel.markAsPristine();
+        this.contactRecordModel = this._initContact();
+        this.contactRecordModel.markAsPristine();
       }
       this.updateChild++;
     }
@@ -112,8 +112,8 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    *Sets the contact record to the internal model
    */
   setToLocalModel() {
-    this.adressRecordModel = this.adressFormRecord;
-    this.adressRecordModel.markAsPristine();
+    this.contactRecordModel = this.contactFormRecord;
+    this.contactRecordModel.markAsPristine();
   }
 
   /**
@@ -146,32 +146,32 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    * Changes the local model back to the last saved version of the contact
    */
   public revertContactRecord(): void {
-    this.revertRecord.emit(this.adressRecordModel);
-    this.adressRecordModel.markAsPristine();
+    this.revertRecord.emit(this.contactRecordModel);
+    this.contactRecordModel.markAsPristine();
   }
 
   /***
    * Deletes the contact reocord with the selected id from both the model and the form
    */
   public deleteContactRecord(): void {
-    this.deleteRecord.emit(this.adressRecordModel.value.id);
+    this.deleteRecord.emit(this.contactRecordModel.value.id);
   }
 
   public saveContactRecord(): void {
-    if (this.adressRecordModel.valid) {
-      this.saveRecord.emit((this.adressRecordModel));
+    if (this.contactRecordModel.valid) {
+      this.saveRecord.emit((this.contactRecordModel));
       this.showErrorSummary = false;
       this.showErrors = false;
-      this.adressRecordModel.markAsPristine();
+      this.contactRecordModel.markAsPristine();
     } else {
       // id is used for an error to ensure the record gets saved
-      let temp = this.adressRecordModel.value.id;
-      this.adressRecordModel.controls.id.setValue(1);
-      if (this.adressRecordModel.valid) {
-        this.adressRecordModel.controls.id.setValue(temp);
-        this.saveRecord.emit((this.adressRecordModel));
+      let temp = this.contactRecordModel.value.id;
+      this.contactRecordModel.controls.id.setValue(1);
+      if (this.contactRecordModel.valid) {
+        this.contactRecordModel.controls.id.setValue(temp);
+        this.saveRecord.emit((this.contactRecordModel));
       } else {
-        this.adressRecordModel.controls.id.setValue(temp);
+        this.contactRecordModel.controls.id.setValue(temp);
         this.showErrorSummary = true;
         this.showErrors = true;
       }
