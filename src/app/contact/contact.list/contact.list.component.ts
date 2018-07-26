@@ -123,7 +123,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     });
     this.service.createFormDataList(modelData3, this.countryList, this._fb, this.contactListForm.controls['contacts']);
     this.validRec = true;
-    // this.companyContactChild.adressFormRecord. markAsPristine();
+    // this.companyContactChild.contactFormRecord. markAsPristine();
     /!*  const contactDataList = this.service.getModelRecordList();
       const mycontrol = this.getFormContactList();
       const mycontrol = this.getFormContactList();
@@ -172,7 +172,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
       // Onlu update the results if there is a change. Otherwise the record will not be dirty
 
       if (result) {
-        this.companyContactChild.adressFormRecord = result;
+        this.companyContactChild.contactFormRecord = result;
         this.updateContactDetails++;
       }
     } else {
@@ -206,9 +206,9 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     if (this.newRecordIndicator) {
       this.validRec = false;
       return false;
-    } else if (this.companyContactChild && this.companyContactChild.adressFormRecord) {
-      this.validRec = this.contactListForm.valid && !this.companyContactChild.adressFormRecord.dirty;
-      return (this.contactListForm.valid && !this.companyContactChild.adressFormRecord.dirty);
+    } else if (this.companyContactChild && this.companyContactChild.contactFormRecord) {
+      this.validRec = this.contactListForm.valid && !this.companyContactChild.contactFormRecord.dirty;
+      return (this.contactListForm.valid && !this.companyContactChild.contactFormRecord.dirty);
     }
     this.validRec = this.contactListForm.valid;
     return (this.contactListForm.valid);
@@ -241,10 +241,12 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     console.log(contactFormList);
     // 2. Get a blank Form Model for the new record
     let formContact = CompanyContactRecordService.getReactiveModel(this._fb);
-    // 3. Add the form record using the super class. New form is addded at the end
+    // 3. set record id
+    this.service.setRecordId(formContact, this.service.getNextIndex());
+    // 4. Add the form record using the super class. New form is addded at the end
     this.addRecord(formContact, contactFormList);
     console.log(contactFormList);
-    // 4. Set the new form to the new contact form reference.
+    // 5. Set the new form to the new contact form reference.
     this.newContactForm = <FormGroup> contactFormList.controls[contactFormList.length - 1];
 
   }
@@ -264,15 +266,15 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
    * Sets the contact details controls form to a given row (not an id)
    * @param row
    */
-  public getRow(row): void {
-    if (row > -1) {
-      let mycontrol = this.getFormContactList();
-      this.companyContactChild.adressFormRecord = <FormGroup> mycontrol.controls[row];
-      this.updateContactDetails++;
-    } else {
-      console.info('Contact List row number is ' + row);
-    }
-  }
+  // public getRow(row): void {
+  //   if (row > -1) {
+  //     let mycontrol = this.getFormContactList();
+  //     this.companyContactChild.contactFormRecord = <FormGroup> mycontrol.controls[row];
+  //     this.updateContactDetails++;
+  //   } else {
+  //     console.info('Contact List row number is ' + row);
+  //   }
+  // }
 
   /**
    *  Updates the error list
@@ -314,9 +316,9 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     let recordId = record.controls.id.value;
 
     let modelRecord = this.service.getModelRecord(recordId);
-    // IF a new record, there will be no id in the model
     if (!modelRecord) {
       modelRecord = this.service.getContactModel();
+      modelRecord.id = recordId;
     }
     let rec = this._getFormContact(recordId);
     if (rec) {
@@ -342,8 +344,8 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
    * check if its record exists
    */
   public isDirty(): boolean {
-    if (this.companyContactChild && this.companyContactChild.adressFormRecord) {
-      return (this.companyContactChild.adressFormRecord.dirty);
+    if (this.companyContactChild && this.companyContactChild.contactFormRecord) {
+      return (this.companyContactChild.contactFormRecord.dirty);
     } else {
       return false;
     }

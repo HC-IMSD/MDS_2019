@@ -34,10 +34,9 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-
+  // public sequence: number = 1;
   public updateChild: number = 0;
   public errorList = [];
-  public  countryList = [];
   private childErrorList: Array<any> = [];
   private parentErrorList: Array<any> = [];
   public showErrorSummary: boolean;
@@ -92,7 +91,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     return CompanyContactRecordService.getReactiveModel(this._fb);
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges (changes: SimpleChanges) {
 
     if (changes['detailsChanged']) { // used as a change indicator for the model
       if (this.contactFormRecord) {
@@ -101,10 +100,10 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
         this.contactRecordModel = this._initContact();
         this.contactRecordModel.markAsPristine();
       }
+      // if (this.contactRecordModel.controls.id.value !== -1) {
+      //   this.sequence = this.contactRecordModel.controls.id.value + 1;
+      // }1
       this.updateChild++;
-    }
-    if (changes['countries']) {
-      this.countryList = changes['countries'].currentValue;
     }
   }
 

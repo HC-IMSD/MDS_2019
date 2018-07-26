@@ -15,7 +15,7 @@ export class CompanyContactRecordService {
     return fb.group({
         id: -1,
         detailsDirty: [false, Validators.required],
-        companyName: ['', Validators.required],
+        isNew: true,
         contactDetails: ContactDetailsService.getReactiveModel(fb)
       }
     );
@@ -36,7 +36,7 @@ export class CompanyContactRecordService {
     console.log(contactRecordModel);
     console.log(formRecord);
     contactRecordModel.id = formRecord.controls.id.value;
-    contactRecordModel.company = formRecord.controls.companyName.value;
+    // contactRecordModel.company = formRecord.controls.companyName.value;
     ContactDetailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls.contactDetails), contactRecordModel);
 
   }
@@ -44,7 +44,7 @@ export class CompanyContactRecordService {
 
   public static mapDataModelFormModel(contactRecordModel, formRecord: FormGroup) {
     formRecord.controls.id.setValue(contactRecordModel.id);
-    formRecord.controls.companyName.setValue(contactRecordModel.company);
+    // formRecord.controls.companyName.setValue(contactRecordModel.company);
     ContactDetailsService.mapDataModelToFormModel(contactRecordModel, <FormGroup>formRecord.controls.contactDetails);
   }
 

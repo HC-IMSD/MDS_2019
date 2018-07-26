@@ -25,11 +25,10 @@
     <div class="btn-group-sm col-md-12 text-right">
       <button class="btn btn-primary" (click)="addContact()"
               [disabled]="!contactListForm.valid || isDirty()">
-       {{'add.contact'|translate}}
+       {{'add.repres'|translate}}
       </button>
     </div>
   </div>
-<pre>Form Data {{contactListForm.value |json}}</pre>
-  <pre>Data Model for Contact List {{dataModel|json}}</pre>
+<!--pre>Form Data {{contactListForm.value |json}}</pre>
+  <pre>Data Model for Contact List {{dataModel|json}}</pre-->
 </div>
-

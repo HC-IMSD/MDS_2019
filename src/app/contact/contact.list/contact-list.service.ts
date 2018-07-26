@@ -17,29 +17,7 @@ export class ContactListService extends ListService implements IMasterDetails {
 
   constructor() {
     super();
-    this.contactList = [
-      /* {
-         id: 1,
-         contact: 'contact1',
-         city: 'city1',
-         country:
-           {
-             "id": "ABW",
-             "text": "Aruba"
-           }
-       },
-       {
-         id: 2,
-         contact: 'contact2',
-         city: 'city2',
-         country:
-           {
-             "id": "ABW",
-             "text": "Aruba"
-           }
-       }*/
-    ];
-
+    this.contactList = [];
     this.initIndex(this.contactList);
   }
 
@@ -100,8 +78,9 @@ export class ContactListService extends ListService implements IMasterDetails {
   }
 
   public saveRecord(record: FormGroup) {
-    if (this.getRecordId(record) === -1) {
-      this.setRecordId(record, this.getNextIndex());
+    if (record.controls.isNew.value) {
+      // this.setRecordId(record, this.getNextIndex());
+      record.controls.isNew.setValue(false);
       let contactModel = this.getContactModel();
       this.contactFormToData(record, contactModel);
       this.contactList.push(contactModel);
@@ -128,6 +107,9 @@ export class ContactListService extends ListService implements IMasterDetails {
     for (let i = 0; i < modelList.length; i++) {
       if (modelList[i].id === id) {
         this.contactList.splice(i, 1);
+        if (id === this.getCurrentIndex()) {
+          this.setIndex(id - 1);
+        }
         return true;
       }
     }

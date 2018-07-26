@@ -1,6 +1,5 @@
 import {Component, OnInit, EventEmitter, Output, Input, SimpleChanges} from '@angular/core';
 
-
 import {TranslateService} from '@ngx-translate/core';
 import {ConvertResults} from '../convert-results';
 import {FileConversionService} from '../file-conversion.service';
@@ -17,7 +16,9 @@ export class FilereaderComponent implements OnInit {
   @Output() complete = new EventEmitter();
   @ Input() rootTag:string = '';
   //@Input() saveType: string = FileIoGlobalsService.draftFileType;
-  private rootId:string='';
+  public status = 'msg.success.load';
+  public showFileLoadStatus: boolean = false;
+  private rootId = '';
 
   constructor(private translate: TranslateService) {
   }

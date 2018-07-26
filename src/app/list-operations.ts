@@ -88,7 +88,7 @@ export abstract class ListOperations {
       this.showErrorSummary = true;
       return -1;
     }
-    console.log(record)
+    console.log(record);
     let recordId = service.saveRecord(record);
     this.showErrorSummary = false;
     this.newRecordIndicator = false; //in case this was a new record
@@ -120,6 +120,9 @@ export abstract class ListOperations {
       let temp = <FormGroup> recordList.controls[i];
       if (temp.controls.id.value === id) {
         recordList.removeAt(i);
+        if (id === service.getCurrentIndex()) {
+          service.setIndex(id - 1);
+        }
         break;
       }
     }

@@ -1,5 +1,5 @@
 <div class="container-fluid" [formGroup]="contactRecordModel">
-  <h3>{{'heading.contactDetails'| translate}}</h3>
+  <h3>{{'heading.contactDetails'| translate}}&nbsp;{{contactRecordModel.controls.id.value + 1}}</h3>
   <error-summary *ngIf="showErrorSummary && errorList.length>0" [errorList]="errorList" headingPreamble="heading.contactRecord"
                  headingLevel="h2" label="Company Contact Record" compId="contactRec"></error-summary>
   <contact-details [showErrors]="showErrors"
@@ -8,9 +8,9 @@
 
   <div class="row">
     <div class="btn-group-sm col-xs-12 text-right">
-      <button class="btn btn-primary" (click)="saveContactRecord()" i18n>{{'save.contact'|translate}}</button>
-      <button class="btn btn-danger" (click)="deleteContactRecord()" i18n>{{'delete.contact'|translate}}</button>
-      <button class="btn btn-default" (click)="revertContactRecord()" i18n>{{'revert.contact'|translate}}</button>
+      <button class="btn btn-primary" (click)="saveContactRecord()" i18n>{{'save.repres'|translate}}</button>
+      <button class="btn btn-danger" (click)="deleteContactRecord()" i18n>{{'delete.repres'|translate}}</button>
+      <button class="btn btn-default" (click)="revertContactRecord()" i18n>{{'discard.changes'|translate}}</button>
     </div>
   </div>
   <div class="row" *ngIf="contactRecordModel.dirty">
@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <!-- <pre>{{contactRecordModel.value |json}}</pre>-->
+  <pre>{{contactRecordModel.value |json}}</pre>
 </div>
 
 

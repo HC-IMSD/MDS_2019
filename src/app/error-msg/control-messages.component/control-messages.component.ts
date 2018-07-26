@@ -104,7 +104,8 @@ export class ControlMessagesComponent implements OnChanges {
    * @returns {boolean}
    */
   makeErrorVisible() {
-    return ((this.control.invalid && this.control.touched) || (this.control.invalid && this._errorVisible));
+    const test = ((this.control.invalid && this.control.touched) || (this.control.invalid && this._errorVisible));
+    return test;
   }
 
 }

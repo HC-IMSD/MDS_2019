@@ -29,13 +29,13 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
 
   public statusList: Array<any> = [];
   public isAmend: boolean = true;
-  public showFieldErrors: boolean = false;
+  public showFieldErrors: boolean;
   public setAsIncomplete = true;
   private detailsService: ApplicationInfoService;
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef) {
     this.showFieldErrors = false;
-    this.showErrors = false;
+    // this.showErrors = false;
     this.detailsService = new ApplicationInfoService();
     this.statusList = this.detailsService.statusList;
   }

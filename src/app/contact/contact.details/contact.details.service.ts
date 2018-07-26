@@ -48,11 +48,11 @@ export class ContactDetailsService {
       initials: '',
       lastName: [null, Validators.required],
       language: '',
-      jobTitle: '',
-      faxNumber: ['', [Validators.required, Validators.min(10)], Validators.pattern('[0-9]')],
-      phoneNumber: ['', [Validators.required, Validators.min(10)], Validators.pattern('0-9')],
+      jobTitle: [null, Validators.required],
+      faxNumber: ['', [Validators.min(10), Validators.pattern('^[0-9]*$')]],
+      phoneNumber: ['', [Validators.required, Validators.min(10), Validators.pattern('^[0-9]*$')]],
       phoneExtension: '',
-      email: [null, Validators.required, ValidationService.emailValidator]
+      email: [null, [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')]]
     });
   }
 
@@ -120,46 +120,6 @@ export class ContactDetailsService {
       return;
     }
     record.controls.id.setValue(value);
-  }
-
-  public static isCanadaOrUSA(value) {
-    let countryValue: string;
-    if (value) {
-      countryValue = value.id;
-    } else {
-      return false;
-    }
-    return (ContactDetailsService.isCanada(countryValue) || ContactDetailsService.isUsa(countryValue));
-  }
-
-  /**
-   * Checks of the value is canada or not. Checks for Json object vs single value
-   * @param value the value to check can be the json object with an id index.
-   * @returns {boolean}
-   */
-  public static isCanada(value) {
-    let updatedValue = '';
-    if (value && value.id) {
-      updatedValue = value.id;
-    } else {
-      updatedValue = value;
-    }
-    return (updatedValue === GlobalsService.CANADA);
-  }
-
-  /**
-   * Checks if the value usa or not. Checks for Json object vs single value
-   * @param value - the value to check can be the json object with an id index.
-   * @returns {boolean}
-   */
-  public static isUsa(value) {
-    let updatedValue = '';
-    if (value && value.id) {
-      updatedValue = value.id;
-    } else {
-      updatedValue = value;
-    }
-    return (updatedValue === GlobalsService.USA);
   }
 
   /**

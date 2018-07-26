@@ -32,12 +32,14 @@ export class CompanyBaseComponent implements OnInit {
   public _theraErrors = [];
   private _AppInfoErrors = [];
   public countryList = [];
+  public showErrors: boolean;
   public title = '';
   public headingLevel = 'h1';
   // public theraModelList=[ {"id":0,"theraDetails":"Test"}];
   public theraModelList = [];
-  public addressModel = [];
-  public appInfoModel = [];
+  public addressModel;
+  public appInfoModel;
+  public contactModel = [];
   public foo = '';
 
   /* public customSettings: TinyMce.Settings | any;*/
@@ -50,6 +52,7 @@ export class CompanyBaseComponent implements OnInit {
     // this.customSettings.plugins = 'lists link table';
     dataLoader = new CompanyDataLoaderService(this.http);
     this.countryList = [];
+    this.showErrors = false;
   }
 
   async ngOnInit() {
@@ -109,7 +112,20 @@ export class CompanyBaseComponent implements OnInit {
     return this.errorList.length === 0;
   }
 
-  public saveFile() {
+  public saveXmlFile() {
+    /*let blob = new Blob([document.getElementById('exportDiv').innerHTML], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-16le"
+    });*/
+    let makeStrSave = 'test';
+
+    let fileServices: FileConversionService = new FileConversionService();
+
+    // TODO temp
+    let result = {'CO': {'address': this.addressModel}};
+    fileServices.saveXmlToFile(result, 'testFile', true, null);
+  }
+
+  public saveWorkingCopyFile() {
     /*let blob = new Blob([document.getElementById('exportDiv').innerHTML], {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-16le"
     });*/
@@ -134,9 +150,7 @@ export class CompanyBaseComponent implements OnInit {
   }
 
   public loadAddressData() {
-    const modelData3 = [
-
-      {
+    const modelData3 = {
         'id': 124,
         'company': 'asdaa',
         'address': 'adasd',
@@ -149,9 +163,7 @@ export class CompanyBaseComponent implements OnInit {
           '_label_fr': 'Anguilla'
         },
         'postal': ''
-      }
-
-    ];
+      };
     this.addressModel = modelData3;
   }
 
