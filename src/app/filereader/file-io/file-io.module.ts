@@ -4,10 +4,12 @@ import {FilereaderComponent} from './filereader/filereader.component';
 import {FileIoGlobalsService} from './file-io-globals.service';
 import {ConvertResults} from './convert-results';
 import {FileConversionService} from './file-conversion.service';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    TranslateModule
   ],
   declarations: [
     FilereaderComponent

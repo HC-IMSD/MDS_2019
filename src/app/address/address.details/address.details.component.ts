@@ -28,12 +28,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
-  public countries: Array<any> = [
-    {'id': 'ABW', 'text': 'Aruba', en: 'Aruba', fr: 'fr_Aruba'},
-    {'id': 'AFG', 'text': 'Afghanistan', en: 'Afghanistan', fr: 'fr_Afghanistan'},
-    {'id': 'CAN', 'text': 'Canada', en: 'Canada', fr: 'fr_Canada'},
-    {'id': 'USA', 'text': 'United States of America', en: 'United States of America', fr: 'fr_USA'}
-  ];
+  public countries: Array<any> = [];
   public provinces: Array<any> = [
     {'id': 'ON', 'label_en': 'Ontario', 'label_fr': 'Ontario'},
     {'id': 'MN', 'label_en': 'Manitoba', 'label_fr': 'Manitoba'}
@@ -115,7 +110,6 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
         this._setCountryState(this.adressFormLocalModel.controls.country.value, this.adressFormLocalModel);
         this.adressFormLocalModel.markAsPristine();
       }
-
     }
     if (changes['showErrors']) {
 
@@ -131,6 +125,10 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     }
     if (changes['countryList']) {
       this.countries=changes['countryList'].currentValue;
+    }
+    if (changes['adressFormLocalModel']) {
+      console.log('**********the ADDRESS details changed');
+      this.adressFormRecord = this.adressFormLocalModel;
     }
 
   }

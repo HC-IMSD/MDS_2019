@@ -27,7 +27,6 @@ export class CompanyContactRecordService {
     const contactModel = ContactDetailsService.getEmptyModel();
     const companyModel = {
       id: '',
-      company: ''
     };
     return this.extend(companyModel, contactModel);
   }

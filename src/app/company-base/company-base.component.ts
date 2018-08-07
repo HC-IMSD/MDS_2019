@@ -20,50 +20,37 @@ import {TranslateService} from '@ngx-translate/core';
 export class CompanyBaseComponent implements OnInit {
   public errors;
   @Input() isInternal: boolean;
-
-  // @ViewChildren(AddressListComponent) addressLists: QueryList<AddressListComponent>;
-  // @ViewChild(ErrorSummaryComponent) errorSummary: ErrorSummaryComponent;
   @ViewChild('tabs') private tabs: NgbTabset;
-  public myForm: FormGroup; // our form model
+
   public errorList = [];
-  public rootTagText = 'DOSSIER_ENROL';
+  public rootTagText = 'COMPANY_ENROL';
   public testData: ConvertResults = null;
   private _addressErrors = [];
-  public _theraErrors = [];
+  // public _theraErrors = [];
   private _AppInfoErrors = [];
   public countryList = [];
   public showErrors: boolean;
   public title = '';
   public headingLevel = 'h1';
   // public theraModelList=[ {"id":0,"theraDetails":"Test"}];
-  public theraModelList = [];
+  // public theraModelList = [];
   public addressModel;
-  public appInfoModel;
+  public appInfoModel: FormGroup;
   public contactModel = [];
   public foo = '';
+  public fileServices: FileConversionService;
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private dataLoader: CompanyDataLoaderService,
               private http: HttpClient, private translate: TranslateService) {
 
-    // this.customSettings = tinymceDefaultSettings();
-
-    // this.customSettings.menubar='table';
-    // this.customSettings.plugins = 'lists link table';
     dataLoader = new CompanyDataLoaderService(this.http);
     this.countryList = [];
     this.showErrors = false;
+    this.fileServices = new FileConversionService();
   }
 
   async ngOnInit() {
-
-    // TO DO get rid of this. Only get the model values
-    this.myForm = this._fb.group({
-      addresses: this._fb.array([]),
-      theraList: this._fb.array([]),
-      foo: this._fb.group({myText: ''})
-
-    });
     this.countryList = await (this.dataLoader.getCountries(this.translate.currentLang));
   }
 
@@ -72,7 +59,7 @@ export class CompanyBaseComponent implements OnInit {
 
     this.errorList = [];
     // concat the two array
-    this.errorList = this._addressErrors.concat(this._AppInfoErrors).concat(this._theraErrors);
+    this.errorList = this._addressErrors.concat(this._AppInfoErrors); // .concat(this._theraErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -86,24 +73,24 @@ export class CompanyBaseComponent implements OnInit {
     this.processErrors();
   }
 
-  processTheraErrors(errorList) {
-    this._theraErrors = errorList;
-    // update values for tab
-    for (let err of this._theraErrors) {
-      err.tabSet = this.tabs;
-      err.tabId = 'tab-thera';
-    }
-
-
-    // TODO how to update the tab titles. Doesn't seem to work in Html
-    if (this._theraErrors.length > 0) {
-      this.title = 'Errors';
-    } else {
-      this.title = '';
-    }
-    // console.log("error lenght"+this._theraErrors.length);
-    this.processErrors();
-  }
+  // processTheraErrors(errorList) {
+  //   this._theraErrors = errorList;
+  //   // update values for tab
+  //   for (let err of this._theraErrors) {
+  //     err.tabSet = this.tabs;
+  //     err.tabId = 'tab-thera';
+  //   }
+  //
+  //
+  //   // TODO how to update the tab titles. Doesn't seem to work in Html
+  //   if (this._theraErrors.length > 0) {
+  //     this.title = 'Errors';
+  //   } else {
+  //     this.title = '';
+  //   }
+  //   // console.log("error lenght"+this._theraErrors.length);
+  //   this.processErrors();
+  // }
 
   public hideErrorSummary() {
     if (!this.errorList) {
@@ -113,29 +100,21 @@ export class CompanyBaseComponent implements OnInit {
   }
 
   public saveXmlFile() {
-    /*let blob = new Blob([document.getElementById('exportDiv').innerHTML], {
-      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-16le"
-    });*/
-    let makeStrSave = 'test';
-
-    let fileServices: FileConversionService = new FileConversionService();
-
-    // TODO temp
-    let result = {'CO': {'address': this.addressModel}};
-    fileServices.saveXmlToFile(result, 'testFile', true, null);
+    const result = {'CO': {
+      'address': this.addressModel,
+      'application_information': this.appInfoModel,
+      'contacts': this.contactModel
+    }};
+    this.fileServices.saveXmlToFile(result, 'hcmdsco', true, null);
   }
 
   public saveWorkingCopyFile() {
-    /*let blob = new Blob([document.getElementById('exportDiv').innerHTML], {
-      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-16le"
-    });*/
-    let makeStrSave = 'test';
-
-    let fileServices: FileConversionService = new FileConversionService();
-
-    // TODO temp
-    let result = {'CO': {'address': this.addressModel}};
-    fileServices.saveXmlToFile(result, 'testFile', true, null);
+    const result = {'CO': {
+      'application_information': this.appInfoModel,
+      'address': this.addressModel,
+      'contacts': this.contactModel
+    }};
+    this.fileServices.saveJsonToFile(result, 'hcmdsco-test', null);
   }
 
   public processFile(data: ConvertResults) {
@@ -145,8 +124,8 @@ export class CompanyBaseComponent implements OnInit {
   }
 
   public preload() {
-    //console.log("Calling preload")
-    this.theraModelList = [{'id': 0, 'theraDetails': 'Test'}];
+    // console.log("Calling preload")
+   // this.theraModelList = [{'id': 0, 'theraDetails': 'Test'}];
   }
 
   public loadAddressData() {
