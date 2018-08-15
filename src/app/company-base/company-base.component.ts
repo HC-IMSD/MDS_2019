@@ -22,6 +22,7 @@ export class CompanyBaseComponent implements OnInit {
   @Input() isInternal: boolean;
   @ViewChild('tabs') private tabs: NgbTabset;
 
+  public companyForm: FormGroup;
   public errorList = [];
   public rootTagText = 'COMPANY_ENROL';
   public testData: ConvertResults = null;
@@ -109,7 +110,7 @@ export class CompanyBaseComponent implements OnInit {
   }
 
   public saveWorkingCopyFile() {
-    const result = {'CO': {
+    const result = {'COMPANY_ENROL': {
       'application_information': this.appInfoModel,
       'address': this.addressModel,
       'contacts': this.contactModel
@@ -126,6 +127,10 @@ export class CompanyBaseComponent implements OnInit {
   public preload() {
     // console.log("Calling preload")
    // this.theraModelList = [{'id': 0, 'theraDetails': 'Test'}];
+  }
+
+  public updateChild() {
+    // console.log("Calling updateChild")
   }
 
   public loadAddressData() {

@@ -27,9 +27,9 @@
         </label>
       </div>
       <div class="form-group col-xs-3">
-        <label for="companyId" [ngClass]="{'required':!showProvText}" aria-required="true">
+        <label for="companyId" [ngClass]="{'required':isInternal}" aria-required="true">
           <span class="field-name" i18n>{{'company.id' |translate}}</span>
-          <strong *ngIf="!showProvText" class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <input id="companyId" class="form-control" formControlName="companyId"  [readonly]="disableAmend()" maxlength="7" />
           <control-messages *ngIf="applicationInfoFormLocalModel.controls.companyId.invalid"
                             [showError]="showFieldErrors"

@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <form [formGroup]="myForm" novalidate>
+  <form [formGroup]="companyForm" novalidate>
     <!-- we will place our fields here -->
     <div>
       <h1>{{'company.form.title'|translate}}</h1>
@@ -13,7 +13,7 @@
           </header>
           <div class="panel-body">
             <div class="row">
-              <filereader (complete)="processFile($event)" [rootTag]="CO"></filereader>
+              <filereader (complete)="processFile($event)" [rootTag]="rootTagText"></filereader>
             </div>
           </div>
         </section>
@@ -51,7 +51,7 @@
                 </header>
                 <div class="panel-body">
                   <address-details [showErrors]="showErrors" [countryList]="countryList"
-                                   [detailsChanged]="updateChild" [group]="adressModel"
+                                   [detailsChanged]="updateChild" [group]="addressModel"
                                    (errorList)="processAddressErrors($event)"></address-details>
                   <!--todo: [group]="adressRecordModel.controls.addressDetails", or  [group]="adressModel"-->
                 </div>
