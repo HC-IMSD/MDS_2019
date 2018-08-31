@@ -25,6 +25,7 @@ export class AppComponent {
     this.translate.get('commmon.required.bracket').subscribe(res => {
       console.log(res);
     });
+    // this.isInternal = false;
   }
 
 }

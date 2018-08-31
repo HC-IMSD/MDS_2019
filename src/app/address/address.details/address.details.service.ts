@@ -47,13 +47,12 @@ export class AddressDetailsService {
       {
         address: '',
         provText: '',
-        provList: '',
         city: '',
         country: '',
         postal: ''
       }
     );
-  };
+  }
 
 
   public static mapFormModelToDataModel(formRecord: FormGroup, addressModel, countryList) {
@@ -71,7 +70,7 @@ export class AddressDetailsService {
       addressModel.country = null;
     }
     addressModel.postal = formRecord.controls.postal.value;
-    addressModel.provList = formRecord.controls.provList.value;
+    // addressModel.provList = formRecord.controls.provList.value;
     addressModel.provText = formRecord.controls.provText.value;
   }
 

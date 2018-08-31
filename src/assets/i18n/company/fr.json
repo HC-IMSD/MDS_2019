@@ -80,6 +80,7 @@
   "save.working.copy": "fr_Save Working Copy",
   "save.draft": "fr_Save Draft for Filing",
   "approve.final": "fr_Approve Final XML",
+  "msg.err.parseFail": "fr_The parsing is failed.",
   "msg.err.jsonparse": "fr_There was an error parsing the working file.",
   "msg.err.xmlparse": "fr_There was an error parsing the draft XML file.",
   "msg.err.file.load": "fr_There was a problem loading the file.",

@@ -83,8 +83,9 @@ export class ApplicationInfoService {
     } else {
       formRecord.controls.status.setValue(null);
     }
-    formRecord.controls.address.setValue(applicationInfoModel.address);
-    formRecord.controls.city.setValue(applicationInfoModel.city);
+    formRecord.controls.enrolVersion.setValue(applicationInfoModel.enrolVersion);
+    formRecord.controls.lastSavedDate.setValue(applicationInfoModel.lastSavedDate);
+    formRecord.controls.companyId.setValue(applicationInfoModel.companyId);
   }
 
   public static getRecordId(record: FormGroup) {

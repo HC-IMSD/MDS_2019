@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, OnInit, ViewChild, Input} from '@angular/c
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 // import {TranslateService} from '@ngx-translate/core';
+import {CompanyBaseService} from './company-base.service';
 import {FileConversionService} from '../filereader/file-io/file-conversion.service';
 import {ConvertResults} from '../filereader/file-io/convert-results';
 // import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -35,8 +36,8 @@ export class CompanyBaseComponent implements OnInit {
   public headingLevel = 'h1';
   // public theraModelList=[ {"id":0,"theraDetails":"Test"}];
   // public theraModelList = [];
-  public addressModel;
-  public appInfoModel: FormGroup;
+  public addressModel = CompanyBaseService.getEmptyAddressDetailsModel();
+  public appInfoModel = CompanyBaseService.getEmptyAppInfoModel();
   public contactModel = [];
   public foo = '';
   public fileServices: FileConversionService;
@@ -52,6 +53,9 @@ export class CompanyBaseComponent implements OnInit {
   }
 
   async ngOnInit() {
+    if (!this.companyForm) {
+      this.companyForm = CompanyBaseService.getReactiveModel(this._fb);
+    }
     this.countryList = await (this.dataLoader.getCountries(this.translate.currentLang));
   }
 
@@ -94,19 +98,26 @@ export class CompanyBaseComponent implements OnInit {
   // }
 
   public hideErrorSummary() {
-    if (!this.errorList) {
-      return false;
-    }
-    return this.errorList.length === 0;
+    return this.showErrors;
+    // if (!this.errorList) {
+    //   return false;
+    // }
+    // return this.errorList.length === 0;
   }
 
   public saveXmlFile() {
-    const result = {'CO': {
-      'address': this.addressModel,
-      'application_information': this.appInfoModel,
-      'contacts': this.contactModel
-    }};
-    this.fileServices.saveXmlToFile(result, 'hcmdsco', true, null);
+    if (this.errorList && this.errorList.length > 0) {
+      this.showErrors = true;
+    } else {
+      const result = {
+        'COMPANY_ENROL': {
+          'application_information': this.appInfoModel,
+          'address': this.addressModel,
+          'contacts': this.contactModel
+        }
+      };
+      this.fileServices.saveXmlToFile(result, 'hcmdsco', true, null);
+    }
   }
 
   public saveWorkingCopyFile() {
@@ -118,10 +129,14 @@ export class CompanyBaseComponent implements OnInit {
     this.fileServices.saveJsonToFile(result, 'hcmdsco-test', null);
   }
 
-  public processFile(data: ConvertResults) {
-    // console.log("processing file.....")
-    // console.log(data)
-    this.testData = data;
+  public processFile(fileData: ConvertResults) {
+     console.log('processing file.....');
+     console.log(fileData);
+    this.appInfoModel = fileData.data.COMPANY_ENROL.application_information;
+    this.addressModel = fileData.data.COMPANY_ENROL.address;
+    this.contactModel = fileData.data.COMPANY_ENROL.contacts;
+
+    this.testData = fileData.data;
   }
 
   public preload() {
@@ -133,23 +148,23 @@ export class CompanyBaseComponent implements OnInit {
     // console.log("Calling updateChild")
   }
 
-  public loadAddressData() {
-    const modelData3 = {
-        'id': 124,
-        'company': 'asdaa',
-        'address': 'adasd',
-        'provText': '',
-        'provList': '',
-        'city': 'asdas',
-        'country': {
-          '__text': 'AIA',
-          '_label_en': 'Anguilla',
-          '_label_fr': 'Anguilla'
-        },
-        'postal': ''
-      };
-    this.addressModel = modelData3;
-  }
+  // public loadAddressData() {
+  //   const modelData3 = {
+  //       'id': 124,
+  //       'company': 'asdaa',
+  //       'address': 'adasd',
+  //       'provText': '',
+  //       'provList': '',
+  //       'city': 'asdas',
+  //       'country': {
+  //         '__text': 'AIA',
+  //         '_label_en': 'Anguilla',
+  //         '_label_fr': 'Anguilla'
+  //       },
+  //       'postal': ''
+  //     };
+  //   this.addressModel = modelData3;
+  // }
 
 
 }

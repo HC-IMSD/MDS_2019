@@ -1,5 +1,6 @@
 <div class="container-fluid">
   <form [formGroup]="companyForm" novalidate>
+  <!-- todo: [formGroup]="companyForm" need initial ????-->
     <!-- we will place our fields here -->
     <div>
       <h1>{{'company.form.title'|translate}}</h1>
@@ -19,7 +20,7 @@
         </section>
       </div>
 
-      <error-summary [hidden]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
+      <error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
                      headingPreamble="errorSummary.address"></error-summary>
 
       <div>
@@ -32,10 +33,11 @@
           <div class="panel-body">
 
             <application-info [showErrors]="showErrors" [isInternal]="isInternal" [inComplete]="false"
-                             [detailsChanged]="updateChild" [group]="appInfoModel"
+                              [detailsChanged]="updateChild"
+                              [appInfoModel]="appInfoModel"
                               (errors)="processAppInfoErrors($event)">
-              <!--   [group]="appInfoModel" -->
             </application-info>
+            <!-- [group]="applicationInfoFormRecord"-->
 
             <div>
               <section class="panel  panel-default">
@@ -51,9 +53,10 @@
                 </header>
                 <div class="panel-body">
                   <address-details [showErrors]="showErrors" [countryList]="countryList"
-                                   [detailsChanged]="updateChild" [group]="addressModel"
+                                   [detailsChanged]="updateChild"
+                                   [addressModel]="addressModel"
                                    (errorList)="processAddressErrors($event)"></address-details>
-                  <!--todo: [group]="adressRecordModel.controls.addressDetails", or  [group]="adressModel"-->
+                  <!--[group]="adressFormRecord"-->
                 </div>
               </section>
             </div>
@@ -79,7 +82,6 @@
             </div>
         </section>
       </div>
-      <!--button (click)="loadAddressData()">Load Address Data</button-->
       <!--   <thera-list (errors)="processTheraErrors($event)"></thera-list>-->
     </div>
     <div class="row btn-group-sm">
@@ -94,10 +96,7 @@
         </button>
       </div>
     </div>
-    <!--button type="submit" [disabled]="!myForm?.valid">Submit</button>
-    <pre> myForm valid{{myForm.valid}}</pre>
-    <pre> myForm{{myForm.value |json}}</pre>
-    <button (click)="saveFile()" i18n>Save File Test</button-->
+    <!--pre> myForm valid{{myForm.valid}}</pre>
+    <pre> myForm{{myForm.value |json}}</pre-->
   </form>
-  <!--pre>{{_theraErrors.length}}</pre-->
 </div>

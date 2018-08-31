@@ -82,7 +82,7 @@ export abstract class ListOperations {
    * @param service
    * @returns {number}
    */
-  public saveRecord(record: FormGroup, service:IMasterDetails): number {
+  public saveRecord(record: FormGroup, service: IMasterDetails): number {
     //  Case 1 no record, just show error summary, shoud never happen
     if (!record) {
       this.showErrorSummary = true;

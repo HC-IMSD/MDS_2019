@@ -25,7 +25,7 @@ export class FileConversionService {
       convertResult.messages.push(FileIoGlobalsService.importSuccess);
     } catch (e) {
       convertResult.data = null;
-      convertResult.messages.push(FileIoGlobalsService.parseFail);
+      convertResult.messages.push(FileIoGlobalsService.jsonParseFail);
     }
   }
 
@@ -44,7 +44,7 @@ export class FileConversionService {
     let jsonConverter = new X2JS(xmlConfig);
     convertResult.messages = [];
     // converts XML as a string to a json
-    convertResult.data = jsonConverter.json2xml_str(data);
+    convertResult.data = jsonConverter.xml_str2json(data);
     return (null);
 
     /* //see https://www.npmjs.com/package/xml2js for list of options

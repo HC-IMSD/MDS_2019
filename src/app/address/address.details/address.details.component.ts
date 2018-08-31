@@ -6,6 +6,7 @@ import {FormGroup, FormBuilder} from '@angular/forms';
 import {ControlMessagesComponent} from '../../error-msg/control-messages.component/control-messages.component';
 import {AddressDetailsService} from './address.details.service';
 import {isArray} from 'util';
+import {noUndefined} from "@angular/compiler/src/util";
 
 
 @Component({
@@ -20,9 +21,11 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   public adressFormLocalModel: FormGroup;
   @Input('group') public adressFormRecord: FormGroup;
+  @Input() public addressDetailsModel;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
-  @Input() countryList:Array<any>;
+  @Input() countryList: Array<any>;
+  @Input() addressModel;
   @Output() errorList = new EventEmitter();
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
@@ -33,12 +36,12 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     {'id': 'ON', 'label_en': 'Ontario', 'label_fr': 'Ontario'},
     {'id': 'MN', 'label_en': 'Manitoba', 'label_fr': 'Manitoba'}
   ];
-  public showProvText: boolean = true;
-  public provinceLabel: string = 'addressDetails.province';
+  public showProvText = true;
+  public provinceLabel = 'addressDetails.province';
   public postalPattern: RegExp = null;
-  public postalLabel: string = 'postal.canada';
+  public postalLabel = 'postal.canada';
 
-  public showFieldErrors: boolean = false;
+  public showFieldErrors = false;
 
   private detailsService: AddressDetailsService;
   public stateList: Array<any>;
@@ -53,9 +56,8 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     if (!this.adressFormLocalModel) {
       this.adressFormLocalModel = AddressDetailsService.getReactiveModel(this._fb);
     }
-    //this._setCountryState(this.adressFormLocalModel.controls.country.value,this.adressFormLocalModel);
+    // this._setCountryState(this.adressFormLocalModel.controls.country.value,this.adressFormLocalModel);
     this.detailsChanged = 0;
-
   }
 
   ngAfterViewInit() {
@@ -91,15 +93,15 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   ngDoCheck() {
     /*  this.isValid();
       this._syncCurrentExpandedRow();*/
-    //this.processCountry()
-    //this._setCountryState(event,this.adressFormLocalModel);
+    // this.processCountry()
+    // this._setCountryState(event,this.adressFormLocalModel);
   }
 
 
   ngOnChanges(changes: SimpleChanges) {
 
-    //since we can't detect changes on objects, using a separate flag
-    if (changes['detailsChanged']) { //used as a change indicator for the model
+    // since we can't detect changes on objects, using a separate flag
+    if (changes['detailsChanged']) { // used as a change indicator for the model
       // console.log("the details cbange");
       if (this.adressFormRecord) {
         this._setCountryState(this.adressFormRecord.controls.country.value, this.adressFormRecord);
@@ -124,19 +126,23 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
       this.errorList.emit(temp);
     }
     if (changes['countryList']) {
-      this.countries=changes['countryList'].currentValue;
+      this.countries = changes['countryList'].currentValue;
     }
     if (changes['adressFormLocalModel']) {
       console.log('**********the ADDRESS details changed');
       this.adressFormRecord = this.adressFormLocalModel;
     }
-
+    if (changes['addressModel']) {
+      const dataModel = changes['addressModel'].currentValue;
+      AddressDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.adressFormLocalModel),
+        this.countryList);
+    }
   }
 
 
   _setCountryState(countryValue, formModel) {
     // console.log("calling set country");
-    //console.log(countryValue);
+    // console.log(countryValue);
     let countryJson = null;
     if (isArray(countryValue)) {
       countryJson = countryValue[0];
@@ -155,16 +161,18 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
       this.showProvText = true;
     }
     this._setPostalPattern(countryValue);
-    //update errors manually?
+    // update errors manually?
     if (this.showFieldErrors) {
-      this.cdr.detectChanges(); //doing our own change detection
+      this.cdr.detectChanges(); // doing our own change detection
     }
   }
 
 
   processCountry(event) {
-    //console.log(event);
+    // console.log(event);
     this._setCountryState(event, this.adressFormLocalModel);
+    AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.adressFormLocalModel),
+      this.addressModel, this.countryList);
   }
 
 
@@ -179,34 +187,37 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     }
   }
 
-  //note ng-select expects an array of values even with a single select
+  // note ng-select expects an array of values even with a single select
   selected(rec) {
 
-    //this.adressFormLocalModel.controls.country.setValue([rec.id]);
-    //this.adressFormLocalModel.controls.country.setValue([rec]);
+    // this.adressFormLocalModel.controls.country.setValue([rec.id]);
+    // this.adressFormLocalModel.controls.country.setValue([rec]);
   }
 
   removed(rec) {
     console.log(rec);
-    //this.adressFormLocalModel.controls.country.setValue(null)
+    // this.adressFormLocalModel.controls.country.setValue(null)
   }
 
   typed(rec) {
-    var content = rec.replace(/[\x00-\x7F]/g, '', '');
-    console.log('this is typed');
+    let content = rec.toString().replace(/[\x00-\x7F]/g, '', '');
+    console.log('country is typed');
     if (content && this.existsInList(content)) {
       this.adressFormLocalModel.controls.country.setValue([content]);
+      AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.adressFormLocalModel),
+        this.addressModel, this.countryList);
     }
   }
 
   onblur() {
-    console.log(' BLRRE$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
-
+    console.log('input is typed');
+    AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.adressFormLocalModel),
+      this.addressModel, this.countryList);
   }
 
   existsInList(rec) {
     for (let country of this.countries) {
-      if (country.id == rec) {
+      if (country.id === rec) {
         return true;
       }
     }

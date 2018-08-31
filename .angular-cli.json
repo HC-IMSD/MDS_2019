@@ -34,15 +34,45 @@
     {
       "name":"company",
       "root": "src",
-      "outDir": "dist/dev/company",
+      "outDir": "./dist/dev/company",
       "assets": [
         "assets",
         "GCWeb",
         "wet-boew",
         "favicon.ico"
       ],
-      "index": "index.html",
-      "main": "main_company.ts",
+      "index": "./company/company.html",
+      "main": "./company/main_company.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "co",
+      "styles": [
+        "styles/styles.css",
+        "styles/rep.css"
+      ],
+      "scripts": [
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod-en": "environments/environment.prod-en.ts",
+        "prod-fr": "environments/environment.prod-fr.ts"
+      }
+    },
+    {
+      "name":"company_internal",
+      "root": "src",
+      "outDir": "./dist/dev/company_internal",
+      "assets": [
+        "assets",
+        "GCWeb",
+        "wet-boew",
+        "favicon.ico"
+      ],
+      "index": "./company/company_internal.html",
+      "main": "./company/main_company.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",

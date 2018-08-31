@@ -20,6 +20,7 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
 
   public applicationInfoFormLocalModel: FormGroup;
   @Input('group') public applicationInfoFormRecord: FormGroup;
+  @Input() appInfoModel;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() inComplete: boolean;
@@ -45,7 +46,6 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
       this.applicationInfoFormLocalModel = ApplicationInfoService.getReactiveModel(this._fb);
     }
     this.detailsChanged = 0;
-
   }
 
   ngAfterViewInit() {
@@ -89,7 +89,10 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
         this.applicationInfoFormLocalModel = ApplicationInfoService.getReactiveModel(this._fb);
         this.applicationInfoFormLocalModel.markAsPristine();
       }
-
+      if (this.applicationInfoFormLocalModel ) {
+        ApplicationInfoService.mapFormModelToDataModel((<FormGroup>this.applicationInfoFormLocalModel),
+          this.appInfoModel, this.statusList);
+      }
     }
     if (changes['showErrors']) {
 
@@ -105,6 +108,12 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
     }
     if (changes['inComplete']) {
       this.setAsIncomplete = changes['inComplete'].currentValue && this.isInternal;
+    }
+    if (changes['appInfoModel']) {
+      const dataModel = changes['appInfoModel'].currentValue;
+      ApplicationInfoService.mapDataModelToFormModel(dataModel,
+        (<FormGroup>this.applicationInfoFormLocalModel), this.statusList);
+      // this.validRec = true; todo: valid record ???
     }
 
   }

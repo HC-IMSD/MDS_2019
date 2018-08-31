@@ -81,6 +81,7 @@
   "save.draft": "Save Draft for Filing",
   "approve.final": "Approve Final XML",
   "msg.success.load": "The file was loaded successfully",
+  "msg.err.parseFail": "The parsing is failed.",
   "msg.err.jsonparse": "There was an error parsing the working file.",
   "msg.err.xmlparse": "There was an error parsing the draft XML file.",
   "msg.err.file.load": "There was a problem loading the file.",

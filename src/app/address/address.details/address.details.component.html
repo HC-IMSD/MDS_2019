@@ -5,7 +5,8 @@
         <label for="address" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'addressDetails.street'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="address" class="form-control full-width" formControlName="address" maxlength="80"/>
+          <input id="address" class="form-control full-width" (blur)="onblur()"
+            formControlName="address" maxlength="80"/>
           <control-messages *ngIf="adressFormLocalModel.controls.address.invalid"
                             [showError]="showFieldErrors"
                             [control]="adressFormLocalModel.controls.address"
@@ -19,7 +20,8 @@
         <label for="city" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'addressDetails.city'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="city" class="form-control full-width" formControlName="city" maxlength="60"/>
+          <input id="city" class="form-control full-width"  (blur)="onblur()"
+                 formControlName="city" maxlength="60"/>
           <control-messages *ngIf="adressFormLocalModel.controls.city.invalid"
                             [showError]="showFieldErrors"
                             [control]="adressFormLocalModel.controls.city"
@@ -38,7 +40,6 @@
                        (typed)="typed($event)"
                        (blur)="typed($event)"
                        (add)="typed($event)"
-                       (close)="onblur()"
                        (selected)="processCountry($event)"
                        (removed)="removed($event)">
             </ng-select>
@@ -55,7 +56,8 @@
       <div *ngIf="!showProvText" class="form-group col-xs-12 col-sm-6" >
         <label for="provState" class="full-width">
           <span class="field-name">{{provinceLabel |translate}}</span>
-          <select id="provState" required class="form-control full-width" formControlName="provList">
+          <select id="provState" required class="form-control full-width" (selected)="onblur()"
+                  formControlName="provList">
             <option *ngFor="let prov of stateList" [ngValue]="prov.id"> {{prov.label_en}}</option>
 
           </select>
@@ -69,7 +71,8 @@
       <div *ngIf="showProvText" class="form-group col-xs-12 col-sm-6">
         <label for="provText" class="full-width">
           <span class="field-name">{{'addressDetails.provState'|translate}}</span>
-          <input id="provText" class="form-control full-width" formControlName="provText"/>
+          <input id="provText" class="form-control full-width" (blur)="onblur()"
+                 formControlName="provText"/>
         <!--  <control-messages *ngIf="adressFormLocalModel.controls.provText.invalid"
                             [showError]="showFieldErrors"
                             [control]="adressFormLocalModel.controls.provText"
@@ -81,7 +84,8 @@
         <label for="postal" [ngClass]="{'required':!showProvText}" aria-required="true">
           <span class="field-name" i18n>{{postalLabel |translate}}</span>
           <strong *ngIf="!showProvText" class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="postal" class="form-control" formControlName="postal"  maxlength="7" />
+          <input id="postal" class="form-control" formControlName="postal"  (blur)="onblur()"
+                 maxlength="7" />
           <control-messages *ngIf="adressFormLocalModel.controls.postal.invalid"
                             [showError]="showFieldErrors"
                             [control]="adressFormLocalModel.controls.postal"

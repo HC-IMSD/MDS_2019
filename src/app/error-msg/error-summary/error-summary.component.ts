@@ -12,6 +12,7 @@ import {ValidationService} from '../../validation.service';
 export class ErrorSummaryComponent implements AfterViewInit {
   @Input() headingPreamble: string;
   @Input() errorList;
+  @Input() hiddenSummary;
   @Input() compId = 'error-summary-';
   @Input() label: string;
   @Input() headingLevel: string;

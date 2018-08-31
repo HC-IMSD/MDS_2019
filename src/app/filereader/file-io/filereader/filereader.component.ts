@@ -16,8 +16,8 @@ export class FilereaderComponent implements OnInit {
   @Output() complete = new EventEmitter();
   @ Input() rootTag:string = '';
   //@Input() saveType: string = FileIoGlobalsService.draftFileType;
-  public status = 'msg.success.load';
-  public showFileLoadStatus: boolean = false;
+  public status = FileIoGlobalsService.importSuccess;
+  public showFileLoadStatus = false;
   private rootId = '';
 
   constructor(private translate: TranslateService) {
@@ -28,8 +28,8 @@ export class FilereaderComponent implements OnInit {
 
 
   ngOnChanges(changes: SimpleChanges) {
-    if(changes['rootTag']){
-      this.rootId=changes['rootTag'].currentValue;
+    if (changes['rootTag']) {
+      this.rootId = changes['rootTag'].currentValue;
     }
   }
 
@@ -55,6 +55,10 @@ export class FilereaderComponent implements OnInit {
       // you can perform an action with data here callback for asynch load
       let convertResult = new ConvertResults();
       FilereaderComponent._readFile(file.name, myReader.result, self.rootId, convertResult);
+      if (convertResult.messages && convertResult.messages.length > 0) {
+        self.status = convertResult.messages[0];
+      }
+      self.showFileLoadStatus = true;
       self.complete.emit(convertResult);
     };
     if (file && file.name) {
@@ -75,7 +79,7 @@ export class FilereaderComponent implements OnInit {
     let fileType = splitFile[splitFile.length - 1];
     let conversion:FileConversionService =new FileConversionService();
 
-    if ((fileType.toLowerCase()) == FileIoGlobalsService.draftFileType) {
+    if ((fileType.toLowerCase()) === FileIoGlobalsService.draftFileType) {
       conversion.convertToJSONObjects(result, convertResult);
      FilereaderComponent.checkRootTagMatch(convertResult, rootId);
     } else if ((fileType.toLowerCase() === FileIoGlobalsService.finalFileType)) {

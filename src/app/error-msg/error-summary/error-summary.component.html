@@ -1,4 +1,4 @@
-<div id="{{componentId}}">
+<div id="{{componentId}}" *ngIf="hiddenSummary">
   <section class="alert alert-danger" tabindex="-1" [ngSwitch]="hdingLevel">
     <h1 *ngSwitchCase="'h1'">
       <span i18n>For the </span><span>{{headingPreamble |translate}}:</span>
