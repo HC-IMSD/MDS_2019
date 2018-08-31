@@ -8,6 +8,9 @@ export class CompanyDataLoaderService {
 
   private _rawCountryList = [];
   private _langCountries = [];
+  private countryJsonPath = GlobalsService.DATA_PATH + 'countries.json';
+  private provinceJsonPath = GlobalsService.DATA_PATH + 'provinces.json';
+  private stateJsonPath = GlobalsService.DATA_PATH + 'states.json';
 
   constructor(private http: HttpClient) {
     /* this.getJSON().subscribe(data => {
@@ -16,26 +19,30 @@ export class CompanyDataLoaderService {
      });*/
   }
 
-  async getJSON(): Promise<any> {
-    // TODO hardcoded path fix?
-    const response = await this.http.get('./assets/data/countries.json').toPromise();
+  async getCountryJSON(): Promise<any> {
+    const response = await this.http.get(this.countryJsonPath).toPromise();
     return response;
   }
 
   async getCountries(lang) {
 
-    this._rawCountryList = await this.getJSON();
-    if (!this._langCountries || this._langCountries.length == 0) {
+    this._rawCountryList = await this.getCountryJSON();
+    if (!this._langCountries || this._langCountries.length === 0) {
       this._convertCountryList(lang);
     }
     return (this._langCountries);
 
   }
 
-  /*  async getPrice(currency: string): Promise<number> {
-      const response = await this.http.get(this.currentPriceUrl).toPromise();
-      return response.json().bpi[currency].rate;
-    }*/
+  async getProvinces(): Promise<any> {
+    const response = await this.http.get(this.provinceJsonPath).toPromise();
+    return response;
+  }
+
+  async getStates(): Promise<any> {
+    const response = await this.http.get(this.stateJsonPath).toPromise();
+    return response;
+  }
 
 
   /***

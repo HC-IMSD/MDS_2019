@@ -952,12 +952,12 @@
                 <tbody>
                     <tr>
                         <td class="col-md-4">
-                            <b><span class="modifier">Public</span> adressFormLocalModel</b>
+                            <b><span class="modifier">Public</span> addressFormLocalModel</b>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                            <span class="modifier-icon fa fa-circle"></span><code>adressFormLocalModel:     <code><a href="https://angular.io/docs/ts/latest/api/forms/index/FormGroup-class.html" target="_blank" >FormGroup</a></code>
+                            <span class="modifier-icon fa fa-circle"></span><code>addressFormLocalModel:     <code><a href="https://angular.io/docs/ts/latest/api/forms/index/FormGroup-class.html" target="_blank" >FormGroup</a></code>
     </bcode>
                         </td>
                     </tr>
@@ -1156,8 +1156,8 @@ import {isArray} from &#x27;util&#x27;;
  */
 export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit {
 
-  public adressFormLocalModel: FormGroup;
-  @Input(&#x27;group&#x27;) public adressFormRecord: FormGroup;
+  public addressFormLocalModel: FormGroup;
+  @Input(&#x27;group&#x27;) public addressFormRecord: FormGroup;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() countryList:Array&lt;any&gt;;
@@ -1193,10 +1193,10 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   ngOnInit() {
-    if (!this.adressFormLocalModel) {
-      this.adressFormLocalModel &#x3D; AddressDetailsService.getReactiveModel(this._fb);
+    if (!this.addressFormLocalModel) {
+      this.addressFormLocalModel &#x3D; AddressDetailsService.getReactiveModel(this._fb);
     }
-    //this._setCountryState(this.adressFormLocalModel.controls.country.value,this.adressFormLocalModel);
+    //this._setCountryState(this.addressFormLocalModel.controls.country.value,this.addressFormLocalModel);
     this.detailsChanged &#x3D; 0;
 
   }
@@ -1235,7 +1235,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     /*  this.isValid();
       this._syncCurrentExpandedRow();*/
     //this.processCountry()
-    //this._setCountryState(event,this.adressFormLocalModel);
+    //this._setCountryState(event,this.addressFormLocalModel);
   }
 
 
@@ -1244,14 +1244,14 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     //since we can&#x27;t detect changes on objects, using a separate flag
     if (changes[&#x27;detailsChanged&#x27;]) { //used as a change indicator for the model
       // console.log(&quot;the details cbange&quot;);
-      if (this.adressFormRecord) {
-        this._setCountryState(this.adressFormRecord.controls.country.value, this.adressFormRecord);
+      if (this.addressFormRecord) {
+        this._setCountryState(this.addressFormRecord.controls.country.value, this.addressFormRecord);
         this.setToLocalModel();
 
       } else {
-        this.adressFormLocalModel &#x3D; AddressDetailsService.getReactiveModel(this._fb);
-        this._setCountryState(this.adressFormLocalModel.controls.country.value, this.adressFormLocalModel);
-        this.adressFormLocalModel.markAsPristine();
+        this.addressFormLocalModel &#x3D; AddressDetailsService.getReactiveModel(this._fb);
+        this._setCountryState(this.addressFormLocalModel.controls.country.value, this.addressFormLocalModel);
+        this.addressFormLocalModel.markAsPristine();
       }
 
     }
@@ -1304,7 +1304,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   processCountry(event) {
     //console.log(event);
-    this._setCountryState(event, this.adressFormLocalModel);
+    this._setCountryState(event, this.addressFormLocalModel);
   }
 
 
@@ -1313,29 +1313,29 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
    */
 
   setToLocalModel() {
-    this.adressFormLocalModel &#x3D; this.adressFormRecord;
-    if (!this.adressFormLocalModel.pristine) {
-      this.adressFormLocalModel.markAsPristine();
+    this.addressFormLocalModel &#x3D; this.addressFormRecord;
+    if (!this.addressFormLocalModel.pristine) {
+      this.addressFormLocalModel.markAsPristine();
     }
   }
 
   //note ng-select expects an array of values even with a single select
   selected(rec) {
     console.log(&#x27;This is selected&#x27;);
-    //this.adressFormLocalModel.controls.country.setValue([rec.id]);
-    //this.adressFormLocalModel.controls.country.setValue([rec]);
+    //this.addressFormLocalModel.controls.country.setValue([rec.id]);
+    //this.addressFormLocalModel.controls.country.setValue([rec]);
   }
 
   removed(rec) {
     console.log(rec);
-    //this.adressFormLocalModel.controls.country.setValue(null)
+    //this.addressFormLocalModel.controls.country.setValue(null)
   }
 
   typed(rec) {
     var content &#x3D; rec.replace(/[\x00-\x7F]/g, &#x27;&#x27;, &#x27;&#x27;);
     console.log(&#x27;this is typed&#x27;);
     if (content &amp;&amp; this.existsInList(content)) {
-      this.adressFormLocalModel.controls.country.setValue([content]);
+      this.addressFormLocalModel.controls.country.setValue([content]);
     }
   }
 
@@ -1355,7 +1355,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   /* _showProvText(value):boolean{
      console.log(value)
-     this.detailsService.setProvinceState(this.adressFormLocalModel, value);
+     this.detailsService.setProvinceState(this.addressFormLocalModel, value);
      if(AddressDetailsService.isCanadaOrUSA(value)){
        console.log(&quot;hide province text&quot;)
        this.showProvText&#x3D;false;

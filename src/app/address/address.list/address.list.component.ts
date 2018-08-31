@@ -113,7 +113,7 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
     });
     this.service.createFormDataList(modelData3, this.countryList, this._fb, this.addressListForm.controls['addresses']);
     this.validRec = true;
-    // this.companyAddressChild.adressFormRecord. markAsPristine();
+    // this.companyAddressChild.addressFormRecord. markAsPristine();
     /!*  const addressDataList = this.service.getModelRecordList();
       const mycontrol = this.getFormAddressList();
       const mycontrol = this.getFormAddressList();
@@ -162,7 +162,7 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
       // Onlu update the results if there is a change. Otherwise the record will not be dirty
 
       if (result) {
-        this.companyAddressChild.adressFormRecord = result;
+        this.companyAddressChild.addressFormRecord = result;
         this.updateAddressDetails++;
       }
     } else {
@@ -209,9 +209,9 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
     if (this.newRecordIndicator) {
       this.validRec = false;
       return false;
-    } else if (this.companyAddressChild && this.companyAddressChild.adressFormRecord) {
-      this.validRec = this.addressListForm.valid && !this.companyAddressChild.adressFormRecord.dirty;
-      return (this.addressListForm.valid && !this.companyAddressChild.adressFormRecord.dirty);
+    } else if (this.companyAddressChild && this.companyAddressChild.addressFormRecord) {
+      this.validRec = this.addressListForm.valid && !this.companyAddressChild.addressFormRecord.dirty;
+      return (this.addressListForm.valid && !this.companyAddressChild.addressFormRecord.dirty);
     }
     this.validRec = this.addressListForm.valid;
     return (this.addressListForm.valid);
@@ -270,7 +270,7 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
   public getRow(row): void {
     if (row > -1) {
       let mycontrol = this.getFormAddressList();
-      this.companyAddressChild.adressFormRecord = <FormGroup> mycontrol.controls[row];
+      this.companyAddressChild.addressFormRecord = <FormGroup> mycontrol.controls[row];
       this.updateAddressDetails++;
     } else {
       console.info('Address List row number is ' + row);
@@ -345,8 +345,8 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
    * check if its record exists
    */
   public isDirty(): boolean {
-    if (this.companyAddressChild && this.companyAddressChild.adressFormRecord) {
-      return (this.companyAddressChild.adressFormRecord.dirty);
+    if (this.companyAddressChild && this.companyAddressChild.addressFormRecord) {
+      return (this.companyAddressChild.addressFormRecord.dirty);
     } else {
       return false;
     }

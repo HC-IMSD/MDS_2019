@@ -19,8 +19,8 @@ import {ControlMessagesComponent} from '../../error-msg/control-messages.compone
 })
 export class CompanyAddressRecordComponent implements OnInit, AfterViewInit {
 
-  public adressRecordModel: FormGroup;
-  @Input('group') public adressFormRecord: FormGroup;
+  public addressRecordModel: FormGroup;
+  @Input('group') public addressFormRecord: FormGroup;
   @Input() detailsChanged: number;
   @Input() countries: Array<any>;
   @Output() saveRecord = new EventEmitter();
@@ -50,8 +50,8 @@ export class CompanyAddressRecordComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    if (!this.adressRecordModel) {
-      this.adressRecordModel = this._initAddress();
+    if (!this.addressRecordModel) {
+      this.addressRecordModel = this._initAddress();
     }
     this.detailsChanged = 0;
 
@@ -95,11 +95,11 @@ export class CompanyAddressRecordComponent implements OnInit, AfterViewInit {
   ngOnChanges(changes: SimpleChanges) {
 
     if (changes['detailsChanged']) { // used as a change indicator for the model
-      if (this.adressFormRecord) {
+      if (this.addressFormRecord) {
         this.setToLocalModel();
       } else {
-        this.adressRecordModel = this._initAddress();
-        this.adressRecordModel.markAsPristine();
+        this.addressRecordModel = this._initAddress();
+        this.addressRecordModel.markAsPristine();
       }
       this.updateChild++;
     }
@@ -112,8 +112,8 @@ export class CompanyAddressRecordComponent implements OnInit, AfterViewInit {
    *Sets the address record to the internal model
    */
   setToLocalModel() {
-    this.adressRecordModel = this.adressFormRecord;
-    this.adressRecordModel.markAsPristine();
+    this.addressRecordModel = this.addressFormRecord;
+    this.addressRecordModel.markAsPristine();
   }
 
   /**
@@ -146,32 +146,32 @@ export class CompanyAddressRecordComponent implements OnInit, AfterViewInit {
    * Changes the local model back to the last saved version of the address
    */
   public revertAddressRecord(): void {
-    this.revertRecord.emit(this.adressRecordModel);
-    this.adressRecordModel.markAsPristine();
+    this.revertRecord.emit(this.addressRecordModel);
+    this.addressRecordModel.markAsPristine();
   }
 
   /***
    * Deletes the address reocord with the selected id from both the model and the form
    */
   public deleteAddressRecord(): void {
-    this.deleteRecord.emit(this.adressRecordModel.value.id);
+    this.deleteRecord.emit(this.addressRecordModel.value.id);
   }
 
   public saveAddressRecord(): void {
-    if (this.adressRecordModel.valid) {
-      this.saveRecord.emit((this.adressRecordModel));
+    if (this.addressRecordModel.valid) {
+      this.saveRecord.emit((this.addressRecordModel));
       this.showErrorSummary = false;
       this.showErrors = false;
-      this.adressRecordModel.markAsPristine();
+      this.addressRecordModel.markAsPristine();
     } else {
       // id is used for an error to ensure the record gets saved
-      let temp = this.adressRecordModel.value.id;
-      this.adressRecordModel.controls.id.setValue(1);
-      if (this.adressRecordModel.valid) {
-        this.adressRecordModel.controls.id.setValue(temp);
-        this.saveRecord.emit((this.adressRecordModel));
+      let temp = this.addressRecordModel.value.id;
+      this.addressRecordModel.controls.id.setValue(1);
+      if (this.addressRecordModel.valid) {
+        this.addressRecordModel.controls.id.setValue(temp);
+        this.saveRecord.emit((this.addressRecordModel));
       } else {
-        this.adressRecordModel.controls.id.setValue(temp);
+        this.addressRecordModel.controls.id.setValue(temp);
         this.showErrorSummary = true;
         this.showErrors = true;
       }

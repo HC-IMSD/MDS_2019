@@ -1538,7 +1538,7 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
       //Onlu update the results if there is a change. Otherwise the record will not be dirty
 
       if (result) {
-        this.companyAddressChild.adressFormRecord &#x3D; result;
+        this.companyAddressChild.addressFormRecord &#x3D; result;
         this.updateAddressDetails++;
       }
     } else {
@@ -1578,9 +1578,9 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
       this.validRec&#x3D;false;
       return false;
     }
-    else if (this.companyAddressChild &amp;&amp; this.companyAddressChild.adressFormRecord) {
-      this.validRec&#x3D;this.addressListForm.valid &amp;&amp; !this.companyAddressChild.adressFormRecord.dirty;
-      return (this.addressListForm.valid &amp;&amp; !this.companyAddressChild.adressFormRecord.dirty);
+    else if (this.companyAddressChild &amp;&amp; this.companyAddressChild.addressFormRecord) {
+      this.validRec&#x3D;this.addressListForm.valid &amp;&amp; !this.companyAddressChild.addressFormRecord.dirty;
+      return (this.addressListForm.valid &amp;&amp; !this.companyAddressChild.addressFormRecord.dirty);
     }
     this.validRec&#x3D;this.addressListForm.valid;
     return (this.addressListForm.valid);
@@ -1638,7 +1638,7 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
   public getRow(row): void {
     if (row &gt; -1) {
       let mycontrol &#x3D; this.getFormAddressList();
-      this.companyAddressChild.adressFormRecord &#x3D; &lt;FormGroup&gt; mycontrol.controls[row];
+      this.companyAddressChild.addressFormRecord &#x3D; &lt;FormGroup&gt; mycontrol.controls[row];
       this.updateAddressDetails++;
     } else {
       console.info(&#x27;Address List row number is &#x27; + row);
