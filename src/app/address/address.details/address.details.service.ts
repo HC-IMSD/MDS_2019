@@ -10,10 +10,7 @@ export class AddressDetailsService {
 
   private countryList: Array<any>;
   private stateList: Array<any>;
-  public provinces: Array<any> = [
-    {'id': 'ON', 'label_en': 'Ontario', 'label_fr': 'Ontario'},
-    {'id': 'MN', 'label_en': 'Manitoba', 'label_fr': 'Manitoba'}
-  ];
+  public provinces: Array<any> = [];
 
 
   constructor() {
@@ -46,7 +43,8 @@ export class AddressDetailsService {
     return (
       {
         address: '',
-        provText: '',
+        prov_lov: '',
+        prov_text: '',
         city: '',
         country: '',
         postal: ''
@@ -61,22 +59,27 @@ export class AddressDetailsService {
     if (formRecord.controls.country.value && formRecord.controls.country.value.length > 0) {
       const country_record = AddressDetailsService.findRecordByTerm(countryList, formRecord.controls.country.value[0], 'id');
       // this removes the 'text' property that the control needs
-      addressModel.country = {
-        '__text': country_record.id,
-        '_label_en': country_record.en,
-        '_label_fr': country_record.fr
-      };
+      if (country_record && country_record.id) {
+        addressModel.country = {
+          '__text': country_record.id,
+          '_label_en': country_record.en,
+          '_label_fr': country_record.fr
+        };
+      } else {
+        addressModel.country = null;
+      }
     } else {
       addressModel.country = null;
     }
     addressModel.postal = formRecord.controls.postal.value;
-    // addressModel.provList = formRecord.controls.provList.value;
-    addressModel.provText = formRecord.controls.provText.value;
+    addressModel.prov_lov = formRecord.controls.provList.value;
+    addressModel.prov_text = formRecord.controls.provText.value;
   }
 
   public static mapDataModelToFormModel(addressModel, formRecord: FormGroup, countryList) {
     formRecord.controls.address.setValue(addressModel.address);
     formRecord.controls.city.setValue(addressModel.city);
+    formRecord.controls.postal.setValue(addressModel.postal);
     const recordIndex = ListService.getRecord(countryList, addressModel.country.__text, 'id');
     let labelText = '';
     if (recordIndex > -1) {
@@ -89,6 +92,13 @@ export class AddressDetailsService {
           'text': labelText
         }
       ]);
+
+      if (AddressDetailsService.isCanada(addressModel.country.__text) ||
+          AddressDetailsService.isUsa(addressModel.country.__text)) {
+        formRecord.controls.provList.setValue(addressModel.prov_lov);
+      } else {
+        formRecord.controls.provText.setValue(addressModel.prov_text);
+      }
     } else {
       formRecord.controls.country.setValue(null);
     }
@@ -103,7 +113,7 @@ export class AddressDetailsService {
     record.controls.id.setValue(value);
   }
 
-  public setProvinceState(record: FormGroup, eventValue) {
+  public setProvinceState(record: FormGroup, eventValue, provList, stateList) {
 
     if (AddressDetailsService.isCanadaOrUSA(eventValue)) {
 
@@ -112,8 +122,10 @@ export class AddressDetailsService {
 
       if (AddressDetailsService.isCanada(eventValue.id)) {
         record.controls.postal.setValidators([Validators.required, ValidationService.canadaPostalValidator]);
+        this.provinces = provList;
       } else {
         record.controls.postal.setValidators([Validators.required, ValidationService.usaPostalValidator]);
+        this.provinces = stateList;
       }
       record.controls.provList.updateValueAndValidity();
       record.controls.postal.updateValueAndValidity();

@@ -25,6 +25,8 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() countryList: Array<any>;
+  @Input() provinceList: Array<any>;
+  @Input() stateList: Array<any>;
   @Input() addressModel;
   @Output() errorList = new EventEmitter();
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
@@ -32,10 +34,8 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
   public countries: Array<any> = [];
-  public provinces: Array<any> = [
-    {'id': 'ON', 'label_en': 'Ontario', 'label_fr': 'Ontario'},
-    {'id': 'MN', 'label_en': 'Manitoba', 'label_fr': 'Manitoba'}
-  ];
+  public provinces: Array<any> = [];
+  public provStateList: Array<any> = [];
   public showProvText = true;
   public provinceLabel = 'addressDetails.province';
   public postalPattern: RegExp = null;
@@ -44,7 +44,6 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   public showFieldErrors = false;
 
   private detailsService: AddressDetailsService;
-  public stateList: Array<any>;
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef) {
     this.showFieldErrors = false;
@@ -136,6 +135,10 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
       const dataModel = changes['addressModel'].currentValue;
       AddressDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.addressFormLocalModel),
         this.countryList);
+      if (this.addressFormLocalModel.controls.country &&
+          this.addressFormLocalModel.controls.country.value) {
+        this._setCountryState(this.addressFormLocalModel.controls.country.value, this.addressFormLocalModel);
+      }
     }
   }
 
@@ -149,14 +152,13 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     } else {
       countryJson = countryValue;
     }
-    let provList = this.detailsService.setProvinceState(formModel, countryJson);
+    let provList = this.detailsService.setProvinceState(
+      formModel, countryJson, this.provinceList, this.stateList);
     // console.log(provList);
     // this._showProvText(event);
     if (provList.length) {
-      this.stateList = provList;
+      this.provStateList = provList;
       this.showProvText = false;
-
-
     } else {
       this.showProvText = true;
     }

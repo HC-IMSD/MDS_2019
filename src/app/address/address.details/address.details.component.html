@@ -56,9 +56,9 @@
       <div *ngIf="!showProvText" class="form-group col-xs-12 col-sm-6" >
         <label for="provState" class="full-width">
           <span class="field-name">{{provinceLabel |translate}}</span>
-          <select id="provState" required class="form-control full-width" (selected)="onblur()"
+          <select id="provState" required class="form-control full-width" (blur)="onblur()"
                   formControlName="provList">
-            <option *ngFor="let prov of stateList" [ngValue]="prov.id"> {{prov.label_en}}</option>
+            <option *ngFor="let prov of provStateList" [ngValue]="prov.id"> {{prov.text}}</option>
 
           </select>
           <control-messages *ngIf="addressFormLocalModel.controls.provList.invalid"

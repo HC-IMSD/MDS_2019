@@ -1,57 +1,57 @@
 [
   {
     "id":"AB",
-    "label_en":"Alberta",
-    "label_fr":"Alberta"
+    "en":"Alberta",
+    "fr":"Alberta"
   },
   {
     "id":"BC",
-    "label_en":"British Columbia",
-    "label_fr":"Colombie-Britannique"
+    "en":"British Columbia",
+    "fr":"Colombie-Britannique"
   },
   {"id":"MB",
-    "label_en":"Manitoba",
-    "label_fr":"Manitoba"
+    "en":"Manitoba",
+    "fr":"Manitoba"
   },
   {"id":"NB",
-    "label_en":"New Brunswick",
-    "label_fr":"Nouveau-Brunswick"
+    "en":"New Brunswick",
+    "fr":"Nouveau-Brunswick"
   },
   {"id":"NL",
-    "label_en":"Newfoundland and Labrador",
-    "label_fr":"Terre-Neuve et Labrador"
+    "en":"Newfoundland and Labrador",
+    "fr":"Terre-Neuve et Labrador"
   },
   {"id":"NT",
-    "label_en":"Northwest Territories",
-    "label_fr":"Territoires du Nord-Ouest"
+    "en":"Northwest Territories",
+    "fr":"Territoires du Nord-Ouest"
   },
   {"id":"NS",
-    "label_en":"Nova Scotia",
-    "label_fr":"Nouvelle-Écosse"
+    "en":"Nova Scotia",
+    "fr":"Nouvelle-Écosse"
   },
   {"id":"NU",
-    "label_en":"Nunavut",
-    "label_fr":"Nunavut"
+    "en":"Nunavut",
+    "fr":"Nunavut"
   },
   {"id":"ON",
-    "label_en":"Ontario",
-    "label_fr":"Ontario"
+    "en":"Ontario",
+    "fr":"Ontario"
   },
   {"id":"PE",
-    "label_en":"Prince Edward Island",
-    "label_fr":"Île-du-Prince-Édouard"
+    "en":"Prince Edward Island",
+    "fr":"Île-du-Prince-Édouard"
   },
   {"id":"QC",
-    "label_en":"Quebec",
-    "label_fr":"Québec"
+    "en":"Quebec",
+    "fr":"Québec"
   },
   {
     "id":"SK",
-    "label_en":"Saskatchewan",
-    "label_fr":"Saskatchewan"
+    "en":"Saskatchewan",
+    "fr":"Saskatchewan"
   },
   {"id":"YT",
-    "label_en":"Yukon",
-    "label_fr":"Yukon"
+    "en":"Yukon",
+    "fr":"Yukon"
   }
 ]

@@ -1,254 +1,254 @@
 [
   {
     "id":"AL",
-    "label_en":"Alabama",
-    "label_fr":"Alabama"
+    "en":"Alabama",
+    "fr":"Alabama"
   },
   {
     "id":"AK",
-    "label_en":"Alaska",
-    "label_fr":"Alaska"
+    "en":"Alaska",
+    "fr":"Alaska"
   },
   {
     "id":"AZ",
-    "label_en":"Arizona",
-    "label_fr":"Arizona"
+    "en":"Arizona",
+    "fr":"Arizona"
   },
   {
     "id":"AR",
-    "label_en":"Arkansas",
-    "label_fr":"Arkansas"
+    "en":"Arkansas",
+    "fr":"Arkansas"
   },
   {
     "id":"CA",
-    "label_en":"California",
-    "label_fr":"Californie"
+    "en":"California",
+    "fr":"Californie"
   },
   {
     "id":"CO",
-    "label_en":"Colorado",
-    "label_fr":"Colorado"
+    "en":"Colorado",
+    "fr":"Colorado"
   },
   {
     "id":"CT",
-    "label_en":"Connecticut",
-    "label_fr":"Connecticut"
+    "en":"Connecticut",
+    "fr":"Connecticut"
   },
   {
     "id":"DE",
-    "label_en":"Delaware",
-    "label_fr":"Delaware"
+    "en":"Delaware",
+    "fr":"Delaware"
   },
   {
     "id":"DC",
-    "label_en":"District of Columbia",
-    "label_fr":"District de Columbia"
+    "en":"District of Columbia",
+    "fr":"District de Columbia"
   },
   {
     "id":"FL",
-    "label_en":"Florida",
-    "label_fr":"Floride"
+    "en":"Florida",
+    "fr":"Floride"
   },
   {
     "id":"GA",
-    "label_en":"Georgia",
-    "label_fr":"Géorgie"
+    "en":"Georgia",
+    "fr":"Géorgie"
   },
   {
     "id":"HI",
-    "label_en":"Hawaii",
-    "label_fr":"Hawaii"
+    "en":"Hawaii",
+    "fr":"Hawaii"
   },
   {
     "id":"ID",
-    "label_en":"Idaho",
-    "label_fr":"Idaho"
+    "en":"Idaho",
+    "fr":"Idaho"
   },
   {
     "id":"IL",
-    "label_en":"Illinois",
-    "label_fr":"Illinois"
+    "en":"Illinois",
+    "fr":"Illinois"
   },
   {
     "id":"IN",
-    "label_en":"Indiana",
-    "label_fr":"Indiana"
+    "en":"Indiana",
+    "fr":"Indiana"
   },
   {
     "id":"IA",
-    "label_en":"Iowa",
-    "label_fr":"Iowa"
+    "en":"Iowa",
+    "fr":"Iowa"
   },
   {
     "id":"KS",
-    "label_en":"Kansas",
-    "label_fr":"Kansas"
+    "en":"Kansas",
+    "fr":"Kansas"
   },
   {
     "id":"KY",
-    "label_en":"Kentucky",
-    "label_fr":"Kentucky"
+    "en":"Kentucky",
+    "fr":"Kentucky"
   },
   {
     "id":"LA",
-    "label_en":"Louisiana",
-    "label_fr":"Louisiane"
+    "en":"Louisiana",
+    "fr":"Louisiane"
   },
   {
     "id":"ME",
-    "label_en":"Maine",
-    "label_fr":"Maine"
+    "en":"Maine",
+    "fr":"Maine"
   },
   {
     "id":"MD",
-    "label_en":"Maryland",
-    "label_fr":"Maryland"
+    "en":"Maryland",
+    "fr":"Maryland"
   },
   {
     "id":"MA",
-    "label_en":"Massachusetts",
-    "label_fr":"Massachusetts"
+    "en":"Massachusetts",
+    "fr":"Massachusetts"
   },
   {
     "id":"MI",
-    "label_en":"Michigan",
-    "label_fr":"Michigan"
+    "en":"Michigan",
+    "fr":"Michigan"
   },
   {
     "id":"MN",
-    "label_en":"Minnesota",
-    "label_fr":"Minnesota"
+    "en":"Minnesota",
+    "fr":"Minnesota"
   },
   {
     "id":"MS",
-    "label_en":"Mississippi",
-    "label_fr":"Mississippi"
+    "en":"Mississippi",
+    "fr":"Mississippi"
   },
   {
     "id":"MO",
-    "label_en":"Missouri",
-    "label_fr":"Missouri"
+    "en":"Missouri",
+    "fr":"Missouri"
   },
   {
     "id":"MT",
-    "label_en":"Montana",
-    "label_fr":"Montana"
+    "en":"Montana",
+    "fr":"Montana"
   },
   {
     "id":"NE",
-    "label_en":"Nebraska",
-    "label_fr":"Nebraska"
+    "en":"Nebraska",
+    "fr":"Nebraska"
   },
   {
     "id":"NV",
-    "label_en":"Nevada",
-    "label_fr":"Nevada"
+    "en":"Nevada",
+    "fr":"Nevada"
   },
   {
     "id":"NH",
-    "label_en":"New Hampshire",
-    "label_fr":"New Hampshire"
+    "en":"New Hampshire",
+    "fr":"New Hampshire"
   },
   {
     "id":"NJ",
-    "label_en":"New Jersey",
-    "label_fr":"New Jersey"
+    "en":"New Jersey",
+    "fr":"New Jersey"
   },
   {
     "id":"NM",
-    "label_en":"New Mexico",
-    "label_fr":"Nouveau-mexique"
+    "en":"New Mexico",
+    "fr":"Nouveau-mexique"
   },
   {
     "id":"NY",
-    "label_en":"New York",
-    "label_fr":"L'état de New York"
+    "en":"New York",
+    "fr":"L'état de New York"
   },{
   "id":"NC",
-  "label_en":"North Carolina",
-  "label_fr":"Caroline du nord"
+  "en":"North Carolina",
+  "fr":"Caroline du nord"
 },{
   "id":"ND",
-  "label_en":"North Dakota",
-  "label_fr":"Dakota du nord"
+  "en":"North Dakota",
+  "fr":"Dakota du nord"
 },
   {
     "id":"OH",
-    "label_en":"Ohio",
-    "label_fr":"Ohio"
+    "en":"Ohio",
+    "fr":"Ohio"
   },
   {
     "id":"OK",
-    "label_en":"Oklahoma",
-    "label_fr":"Oklahoma"
+    "en":"Oklahoma",
+    "fr":"Oklahoma"
   },
   {
     "id":"OR",
-    "label_en":"Oregon",
-    "label_fr":"Oregon"
+    "en":"Oregon",
+    "fr":"Oregon"
   },
   {
     "id":"PA",
-    "label_en":"Pennsylvania",
-    "label_fr":"Pennsylvanie"
+    "en":"Pennsylvania",
+    "fr":"Pennsylvanie"
   },
   {
     "id":"RI",
-    "label_en":"Rhode Island",
-    "label_fr":"Rhode Island"
+    "en":"Rhode Island",
+    "fr":"Rhode Island"
   },
   {
     "id":"SC",
-    "label_en":"South Carolina",
-    "label_fr":"Caroline du sud"
+    "en":"South Carolina",
+    "fr":"Caroline du sud"
   },
   {
     "id":"SD",
-    "label_en":"South Dakota",
-    "label_fr":"Dakota du sud"
+    "en":"South Dakota",
+    "fr":"Dakota du sud"
   },
   {
     "id":"TN",
-    "label_en":"Tennessee",
-    "label_fr":"Tennessee"
+    "en":"Tennessee",
+    "fr":"Tennessee"
   },
   {
     "id":"TX",
-    "label_en":"Texas",
-    "label_fr":"Texas"
+    "en":"Texas",
+    "fr":"Texas"
   },
   {
     "id":"UT",
-    "label_en":"Utah",
-    "label_fr":"Utah"
+    "en":"Utah",
+    "fr":"Utah"
   },{
   "id":"VT",
-  "label_en":"Vermont",
-  "label_fr":"Vermont"
+  "en":"Vermont",
+  "fr":"Vermont"
 },
   {
     "id":"VA",
-    "label_en":"Virginia",
-    "label_fr":"Virginie"
+    "en":"Virginia",
+    "fr":"Virginie"
   },
   {
     "id":"WA",
-    "label_en":"Washington",
-    "label_fr":"L'état de washington"
+    "en":"Washington",
+    "fr":"L'état de washington"
   },
   {
     "id":"WV",
-    "label_en":"West Virginia",
-    "label_fr":"Virginie-occidentale"
+    "en":"West Virginia",
+    "fr":"Virginie-occidentale"
   },
   {
     "id":"WI",
-    "label_en":"Wisconsin",
-    "label_fr":"Wisconsin"
+    "en":"Wisconsin",
+    "fr":"Wisconsin"
   },
   {
     "id":"WY",
-    "label_en":"Wyoming",
-    "label_fr":"Wyoming"
+    "en":"Wyoming",
+    "fr":"Wyoming"
   }
 ]

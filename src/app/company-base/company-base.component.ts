@@ -31,6 +31,8 @@ export class CompanyBaseComponent implements OnInit {
   // public _theraErrors = [];
   private _AppInfoErrors = [];
   public countryList = [];
+  public provinceList = [];
+  public stateList = [];
   public showErrors: boolean;
   public title = '';
   public headingLevel = 'h1';
@@ -57,6 +59,8 @@ export class CompanyBaseComponent implements OnInit {
       this.companyForm = CompanyBaseService.getReactiveModel(this._fb);
     }
     this.countryList = await (this.dataLoader.getCountries(this.translate.currentLang));
+    this.provinceList = await (this.dataLoader.getProvinces(this.translate.currentLang));
+    this.stateList = await (this.dataLoader.getStates(this.translate.currentLang));
   }
 
   processErrors() {

@@ -8,6 +8,8 @@ export class CompanyDataLoaderService {
 
   private _rawCountryList = [];
   private _langCountries = [];
+  private _langProvinces = [];
+  private _langStates = [];
   private countryJsonPath = GlobalsService.DATA_PATH + 'countries.json';
   private provinceJsonPath = GlobalsService.DATA_PATH + 'provinces.json';
   private stateJsonPath = GlobalsService.DATA_PATH + 'states.json';
@@ -25,25 +27,41 @@ export class CompanyDataLoaderService {
   }
 
   async getCountries(lang) {
-
-    this._rawCountryList = await this.getCountryJSON();
     if (!this._langCountries || this._langCountries.length === 0) {
+      this._rawCountryList = await this.getCountryJSON();
       this._convertCountryList(lang);
     }
     return (this._langCountries);
 
   }
 
-  async getProvinces(): Promise<any> {
+  async getProvincesJSON(): Promise<any> {
     const response = await this.http.get(this.provinceJsonPath).toPromise();
     return response;
   }
 
-  async getStates(): Promise<any> {
+  async getProvinces(lang) {
+    if (!this._langProvinces || this._langProvinces.length === 0) {
+      const rawList = await this.getProvincesJSON();
+      this._langProvinces = this._convertListText(rawList, lang);
+    }
+    return (this._langProvinces);
+
+  }
+
+  async getStatesJSON(): Promise<any> {
     const response = await this.http.get(this.stateJsonPath).toPromise();
     return response;
   }
 
+  async getStates(lang) {
+    if (!this._langStates || this._langStates.length === 0) {
+      const rawList = await this.getStatesJSON();
+      this._langStates  = this._convertListText(rawList, lang);
+    }
+    return (this._langStates);
+
+  }
 
   /***
    * Converts the list iteems of id, label_en, and label_Fr
@@ -65,6 +83,31 @@ export class CompanyDataLoaderService {
         // console.log(item);
       });
     }
+  }
+
+  /***
+   * Converts the list iteems of id, label_en, and label_Fr
+   * @param rawList
+   * @param lang
+   * @private
+   */
+  private _convertListText(rawList, lang) {
+    const result = [];
+    if (lang === GlobalsService.FRENCH) {
+      rawList.forEach(item => {
+        item.text = item.fr;
+        result.push(item);
+        //  console.log(item);
+      });
+    } else {
+      rawList.forEach(item => {
+        item.text = item.en;
+        // console.log("adding country"+item.text);
+        result.push(item);
+        // console.log(item);
+      });
+    }
+    return result;
   }
 
 }

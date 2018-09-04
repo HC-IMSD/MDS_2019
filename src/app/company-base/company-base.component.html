@@ -53,8 +53,8 @@
                 </header>
                 <div class="panel-body">
                   <address-details [showErrors]="showErrors" [countryList]="countryList"
-                                   [detailsChanged]="updateChild"
-                                   [addressModel]="addressModel"
+                                   [detailsChanged]="updateChild" [provinceList]="provinceList"
+                                   [addressModel]="addressModel" [stateList]="stateList"
                                    (errorList)="processAddressErrors($event)"></address-details>
                   <!--[group]="addressFormRecord"-->
                 </div>
