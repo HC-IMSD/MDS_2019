@@ -39,14 +39,14 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   public errorList = [];
   private childErrorList: Array<any> = [];
   private parentErrorList: Array<any> = [];
-  public showErrorSummary: boolean;
+  public showErrSummary: boolean;
   public showErrors: boolean;
   public errorSummaryChild: ErrorSummaryComponent = null;
   public headingLevel = 'h4';
 
   constructor(private _fb: FormBuilder,  private cdr: ChangeDetectorRef) {
     this.showErrors = false;
-    this.showErrorSummary = false;
+    this.showErrSummary = false;
   }
 
   ngOnInit() {
@@ -159,7 +159,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   public saveContactRecord(): void {
     if (this.contactRecordModel.valid) {
       this.saveRecord.emit((this.contactRecordModel));
-      this.showErrorSummary = false;
+      this.showErrSummary = false;
       this.showErrors = false;
       this.contactRecordModel.markAsPristine();
     } else {
@@ -171,11 +171,16 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
         this.saveRecord.emit((this.contactRecordModel));
       } else {
         this.contactRecordModel.controls.id.setValue(temp);
-        this.showErrorSummary = true;
+        this.showErrSummary = true;
         this.showErrors = true;
       }
     }
   }
 
-
+  /**
+   * Changes the local model back to the last saved version of the contact
+   */
+  public showErrorSummary(): boolean {
+    return (this.showErrSummary && this.errorList.length > 0);
+  }
 }
