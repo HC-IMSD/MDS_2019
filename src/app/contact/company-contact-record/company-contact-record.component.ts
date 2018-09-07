@@ -34,14 +34,15 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  // public sequence: number = 1;
   public updateChild: number = 0;
+  public sequenceNum: number = 0;
   public errorList = [];
   private childErrorList: Array<any> = [];
   private parentErrorList: Array<any> = [];
   public showErrorSummary: boolean;
   public showErrors: boolean;
   public errorSummaryChild: ErrorSummaryComponent = null;
+  public headingLevel = 'h4';
 
   constructor(private _fb: FormBuilder,  private cdr: ChangeDetectorRef) {
     this.showErrors = false;
@@ -59,7 +60,8 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
 
     this.msgList.changes.subscribe(errorObjs => {
       // update is handled directly in the function
-      this.updateErrorList(null,true);
+      this.updateErrorList(null, true);
+      this._emitErrors();
     });
     /** this is processsing the errorSummary that is a child in  Contact record **/
     this.errorSummaryChildList.changes.subscribe(list => {
@@ -100,9 +102,6 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
         this.contactRecordModel = this._initContact();
         this.contactRecordModel.markAsPristine();
       }
-      // if (this.contactRecordModel.controls.id.value !== -1) {
-      //   this.sequence = this.contactRecordModel.controls.id.value + 1;
-      // }1
       this.updateChild++;
     }
   }
@@ -112,6 +111,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    */
   setToLocalModel() {
     this.contactRecordModel = this.contactFormRecord;
+    this.sequenceNum = Number(this.contactRecordModel.controls.id.value) + 1;
     this.contactRecordModel.markAsPristine();
   }
 

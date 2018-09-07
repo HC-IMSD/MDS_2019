@@ -21,7 +21,7 @@
       </div>
 
       <error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
-                     headingPreamble="errorSummary.address"></error-summary>
+                     headingPreamble="errorSummary.company"></error-summary>
 
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
@@ -74,7 +74,7 @@
                   <h3 class="panel-title">{{'heading.contactInfo'|translate}}</h3>
                 </header>
                 <div class="panel-body">
-                  <contact-list  (errors)="processAddressErrors($event)" [isInternal]="isInternal"
+                  <contact-list  (errors)="processContactErrors($event)" [isInternal]="isInternal"
                                  [contactModel]="contactModel"></contact-list>
                 </div>
               </section>

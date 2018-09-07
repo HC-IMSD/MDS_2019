@@ -31,7 +31,7 @@
           <span class="field-name" i18n>{{'company.id' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <input id="companyId" class="form-control" formControlName="companyId"  [readonly]="disableAmend()" maxlength="7" />
-          <control-messages *ngIf="applicationInfoFormLocalModel.controls.companyId.invalid"
+          <control-messages *ngIf="(!disableAmend() && applicationInfoFormLocalModel.controls.companyId.invalid)"
                             [showError]="showFieldErrors"
                             [control]="applicationInfoFormLocalModel.controls.companyId"
                             controlId="companyId" label="company.id" parentId="applicationInfo"

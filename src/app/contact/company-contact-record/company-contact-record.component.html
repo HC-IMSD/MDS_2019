@@ -1,7 +1,8 @@
 <div class="container-fluid" [formGroup]="contactRecordModel">
-  <h3>{{'heading.contactDetails'| translate}}&nbsp;{{contactRecordModel.controls.id.value + 1}}</h3>
-  <error-summary *ngIf="showErrorSummary && errorList.length>0" [errorList]="errorList" headingPreamble="heading.contactRecord"
-                 headingLevel="h2" label="Company Contact Record" compId="contactRec"></error-summary>
+  <h3>{{'heading.contactDetails'| translate}}&nbsp;{{sequenceNum}}</h3>
+  <error-summary [hiddenSummary]="showErrorSummary && errorList.length>0" [errorList]="errorList" headingPreamble="heading.contactRecord"
+                 [headingLevel]="headingLevel" [compId]="contactRec"></error-summary>
+  <!--[label]="heading.contactRecord"-->
   <contact-details [showErrors]="showErrors"
                    [detailsChanged]="updateChild" [group]="contactRecordModel.controls.contactDetails"
                    (errorList)="updateErrorList($event)"></contact-details>
@@ -13,14 +14,14 @@
       <button class="btn btn-default" (click)="revertContactRecord()" i18n>{{'discard.changes'|translate}}</button>
     </div>
   </div>
-  <div class="row" *ngIf="contactRecordModel.dirty">
-    <div class="col-xs-7 form-group">
-      <div class="alert alert-info" role="alert"
-           aria-live="polite">
-        <span>{{'common.saveRevert'|translate}}</span>
-      </div>
-    </div>
-  </div>
+  <!--<div class="row" *ngIf="contactRecordModel.dirty">-->
+    <!--<div class="col-xs-7 form-group">-->
+      <!--<div class="alert alert-info" role="alert"-->
+           <!--aria-live="polite">-->
+        <!--<span>{{'common.saveRevert'|translate}}</span>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
 
   <!--pre>{{contactRecordModel.value |json}}</pre-->
 </div>

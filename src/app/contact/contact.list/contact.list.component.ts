@@ -191,6 +191,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     }
     if (changes['contactModel']) {
       this.service.setModelRecordList(changes['contactModel'].currentValue);
+      this.service.initIndex(changes['contactModel'].currentValue);
       this.dataModel = this.service.getModelRecordList();
       // this.contactListForm.controls['contacts'] = this._fb.array([]);
       this.service.createFormDataList(this.dataModel, this._fb, this.contactListForm.controls['contacts']);

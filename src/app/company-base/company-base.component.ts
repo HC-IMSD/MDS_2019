@@ -27,15 +27,16 @@ export class CompanyBaseComponent implements OnInit {
   public errorList = [];
   public rootTagText = 'COMPANY_ENROL';
   public testData: ConvertResults = null;
+  private _appInfoErrors = [];
   private _addressErrors = [];
   // public _theraErrors = [];
-  private _AppInfoErrors = [];
+  private _contactErrors = [];
   public countryList = [];
   public provinceList = [];
   public stateList = [];
   public showErrors: boolean;
   public title = '';
-  public headingLevel = 'h1';
+  public headingLevel = 'h2';
   // public theraModelList=[ {"id":0,"theraDetails":"Test"}];
   // public theraModelList = [];
   public addressModel = CompanyBaseService.getEmptyAddressDetailsModel();
@@ -68,7 +69,7 @@ export class CompanyBaseComponent implements OnInit {
 
     this.errorList = [];
     // concat the two array
-    this.errorList = this._addressErrors.concat(this._AppInfoErrors); // .concat(this._theraErrors);
+    this.errorList = this._appInfoErrors.concat(this._addressErrors.concat(this._contactErrors)); // .concat(this._theraErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -78,7 +79,12 @@ export class CompanyBaseComponent implements OnInit {
   }
 
   processAppInfoErrors(errorList) {
-    this._AppInfoErrors = errorList;
+    this._appInfoErrors = errorList;
+    this.processErrors();
+  }
+
+  processContactErrors(errorList) {
+    this._contactErrors = errorList;
     this.processErrors();
   }
 
@@ -102,7 +108,7 @@ export class CompanyBaseComponent implements OnInit {
   // }
 
   public hideErrorSummary() {
-    return this.showErrors;
+    return (this.showErrors && this.errorList && this.errorList.length > 0);
     // if (!this.errorList) {
     //   return false;
     // }

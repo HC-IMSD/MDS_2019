@@ -68,7 +68,7 @@
   "revert.address": "fr_Revert Address",
   "delete.address": "fr_Delete Address",
   "common.saveRevert": "fr_Please save or revert the record",
-  "errorSummary.address": "fr_Address Form",
+  "errorSummary.company": "fr_Company Form",
   "error.found.plural": "fr_errors were found",
   "error.found.singular": "fr_error was found",
   "appl.status": "fr_Enrolment Status",

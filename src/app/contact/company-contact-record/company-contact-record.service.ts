@@ -14,6 +14,7 @@ export class CompanyContactRecordService {
     }
     return fb.group({
         id: -1,
+        seqNumber: -1,
         detailsDirty: [false, Validators.required],
         isNew: true,
         contactDetails: ContactDetailsService.getReactiveModel(fb)

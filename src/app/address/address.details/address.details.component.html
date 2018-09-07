@@ -29,9 +29,9 @@
                             parentLabel="REP Address"></control-messages>
         </label>
       </div>
-      <div class="form-group col-sm-5 col-xs-12" [ngClass]="{'has-error':addressFormLocalModel.controls.country.invalid}">
+      <div class="form-group col-sm-5 col-xs-12" >
         <label for="country" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>Country</span>
+          <span class="field-name" i18n>{{'addressDetails.country'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <div class="margin-top-small">
             <ng-select id="country" formControlName="country" class="required"
@@ -47,7 +47,7 @@
           <control-messages *ngIf="addressFormLocalModel.controls.country.invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls.country"
-                            controlId="country" label="Country" parentId="addressDetails"
+                            controlId="country" label="addressDetails.country" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
         </label>
       </div>
