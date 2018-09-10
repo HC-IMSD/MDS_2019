@@ -40,8 +40,8 @@ export class ValidationService {
       return {'invalidPassword': true};
     }
   }*/
-  static canadaPostalValidator(control){
-    if(!control.value){
+  static canadaPostalValidator(control) {
+    if (!control.value) {
       return null;
     }
     if (control.value.match(/^(?!.*[DFIOQU])[A-VXYa-vxy][0-9][A-Za-z] ?[0-9][A-Za-z][0-9]$/)) {
@@ -51,14 +51,25 @@ export class ValidationService {
     }
 
   }
-  static usaPostalValidator(control){
-    if(!control.value){
+  static usaPostalValidator(control) {
+    if (!control.value) {
       return null;
     }
     if (control.value.match(/^[0-9]{5}(?:-[0-9]{4})?$/)) {
       return null;
     } else {
       return {'error.mgs.zip': true};
+    }
+  }
+
+  static countryValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value[0].id !== '') {
+      return null;
+    } else {
+      return {'required': true};
     }
   }
 

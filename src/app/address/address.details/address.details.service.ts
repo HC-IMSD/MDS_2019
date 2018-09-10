@@ -29,7 +29,7 @@ export class AddressDetailsService {
       provText: '',
       provList: '',
       city: ['', [Validators.required, Validators.min(5)]],
-      country: [null, Validators.required],
+      country: [null, [Validators.required, ValidationService.countryValidator]],
       postal: ['', []]
     });
   }
