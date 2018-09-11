@@ -3,28 +3,32 @@ import {TranslateService} from '@ngx-translate/core';
 export class ValidationService {
 
   constructor() {
-    //private translate: TranslateService
+    // private translate: TranslateService
     // this.translate.get('error.msg.required').subscribe(res => { console.log(res); });
 
   }
 
 
   static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
-    //TODO sucky need to make the keys the same as the translation for the error summary
-    let config = {
+    // TODO sucky need to make the keys the same as the translation for the error summary
+    const config = {
       'required': 'required',
+      'error.msg.phone': 'error.msg.phone',
       'error.msg.email': 'error.msg.email',
       'minlength': `Minimum length ${validatorValue.requiredLength}`,
       'error.msg.postal': 'error.msg.postal',
-      'error.mgs.zip':'error.mgs.zip'
+      'error.mgs.zip': 'error.mgs.zip'
     };
 
     return config[validatorName];
   }
 
   static emailValidator(control) {
+    if (!control.value) {
+      return null;
+    }
     // RFC 2822 compliant regex
-    if (control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
+    if (control.value.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)) {
       return null;
     } else {
       return {'error.msg.email': true};
@@ -73,4 +77,14 @@ export class ValidationService {
     }
   }
 
+  static phoneNumberValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]*$/)) {
+      return null;
+    } else {
+      return {'error.msg.phone': true};
+    }
+  }
 }

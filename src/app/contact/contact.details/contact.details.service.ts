@@ -49,10 +49,10 @@ export class ContactDetailsService {
       lastName: [null, Validators.required],
       language: '',
       jobTitle: [null, Validators.required],
-      faxNumber: ['', [Validators.min(10), Validators.pattern('^[0-9]*$')]],
-      phoneNumber: ['', [Validators.required, Validators.min(10), Validators.pattern('^[0-9]*$')]],
+      faxNumber: ['', [Validators.minLength(10), Validators.pattern('^[0-9]*$')]],
+      phoneNumber: ['', [Validators.required, Validators.minLength(10), ValidationService.phoneNumberValidator]],
       phoneExtension: '',
-      email: [null, [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')]]
+      email: [null, [Validators.required, ValidationService.emailValidator]]
     });
   }
 

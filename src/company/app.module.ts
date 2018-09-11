@@ -27,7 +27,6 @@ import {CompanyDataLoaderService} from '../app/data-loader/company-data-loader.s
   declarations: [
     AppComponent,
     ApplicationInfoComponent,
-    //AddressDetailsComponent,
     CompanyBaseComponent
   ],
   imports: [
@@ -68,5 +67,5 @@ export class AppModule {
 
 export function HttpLoaderFactory(http: HttpClient) {
   // return new TranslateHttpLoader(http);
-  return new TranslateHttpLoader(http, '../assets/i18n/company/', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/company/', '.json');
 }
