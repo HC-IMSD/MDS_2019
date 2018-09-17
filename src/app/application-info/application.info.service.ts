@@ -7,9 +7,9 @@ import {ListService} from '../list-service';
 @Injectable()
 export class ApplicationInfoService {
   public statusList: Array<any> = [
-    {id: 'NEW', label_en: 'New', label_fr: 'fr_New'},
-    {id: 'AMEND', label_en: 'Amend', label_fr: 'fr_Amend'},
-    {id: 'FINAL', label_en: 'Final', label_fr: 'fr_Final'}
+    GlobalsService.NEW,
+    GlobalsService.AMEND,
+    GlobalsService.FINAL
   ];
 
 
@@ -24,10 +24,10 @@ export class ApplicationInfoService {
   public static getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
-      status: {id: 'NEW', label_en: 'New', label_fr: 'fr_New'},
-      enrolVersion: '0.0',
+      formStatus: GlobalsService.NEW,
+      enrolVersion: '0.1',
       lastSavedDate: '',
-      companyId: ['', [Validators.required, Validators.min(5)]]
+      companyId: ['', [Validators.required, ValidationService.companyIdValidator]]
     });
   }
 
@@ -38,51 +38,23 @@ export class ApplicationInfoService {
   public static getEmptyModel() {
     return (
       {
-        status: {id: 'NEW', label_en: 'New', label_fr: 'fr_New'},
-        enrolVersion: '0.0',
+        status: '',
+        enrolVersion: '0.1',
         lastSavedDate: '',
         companyId: ''
       }
     );
   }
 
-  public static mapFormModelToDataModel(formRecord: FormGroup, applicationInfoModel, statusList) {
-    if (formRecord.controls.status.value && formRecord.controls.status.value.length > 0) {
-      const status_record = ApplicationInfoService.findRecordByTerm(statusList, formRecord.controls.status.value[0], 'id');
-      // this removes the 'text' property that the control needs
-      applicationInfoModel.status = {
-        '__text': status_record.id,
-        '_label_en': status_record.en,
-        '_label_fr': status_record.fr
-      };
-    } else {
-      applicationInfoModel.status = {
-        '__text': statusList[0].id,
-        '_label_en': statusList[0].en,
-        '_label_fr': statusList[0].fr
-      };
-    }
+  public static mapFormModelToDataModel(formRecord: FormGroup, applicationInfoModel) {
+    applicationInfoModel.status = formRecord.controls.formStatus.value;
     applicationInfoModel.enrolVersion = formRecord.controls.enrolVersion.value;
     applicationInfoModel.lastSavedDate = formRecord.controls.lastSavedDate.value;
     applicationInfoModel.companyId = formRecord.controls.companyId.value;
   }
 
-  public static mapDataModelToFormModel(applicationInfoModel, formRecord: FormGroup, statusList) {
-    const recordIndex = ListService.getRecord(statusList, applicationInfoModel.status.__text, 'id');
-    let labelText = '';
-    if (recordIndex > -1) {
-      labelText = statusList[recordIndex].text;
-    }
-    if (applicationInfoModel.status) {
-      formRecord.controls.status.setValue([
-        {
-          'id': applicationInfoModel.status.__text,
-          'text': labelText
-        }
-      ]);
-    } else {
-      formRecord.controls.status.setValue(null);
-    }
+  public static mapDataModelToFormModel(applicationInfoModel, formRecord: FormGroup) {
+    formRecord.controls.formStatus.setValue(applicationInfoModel.status);
     formRecord.controls.enrolVersion.setValue(applicationInfoModel.enrolVersion);
     formRecord.controls.lastSavedDate.setValue(applicationInfoModel.lastSavedDate);
     formRecord.controls.companyId.setValue(applicationInfoModel.companyId);
@@ -97,26 +69,19 @@ export class ApplicationInfoService {
     record.controls.id.setValue(value);
   }
 
+  /**
+   * Sets the Final Status
+   *
+   */
+  public static setAmendStatus() {
+    return GlobalsService.AMEND;
+  }
+
   public setValidaors(record: FormGroup, eventValue) {
-    record.controls.companyId.setValidators([Validators.required, Validators.min(5)]);
+    record.controls.companyId.setValidators([Validators.required, ValidationService.companyIdValidator]);
     record.controls.companyId.updateValueAndValidity();
     return [];
   }
 
-  /**
-   * Find a record by its unique id,. If a dup, returns first instance
-   * @param list
-   * @param criteria
-   * @returns {any}
-   */
-  public static findRecordByTerm(list, criteria, searchTerm) {
-
-    let result = list.filter(
-      item => item[searchTerm] === criteria[searchTerm]);
-    if (result && result.length > 0) {
-      return result[0];
-    }
-    return null;
-  }
 
 }

@@ -27,7 +27,8 @@
     "docs:serve": "npm run docs:build -- -s",
     "docs:watch": "npm run docs:build -- -s -w",
     "serve app1": "ng serve --app app1",
-    "serve company": "ng serve --app company"
+    "serve company": "ng serve --app company",
+    "serve company-internal": "ng serve --app company_internal"
   },
   "private": true,
   "dependencies": {

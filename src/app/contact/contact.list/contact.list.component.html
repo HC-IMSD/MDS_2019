@@ -5,7 +5,7 @@
                         [columnDefinitions]="columnDefinitions"
                         [deleteRecord]="deleteRecordMsg">
       <company-contact-record
-        [detailsChanged]="updateContactDetails"
+        [detailsChanged]="updateContactDetails" [isInternal]="isInternal"
         (saveRecord)="saveContactRecord($event)"
         (errors)="updateErrorList($event)"
         (revertRecord)="revertContact($event)" (deleteRecord)="deleteContact($event)"></company-contact-record>
@@ -13,7 +13,7 @@
     </expander-component>
     <div *ngIf="newRecordIndicator">
       <company-contact-record
-        [detailsChanged]="updateContactDetails"
+        [detailsChanged]="updateContactDetails" [isInternal]="isInternal"
         [countries]="countryList"
         [group]="newContactForm"
         (saveRecord)="saveContactRecord($event)"

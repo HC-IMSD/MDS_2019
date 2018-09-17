@@ -24,6 +24,7 @@
   "error.msg.email": "fr_Please specify a valid email address",
   "error.msg.postal": "fr_Please specify a valid postal code.",
   "error.mgs.zip": "fr_Please specify a valid zip code.",
+  "error.mgs.company.id": "fr_Please specify a valid company ID.",
   "postal.canada": "fr_Postal Code",
   "postal.usa": "fr_Zip Code",
   "heading.company": "fr_Regulatory Company Enrolment",

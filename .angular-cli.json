@@ -71,7 +71,7 @@
         "wet-boew",
         "favicon.ico"
       ],
-      "index": "./company/company_internal.html",
+      "index": "./company_internal.html",
       "main": "./company/main_company.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",

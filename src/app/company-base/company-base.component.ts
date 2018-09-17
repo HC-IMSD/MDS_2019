@@ -1,10 +1,11 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, Input} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, Input, ElementRef} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 // import {TranslateService} from '@ngx-translate/core';
 import {CompanyBaseService} from './company-base.service';
 import {FileConversionService} from '../filereader/file-io/file-conversion.service';
 import {ConvertResults} from '../filereader/file-io/convert-results';
+import {GlobalsService} from '../globals/globals.service';
 // import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {NgbTabset} from '@ng-bootstrap/ng-bootstrap';
@@ -20,15 +21,18 @@ import {TranslateService} from '@ngx-translate/core';
 
 export class CompanyBaseComponent implements OnInit {
   public errors;
-  @Input() isInternal: boolean;
+  @Input() isInternal;
+  @Input() lang;
   @ViewChild('tabs') private tabs: NgbTabset;
 
+  private _appInfoErrors = [];
+  private _addressErrors = [];
+  private isFinal = false;
   public companyForm: FormGroup;
   public errorList = [];
   public rootTagText = 'COMPANY_ENROL';
-  public testData: ConvertResults = null;
-  private _appInfoErrors = [];
-  private _addressErrors = [];
+  public isInternalSite = false;
+  // public testData: ConvertResults = null;
   // public _theraErrors = [];
   private _contactErrors = [];
   public countryList = [];
@@ -44,6 +48,7 @@ export class CompanyBaseComponent implements OnInit {
   public contactModel = [];
   public foo = '';
   public fileServices: FileConversionService;
+  public saveXmlLabel = 'save.draft';
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private dataLoader: CompanyDataLoaderService,
@@ -62,11 +67,16 @@ export class CompanyBaseComponent implements OnInit {
     this.countryList = await (this.dataLoader.getCountries(this.translate.currentLang));
     this.provinceList = await (this.dataLoader.getProvinces(this.translate.currentLang));
     this.stateList = await (this.dataLoader.getStates(this.translate.currentLang));
+    // console.log('isInternal in ngOnInit: ' + this.isInternal);
+    if (this.isInternal === GlobalsService.YES) {
+      this.isInternalSite = true;
+      // console.log('isInternalSite in ngOnInit: ' + this.isInternalSite);
+      this.saveXmlLabel = 'approve.final';
+    }
   }
 
   processErrors() {
-    // console.log('@@@@@@@@@@@@ Processing errors in Company base component @@@@@@@@@@@@');
-
+    // console.log('@@@@@@@@@@@@ Processing errors in Company base compo
     this.errorList = [];
     // concat the two array
     this.errorList = this._appInfoErrors.concat(this._addressErrors.concat(this._contactErrors)); // .concat(this._theraErrors);
@@ -119,6 +129,9 @@ export class CompanyBaseComponent implements OnInit {
     if (this.errorList && this.errorList.length > 0) {
       this.showErrors = true;
     } else {
+      if (this.isInternalSite) {
+        this.appInfoModel.status = CompanyBaseService.setFinalStatus();
+      }
       const result = {
         'COMPANY_ENROL': {
           'application_information': this.appInfoModel,
@@ -143,10 +156,12 @@ export class CompanyBaseComponent implements OnInit {
      console.log('processing file.....');
      console.log(fileData);
     this.appInfoModel = fileData.data.COMPANY_ENROL.application_information;
+    this.isFinal = (this.appInfoModel.status === GlobalsService.FINAL);
     this.addressModel = fileData.data.COMPANY_ENROL.address;
-    this.contactModel = fileData.data.COMPANY_ENROL.contacts;
+    const cont = fileData.data.COMPANY_ENROL.contacts;
+    this.contactModel = (cont instanceof Array) ? cont : [cont];
 
-    this.testData = fileData.data;
+    // this.testData = fileData.data;
   }
 
   public preload() {

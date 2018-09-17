@@ -32,10 +32,10 @@
           </header>
           <div class="panel-body">
 
-            <application-info [showErrors]="showErrors" [isInternal]="isInternal" [inComplete]="false"
-                              [detailsChanged]="updateChild"
+            <application-info [showErrors]="showErrors" [isInternal]="isInternalSite" [inComplete]="isFinal"
+                              [detailsChanged]="updateChild" [lang]="lang"
                               [appInfoModel]="appInfoModel"
-                              (errors)="processAppInfoErrors($event)">
+                              (errorList)="processAppInfoErrors($event)">
             </application-info>
             <!-- [group]="applicationInfoFormRecord"-->
 
@@ -52,7 +52,7 @@
                   <h3 class="panel-title">{{'heading.addressInfo'|translate}}</h3>
                 </header>
                 <div class="panel-body">
-                  <address-details [showErrors]="showErrors" [countryList]="countryList"
+                  <address-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
                                    [detailsChanged]="updateChild" [provinceList]="provinceList"
                                    [addressModel]="addressModel" [stateList]="stateList"
                                    (errorList)="processAddressErrors($event)"></address-details>
@@ -74,7 +74,7 @@
                   <h3 class="panel-title">{{'heading.contactInfo'|translate}}</h3>
                 </header>
                 <div class="panel-body">
-                  <contact-list  (errors)="processContactErrors($event)" [isInternal]="isInternal"
+                  <contact-list  (errors)="processContactErrors($event)" [isInternal]="isInternalSite"
                                  [contactModel]="contactModel"></contact-list>
                 </div>
               </section>
@@ -92,7 +92,7 @@
       </div>
       <div class="form-group col-md-4">
         <button class="btn btn-primary btn-lg active" (click)="saveXmlFile()" i18n>
-          {{'save.draft'|translate}}
+          {{saveXmlLabel|translate}}
         </button>
       </div>
     </div>

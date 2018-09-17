@@ -54,8 +54,9 @@
     </div>
     <div class="row">
       <div *ngIf="!showProvText" class="form-group col-xs-12 col-sm-6" >
-        <label for="provState" class="full-width">
+        <label for="provState" class="required full-width">
           <span class="field-name">{{provinceLabel |translate}}</span>
+          <strong *ngIf="!showProvText" class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <select id="provState" required class="form-control full-width" (blur)="onblur()"
                   formControlName="provList">
             <option *ngFor="let prov of provStateList" [ngValue]="prov.id"> {{prov.text}}</option>
@@ -85,7 +86,7 @@
           <span class="field-name" i18n>{{postalLabel |translate}}</span>
           <strong *ngIf="!showProvText" class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <input id="postal" class="form-control" formControlName="postal"  (blur)="onblur()"
-                 maxlength="7" />
+                 maxlength="10" />
           <control-messages *ngIf="addressFormLocalModel.controls.postal.invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls.postal"

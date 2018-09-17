@@ -8,6 +8,11 @@ export class GlobalsService {
   public static DATA_PATH:string='./assets/data/';
   public static ENGLISH:string='en';
   public static FRENCH:string='fr';
+  public static YES:string='yes';
+  public static NO:string='no';
+  public static NEW:string='NEW';
+  public static AMEND:string='AMEND';
+  public static FINAL:string='FINAL';
 
   constructor() { }
 

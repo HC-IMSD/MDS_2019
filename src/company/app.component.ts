@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ElementRef} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import { environment } from '../environments/environment';
 /*declare var xml2js: any;*/
@@ -14,10 +14,12 @@ export class AppComponent {
 
   public translateInstance: TranslateService;
   @Input() isInternal: boolean;
+  public language = 'en';
 
 // we will use form builder to simplify our syntax
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService, private elementRef: ElementRef) {
     translate.setDefaultLang(environment.lang);
+    this.language = environment.lang;
     console.log(environment.lang);
     this.translateInstance = translate;
     // the lang to use, if the lang isn't available, it will use the current loader to get them
@@ -25,7 +27,9 @@ export class AppComponent {
     this.translate.get('commmon.required.bracket').subscribe(res => {
       console.log(res);
     });
-    // this.isInternal = false;
+    this.isInternal = elementRef.nativeElement.getAttribute('isInternal');
+    // console.log(elementRef.nativeElement.getAttribute('isInternal'));
+    // console.log('isInternal: ' + this.isInternal);
   }
 
 }

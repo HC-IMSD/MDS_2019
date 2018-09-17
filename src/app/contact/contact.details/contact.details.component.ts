@@ -38,11 +38,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
     this.showFieldErrors = false;
     this.showErrors = false;
     this.detailsService = new ContactDetailsService();
-    if (this.isInternal) {
-      this.statuses = this.detailsService.statusListInternal;
-    } else {
-      this.statuses = this.detailsService.statusListExternal;
-    }
+    this.statuses = this.detailsService.statusListExternal;
     this.salutations = this.detailsService.salutationList;
     this.languages = this.detailsService.languageList;
   }
@@ -85,6 +81,10 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if (changes['isInternal'] && changes['isInternal'].currentValue) {
+      console.log('this.isInterannnnnl in ContactListComponent: ' + this.isInternal);
+      this.statuses = this.detailsService.statusListInternal;
+    }
 
     // since we can't detect changes on objects, using a separate flag
     if (changes['detailsChanged']) { // used as a change indicator for the model

@@ -5,6 +5,7 @@ import {
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
 import {ApplicationInfoService} from './application.info.service';
+import {GlobalsService} from '../globals/globals.service';
 import {isArray} from 'util';
 
 
@@ -24,21 +25,19 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() inComplete: boolean;
-  @Input() isInternal: boolean; // todo: control if this is internal site ???
+  @Input() isInternal: boolean;
   @Output() errorList = new EventEmitter();
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  public statusList: Array<any> = [];
-  public isAmend: boolean = true;
+  public isAmend = true;
   public showFieldErrors: boolean;
-  public setAsIncomplete = true;
+  public setAsComplete = true;
   private detailsService: ApplicationInfoService;
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef) {
     this.showFieldErrors = false;
     // this.showErrors = false;
     this.detailsService = new ApplicationInfoService();
-    this.statusList = this.detailsService.statusList;
   }
 
   ngOnInit() {
@@ -46,6 +45,7 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
       this.applicationInfoFormLocalModel = ApplicationInfoService.getReactiveModel(this._fb);
     }
     this.detailsChanged = 0;
+    console.log('this.isInternal: ' + this.isInternal);
   }
 
   ngAfterViewInit() {
@@ -79,8 +79,8 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
 
   ngOnChanges(changes: SimpleChanges) {
 
-    //since we can't detect changes on objects, using a separate flag
-    if (changes['detailsChanged']) { //used as a change indicator for the model
+    // since we can't detect changes on objects, using a separate flag
+    if (changes['detailsChanged']) { // used as a change indicator for the model
       // console.log("the details cbange");
       if (this.applicationInfoFormRecord) {
         this.setToLocalModel();
@@ -91,7 +91,7 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
       }
       if (this.applicationInfoFormLocalModel ) {
         ApplicationInfoService.mapFormModelToDataModel((<FormGroup>this.applicationInfoFormLocalModel),
-          this.appInfoModel, this.statusList);
+          this.appInfoModel);
       }
     }
     if (changes['showErrors']) {
@@ -107,12 +107,12 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
       this.errorList.emit(temp);
     }
     if (changes['inComplete']) {
-      this.setAsIncomplete = changes['inComplete'].currentValue && this.isInternal;
+      this.setAsComplete = changes['inComplete'].currentValue && this.isInternal;
     }
     if (changes['appInfoModel']) {
       const dataModel = changes['appInfoModel'].currentValue;
       ApplicationInfoService.mapDataModelToFormModel(dataModel,
-        (<FormGroup>this.applicationInfoFormLocalModel), this.statusList);
+        (<FormGroup>this.applicationInfoFormLocalModel));
       // this.validRec = true; todo: valid record ???
     }
 
@@ -138,7 +138,7 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
     if (!this.applicationInfoFormLocalModel) {
       return false;
     }
-    return this.applicationInfoFormLocalModel.status === 'AMEND';
+    return this.applicationInfoFormLocalModel.controls.formStatus.value === GlobalsService.AMEND;
   }
 
   disableAmend () {
@@ -147,6 +147,15 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
 
   public setAmendState () {
     this.isAmend = true;
+    this.appInfoModel.status = ApplicationInfoService.setAmendStatus();
+    ApplicationInfoService.mapDataModelToFormModel(this.appInfoModel,
+      (<FormGroup>this.applicationInfoFormLocalModel));
+  }
+
+  onblur() {
+    // console.log('input is typed');
+    ApplicationInfoService.mapFormModelToDataModel((<FormGroup>this.applicationInfoFormLocalModel),
+      this.appInfoModel);
   }
 
   // typed(rec) {
@@ -155,11 +164,6 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
   //   if (content && this.existsInList(content)) {
   //     this.applicationInfoFormLocalModel.controls.country.setValue([content]);
   //   }
-  // }
-  //
-  // onblur() {
-  //   console.log(' BLRRE$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
-  //
   // }
   //
   // existsInList(rec) {

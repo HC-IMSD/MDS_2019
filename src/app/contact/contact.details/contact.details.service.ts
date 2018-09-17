@@ -14,13 +14,13 @@ export class ContactDetailsService {
     {id: 'DELETE', label_en: 'Delete', label_fr: 'fr_Delete'}
   ];
   public statusListAdd: Array<any> = [
-    {id: 'ACTIVE', label_en: 'Amend', label_fr: 'fr_Amend'},
-    {id: 'INACTIVE', label_en: 'Final', label_fr: 'fr_Final'}
+    {id: 'ACTIVE', label_en: 'Active', label_fr: 'fr_Active'},
+    {id: 'INACTIVE', label_en: 'Inactive', label_fr: 'fr_Inactive'}
   ];
   public statusListInternal: Array<any> = this.statusListExternal.concat(this.statusListAdd);
 
   public salutationList: Array<any> = [
-    {id: 'DR', label_en: 'Dr.', label_fr: 'fr_New'},
+    {id: 'DR', label_en: 'Dr.', label_fr: 'fr_Dr.'},
     {id: 'MR', label_en: 'Mr.', label_fr: 'fr_Mr.'},
     {id: 'MRS', label_en: 'Mrs.', label_fr: 'fr_Mrs.'},
     {id: 'MS', label_en: 'Ms.', label_fr: 'fr_Ms.'}

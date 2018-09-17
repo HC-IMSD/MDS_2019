@@ -17,7 +17,8 @@ export class ValidationService {
       'error.msg.email': 'error.msg.email',
       'minlength': `Minimum length ${validatorValue.requiredLength}`,
       'error.msg.postal': 'error.msg.postal',
-      'error.mgs.zip': 'error.mgs.zip'
+      'error.mgs.zip': 'error.mgs.zip',
+      'error.mgs.company.id': 'error.mgs.company.id'
     };
 
     return config[validatorName];
@@ -85,6 +86,17 @@ export class ValidationService {
       return null;
     } else {
       return {'error.msg.phone': true};
+    }
+  }
+
+  static companyIdValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[A-Za-z0-9]{6}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.company.id': true};
     }
   }
 }

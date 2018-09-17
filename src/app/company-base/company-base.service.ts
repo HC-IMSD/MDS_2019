@@ -21,8 +21,8 @@ export class CompanyBaseService {
       return null;
     }
     return fb.group({
-      status: {},
-      enrolVersion: '0.0',
+      status: '',
+      enrolVersion: '0.1',
       lastSavedDate: '',
       companyId: ['', [Validators.required, Validators.min(5)]]
     });
@@ -56,11 +56,20 @@ export class CompanyBaseService {
   public static getEmptyAppInfoModel() {
     return (
       {
-        status: {id: 'NEW', label_en: 'New', label_fr: 'fr_New'},
-        enrolVersion: '0.0',
+        status: '',
+        enrolVersion: '0.1',
         lastSavedDate: '',
         companyId: ''
       }
     );
+  }
+
+  /**
+   * Sets the Final Status
+   *
+   */
+  public static setFinalStatus() {
+
+    return 'FINAL';
   }
 }

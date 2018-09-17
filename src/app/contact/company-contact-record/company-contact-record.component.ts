@@ -23,6 +23,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Input('group') public contactFormRecord: FormGroup;
   @Input() detailsChanged: number;
   @Input() countries: Array<any>;
+  @Input() isInternal: boolean;
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();

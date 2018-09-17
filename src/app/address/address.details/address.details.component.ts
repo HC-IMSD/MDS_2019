@@ -28,6 +28,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Input() provinceList: Array<any>;
   @Input() stateList: Array<any>;
   @Input() addressModel;
+  @Input() lang;
   @Output() errorList = new EventEmitter();
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
@@ -203,7 +204,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   typed(rec) {
     let content = rec.toString().replace(/[\x00-\x7F]/g, '', '');
-    console.log('country is typed');
+    // console.log('country is typed');
     if (content && this.existsInList(content)) {
       this.addressFormLocalModel.controls.country.setValue([content]);
       AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
@@ -212,7 +213,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   onblur() {
-    console.log('input is typed');
+    // console.log('input is typed');
     AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
       this.addressModel, this.countryList);
   }

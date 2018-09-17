@@ -71,6 +71,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   }
 
   ngOnInit() {
+    // console.log('this.isInterannnnnl: ' + this.isInternal);
     if (this.isInternal) {
       this.columnDefinitions.concat(
         {
@@ -185,9 +186,17 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
    * @param {SimpleChanges} changes
    */
   ngOnChanges(changes: SimpleChanges) {
+    if (changes['isInternal'] && changes['isInternal'].currentValue) {
+      this.columnDefinitions = this.columnDefinitions.concat(
+        {
+          label: 'Status',
+          binding: 'contactStatus',
+          width: '25'
+        }
+      );
+    }
     if (changes['saveContact']) {
       this.saveContactRecord(changes['saveContact'].currentValue);
-
     }
     if (changes['contactModel']) {
       this.service.setModelRecordList(changes['contactModel'].currentValue);
