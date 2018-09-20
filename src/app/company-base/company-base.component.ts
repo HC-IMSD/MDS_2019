@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, Input, ElementRef} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, Input} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 // import {TranslateService} from '@ngx-translate/core';
@@ -27,7 +27,7 @@ export class CompanyBaseComponent implements OnInit {
 
   private _appInfoErrors = [];
   private _addressErrors = [];
-  private isFinal = false;
+  public isFinal = false;
   public companyForm: FormGroup;
   public errorList = [];
   public rootTagText = 'COMPANY_ENROL';
@@ -49,6 +49,7 @@ export class CompanyBaseComponent implements OnInit {
   public foo = '';
   public fileServices: FileConversionService;
   public saveXmlLabel = 'save.draft';
+  public xslName = 'REP_MDS_CO_1_0.xsl';
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private dataLoader: CompanyDataLoaderService,
@@ -139,7 +140,7 @@ export class CompanyBaseComponent implements OnInit {
           'contacts': this.contactModel
         }
       };
-      this.fileServices.saveXmlToFile(result, 'hcmdsco', true, null);
+      this.fileServices.saveXmlToFile(result, 'hcmdsco', true, this.xslName);
     }
   }
 

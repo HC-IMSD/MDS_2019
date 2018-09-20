@@ -17,6 +17,13 @@
     "prod-company-build-internal": "npm run prod-company-build-internal-en & npm run prod-company-build-internal-fr",
     "prod-company-build-internal-en": "ng build -prod --output-path dist/prod/company/internal/en/ --env=prod-en --app company_internal",
     "prod-company-build-internal-fr": "ng build -prod --output-path dist/prod/company/internal/fr/ --env=prod-fr --app company_internal",
+    "prod-dossier-build": "npm run prod-dossier-build-external & npm run prod-dossier-build-internal",
+    "prod-dossier-build-external": "npm run prod-dossier-build-external-en & npm run prod-dossier-build-external-fr",
+    "prod-dossier-build-external-en": "ng build -prod --output-path dist/prod/dossier/external/en/ --env=prod-en --app dossier",
+    "prod-dossier-build-external-fr": "ng build -prod --output-path dist/prod/dossier/external/fr/ --env=prod-fr --app dossier",
+    "prod-dossier-build-internal": "npm run prod-dossier-build-internal-en & npm run prod-dossier-build-internal-fr",
+    "prod-dossier-build-internal-en": "ng build -prod --output-path dist/prod/dossier/internal/en/ --env=prod-en --app dossier_internal",
+    "prod-dossier-build-internal-fr": "ng build -prod --output-path dist/prod/dossier/internal/fr/ --env=prod-fr --app dossier_internal",
     "test": "ng test",
     "lint": "ng lint  ",
     "e2e": "ng e2e",
@@ -28,7 +35,9 @@
     "docs:watch": "npm run docs:build -- -s -w",
     "serve app1": "ng serve --app app1",
     "serve company": "ng serve --app company",
-    "serve company-internal": "ng serve --app company_internal"
+    "serve company-internal": "ng serve --app company_internal",
+    "serve dossier": "ng serve --app dossier",
+    "serve dossier-internal": "ng serve --app dossier_internal"
   },
   "private": true,
   "dependencies": {

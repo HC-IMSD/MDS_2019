@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <form [formGroup]="dossierForm" novalidate>
+    <!-- we will place our fields here -->
+    <div>
+      <h1>{{'dossier.form.title'|translate}}</h1>
+
+      <div>
+        <section class="panel panel-primary mrgn-tp-lg">
+          <header class="panel-heading clearfix">
+            <div class="btn-group pull-right">
+            </div>
+            <h2 class="panel-title">{{'dossier.load.file'|translate}}</h2>
+          </header>
+          <div class="panel-body">
+            <div class="row">
+              <filereader (complete)="processFile($event)" [rootTag]="rootTagText"></filereader>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
+                     headingPreamble="errorSummary.dossier"></error-summary>
+
+      <div>
+        <section class="panel panel-primary mrgn-tp-lg">
+          <header class="panel-heading clearfix">
+            <div class="btn-group pull-right">
+            </div>
+            <h2 class="panel-title">{{'heading.dossier'|translate}}</h2>
+          </header>
+          <div class="panel-body">
+
+            <dossier-info [showErrors]="showErrors" [isInternal]="isInternalSite" [inComplete]="isFinal"
+                              [detailsChanged]="updateChild" [lang]="lang"
+                              [appInfoModel]="appInfoModel"
+                              (errorList)="processAppInfoErrors($event)">
+            </dossier-info>
+
+            <div>
+              <section class="panel  panel-default">
+                <header class="panel-heading clearfix">
+                  <div class="btn-group pull-right">
+                  </div>
+                  <h3 class="panel-title">{{'heading.dossierInfo'|translate}}</h3>
+                </header>
+                <div class="panel-body">
+                  <dossier-details [showErrors]="showErrors" [registrarList]="registrarList"
+                                   [detailsChanged]="updateChild" [lang]="lang"
+                                   [dossierModel]="dossierModel"
+                                   (errorList)="processAddressErrors($event)"></dossier-details>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+      </div>
+      <!--   <thera-list (errors)="processTheraErrors($event)"></thera-list>-->
+    </div>
+    <div class="row btn-group-sm">
+      <div class="form-group col-md-4">
+        <button class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()" i18n>
+          {{'save.working.copy'|translate}}
+        </button>
+      </div>
+      <div class="form-group col-md-4">
+        <button class="btn btn-primary btn-lg active" (click)="saveXmlFile()" i18n>
+          {{saveXmlLabel|translate}}
+        </button>
+      </div>
+    </div>
+    <!--pre> myForm valid{{myForm.valid}}</pre>
+    <pre> myForm{{myForm.value |json}}</pre-->
+  </form>
+</div>

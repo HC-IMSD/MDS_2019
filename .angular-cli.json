@@ -41,7 +41,7 @@
         "wet-boew",
         "favicon.ico"
       ],
-      "index": "company.html",
+      "index": "index.html",
       "main": "./company/main_company.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",
@@ -71,13 +71,73 @@
         "wet-boew",
         "favicon.ico"
       ],
-      "index": "./company_internal.html",
+      "index": "./index_internal.html",
       "main": "./company/main_company.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "co",
+      "styles": [
+        "styles/styles.css",
+        "styles/rep.css"
+      ],
+      "scripts": [
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod-en": "environments/environment.prod-en.ts",
+        "prod-fr": "environments/environment.prod-fr.ts"
+      }
+    },
+    {
+      "name":"dossier",
+      "root": "src",
+      "outDir": "./dist/dev/dossier",
+      "assets": [
+        "assets",
+        "GCWeb",
+        "wet-boew",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "./dossier/main_dossier.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "do",
+      "styles": [
+        "styles/styles.css",
+        "styles/rep.css"
+      ],
+      "scripts": [
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod-en": "environments/environment.prod-en.ts",
+        "prod-fr": "environments/environment.prod-fr.ts"
+      }
+    },
+    {
+      "name":"dossier_internal",
+      "root": "src",
+      "outDir": "./dist/dev/dossier",
+      "assets": [
+        "assets",
+        "GCWeb",
+        "wet-boew",
+        "favicon.ico"
+      ],
+      "index": "index_internal.html",
+      "main": "./dossier/main_dossier.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "do",
       "styles": [
         "styles/styles.css",
         "styles/rep.css"
