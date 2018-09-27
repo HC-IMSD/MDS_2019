@@ -10,9 +10,12 @@ export class GlobalsService {
   public static FRENCH:string='fr';
   public static YES:string='yes';
   public static NO:string='no';
+  public static YESNOList = [GlobalsService.YES, GlobalsService.NO];
   public static NEW:string='NEW';
   public static AMEND:string='AMEND';
   public static FINAL:string='FINAL';
+  public static DEVICE_TYPE_EN:string='Medical Device';
+  public static DEVICE_TYPE_FR:string='fr_Medical Device';
 
   constructor() { }
 

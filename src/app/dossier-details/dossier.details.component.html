@@ -1,0 +1,134 @@
+<div>
+  <div [formGroup]="dossierFormLocalModel">
+    <div class="row">
+      <div class="form-group col-xs-12" >
+        <label for="dossierType" class="full-width">
+          <span class="field-name" i18n>{{'dossier.type'|translate}}</span>
+          <input id="dossierType" class="form-control full-width" [readonly]="true"
+                 formControlName="dossierType" maxlength="80"/>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-4" >
+        <label for="companyId" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{'company.id'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <input id="companyId" class="form-control full-width" (blur)="onblur()"
+                 formControlName="companyId" maxlength="80"/>
+          <control-messages *ngIf="dossierFormLocalModel.controls.companyId.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="dossierFormLocalModel.controls.companyId"
+                            controlId="companyId" label="company.id" parentId="dossierDetails"
+                            parentLabel="Dossier Information"></control-messages>
+        </label>
+      </div>
+      <div class="form-group col-xs-4" >
+        <label for="contactId" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{'contact.id'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <input id="contactId" class="form-control full-width"  (blur)="onblur()"
+                 formControlName="contactId" maxlength="60"/>
+          <control-messages *ngIf="dossierFormLocalModel.controls.contactId.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="dossierFormLocalModel.controls.contactId"
+                            controlId="contactId" label="contact.id" parentId="dossierDetails"
+                            parentLabel="Dossier Information"></control-messages>
+        </label>
+      </div>
+      <div class="form-group col-xs-4" >
+        <label for="deviceClass" class="required full-width">
+          <span class="field-name" i18n>{{'device.class' | translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <select id="deviceClass" required class="form-control full-width" (blur)="onblur()"
+                  formControlName="deviceClass">
+            <option *ngFor="let class of deviceClassList" [ngValue]="class"> {{class|translate}}</option>
+
+          </select>
+          <control-messages *ngIf="dossierFormLocalModel.controls.deviceClass.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="dossierFormLocalModel.controls.deviceClass"
+                            controlId="deviceClass" label="device.class" parentId="dossierDetails"
+                            parentLabel="Dossier Information"></control-messages>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-12 col-sm-6">
+        <label for="deviceName" class="required full-width">
+          <span class="field-name">{{'device.name'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <textarea type="text" class="form-control full-width" id="deviceName" (blur)="onblur()"
+                    formControlName="deviceName" maxlength="150" />
+          <control-messages *ngIf="dossierFormLocalModel.controls.deviceName.invalid"
+                              [showError]="showFieldErrors"
+                              [control]="dossierFormLocalModel.controls.deviceName"
+                              controlId="deviceName" label="device.name" parentId="dossierDetails"
+                              parentLabel="Dossier Information"></control-messages>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-12 col-sm-6" >
+        <label for="hasQMSC" class="required full-width">
+          <span class="field-name" i18n>{{'has.qmsc' |translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <select id="hasQMSC" required class="form-control full-width" (blur)="onblur()"
+                  formControlName="hasQMSC">
+            <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+          </select>
+          <control-messages *ngIf="dossierFormLocalModel.controls.hasQMSC.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="dossierFormLocalModel.controls.hasQMSC"
+                            controlId="hasQMSC" label="has.qmsc" parentId="dossierDetails"
+                            parentLabel="Dossier Information"></control-messages>
+        </label>
+      </div>
+      <div *ngIf="isQmsc()" class="form-group col-xs-12 col-sm-6" >
+        <label for="qMSCRegistrar" class="required full-width">
+          <span class="field-name" i18n>{{'qmsc.registrar' |translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <select id="qMSCRegistrar" required class="form-control full-width" (blur)="onblur()"
+                  formControlName="qMSCRegistrar">
+            <option *ngFor="let registrar of registrarList" [ngValue]="registrar.id"> {{registrar.text}}</option>
+
+          </select>
+          <control-messages *ngIf="dossierFormLocalModel.controls.qMSCRegistrar.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="dossierFormLocalModel.controls.qMSCRegistrar"
+                            controlId="qMSCRegistrar" label="qmsc.registrar" parentId="dossierDetails"
+                            parentLabel="Dossier Information"></control-messages>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div *ngIf="isQmsc()" class="form-group col-xs-12 col-sm-6" >
+        <label for="licenceAppType" class="required full-width">
+          <span class="field-name" i18n>{{'licence.app.type' |translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <select id="licenceAppType" required class="form-control full-width" (blur)="onblur()"
+                  formControlName="licenceAppType">
+            <option *ngFor="let lat of licenceAppTypeList" [ngValue]="lat.id"> {{lat.text}}</option>
+
+          </select>
+          <control-messages *ngIf="dossierFormLocalModel.controls.licenceAppType.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="dossierFormLocalModel.controls.licenceAppType"
+                            controlId="licenceAppType" label="licence.app.type"
+                            parentId="dossierDetails"
+                            parentLabel="Dossier Information"></control-messages>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-12 col-sm-6">
+        <label for="additionalField" class="full-width">
+          <span class="field-name">{{'add.field'|translate}}</span>
+          <textarea type="text" class="form-control full-width" id="additionalField" (blur)="onblur()"
+                    formControlName="additionalField" maxlength="150" />
+        </label>
+      </div>
+    </div>
+    <!-- <pre>{{dossierFormLocalModel.value |json}}</pre>-->
+  </div>
+</div>

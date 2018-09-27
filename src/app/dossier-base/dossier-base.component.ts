@@ -1,7 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild, Input} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-// import {TranslateService} from '@ngx-translate/core';
 import {DossierBaseService} from './dossier-base.service';
 import {FileConversionService} from '../filereader/file-io/file-conversion.service';
 import {ConvertResults} from '../filereader/file-io/convert-results';
@@ -9,9 +8,8 @@ import {GlobalsService} from '../globals/globals.service';
 // import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {NgbTabset} from '@ng-bootstrap/ng-bootstrap';
-import {DossierDataLoaderService} from '../data-loader/dossier-data-loader.service';
-import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'dossier-base',
@@ -31,7 +29,6 @@ export class DossierBaseComponent implements OnInit {
   public errorList = [];
   public rootTagText = 'COMPANY_ENROL';
   public isInternalSite = false;
-  public registrarList = [];
   public showErrors: boolean;
   public title = '';
   public headingLevel = 'h2';
@@ -42,20 +39,15 @@ export class DossierBaseComponent implements OnInit {
   public xslName = 'REP_MDS_DO_1_0.xsl';
 
   /* public customSettings: TinyMce.Settings | any;*/
-  constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private dataLoader: DossierDataLoaderService,
-              private http: HttpClient, private translate: TranslateService) {
-
-    dataLoader = new DossierDataLoaderService(this.http);
-    this.registrarList = [];
+  constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef) {
     this.showErrors = false;
     this.fileServices = new FileConversionService();
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     if (!this.dossierForm) {
       this.dossierForm = DossierBaseService.getReactiveModel(this._fb);
     }
-    this.registrarList = await (this.dataLoader.getRegistrars(this.translate.currentLang));
     if (this.isInternal === GlobalsService.YES) {
       this.isInternalSite = true;
       this.saveXmlLabel = 'approve.final';
@@ -88,9 +80,7 @@ export class DossierBaseComponent implements OnInit {
     if (this.errorList && this.errorList.length > 0) {
       this.showErrors = true;
     } else {
-      if (this.isInternalSite) {
-        this.appInfoModel.status = DossierBaseService.setFinalStatus();
-      }
+      this._updatedAutoFields();
       const result = {
         'COMPANY_ENROL': {
           'application_information': this.appInfoModel,
@@ -102,6 +92,7 @@ export class DossierBaseComponent implements OnInit {
   }
 
   public saveWorkingCopyFile() {
+    this._updatedSavedDate();
     const result = {'COMPANY_ENROL': {
       'application_information': this.appInfoModel,
       'dossier': this.dossierModel
@@ -117,5 +108,19 @@ export class DossierBaseComponent implements OnInit {
     this.dossierModel = fileData.data.COMPANY_ENROL.dossier;
   }
 
+  private _updatedAutoFields() {
+    this._updatedSavedDate();
+    if (this.isInternalSite) {
+      this.appInfoModel.status = DossierBaseService.setFinalStatus();
+      this.appInfoModel.enrolVersion = Math.floor(this.appInfoModel.enrolVersion) + 1;
+    } else {
+      this.appInfoModel.enrolVersion += 0.1;
+    }
+  }
 
+  private _updatedSavedDate() {
+    const today = new Date();
+    const pipe = new DatePipe('en-US');
+    this.appInfoModel.lastSavedDate = pipe.transform(today, 'yyyy-MM-dd');
+  }
 }

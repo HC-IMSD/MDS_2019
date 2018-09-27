@@ -12,6 +12,7 @@ import {NgbTabset} from '@ng-bootstrap/ng-bootstrap';
 import {CompanyDataLoaderService} from '../data-loader/company-data-loader.service';
 import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'company-base',
@@ -145,6 +146,7 @@ export class CompanyBaseComponent implements OnInit {
   }
 
   public saveWorkingCopyFile() {
+    this._updatedSavedDate();
     const result = {'COMPANY_ENROL': {
       'application_information': this.appInfoModel,
       'address': this.addressModel,
@@ -163,6 +165,22 @@ export class CompanyBaseComponent implements OnInit {
     this.contactModel = (cont instanceof Array) ? cont : [cont];
 
     // this.testData = fileData.data;
+  }
+
+  private _updatedAutoFields() {
+    this._updatedSavedDate();
+    if (this.isInternalSite) {
+      this.appInfoModel.status = CompanyBaseService.setFinalStatus();
+      this.appInfoModel.enrolVersion = Math.floor(this.appInfoModel.enrolVersion) + 1;
+    } else {
+      this.appInfoModel.enrolVersion += 0.1;
+    }
+  }
+
+  private _updatedSavedDate() {
+    const today = new Date();
+    const pipe = new DatePipe('en-US');
+    this.appInfoModel.lastSavedDate = pipe.transform(today, 'yyyy-MM-dd');
   }
 
   public preload() {
