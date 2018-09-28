@@ -18,7 +18,7 @@ export class DossierDetailsService {
    * @param {FormBuilder} fb
    * @returns {any}
    */
-  public static getReactiveModel(fb: FormBuilder) {
+  public getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
       dossierType: [GlobalsService.DEVICE_TYPE_EN, Validators.required],
@@ -37,7 +37,7 @@ export class DossierDetailsService {
    * Gets an empty data model
    *
    */
-  public static getEmptyModel() {
+  public getEmptyModel() {
 
     return (
       {
@@ -58,31 +58,15 @@ export class DossierDetailsService {
    * Gets an data array
    *
    */
-  public static getDeviceClassList() {
-    return [
-      {
-        id: 'C1',
-        label_en: 'Class II',
-        label_fr: 'fr_Class II'
-      },
-      {
-        id: 'C2',
-        label_en: 'Class III',
-        label_fr: 'fr_Class III'
-      },
-      {
-        id: 'C3',
-        label_en: 'Class IV',
-        label_fr: 'fr_Class IV'
-      }
-    ];
+  public getDeviceClassList() {
+    return ['DC1', 'DC2', 'DC3'];
   }
 
   /**
    * Gets an yesno array
    *
    */
-  public static getYesNoList() {
+  public getYesNoList() {
     return [
       GlobalsService.YES,
       GlobalsService.NO
@@ -93,96 +77,107 @@ export class DossierDetailsService {
    * Gets an data array
    *
    */
-  public static getLicenceAppTypeList() {
+  private getRawLicenceAppTypeList() {
     return [
       {
         id: 'D',
-        label_en: 'Single Device',
-        label_fr: 'Instrument à article unique'
+        en: 'Single Device',
+        fr: 'Instrument à article unique'
       },
       {
         id: 'S',
-        label_en: 'System',
-        label_fr: 'Système'
+        en: 'System',
+        fr: 'Système'
       },
       {
         id: 'K',
-        label_en: 'Test Kit',
-        label_fr: 'Trousse d\'essai'
+        en: 'Test Kit',
+        fr: 'Trousse d\'essai'
       },
       {
         id: 'F',
-        label_en: 'Device Family',
-        label_fr: 'Famille d\'instruments'
+        en: 'Device Family',
+        fr: 'Famille d\'instruments'
       },
       {
         id: 'G',
-        label_en: 'Device Group',
-        label_fr: 'Groupe d\'instruments'
+        en: 'Device Group',
+        fr: 'Groupe d\'instruments'
       },
       {
         id: 'Y',
-        label_en: 'Device Group Family',
-        label_fr: 'Famille de groupe d\'instruments'
+        en: 'Device Group Family',
+        fr: 'Famille de groupe d\'instruments'
       },
       {
         id: 'U',
-        label_en: 'Unknown',
-        label_fr: 'Indéterminé'
+        en: 'Unknown',
+        fr: 'Indéterminé'
       }
     ];
   }
 
-
-  public static mapFormModelToDataModel(formRecord: FormGroup, addressModel, registrarList) {
-    addressModel.address = formRecord.controls.address.value;
-    addressModel.city = formRecord.controls.city.value;
-    if (formRecord.controls.country.value && formRecord.controls.country.value.length > 0) {
-      const country_record = DossierDetailsService.findRecordByTerm(registrarList, formRecord.controls.country.value[0], 'id');
-      // this removes the 'text' property that the control needs
-      if (country_record && country_record.id) {
-        addressModel.country = {
-          '__text': country_record.id,
-          '_label_en': country_record.en,
-          '_label_fr': country_record.fr
-        };
-      } else {
-        addressModel.country = null;
-      }
-    } else {
-      addressModel.country = null;
-    }
-    addressModel.postal = formRecord.controls.postal.value;
-    addressModel.prov_lov = formRecord.controls.provList.value;
-    addressModel.prov_text = formRecord.controls.provText.value;
+  /**
+   * Gets an data array
+   *
+   */
+  public getLicenceAppTypeList(lang) {
+    const rawList = this.getRawLicenceAppTypeList();
+    return this._convertListText(rawList, lang);
   }
 
-  public static mapDataModelToFormModel(addressModel, formRecord: FormGroup, registrarList) {
-    formRecord.controls.address.setValue(addressModel.address);
-    formRecord.controls.city.setValue(addressModel.city);
-    formRecord.controls.postal.setValue(addressModel.postal);
-    const recordIndex = ListService.getRecord(registrarList, addressModel.country.__text, 'id');
+  public static mapFormModelToDataModel(formRecord: FormGroup, dossierModel, registrarList) {
+    dossierModel.dossier_type = formRecord.controls.dossierType.value;
+    dossierModel.company_id = formRecord.controls.companyId.value;
+    dossierModel.contact_id = formRecord.controls.contactId.value;
+    dossierModel.device_class = formRecord.controls.deviceClass.value;
+    dossierModel.device_name = formRecord.controls.deviceName.value;
+    dossierModel.has_qmsc = formRecord.controls.hasQMSC.value;
+    if (formRecord.controls.qMSCRegistrar.value) {
+        dossierModel.registrar = {
+          '__text': formRecord.controls.qMSCRegistrar.value.id,
+          '_label_en': formRecord.controls.qMSCRegistrar.value.en,
+          '_label_fr': formRecord.controls.qMSCRegistrar.value.fr
+        };
+    } else {
+      dossierModel.registrar = null;
+    }
+    if (formRecord.controls.licenceAppType.value) {
+      dossierModel.licence_application_type = {
+        '__text': formRecord.controls.licenceAppType.value.id,
+        '_label_en': formRecord.controls.licenceAppType.value.en,
+        '_label_fr': formRecord.controls.licenceAppType.value.fr
+      };
+    } else {
+      dossierModel.licence_application_type = null;
+    }
+    dossierModel.additional_field = formRecord.controls.additionalField.value;
+  }
+
+  public static mapDataModelToFormModel(dossierModel, formRecord: FormGroup, registrarList) {
+    formRecord.controls.dossierType.setValue(dossierModel.dossier_type);
+    formRecord.controls.companyId.setValue(dossierModel.company_id);
+    formRecord.controls.contactId.setValue(dossierModel.contact_id);
+    formRecord.controls.deviceClass.setValue(dossierModel.device_class);
+    formRecord.controls.deviceName.setValue(dossierModel.device_name);
+    formRecord.controls.hasQMSC.setValue(dossierModel.has_qmsc);
+    const recordIndex = ListService.getRecord(registrarList, dossierModel.registrar.__text, 'id');
     let labelText = '';
     if (recordIndex > -1) {
       labelText = registrarList[recordIndex].text;
     }
-    // if (addressModel.country) {
-    //   formRecord.controls.country.setValue([
-    //     {
-    //       'id': addressModel.country.__text,
-    //       'text': labelText
-    //     }
-    //   ]);
-    //
-    //   if (AddressDetailsService.isCanada(addressModel.country.__text) ||
-    //       AddressDetailsService.isUsa(addressModel.country.__text)) {
-    //     formRecord.controls.provList.setValue(addressModel.prov_lov);
-    //   } else {
-    //     formRecord.controls.provText.setValue(addressModel.prov_text);
-    //   }
-    // } else {
-    //   formRecord.controls.country.setValue(null);
-    // }
+    if (dossierModel.country) {
+      formRecord.controls.qMSCRegistrar.setValue([
+        {
+          'id': dossierModel.country.__text,
+          'text': labelText
+        }
+      ]);
+    } else {
+      formRecord.controls.qMSCRegistrar.setValue(null);
+    }
+    formRecord.controls.deviceName.setValue(dossierModel.device_name);
+    formRecord.controls.hasQMSC.setValue(dossierModel.has_qmsc);
   }
 
   /**
@@ -208,6 +203,31 @@ export class DossierDetailsService {
       return result[0];
     }
     return null;
+  }
+
+  /***
+   * Converts the list iteems of id, label_en, and label_Fr
+   * @param rawList
+   * @param lang
+   * @private
+   */
+  private _convertListText(rawList, lang) {
+    const result = [];
+    if (lang === GlobalsService.FRENCH) {
+      rawList.forEach(item => {
+        item.text = item.fr;
+        result.push(item);
+        //  console.log(item);
+      });
+    } else {
+      rawList.forEach(item => {
+        item.text = item.en;
+        // console.log("adding country"+item.text);
+        result.push(item);
+        // console.log(item);
+      });
+    }
+    return result;
   }
 
 }

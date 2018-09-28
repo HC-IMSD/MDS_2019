@@ -31,11 +31,11 @@
           </header>
           <div class="panel-body">
 
-            <dossier-info [showErrors]="showErrors" [isInternal]="isInternalSite" [inComplete]="isFinal"
+            <dossier-app-info [showErrors]="showErrors" [isInternal]="isInternalSite" [inComplete]="isFinal"
                               [detailsChanged]="updateChild" [lang]="lang"
                               [appInfoModel]="appInfoModel"
                               (errorList)="processAppInfoErrors($event)">
-            </dossier-info>
+            </dossier-app-info>
 
             <div>
               <section class="panel  panel-default">

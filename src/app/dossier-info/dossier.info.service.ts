@@ -5,7 +5,7 @@ import {ValidationService} from '../validation.service';
 import {ListService} from '../list-service';
 
 @Injectable()
-export class ApplicationInfoService {
+export class DossierAppInfoService {
   public statusList: Array<any> = [
     GlobalsService.NEW,
     GlobalsService.AMEND,

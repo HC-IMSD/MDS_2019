@@ -27,12 +27,12 @@ export class DossierBaseComponent implements OnInit {
   public isFinal = false;
   public dossierForm: FormGroup;
   public errorList = [];
-  public rootTagText = 'COMPANY_ENROL';
+  public rootTagText = 'DOSSIER_ENROL';
   public isInternalSite = false;
   public showErrors: boolean;
   public title = '';
   public headingLevel = 'h2';
-  public dossierModel = DossierBaseService.getEmptyAddressDetailsModel();
+  public dossierModel = DossierBaseService.getEmptyDossierDetailsModel();
   public appInfoModel = DossierBaseService.getEmptyAppInfoModel();
   public fileServices: FileConversionService;
   public saveXmlLabel = 'save.draft';
@@ -82,22 +82,22 @@ export class DossierBaseComponent implements OnInit {
     } else {
       this._updatedAutoFields();
       const result = {
-        'COMPANY_ENROL': {
+        'DOSSIER_ENROL': {
           'application_information': this.appInfoModel,
           'dossier': this.dossierModel
         }
       };
-      this.fileServices.saveXmlToFile(result, 'hcmdsco', true, this.xslName);
+      this.fileServices.saveXmlToFile(result, 'hcmdsdo', true, this.xslName);
     }
   }
 
   public saveWorkingCopyFile() {
     this._updatedSavedDate();
-    const result = {'COMPANY_ENROL': {
+    const result = {'DOSSIER_ENROL': {
       'application_information': this.appInfoModel,
       'dossier': this.dossierModel
     }};
-    this.fileServices.saveJsonToFile(result, 'hcmdsco-test', null);
+    this.fileServices.saveJsonToFile(result, 'hcmdsdo-test', null);
   }
 
   public processFile(fileData: ConvertResults) {

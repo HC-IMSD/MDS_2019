@@ -8,7 +8,7 @@ import {ErrorModule} from '../app/error-msg/error-ui.module';
 import {DossierBaseComponent} from '../app/dossier-base/dossier-base.component';
 import {MainPipeModule} from '../app/main-pipe/main-pipe.module';
 import {GlobalsService} from '../app/globals/globals.service';
-import {ApplicationInfoComponent} from '../app/application-info/application.info.component';
+import {DossierApplInfoComponent} from '../app/dossier-info/dossier.info.component';
 import {DossierDetailsComponent} from '../app/dossier-details/dossier.details.component';
 import {FileIoModule} from '../app/filereader/file-io/file-io.module';
 
@@ -23,7 +23,7 @@ import {DossierDataLoaderService} from '../app/data-loader/dossier-data-loader.s
 @NgModule({
   declarations: [
     AppComponent,
-    ApplicationInfoComponent,
+    DossierApplInfoComponent,
     DossierDetailsComponent,
     DossierBaseComponent
   ],

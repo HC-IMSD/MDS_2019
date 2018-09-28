@@ -4,20 +4,20 @@ import {
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
-import {ApplicationInfoService} from './application.info.service';
+import {DossierAppInfoService} from './dossier.info.service';
 import {GlobalsService} from '../globals/globals.service';
 import {isArray} from 'util';
 
 
 @Component({
-  selector: 'application-info',
-  templateUrl: 'application.info.component.html'
+  selector: 'dossier-app-info',
+  templateUrl: 'dossier.info.component.html'
 })
 
 /**
  *  Application Info Component is used for Company Form
  */
-export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewInit {
+export class DossierApplInfoComponent implements OnInit, OnChanges, AfterViewInit {
 
   public applicationInfoFormLocalModel: FormGroup;
   @Input('group') public applicationInfoFormRecord: FormGroup;
@@ -32,17 +32,17 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
   public isAmend = true;
   public showFieldErrors: boolean;
   public setAsComplete = true;
-  private detailsService: ApplicationInfoService;
+  private detailsService: DossierAppInfoService;
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef) {
     this.showFieldErrors = false;
     // this.showErrors = false;
-    this.detailsService = new ApplicationInfoService();
+    this.detailsService = new DossierAppInfoService();
   }
 
   ngOnInit() {
     if (!this.applicationInfoFormLocalModel) {
-      this.applicationInfoFormLocalModel = ApplicationInfoService.getReactiveModel(this._fb);
+      this.applicationInfoFormLocalModel = DossierAppInfoService.getReactiveModel(this._fb);
     }
     this.detailsChanged = 0;
     console.log('this.isInternal: ' + this.isInternal);
@@ -86,11 +86,11 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
         this.setToLocalModel();
 
       } else {
-        this.applicationInfoFormLocalModel = ApplicationInfoService.getReactiveModel(this._fb);
+        this.applicationInfoFormLocalModel = DossierAppInfoService.getReactiveModel(this._fb);
         this.applicationInfoFormLocalModel.markAsPristine();
       }
       if (this.applicationInfoFormLocalModel ) {
-        ApplicationInfoService.mapFormModelToDataModel((<FormGroup>this.applicationInfoFormLocalModel),
+        DossierAppInfoService.mapFormModelToDataModel((<FormGroup>this.applicationInfoFormLocalModel),
           this.appInfoModel);
       }
     }
@@ -111,7 +111,7 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
     }
     if (changes['appInfoModel']) {
       const dataModel = changes['appInfoModel'].currentValue;
-      ApplicationInfoService.mapDataModelToFormModel(dataModel,
+      DossierAppInfoService.mapDataModelToFormModel(dataModel,
         (<FormGroup>this.applicationInfoFormLocalModel));
       // this.validRec = true; todo: valid record ???
     }
@@ -147,50 +147,15 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
 
   public setAmendState () {
     this.isAmend = true;
-    this.appInfoModel.status = ApplicationInfoService.setAmendStatus();
-    ApplicationInfoService.mapDataModelToFormModel(this.appInfoModel,
+    this.appInfoModel.status = DossierAppInfoService.setAmendStatus();
+    DossierAppInfoService.mapDataModelToFormModel(this.appInfoModel,
       (<FormGroup>this.applicationInfoFormLocalModel));
   }
 
   onblur() {
     // console.log('input is typed');
-    ApplicationInfoService.mapFormModelToDataModel((<FormGroup>this.applicationInfoFormLocalModel),
+    DossierAppInfoService.mapFormModelToDataModel((<FormGroup>this.applicationInfoFormLocalModel),
       this.appInfoModel);
   }
-
-  // typed(rec) {
-  //   var content = rec.replace(/[\x00-\x7F]/g, '', '');
-  //   console.log('this is typed');
-  //   if (content && this.existsInList(content)) {
-  //     this.applicationInfoFormLocalModel.controls.country.setValue([content]);
-  //   }
-  // }
-  //
-  // existsInList(rec) {
-  //   for (let country of this.countries) {
-  //     if (country.id == rec) {
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // }
-
-  // private _setPostalPattern(countryValue) {
-  //   //  console.log("starting the postal Pattern");
-  //   // this.postalPattern=
-  //   if (ApplicationInfoService.isCanada(countryValue)) {
-  //
-  //     this.postalLabel = 'postal.canada';
-  //     this.provinceLabel = 'applicationInfo.province';
-  //     this.postalPattern = /^(?!.*[DFIOQU])[A-VXYa-vxy][0-9][A-Za-z] ?[0-9][A-Za-z][0-9]$/;
-  //   } else if (ApplicationInfoService.isUsa(countryValue)) {
-  //     this.postalPattern = /^[0-9]{5}(?:-[0-9]{4})?$/;
-  //     this.postalLabel = 'postal.usa';
-  //     //  console.log("This is the postal label"+this.postalLabel);
-  //     this.provinceLabel = 'applicationInfo.state';
-  //   } else {
-  //     this.postalPattern = null;
-  //   }
-  // }
 }
 

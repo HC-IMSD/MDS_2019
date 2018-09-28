@@ -29,22 +29,22 @@ export class DossierBaseService {
   }
 
   /**
-   * Gets an empty Address Details Model
+   * Gets an empty Dossier Details Model
    *
    */
-  public static getEmptyAddressDetailsModel() {
+  public static getEmptyDossierDetailsModel() {
   // todo: update data fields
     return (
       {
-        address: '',
-        provText: '',
-        city: '',
-        country: {
-            '__text': '',
-            '_label_en': '',
-            '_label_fr': ''
-          },
-        postal: ''
+        dossier_type: GlobalsService.DEVICE_TYPE_EN,
+        company_id: '',
+        contact_id: '',
+        device_class: '',
+        device_name: '',
+        has_qmsc: '',
+        registrar: '',
+        licence_application_type: '',
+        additional_field: ''
       }
     );
   }

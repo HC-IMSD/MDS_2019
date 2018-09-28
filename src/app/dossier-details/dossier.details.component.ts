@@ -49,16 +49,16 @@ export class DossierDetailsComponent implements OnInit, OnChanges, AfterViewInit
     this.showFieldErrors = false;
     this.showErrors = false;
     this.registrarList = [];
-    this.deviceClassList = DossierDetailsService.getDeviceClassList();
-    this.yesNoList = DossierDetailsService.getYesNoList();
-    this.licenceAppTypeList = DossierDetailsService.getLicenceAppTypeList();
     this.detailsService = new DossierDetailsService();
+    this.deviceClassList = this.detailsService.getDeviceClassList();
+    this.yesNoList = this.detailsService.getYesNoList();
   }
 
   async ngOnInit() {
     this.registrarList = await (this.dataLoader.getRegistrars(this.translate.currentLang));
+    this.licenceAppTypeList = this.detailsService.getLicenceAppTypeList(this.lang); // todo: test which lang is working
     if (!this.dossierFormLocalModel) {
-      this.dossierFormLocalModel = DossierDetailsService.getReactiveModel(this._fb);
+      this.dossierFormLocalModel = this.detailsService.getReactiveModel(this._fb);
     }
     this.detailsChanged = 0;
   }
@@ -67,13 +67,6 @@ export class DossierDetailsComponent implements OnInit, OnChanges, AfterViewInit
     this.msgList.changes.subscribe(errorObjs => {
       let temp = [];
       this._updateErrorList(errorObjs);
-
-      /* errorObjs.forEach(
-         error => {
-           temp.push(error);
-         }
-       );
-       this.errorList.emit(temp);*/
     });
     this.msgList.notifyOnChanges();
 
@@ -102,7 +95,7 @@ export class DossierDetailsComponent implements OnInit, OnChanges, AfterViewInit
         this.setToLocalModel();
 
       } else {
-        this.dossierFormLocalModel = DossierDetailsService.getReactiveModel(this._fb);
+        this.dossierFormLocalModel = this.detailsService.getReactiveModel(this._fb);
         this.dossierFormLocalModel.markAsPristine();
       }
     }
@@ -151,13 +144,6 @@ export class DossierDetailsComponent implements OnInit, OnChanges, AfterViewInit
     if (!this.dossierFormLocalModel.pristine) {
       this.dossierFormLocalModel.markAsPristine();
     }
-  }
-
-  // note ng-select expects an array of values even with a single select
-  selected(rec) {
-
-    // this.dossierFormLocalModel.controls.country.setValue([rec.id]);
-    // this.dossierFormLocalModel.controls.country.setValue([rec]);
   }
 
   removed(rec) {
