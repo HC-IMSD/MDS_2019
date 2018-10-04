@@ -18,6 +18,8 @@
   "error.msg.email": "Please specify a valid email address",
   "error.msg.postal": "Please specify a valid postal code.",
   "error.mgs.zip": "Please specify a valid zip code.",
+  "error.mgs.company.id": "Please specify a valid manufacturer company ID.",
+  "error.mgs.contact.id": "Please specify a valid manufacturer contact ID.",
   "error.mgs.dossier.id": "Please specify a valid dossier ID.",
   "device.class": "Device Class",
   "device.name": "Name of device, as it appears on the label",

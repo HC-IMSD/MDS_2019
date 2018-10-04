@@ -26,7 +26,7 @@ export class DossierApplInfoComponent implements OnInit, OnChanges, AfterViewIni
   @Input() showErrors: boolean;
   @Input() inComplete: boolean;
   @Input() isInternal: boolean;
-  @Output() errorList = new EventEmitter();
+  @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   public isAmend = true;
@@ -113,7 +113,6 @@ export class DossierApplInfoComponent implements OnInit, OnChanges, AfterViewIni
       const dataModel = changes['appInfoModel'].currentValue;
       DossierAppInfoService.mapDataModelToFormModel(dataModel,
         (<FormGroup>this.applicationInfoFormLocalModel));
-      // this.validRec = true; todo: valid record ???
     }
 
   }
@@ -133,23 +132,8 @@ export class DossierApplInfoComponent implements OnInit, OnChanges, AfterViewIni
     console.log(rec);
   }
 
-  showAmendMsg() {
-
-    if (!this.applicationInfoFormLocalModel) {
-      return false;
-    }
-    return this.applicationInfoFormLocalModel.controls.formStatus.value === GlobalsService.AMEND;
-  }
-
-  disableAmend () {
-    return !this.isInternal;
-  }
-
-  public setAmendState () {
-    this.isAmend = true;
-    this.appInfoModel.status = DossierAppInfoService.setAmendStatus();
-    DossierAppInfoService.mapDataModelToFormModel(this.appInfoModel,
-      (<FormGroup>this.applicationInfoFormLocalModel));
+  isInternalSite () {
+    return this.isInternal;
   }
 
   onblur() {

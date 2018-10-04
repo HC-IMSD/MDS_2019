@@ -25,9 +25,9 @@ export class DossierAppInfoService {
     if (!fb) {return null; }
     return fb.group({
       formStatus: GlobalsService.NEW,
-      enrolVersion: '0.1',
+      enrolVersion: '0.0',
       lastSavedDate: '',
-      companyId: ['', [Validators.required, ValidationService.companyIdValidator]]
+      dossierId: ['', [Validators.required, ValidationService.dossierIdValidator]]
     });
   }
 
@@ -39,25 +39,25 @@ export class DossierAppInfoService {
     return (
       {
         status: '',
-        enrolVersion: '0.1',
-        lastSavedDate: '',
-        companyId: ''
+        enrol_version: '0.0',
+        last_saved_date: '',
+        dossier_id: ''
       }
     );
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, applicationInfoModel) {
     applicationInfoModel.status = formRecord.controls.formStatus.value;
-    applicationInfoModel.enrolVersion = formRecord.controls.enrolVersion.value;
-    applicationInfoModel.lastSavedDate = formRecord.controls.lastSavedDate.value;
-    applicationInfoModel.companyId = formRecord.controls.companyId.value;
+    applicationInfoModel.enrol_version = formRecord.controls.enrolVersion.value;
+    applicationInfoModel.last_saved_date = formRecord.controls.lastSavedDate.value;
+    applicationInfoModel.dossier_id = formRecord.controls.dossierId.value;
   }
 
   public static mapDataModelToFormModel(applicationInfoModel, formRecord: FormGroup) {
     formRecord.controls.formStatus.setValue(applicationInfoModel.status);
-    formRecord.controls.enrolVersion.setValue(applicationInfoModel.enrolVersion);
-    formRecord.controls.lastSavedDate.setValue(applicationInfoModel.lastSavedDate);
-    formRecord.controls.companyId.setValue(applicationInfoModel.companyId);
+    formRecord.controls.enrolVersion.setValue(applicationInfoModel.enrol_version);
+    formRecord.controls.lastSavedDate.setValue(applicationInfoModel.last_saved_date);
+    formRecord.controls.dossierId.setValue(applicationInfoModel.dossier_id);
   }
 
   public static getRecordId(record: FormGroup) {
@@ -78,8 +78,8 @@ export class DossierAppInfoService {
   }
 
   public setValidaors(record: FormGroup, eventValue) {
-    record.controls.companyId.setValidators([Validators.required, ValidationService.companyIdValidator]);
-    record.controls.companyId.updateValueAndValidity();
+    record.controls.dossierId.setValidators([Validators.required, ValidationService.dossierIdValidator]);
+    record.controls.dossierId.updateValueAndValidity();
     return [];
   }
 

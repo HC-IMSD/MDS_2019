@@ -57,9 +57,9 @@ export class DossierBaseService {
     return (
       {
         status: '',
-        enrolVersion: 0.0,
-        lastSavedDate: '',
-        companyId: ''
+        enrol_version: '0.0',
+        last_saved_date: '',
+        dossier_id: ''
       }
     );
   }

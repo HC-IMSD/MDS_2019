@@ -7,10 +7,9 @@ import {ListService} from '../list-service';
 @Injectable()
 export class DossierDetailsService {
 
-  private registrarList: Array<any>;
+  private static licenceAppTypeList: Array<any> = DossierDetailsService.getRawLicenceAppTypeList();
 
   constructor() {
-    this.registrarList = [];
   }
 
   /**
@@ -21,9 +20,9 @@ export class DossierDetailsService {
   public getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
-      dossierType: [GlobalsService.DEVICE_TYPE_EN, Validators.required],
-      companyId: [null, Validators.required],
-      contactId: [null, Validators.required],
+      dossierType: [GlobalsService.DEVICE_TYPE_EN, []],
+      companyId: [null, [Validators.required, ValidationService.companyIdValidator]],
+      contactId: [null, [Validators.required, ValidationService.dossierContactIdValidator]],
       deviceClass: [null, Validators.required],
       deviceName: [null, Validators.required],
       hasQMSC: [null, Validators.required],
@@ -59,7 +58,7 @@ export class DossierDetailsService {
    *
    */
   public getDeviceClassList() {
-    return ['DC1', 'DC2', 'DC3'];
+    return ['DC2', 'DC3', 'DC4'];
   }
 
   /**
@@ -77,7 +76,7 @@ export class DossierDetailsService {
    * Gets an data array
    *
    */
-  private getRawLicenceAppTypeList() {
+  private static getRawLicenceAppTypeList() {
     return [
       {
         id: 'D',
@@ -121,7 +120,7 @@ export class DossierDetailsService {
    * Gets an data array
    *
    */
-  public getLicenceAppTypeList(lang) {
+  public static getLicenceAppTypeList(lang) {
     const rawList = this.getRawLicenceAppTypeList();
     return this._convertListText(rawList, lang);
   }
@@ -134,20 +133,26 @@ export class DossierDetailsService {
     dossierModel.device_name = formRecord.controls.deviceName.value;
     dossierModel.has_qmsc = formRecord.controls.hasQMSC.value;
     if (formRecord.controls.qMSCRegistrar.value) {
+      const recordIndex1 = ListService.getRecord(registrarList, formRecord.controls.qMSCRegistrar.value, 'id');
+      if (recordIndex1 > -1) {
         dossierModel.registrar = {
-          '__text': formRecord.controls.qMSCRegistrar.value.id,
-          '_label_en': formRecord.controls.qMSCRegistrar.value.en,
-          '_label_fr': formRecord.controls.qMSCRegistrar.value.fr
+          '__text': registrarList[recordIndex1].id,
+          '_label_en': registrarList[recordIndex1].en,
+          '_label_fr': registrarList[recordIndex1].fr
         };
+      }
     } else {
       dossierModel.registrar = null;
     }
     if (formRecord.controls.licenceAppType.value) {
-      dossierModel.licence_application_type = {
-        '__text': formRecord.controls.licenceAppType.value.id,
-        '_label_en': formRecord.controls.licenceAppType.value.en,
-        '_label_fr': formRecord.controls.licenceAppType.value.fr
-      };
+      const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, formRecord.controls.licenceAppType.value, 'id');
+      if (recordIndex2 > -1) {
+        dossierModel.licence_application_type = {
+          '__text': this.licenceAppTypeList[recordIndex2].id,
+          '_label_en': this.licenceAppTypeList[recordIndex2].en,
+          '_label_fr': this.licenceAppTypeList[recordIndex2].fr
+        };
+      }
     } else {
       dossierModel.licence_application_type = null;
     }
@@ -162,31 +167,18 @@ export class DossierDetailsService {
     formRecord.controls.deviceName.setValue(dossierModel.device_name);
     formRecord.controls.hasQMSC.setValue(dossierModel.has_qmsc);
     const recordIndex = ListService.getRecord(registrarList, dossierModel.registrar.__text, 'id');
-    let labelText = '';
     if (recordIndex > -1) {
-      labelText = registrarList[recordIndex].text;
-    }
-    if (dossierModel.country) {
-      formRecord.controls.qMSCRegistrar.setValue([
-        {
-          'id': dossierModel.country.__text,
-          'text': labelText
-        }
-      ]);
+      formRecord.controls.qMSCRegistrar.setValue(registrarList[recordIndex].id);
     } else {
       formRecord.controls.qMSCRegistrar.setValue(null);
     }
-    formRecord.controls.deviceName.setValue(dossierModel.device_name);
-    formRecord.controls.hasQMSC.setValue(dossierModel.has_qmsc);
-  }
-
-  /**
-   * Sets the country list to be used for all addres details records
-   * @param {Array<any>} value
-   */
-  public setRegistrarList(value: Array<any>) {
-    this.registrarList = value;
-
+    const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, dossierModel.licence_application_type.__text, 'id');
+    if (recordIndex2 > -1) {
+      formRecord.controls.licenceAppType.setValue(this.licenceAppTypeList[recordIndex2].id);
+    } else {
+      formRecord.controls.licenceAppType.setValue(null);
+    }
+    formRecord.controls.additionalField.setValue(dossierModel.additional_field);
   }
 
   /**
@@ -211,7 +203,7 @@ export class DossierDetailsService {
    * @param lang
    * @private
    */
-  private _convertListText(rawList, lang) {
+  private static _convertListText(rawList, lang) {
     const result = [];
     if (lang === GlobalsService.FRENCH) {
       rawList.forEach(item => {

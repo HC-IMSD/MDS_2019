@@ -27,7 +27,7 @@
           <header class="panel-heading clearfix">
             <div class="btn-group pull-right">
             </div>
-            <h2 class="panel-title">{{'heading.dossier'|translate}}</h2>
+            <h2 class="panel-title">{{'dossier.info'|translate}}</h2>
           </header>
           <div class="panel-body">
 
@@ -38,24 +38,15 @@
             </dossier-app-info>
 
             <div>
-              <section class="panel  panel-default">
-                <header class="panel-heading clearfix">
-                  <div class="btn-group pull-right">
-                  </div>
-                  <h3 class="panel-title">{{'heading.dossierInfo'|translate}}</h3>
-                </header>
-                <div class="panel-body">
                   <dossier-details [showErrors]="showErrors"
                                    [detailsChanged]="updateChild" [lang]="lang"
                                    [dossierModel]="dossierModel"
+                                   (hasQmsc)="disableSaveXmlButton($event)"
                                    (errorList)="processAddressErrors($event)"></dossier-details>
-                </div>
-              </section>
             </div>
           </div>
         </section>
       </div>
-      <!--   <thera-list (errors)="processTheraErrors($event)"></thera-list>-->
     </div>
     <div class="row btn-group-sm">
       <div class="form-group col-md-4">
@@ -64,7 +55,7 @@
         </button>
       </div>
       <div class="form-group col-md-4">
-        <button class="btn btn-primary btn-lg active" (click)="saveXmlFile()" i18n>
+        <button class="btn btn-primary btn-lg active" (click)="saveXmlFile()" [disabled]="disableSaveXml" i18n>
           {{saveXmlLabel|translate}}
         </button>
       </div>

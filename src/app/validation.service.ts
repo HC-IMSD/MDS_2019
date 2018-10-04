@@ -18,7 +18,9 @@ export class ValidationService {
       'minlength': `Minimum length ${validatorValue.requiredLength}`,
       'error.msg.postal': 'error.msg.postal',
       'error.mgs.zip': 'error.mgs.zip',
-      'error.mgs.company.id': 'error.mgs.company.id'
+      'error.mgs.company.id': 'error.mgs.company.id',
+      'error.mgs.contact.id': 'error.mgs.contact.id',
+      'error.mgs.dossier.id': 'error.mgs.dossier.id'
     };
 
     return config[validatorName];
@@ -97,6 +99,28 @@ export class ValidationService {
       return null;
     } else {
       return {'error.mgs.company.id': true};
+    }
+  }
+
+  static dossierIdValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[A-Za-z0-9]{7}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.dossier.id': true};
+    }
+  }
+
+  static dossierContactIdValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[A-Za-z0-9]{5}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.contact.id': true};
     }
   }
 }

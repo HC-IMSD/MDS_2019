@@ -30,7 +30,8 @@ export class DossierDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Input() showErrors: boolean;
   @Input() dossierModel;
   @Input() lang;
-  @Output() errorList = new EventEmitter();
+  @Output() hasQmsc = new EventEmitter();
+  @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   // For the searchable select box, only accepts/saves id and text.
@@ -55,12 +56,12 @@ export class DossierDetailsComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   async ngOnInit() {
-    this.registrarList = await (this.dataLoader.getRegistrars(this.translate.currentLang));
-    this.licenceAppTypeList = this.detailsService.getLicenceAppTypeList(this.lang); // todo: test which lang is working
     if (!this.dossierFormLocalModel) {
       this.dossierFormLocalModel = this.detailsService.getReactiveModel(this._fb);
     }
     this.detailsChanged = 0;
+    this.registrarList = await (this.dataLoader.getRegistrars(this.translate.currentLang));
+    this.licenceAppTypeList = DossierDetailsService.getLicenceAppTypeList(this.lang); // todo: test which lang is working
   }
 
   ngAfterViewInit() {
@@ -120,10 +121,18 @@ export class DossierDetailsComponent implements OnInit, OnChanges, AfterViewInit
     }
     if (changes['dossierModel']) {
       const dataModel = changes['dossierModel'].currentValue;
+      if (!this.dossierFormLocalModel) {
+        this.dossierFormLocalModel = this.detailsService.getReactiveModel(this._fb);
+        this.dossierFormLocalModel.markAsPristine();
+      }
       DossierDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.dossierFormLocalModel),
         this.registrarList);
+      // emit hasQMSC value
+      if (this.dossierFormLocalModel.controls.hasQMSC) {
+        this.hasQmsc.emit(this.dossierFormLocalModel.controls.hasQMSC.value);
+      }
     }
-    if (changes['lang']) { // todo: set device type ???
+    if (changes['lang']) {
       const language = changes['lang'].currentValue;
       if (language === GlobalsService.ENGLISH) {
         this.dossierFormLocalModel.controls.dossierType.setValue(GlobalsService.DEVICE_TYPE_EN);
@@ -146,25 +155,13 @@ export class DossierDetailsComponent implements OnInit, OnChanges, AfterViewInit
     }
   }
 
-  removed(rec) {
-    console.log(rec);
-    // this.dossierFormLocalModel.controls.country.setValue(null)
-  }
-
-  typed(rec) {
-    let content = rec.toString().replace(/[\x00-\x7F]/g, '', '');
-    // console.log('country is typed');
-    if (content && this.existsInList(content)) {
-      this.dossierFormLocalModel.controls.country.setValue([content]);
-      DossierDetailsService.mapFormModelToDataModel((<FormGroup>this.dossierFormLocalModel),
-        this.dossierModel, this.registrarList);
-    }
-  }
-
   onblur() {
     // console.log('input is typed');
     DossierDetailsService.mapFormModelToDataModel((<FormGroup>this.dossierFormLocalModel),
       this.dossierModel, this.registrarList);
+    if (this.dossierFormLocalModel.controls.hasQMSC) {
+      this.hasQmsc.emit(this.dossierFormLocalModel.controls.hasQMSC.value);
+    }
   }
 
   existsInList(rec) {

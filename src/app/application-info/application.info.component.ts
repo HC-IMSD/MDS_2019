@@ -26,7 +26,7 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
   @Input() showErrors: boolean;
   @Input() inComplete: boolean;
   @Input() isInternal: boolean;
-  @Output() errorList = new EventEmitter();
+  @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   public isAmend = true;

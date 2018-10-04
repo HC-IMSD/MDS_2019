@@ -1,11 +1,11 @@
 <div>
   <div [formGroup]="dossierFormLocalModel">
     <div class="row">
-      <div class="form-group col-xs-12" >
+      <div class="form-group col-xs-3" >
         <label for="dossierType" class="full-width">
           <span class="field-name" i18n>{{'dossier.type'|translate}}</span>
-          <input id="dossierType" class="form-control full-width" [readonly]="true"
-                 formControlName="dossierType" maxlength="80"/>
+          <input id="dossierType" class="form-control" [readonly]="true"
+                 formControlName="dossierType" size="20"/>
         </label>
       </div>
     </div>
@@ -15,7 +15,7 @@
           <span class="field-name" i18n>{{'company.id'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <input id="companyId" class="form-control full-width" (blur)="onblur()"
-                 formControlName="companyId" maxlength="80"/>
+                 formControlName="companyId" maxlength="6"/>
           <control-messages *ngIf="dossierFormLocalModel.controls.companyId.invalid"
                             [showError]="showFieldErrors"
                             [control]="dossierFormLocalModel.controls.companyId"
@@ -28,7 +28,7 @@
           <span class="field-name" i18n>{{'contact.id'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <input id="contactId" class="form-control full-width"  (blur)="onblur()"
-                 formControlName="contactId" maxlength="60"/>
+                 formControlName="contactId" maxlength="5"/>
           <control-messages *ngIf="dossierFormLocalModel.controls.contactId.invalid"
                             [showError]="showFieldErrors"
                             [control]="dossierFormLocalModel.controls.contactId"
@@ -53,27 +53,27 @@
         </label>
       </div>
     </div>
-    <!--<div class="row">-->
-      <!--<div class="form-group col-xs-12 col-sm-6">-->
-        <!--<label for="deviceName" class="required full-width">-->
-          <!--<span class="field-name">{{'device.name'|translate}}</span>-->
-          <!--<strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>-->
-          <!--<textarea type="text" class="form-control full-width" id="deviceName" (blur)="onblur()"-->
-                    <!--formControlName="deviceName" maxlength="150" />-->
-          <!--<control-messages *ngIf="dossierFormLocalModel.controls.deviceName.invalid"-->
-                              <!--[showError]="showFieldErrors"-->
-                              <!--[control]="dossierFormLocalModel.controls.deviceName"-->
-                              <!--controlId="deviceName" label="device.name" parentId="dossierDetails"-->
-                              <!--parentLabel="Dossier Information"></control-messages>-->
-        <!--</label>-->
-      <!--</div>-->
-    <!--</div>-->
     <div class="row">
-      <div class="form-group col-xs-12 col-sm-6" >
+      <div class="form-group col-xs-12">
+        <label for="deviceName" class="required full-width">
+          <span class="field-name">{{'device.name'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <textarea type="text" class="form-control full-width" id="deviceName" (blur)="onblur()"
+                    formControlName="deviceName" maxlength="150"></textarea>
+          <control-messages *ngIf="dossierFormLocalModel.controls.deviceName.invalid"
+                              [showError]="showFieldErrors"
+                              [control]="dossierFormLocalModel.controls.deviceName"
+                              controlId="deviceName" label="device.name" parentId="dossierDetails"
+                              parentLabel="Dossier Information"></control-messages>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-12" >
         <label for="hasQMSC" class="required full-width">
           <span class="field-name" i18n>{{'has.qmsc' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <select id="hasQMSC" required class="form-control full-width" (blur)="onblur()"
+          <select id="hasQMSC" required class="form-control" (blur)="onblur()"
                   formControlName="hasQMSC">
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
           </select>
@@ -84,6 +84,8 @@
                             parentLabel="Dossier Information"></control-messages>
         </label>
       </div>
+    </div>
+    <div class="row">
       <div *ngIf="isQmsc()" class="form-group col-xs-12 col-sm-6" >
         <label for="qMSCRegistrar" class="required full-width">
           <span class="field-name" i18n>{{'qmsc.registrar' |translate}}</span>
@@ -100,8 +102,6 @@
                             parentLabel="Dossier Information"></control-messages>
         </label>
       </div>
-    </div>
-    <div class="row">
       <div *ngIf="isQmsc()" class="form-group col-xs-12 col-sm-6" >
         <label for="licenceAppType" class="required full-width">
           <span class="field-name" i18n>{{'licence.app.type' |translate}}</span>
@@ -120,15 +120,15 @@
         </label>
       </div>
     </div>
-    <!--<div class="row">-->
-      <!--<div class="form-group col-xs-12 col-sm-6">-->
-        <!--<label for="additionalField" class="full-width">-->
-          <!--<span class="field-name">{{'add.field'|translate}}</span>-->
-          <!--<textarea type="text" class="form-control full-width" id="additionalField" (blur)="onblur()"-->
-                    <!--formControlName="additionalField" maxlength="150" />-->
-        <!--</label>-->
-      <!--</div>-->
-    <!--</div>-->
+    <div class="row">
+      <div class="form-group col-xs-12">
+        <label for="additionalField" class="full-width">
+          <span class="field-name">{{'add.field'|translate}}</span>
+          <textarea type="text" class="form-control full-width" id="additionalField" (blur)="onblur()"
+                    formControlName="additionalField" maxlength="150"></textarea>
+        </label>
+      </div>
+    </div>
     <!-- <pre>{{dossierFormLocalModel.value |json}}</pre>-->
   </div>
 </div>

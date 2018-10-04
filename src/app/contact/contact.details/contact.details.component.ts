@@ -23,7 +23,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() isInternal: boolean;
-  @Output() errorList = new EventEmitter();
+  @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   // For the searchable select box, only accepts/saves id and text.

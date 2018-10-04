@@ -24,6 +24,7 @@ export class DossierBaseComponent implements OnInit {
 
   private _appInfoErrors = [];
   private _dossierErrors = [];
+  public disableSaveXml = true;
   public isFinal = false;
   public dossierForm: FormGroup;
   public errorList = [];
@@ -76,6 +77,10 @@ export class DossierBaseComponent implements OnInit {
     return (this.showErrors && this.errorList && this.errorList.length > 0);
   }
 
+  disableSaveXmlButton(hasQmsc) {
+    this.disableSaveXml = !(hasQmsc === GlobalsService.YES);
+  }
+
   public saveXmlFile() {
     if (this.errorList && this.errorList.length > 0) {
       this.showErrors = true;
@@ -87,7 +92,8 @@ export class DossierBaseComponent implements OnInit {
           'dossier': this.dossierModel
         }
       };
-      this.fileServices.saveXmlToFile(result, 'hcmdsdo', true, this.xslName);
+      const fileName = this._buildfileName();
+      this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
     }
   }
 
@@ -97,30 +103,43 @@ export class DossierBaseComponent implements OnInit {
       'application_information': this.appInfoModel,
       'dossier': this.dossierModel
     }};
-    this.fileServices.saveJsonToFile(result, 'hcmdsdo-test', null);
+    const version: Array<any> = this.appInfoModel.enrol_version.toString().split('.');
+    const fileName = 'draftrepdo-' + version[0] + '-' + version[1];
+    this.fileServices.saveJsonToFile(result, fileName, null);
   }
 
   public processFile(fileData: ConvertResults) {
-     console.log('processing file.....');
+     // console.log('processing file.....');
      console.log(fileData);
-    this.appInfoModel = fileData.data.COMPANY_ENROL.application_information;
+    this.appInfoModel = fileData.data.DOSSIER_ENROL.application_information;
     this.isFinal = (this.appInfoModel.status === GlobalsService.FINAL);
-    this.dossierModel = fileData.data.COMPANY_ENROL.dossier;
+    this.dossierModel = fileData.data.DOSSIER_ENROL.dossier;
   }
 
   private _updatedAutoFields() {
     this._updatedSavedDate();
     if (this.isInternalSite) {
       this.appInfoModel.status = DossierBaseService.setFinalStatus();
-      this.appInfoModel.enrolVersion = Math.floor(this.appInfoModel.enrolVersion) + 1;
+      this.appInfoModel.enrol_version = (Math.floor(Number(this.appInfoModel.enrol_version)) + 1).toString() + '.0';
     } else {
-      this.appInfoModel.enrolVersion += 0.1;
+      const version: Array<any> = this.appInfoModel.enrol_version.split('.');
+      version[1] = (Number(version[1]) + 1).toString();
+      this.appInfoModel.enrol_version = version[0] + '.' + version[1];
     }
   }
 
   private _updatedSavedDate() {
     const today = new Date();
     const pipe = new DatePipe('en-US');
-    this.appInfoModel.lastSavedDate = pipe.transform(today, 'yyyy-MM-dd');
+    this.appInfoModel.last_saved_date = pipe.transform(today, 'yyyy-MM-dd');
+  }
+
+  private _buildfileName() {
+    const version: Array<any> = this.appInfoModel.enrol_version.split('.');
+    if (this.isInternalSite) {
+      return 'hcrepdo-' + this.appInfoModel.dossier_id + '-' + version[0] + '-' + version[1];
+    } else {
+      return 'draftrepdo-' + version[0] + '-' + version[1];
+    }
   }
 }
