@@ -55,6 +55,10 @@ export class DossierBaseComponent implements OnInit {
     }
   }
 
+  public updateChild() {
+    // console.log("Calling updateChild")
+  }
+
   processErrors() {
     // console.log('@@@@@@@@@@@@ Processing errors in Company base compo
     this.errorList = [];

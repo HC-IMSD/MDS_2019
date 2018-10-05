@@ -52,13 +52,6 @@ export class DossierApplInfoComponent implements OnInit, OnChanges, AfterViewIni
     this.msgList.changes.subscribe(errorObjs => {
       let temp = [];
       this._updateErrorList(errorObjs);
-
-      /* errorObjs.forEach(
-         error => {
-           temp.push(error);
-         }
-       );
-       this.errorList.emit(temp);*/
     });
     this.msgList.notifyOnChanges();
 
@@ -126,10 +119,6 @@ export class DossierApplInfoComponent implements OnInit, OnChanges, AfterViewIni
     if (!this.applicationInfoFormLocalModel.pristine) {
       this.applicationInfoFormLocalModel.markAsPristine();
     }
-  }
-
-  removed(rec) {
-    console.log(rec);
   }
 
   isInternalSite () {
