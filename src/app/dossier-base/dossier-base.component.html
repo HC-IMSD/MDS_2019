@@ -31,11 +31,11 @@
           </header>
           <div class="panel-body">
 
-            <dossier-gen-info [showErrors]="showErrors" [isInternal]="isInternalSite" [inComplete]="isFinal"
+            <dos-gen-info [showErrors]="showErrors" [isInternal]="isInternalSite" [inComplete]="isFinal"
                               [detailsChanged]="updateChild" [lang]="lang"
                               [genInfoModel]="genInfoModel"
                               (errorList)="processGenInfoErrors($event)">
-            </dossier-gen-info>
+            </dos-gen-info>
 
             <div>
                   <dossier-details [showErrors]="showErrors"

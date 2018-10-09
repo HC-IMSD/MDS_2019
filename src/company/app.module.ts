@@ -11,7 +11,7 @@ import {GlobalsService} from '../app/globals/globals.service';
 import {AddressModule} from '../app/address/address.module';
 // import {AddressDetailsComponent} from '../app/address/address.details/address.details.component';
 import {ContactModule} from '../app/contact/contact.module';
-import {ApplicationInfoComponent} from '../app/application-info/application.info.component';
+import {CompanyInfoComponent} from '../app/company-info/company.info.component';
 import {FileIoModule} from '../app/filereader/file-io/file-io.module';
 
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
@@ -26,7 +26,7 @@ import {CompanyDataLoaderService} from '../app/data-loader/company-data-loader.s
 @NgModule({
   declarations: [
     AppComponent,
-    ApplicationInfoComponent,
+    CompanyInfoComponent,
     CompanyBaseComponent
   ],
   imports: [

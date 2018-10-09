@@ -12,7 +12,7 @@ export class CompanyBaseService {
   }
 
   /**
-   * Gets the reactive forms Model for applicationInfo details
+   * Gets the reactive forms Model for generalInfo details
    * @param {FormBuilder} fb
    * @returns {any}
    */
@@ -50,10 +50,10 @@ export class CompanyBaseService {
   }
 
   /**
-   * Gets an empty app info model
+   * Gets an empty general info model
    *
    */
-  public static getEmptyAppInfoModel() {
+  public static getEmptyGenInfoModel() {
     return (
       {
         status: '',

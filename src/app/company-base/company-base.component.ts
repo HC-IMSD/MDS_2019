@@ -26,7 +26,7 @@ export class CompanyBaseComponent implements OnInit {
   @Input() lang;
   @ViewChild('tabs') private tabs: NgbTabset;
 
-  private _appInfoErrors = [];
+  private _genInfoErrors = [];
   private _addressErrors = [];
   public isFinal = false;
   public companyForm: FormGroup;
@@ -45,7 +45,7 @@ export class CompanyBaseComponent implements OnInit {
   // public theraModelList=[ {"id":0,"theraDetails":"Test"}];
   // public theraModelList = [];
   public addressModel = CompanyBaseService.getEmptyAddressDetailsModel();
-  public appInfoModel = CompanyBaseService.getEmptyAppInfoModel();
+  public genInfoModel = CompanyBaseService.getEmptyGenInfoModel();
   public contactModel = [];
   public foo = '';
   public fileServices: FileConversionService;
@@ -81,7 +81,7 @@ export class CompanyBaseComponent implements OnInit {
     // console.log('@@@@@@@@@@@@ Processing errors in Company base compo
     this.errorList = [];
     // concat the two array
-    this.errorList = this._appInfoErrors.concat(this._addressErrors.concat(this._contactErrors)); // .concat(this._theraErrors);
+    this.errorList = this._genInfoErrors.concat(this._addressErrors.concat(this._contactErrors)); // .concat(this._theraErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -90,8 +90,8 @@ export class CompanyBaseComponent implements OnInit {
     this.processErrors();
   }
 
-  processAppInfoErrors(errorList) {
-    this._appInfoErrors = errorList;
+  processGenInfoErrors(errorList) {
+    this._genInfoErrors = errorList;
     this.processErrors();
   }
 
@@ -132,11 +132,11 @@ export class CompanyBaseComponent implements OnInit {
       this.showErrors = true;
     } else {
       if (this.isInternalSite) {
-        this.appInfoModel.status = CompanyBaseService.setFinalStatus();
+        this.genInfoModel.status = CompanyBaseService.setFinalStatus();
       }
       const result = {
         'COMPANY_ENROL': {
-          'application_information': this.appInfoModel,
+          'general_information': this.genInfoModel,
           'address': this.addressModel,
           'contacts': this.contactModel
         }
@@ -148,7 +148,7 @@ export class CompanyBaseComponent implements OnInit {
   public saveWorkingCopyFile() {
     this._updatedSavedDate();
     const result = {'COMPANY_ENROL': {
-      'application_information': this.appInfoModel,
+      'general_information': this.genInfoModel,
       'address': this.addressModel,
       'contacts': this.contactModel
     }};
@@ -158,8 +158,8 @@ export class CompanyBaseComponent implements OnInit {
   public processFile(fileData: ConvertResults) {
      console.log('processing file.....');
      console.log(fileData);
-    this.appInfoModel = fileData.data.COMPANY_ENROL.application_information;
-    this.isFinal = (this.appInfoModel.status === GlobalsService.FINAL);
+    this.genInfoModel = fileData.data.COMPANY_ENROL.general_information;
+    this.isFinal = (this.genInfoModel.status === GlobalsService.FINAL);
     this.addressModel = fileData.data.COMPANY_ENROL.address;
     const cont = fileData.data.COMPANY_ENROL.contacts;
     this.contactModel = (cont instanceof Array) ? cont : [cont];
@@ -170,17 +170,17 @@ export class CompanyBaseComponent implements OnInit {
   private _updatedAutoFields() {
     this._updatedSavedDate();
     if (this.isInternalSite) {
-      this.appInfoModel.status = CompanyBaseService.setFinalStatus();
-      this.appInfoModel.enrolVersion = Math.floor(this.appInfoModel.enrolVersion) + 1;
+      this.genInfoModel.status = CompanyBaseService.setFinalStatus();
+      this.genInfoModel.enrolVersion = Math.floor(this.genInfoModel.enrolVersion) + 1;
     } else {
-      this.appInfoModel.enrolVersion += 0.1;
+      this.genInfoModel.enrolVersion += 0.1;
     }
   }
 
   private _updatedSavedDate() {
     const today = new Date();
     const pipe = new DatePipe('en-US');
-    this.appInfoModel.lastSavedDate = pipe.transform(today, 'yyyy-MM-dd');
+    this.genInfoModel.lastSavedDate = pipe.transform(today, 'yyyy-MM-dd');
   }
 
   public preload() {

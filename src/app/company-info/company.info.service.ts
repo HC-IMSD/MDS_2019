@@ -5,7 +5,7 @@ import {ValidationService} from '../validation.service';
 import {ListService} from '../list-service';
 
 @Injectable()
-export class ApplicationInfoService {
+export class CompanyInfoService {
   public statusList: Array<any> = [
     GlobalsService.NEW,
     GlobalsService.AMEND,
@@ -17,7 +17,7 @@ export class ApplicationInfoService {
   }
 
   /**
-   * Gets the reactive forms Model for applicationInfo details
+   * Gets the reactive forms Model for generalInfo details
    * @param {FormBuilder} fb
    * @returns {any}
    */
@@ -46,18 +46,18 @@ export class ApplicationInfoService {
     );
   }
 
-  public static mapFormModelToDataModel(formRecord: FormGroup, applicationInfoModel) {
-    applicationInfoModel.status = formRecord.controls.formStatus.value;
-    applicationInfoModel.enrolVersion = formRecord.controls.enrolVersion.value;
-    applicationInfoModel.lastSavedDate = formRecord.controls.lastSavedDate.value;
-    applicationInfoModel.companyId = formRecord.controls.companyId.value;
+  public static mapFormModelToDataModel(formRecord: FormGroup, generalInfoModel) {
+    generalInfoModel.status = formRecord.controls.formStatus.value;
+    generalInfoModel.enrolVersion = formRecord.controls.enrolVersion.value;
+    generalInfoModel.lastSavedDate = formRecord.controls.lastSavedDate.value;
+    generalInfoModel.companyId = formRecord.controls.companyId.value;
   }
 
-  public static mapDataModelToFormModel(applicationInfoModel, formRecord: FormGroup) {
-    formRecord.controls.formStatus.setValue(applicationInfoModel.status);
-    formRecord.controls.enrolVersion.setValue(applicationInfoModel.enrolVersion);
-    formRecord.controls.lastSavedDate.setValue(applicationInfoModel.lastSavedDate);
-    formRecord.controls.companyId.setValue(applicationInfoModel.companyId);
+  public static mapDataModelToFormModel(generalInfoModel, formRecord: FormGroup) {
+    formRecord.controls.formStatus.setValue(generalInfoModel.status);
+    formRecord.controls.enrolVersion.setValue(generalInfoModel.enrolVersion);
+    formRecord.controls.lastSavedDate.setValue(generalInfoModel.lastSavedDate);
+    formRecord.controls.companyId.setValue(generalInfoModel.companyId);
   }
 
   public static getRecordId(record: FormGroup) {

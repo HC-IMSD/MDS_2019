@@ -4,24 +4,24 @@ import {
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
-import {ApplicationInfoService} from './application.info.service';
+import {CompanyInfoService} from './company.info.service';
 import {GlobalsService} from '../globals/globals.service';
 import {isArray} from 'util';
 
 
 @Component({
-  selector: 'application-info',
-  templateUrl: 'application.info.component.html'
+  selector: 'com-gen-info',
+  templateUrl: 'company.info.component.html'
 })
 
 /**
- *  Application Info Component is used for Company Form
+ *  Company Info Component is used for Company Form
  */
-export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewInit {
+export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
 
-  public applicationInfoFormLocalModel: FormGroup;
-  @Input('group') public applicationInfoFormRecord: FormGroup;
-  @Input() appInfoModel;
+  public generalInfoFormLocalModel: FormGroup;
+  @Input('group') public generalInfoFormRecord: FormGroup;
+  @Input() genInfoModel;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() inComplete: boolean;
@@ -32,17 +32,17 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
   public isAmend = true;
   public showFieldErrors: boolean;
   public setAsComplete = true;
-  private detailsService: ApplicationInfoService;
+  private detailsService: CompanyInfoService;
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef) {
     this.showFieldErrors = false;
     // this.showErrors = false;
-    this.detailsService = new ApplicationInfoService();
+    this.detailsService = new CompanyInfoService();
   }
 
   ngOnInit() {
-    if (!this.applicationInfoFormLocalModel) {
-      this.applicationInfoFormLocalModel = ApplicationInfoService.getReactiveModel(this._fb);
+    if (!this.generalInfoFormLocalModel) {
+      this.generalInfoFormLocalModel = CompanyInfoService.getReactiveModel(this._fb);
     }
     this.detailsChanged = 0;
     console.log('this.isInternal: ' + this.isInternal);
@@ -82,16 +82,16 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
     // since we can't detect changes on objects, using a separate flag
     if (changes['detailsChanged']) { // used as a change indicator for the model
       // console.log("the details cbange");
-      if (this.applicationInfoFormRecord) {
+      if (this.generalInfoFormRecord) {
         this.setToLocalModel();
 
       } else {
-        this.applicationInfoFormLocalModel = ApplicationInfoService.getReactiveModel(this._fb);
-        this.applicationInfoFormLocalModel.markAsPristine();
+        this.generalInfoFormLocalModel = CompanyInfoService.getReactiveModel(this._fb);
+        this.generalInfoFormLocalModel.markAsPristine();
       }
-      if (this.applicationInfoFormLocalModel ) {
-        ApplicationInfoService.mapFormModelToDataModel((<FormGroup>this.applicationInfoFormLocalModel),
-          this.appInfoModel);
+      if (this.generalInfoFormLocalModel ) {
+        CompanyInfoService.mapFormModelToDataModel((<FormGroup>this.generalInfoFormLocalModel),
+          this.genInfoModel);
       }
     }
     if (changes['showErrors']) {
@@ -109,10 +109,10 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
     if (changes['inComplete']) {
       this.setAsComplete = changes['inComplete'].currentValue && this.isInternal;
     }
-    if (changes['appInfoModel']) {
-      const dataModel = changes['appInfoModel'].currentValue;
-      ApplicationInfoService.mapDataModelToFormModel(dataModel,
-        (<FormGroup>this.applicationInfoFormLocalModel));
+    if (changes['genInfoModel']) {
+      const dataModel = changes['genInfoModel'].currentValue;
+      CompanyInfoService.mapDataModelToFormModel(dataModel,
+        (<FormGroup>this.generalInfoFormLocalModel));
       // this.validRec = true; todo: valid record ???
     }
 
@@ -123,9 +123,9 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
    */
 
   setToLocalModel() {
-    this.applicationInfoFormLocalModel = this.applicationInfoFormRecord;
-    if (!this.applicationInfoFormLocalModel.pristine) {
-      this.applicationInfoFormLocalModel.markAsPristine();
+    this.generalInfoFormLocalModel = this.generalInfoFormRecord;
+    if (!this.generalInfoFormLocalModel.pristine) {
+      this.generalInfoFormLocalModel.markAsPristine();
     }
   }
 
@@ -135,10 +135,10 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
 
   showAmendMsg() {
 
-    if (!this.applicationInfoFormLocalModel) {
+    if (!this.generalInfoFormLocalModel) {
       return false;
     }
-    return this.applicationInfoFormLocalModel.controls.formStatus.value === GlobalsService.AMEND;
+    return this.generalInfoFormLocalModel.controls.formStatus.value === GlobalsService.AMEND;
   }
 
   disableAmend () {
@@ -147,22 +147,22 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
 
   public setAmendState () {
     this.isAmend = true;
-    this.appInfoModel.status = ApplicationInfoService.setAmendStatus();
-    ApplicationInfoService.mapDataModelToFormModel(this.appInfoModel,
-      (<FormGroup>this.applicationInfoFormLocalModel));
+    this.genInfoModel.status = CompanyInfoService.setAmendStatus();
+    CompanyInfoService.mapDataModelToFormModel(this.genInfoModel,
+      (<FormGroup>this.generalInfoFormLocalModel));
   }
 
   onblur() {
     // console.log('input is typed');
-    ApplicationInfoService.mapFormModelToDataModel((<FormGroup>this.applicationInfoFormLocalModel),
-      this.appInfoModel);
+    CompanyInfoService.mapFormModelToDataModel((<FormGroup>this.generalInfoFormLocalModel),
+      this.genInfoModel);
   }
 
   // typed(rec) {
   //   var content = rec.replace(/[\x00-\x7F]/g, '', '');
   //   console.log('this is typed');
   //   if (content && this.existsInList(content)) {
-  //     this.applicationInfoFormLocalModel.controls.country.setValue([content]);
+  //     this.generalInfoFormLocalModel.controls.country.setValue([content]);
   //   }
   // }
   //
@@ -178,16 +178,16 @@ export class ApplicationInfoComponent implements OnInit, OnChanges, AfterViewIni
   // private _setPostalPattern(countryValue) {
   //   //  console.log("starting the postal Pattern");
   //   // this.postalPattern=
-  //   if (ApplicationInfoService.isCanada(countryValue)) {
+  //   if (CompanyInfoService.isCanada(countryValue)) {
   //
   //     this.postalLabel = 'postal.canada';
-  //     this.provinceLabel = 'applicationInfo.province';
+  //     this.provinceLabel = 'generalInfo.province';
   //     this.postalPattern = /^(?!.*[DFIOQU])[A-VXYa-vxy][0-9][A-Za-z] ?[0-9][A-Za-z][0-9]$/;
-  //   } else if (ApplicationInfoService.isUsa(countryValue)) {
+  //   } else if (CompanyInfoService.isUsa(countryValue)) {
   //     this.postalPattern = /^[0-9]{5}(?:-[0-9]{4})?$/;
   //     this.postalLabel = 'postal.usa';
   //     //  console.log("This is the postal label"+this.postalLabel);
-  //     this.provinceLabel = 'applicationInfo.state';
+  //     this.provinceLabel = 'generalInfo.state';
   //   } else {
   //     this.postalPattern = null;
   //   }

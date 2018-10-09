@@ -10,7 +10,7 @@ import {isArray} from 'util';
 
 
 @Component({
-  selector: 'dossier-gen-info',
+  selector: 'dos-gen-info',
   templateUrl: 'dossier.info.component.html'
 })
 
