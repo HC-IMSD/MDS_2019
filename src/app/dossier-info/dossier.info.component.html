@@ -1,5 +1,5 @@
 <div>
-  <div [formGroup]="applicationInfoFormLocalModel">
+  <div [formGroup]="generalInfoFormLocalModel">
     <div class="row">
       <div class="form-group col-md-2" >
         <label for="formStatus">
@@ -32,15 +32,15 @@
             <input id="dossierId" class="form-control" formControlName="dossierId"
                  [readonly]="!isInternalSite()" maxlength="7" (blur)="onblur()" />
           </div>
-          <control-messages *ngIf="(isInternalSite() && applicationInfoFormLocalModel.controls.dossierId.invalid)"
+          <control-messages *ngIf="(isInternalSite() && generalInfoFormLocalModel.controls.dossierId.invalid)"
                             [showError]="showFieldErrors"
-                            [control]="applicationInfoFormLocalModel.controls.dossierId"
+                            [control]="generalInfoFormLocalModel.controls.dossierId"
                             controlId="dossierId" label="dossier.id" parentId="dossierInfo"
                             parentLabel="Regulatory Dossier Enrolment"></control-messages>
         </label>
       </div>
     </div>
-    <!--pre>{{applicationInfoFormLocalModel.value |json}}</pre>
-      <pre>dossierId.invalid={{applicationInfoFormLocalModel.controls.dossierId.invalid}}</pre-->
+    <!--pre>{{generalInfoFormLocalModel.value |json}}</pre>
+      <pre>dossierId.invalid={{generalInfoFormLocalModel.controls.dossierId.invalid}}</pre-->
   </div>
 </div>

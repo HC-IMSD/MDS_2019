@@ -4,24 +4,24 @@ import {
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
-import {DossierAppInfoService} from './dossier.info.service';
+import {DossierGenInfoService} from './dossier.info.service';
 import {GlobalsService} from '../globals/globals.service';
 import {isArray} from 'util';
 
 
 @Component({
-  selector: 'dossier-app-info',
+  selector: 'dossier-gen-info',
   templateUrl: 'dossier.info.component.html'
 })
 
 /**
  *  Application Info Component is used for Company Form
  */
-export class DossierApplInfoComponent implements OnInit, OnChanges, AfterViewInit {
+export class DossierInfoComponent implements OnInit, OnChanges, AfterViewInit {
 
-  public applicationInfoFormLocalModel: FormGroup;
-  @Input('group') public applicationInfoFormRecord: FormGroup;
-  @Input() appInfoModel;
+  public generalInfoFormLocalModel: FormGroup;
+  @Input('group') public generalInfoFormRecord: FormGroup;
+  @Input() genInfoModel;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() inComplete: boolean;
@@ -32,17 +32,17 @@ export class DossierApplInfoComponent implements OnInit, OnChanges, AfterViewIni
   public isAmend = true;
   public showFieldErrors: boolean;
   public setAsComplete = true;
-  private detailsService: DossierAppInfoService;
+  private detailsService: DossierGenInfoService;
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef) {
     this.showFieldErrors = false;
     // this.showErrors = false;
-    this.detailsService = new DossierAppInfoService();
+    this.detailsService = new DossierGenInfoService();
   }
 
   ngOnInit() {
-    if (!this.applicationInfoFormLocalModel) {
-      this.applicationInfoFormLocalModel = DossierAppInfoService.getReactiveModel(this._fb);
+    if (!this.generalInfoFormLocalModel) {
+      this.generalInfoFormLocalModel = DossierGenInfoService.getReactiveModel(this._fb);
     }
     this.detailsChanged = 0;
     console.log('this.isInternal: ' + this.isInternal);
@@ -75,16 +75,16 @@ export class DossierApplInfoComponent implements OnInit, OnChanges, AfterViewIni
     // since we can't detect changes on objects, using a separate flag
     if (changes['detailsChanged']) { // used as a change indicator for the model
       // console.log("the details cbange");
-      if (this.applicationInfoFormRecord) {
+      if (this.generalInfoFormRecord) {
         this.setToLocalModel();
 
       } else {
-        this.applicationInfoFormLocalModel = DossierAppInfoService.getReactiveModel(this._fb);
-        this.applicationInfoFormLocalModel.markAsPristine();
+        this.generalInfoFormLocalModel = DossierGenInfoService.getReactiveModel(this._fb);
+        this.generalInfoFormLocalModel.markAsPristine();
       }
-      if (this.applicationInfoFormLocalModel ) {
-        DossierAppInfoService.mapFormModelToDataModel((<FormGroup>this.applicationInfoFormLocalModel),
-          this.appInfoModel);
+      if (this.generalInfoFormLocalModel ) {
+        DossierGenInfoService.mapFormModelToDataModel((<FormGroup>this.generalInfoFormLocalModel),
+          this.genInfoModel);
       }
     }
     if (changes['showErrors']) {
@@ -102,10 +102,10 @@ export class DossierApplInfoComponent implements OnInit, OnChanges, AfterViewIni
     if (changes['inComplete']) {
       this.setAsComplete = changes['inComplete'].currentValue && this.isInternal;
     }
-    if (changes['appInfoModel']) {
-      const dataModel = changes['appInfoModel'].currentValue;
-      DossierAppInfoService.mapDataModelToFormModel(dataModel,
-        (<FormGroup>this.applicationInfoFormLocalModel));
+    if (changes['genInfoModel']) {
+      const dataModel = changes['genInfoModel'].currentValue;
+      DossierGenInfoService.mapDataModelToFormModel(dataModel,
+        (<FormGroup>this.generalInfoFormLocalModel));
     }
 
   }
@@ -115,9 +115,9 @@ export class DossierApplInfoComponent implements OnInit, OnChanges, AfterViewIni
    */
 
   setToLocalModel() {
-    this.applicationInfoFormLocalModel = this.applicationInfoFormRecord;
-    if (!this.applicationInfoFormLocalModel.pristine) {
-      this.applicationInfoFormLocalModel.markAsPristine();
+    this.generalInfoFormLocalModel = this.generalInfoFormRecord;
+    if (!this.generalInfoFormLocalModel.pristine) {
+      this.generalInfoFormLocalModel.markAsPristine();
     }
   }
 
@@ -127,8 +127,8 @@ export class DossierApplInfoComponent implements OnInit, OnChanges, AfterViewIni
 
   onblur() {
     // console.log('input is typed');
-    DossierAppInfoService.mapFormModelToDataModel((<FormGroup>this.applicationInfoFormLocalModel),
-      this.appInfoModel);
+    DossierGenInfoService.mapFormModelToDataModel((<FormGroup>this.generalInfoFormLocalModel),
+      this.genInfoModel);
   }
 }
 

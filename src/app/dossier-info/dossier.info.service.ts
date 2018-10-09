@@ -5,7 +5,7 @@ import {ValidationService} from '../validation.service';
 import {ListService} from '../list-service';
 
 @Injectable()
-export class DossierAppInfoService {
+export class DossierGenInfoService {
   public statusList: Array<any> = [
     GlobalsService.NEW,
     GlobalsService.AMEND,
@@ -17,7 +17,7 @@ export class DossierAppInfoService {
   }
 
   /**
-   * Gets the reactive forms Model for applicationInfo details
+   * Gets the reactive forms Model for general Info details
    * @param {FormBuilder} fb
    * @returns {any}
    */
@@ -46,18 +46,18 @@ export class DossierAppInfoService {
     );
   }
 
-  public static mapFormModelToDataModel(formRecord: FormGroup, applicationInfoModel) {
-    applicationInfoModel.status = formRecord.controls.formStatus.value;
-    applicationInfoModel.enrol_version = formRecord.controls.enrolVersion.value;
-    applicationInfoModel.last_saved_date = formRecord.controls.lastSavedDate.value;
-    applicationInfoModel.dossier_id = formRecord.controls.dossierId.value;
+  public static mapFormModelToDataModel(formRecord: FormGroup, generalInfoModel) {
+    generalInfoModel.status = formRecord.controls.formStatus.value;
+    generalInfoModel.enrol_version = formRecord.controls.enrolVersion.value;
+    generalInfoModel.last_saved_date = formRecord.controls.lastSavedDate.value;
+    generalInfoModel.dossier_id = formRecord.controls.dossierId.value;
   }
 
-  public static mapDataModelToFormModel(applicationInfoModel, formRecord: FormGroup) {
-    formRecord.controls.formStatus.setValue(applicationInfoModel.status);
-    formRecord.controls.enrolVersion.setValue(applicationInfoModel.enrol_version);
-    formRecord.controls.lastSavedDate.setValue(applicationInfoModel.last_saved_date);
-    formRecord.controls.dossierId.setValue(applicationInfoModel.dossier_id);
+  public static mapDataModelToFormModel(generalInfoModel, formRecord: FormGroup) {
+    formRecord.controls.formStatus.setValue(generalInfoModel.status);
+    formRecord.controls.enrolVersion.setValue(generalInfoModel.enrol_version);
+    formRecord.controls.lastSavedDate.setValue(generalInfoModel.last_saved_date);
+    formRecord.controls.dossierId.setValue(generalInfoModel.dossier_id);
   }
 
   public static getRecordId(record: FormGroup) {

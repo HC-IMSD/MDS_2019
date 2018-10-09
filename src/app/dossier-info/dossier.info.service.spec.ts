@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { DossierAppInfoService } from './dossier.info.service';
+import { DossierGenInfoService } from './dossier.info.service';
 
-describe('Address.DetailsService', () => {
+describe('Dossier.DetailsService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [DossierAppInfoService]
+      providers: [DossierGenInfoService]
     });
   });
 
-  it('should be created', inject([DossierAppInfoService], (service: DossierAppInfoService) => {
+  it('should be created', inject([DossierGenInfoService], (service: DossierGenInfoService) => {
     expect(service).toBeTruthy();
   }));
 });

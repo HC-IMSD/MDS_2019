@@ -22,7 +22,7 @@ export class DossierBaseComponent implements OnInit {
   @Input() isInternal;
   @Input() lang;
 
-  private _appInfoErrors = [];
+  private _genInfoErrors = [];
   private _dossierErrors = [];
   public disableSaveXml = true;
   public isFinal = false;
@@ -34,7 +34,7 @@ export class DossierBaseComponent implements OnInit {
   public title = '';
   public headingLevel = 'h2';
   public dossierModel = DossierBaseService.getEmptyDossierDetailsModel();
-  public appInfoModel = DossierBaseService.getEmptyAppInfoModel();
+  public genInfoModel = DossierBaseService.getEmptyGenInfoModel();
   public fileServices: FileConversionService;
   public saveXmlLabel = 'save.draft';
   public xslName = 'REP_MDS_DO_1_0.xsl';
@@ -63,7 +63,7 @@ export class DossierBaseComponent implements OnInit {
     // console.log('@@@@@@@@@@@@ Processing errors in Company base compo
     this.errorList = [];
     // concat the two array
-    this.errorList = this._appInfoErrors.concat(this._dossierErrors);
+    this.errorList = this._genInfoErrors.concat(this._dossierErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -72,8 +72,8 @@ export class DossierBaseComponent implements OnInit {
     this.processErrors();
   }
 
-  processAppInfoErrors(errorList) {
-    this._appInfoErrors = errorList;
+  processGenInfoErrors(errorList) {
+    this._genInfoErrors = errorList;
     this.processErrors();
   }
 
@@ -92,7 +92,7 @@ export class DossierBaseComponent implements OnInit {
       this._updatedAutoFields();
       const result = {
         'DOSSIER_ENROL': {
-          'application_information': this.appInfoModel,
+          'general_information': this.genInfoModel,
           'dossier': this.dossierModel
         }
       };
@@ -104,10 +104,10 @@ export class DossierBaseComponent implements OnInit {
   public saveWorkingCopyFile() {
     this._updatedSavedDate();
     const result = {'DOSSIER_ENROL': {
-      'application_information': this.appInfoModel,
+      'general_information': this.genInfoModel,
       'dossier': this.dossierModel
     }};
-    const version: Array<any> = this.appInfoModel.enrol_version.toString().split('.');
+    const version: Array<any> = this.genInfoModel.enrol_version.toString().split('.');
     const fileName = 'draftrepdo-' + version[0] + '-' + version[1];
     this.fileServices.saveJsonToFile(result, fileName, null);
   }
@@ -115,33 +115,33 @@ export class DossierBaseComponent implements OnInit {
   public processFile(fileData: ConvertResults) {
      // console.log('processing file.....');
      console.log(fileData);
-    this.appInfoModel = fileData.data.DOSSIER_ENROL.application_information;
-    this.isFinal = (this.appInfoModel.status === GlobalsService.FINAL);
+    this.genInfoModel = fileData.data.DOSSIER_ENROL.general_information;
+    this.isFinal = (this.genInfoModel.status === GlobalsService.FINAL);
     this.dossierModel = fileData.data.DOSSIER_ENROL.dossier;
   }
 
   private _updatedAutoFields() {
     this._updatedSavedDate();
     if (this.isInternalSite) {
-      this.appInfoModel.status = DossierBaseService.setFinalStatus();
-      this.appInfoModel.enrol_version = (Math.floor(Number(this.appInfoModel.enrol_version)) + 1).toString() + '.0';
+      this.genInfoModel.status = DossierBaseService.setFinalStatus();
+      this.genInfoModel.enrol_version = (Math.floor(Number(this.genInfoModel.enrol_version)) + 1).toString() + '.0';
     } else {
-      const version: Array<any> = this.appInfoModel.enrol_version.split('.');
+      const version: Array<any> = this.genInfoModel.enrol_version.split('.');
       version[1] = (Number(version[1]) + 1).toString();
-      this.appInfoModel.enrol_version = version[0] + '.' + version[1];
+      this.genInfoModel.enrol_version = version[0] + '.' + version[1];
     }
   }
 
   private _updatedSavedDate() {
     const today = new Date();
     const pipe = new DatePipe('en-US');
-    this.appInfoModel.last_saved_date = pipe.transform(today, 'yyyy-MM-dd');
+    this.genInfoModel.last_saved_date = pipe.transform(today, 'yyyy-MM-dd');
   }
 
   private _buildfileName() {
-    const version: Array<any> = this.appInfoModel.enrol_version.split('.');
+    const version: Array<any> = this.genInfoModel.enrol_version.split('.');
     if (this.isInternalSite) {
-      return 'hcrepdo-' + this.appInfoModel.dossier_id + '-' + version[0] + '-' + version[1];
+      return 'hcrepdo-' + this.genInfoModel.dossier_id + '-' + version[0] + '-' + version[1];
     } else {
       return 'draftrepdo-' + version[0] + '-' + version[1];
     }

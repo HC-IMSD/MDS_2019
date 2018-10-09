@@ -12,7 +12,7 @@ export class DossierBaseService {
   }
 
   /**
-   * Gets the reactive forms Model for applicationInfo details
+   * Gets the reactive forms Model for dossier details
    * @param {FormBuilder} fb
    * @returns {any}
    */
@@ -50,10 +50,10 @@ export class DossierBaseService {
   }
 
   /**
-   * Gets an empty app info model
+   * Gets an empty gen info model
    *
    */
-  public static getEmptyAppInfoModel() {
+  public static getEmptyGenInfoModel() {
     return (
       {
         status: '',
