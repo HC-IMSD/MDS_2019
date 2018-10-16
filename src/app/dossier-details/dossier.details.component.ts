@@ -25,7 +25,7 @@ export class DossierDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   public dossierFormLocalModel: FormGroup;
   @Input('group') public dossierFormRecord: FormGroup;
-  @Input() public addressDetailsModel;
+  // @Input() public addressDetailsModel;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() dossierModel;

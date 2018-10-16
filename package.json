@@ -24,6 +24,12 @@
     "prod-dossier-build-internal": "npm run prod-dossier-build-internal-en & npm run prod-dossier-build-internal-fr",
     "prod-dossier-build-internal-en": "ng build -prod --output-path dist/prod/dossier/internal/en/ --env=prod-en --app dossier_internal",
     "prod-dossier-build-internal-fr": "ng build -prod --output-path dist/prod/dossier/internal/fr/ --env=prod-fr --app dossier_internal",
+    "prod-transaction-build": "npm run prod-transaction-build-en & npm run prod-transaction-build-fr",
+    "prod-transaction-build-en": "ng build -prod --output-path dist/prod/transaction/en/ --env=prod-en --app transaction",
+    "prod-transaction-build-fr": "ng build -prod --output-path dist/prod/transaction/fr/ --env=prod-fr --app transaction",
+    "prod-applicationInfo-build": "npm run prod-applicationInfo-build-en & npm run prod-applicationInfo-build-fr",
+    "prod-applicationInfo-build-en": "ng build -prod --output-path dist/prod/applicationInfo/en/ --env=prod-en --app applicationInfo",
+    "prod-applicationInfo-build-fr": "ng build -prod --output-path dist/prod/applicationInfo/fr/ --env=prod-fr --app applicationInfo",
     "test": "ng test",
     "lint": "ng lint  ",
     "e2e": "ng e2e",
@@ -37,7 +43,9 @@
     "serve company": "ng serve --app company",
     "serve company-internal": "ng serve --app company_internal",
     "serve dossier": "ng serve --app dossier",
-    "serve dossier-internal": "ng serve --app dossier_internal"
+    "serve dossier-internal": "ng serve --app dossier_internal",
+    "serve transaction": "ng serve --app transaction",
+    "serve applicationInfo": "ng serve --app applicationInfo"
   },
   "private": true,
   "dependencies": {
