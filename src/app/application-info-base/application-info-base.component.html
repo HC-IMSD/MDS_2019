@@ -1,14 +1,14 @@
 <div class="container-fluid">
   <form [formGroup]="appInfoForm" novalidate>
     <div>
-      <h1>{{'appInfo.form.title'|translate}}</h1>
+      <h1>{{'application-info.form.title'|translate}}</h1>
 
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
             <div class="btn-group pull-right">
             </div>
-            <h2 class="panel-title">{{'appInfo.load.file'|translate}}</h2>
+            <h2 class="panel-title">{{'application-info.load.file'|translate}}</h2>
           </header>
           <div class="panel-body">
             <div class="row">
@@ -26,7 +26,7 @@
           <header class="panel-heading clearfix">
             <div class="btn-group pull-right">
             </div>
-            <h2 class="panel-title">{{'heading.appInfo'|translate}}</h2>
+            <h2 class="panel-title">{{'heading.app-info'|translate}}</h2>
           </header>
           <div class="panel-body">
             <app-info-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"

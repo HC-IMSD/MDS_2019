@@ -1,0 +1,175 @@
+<div>
+  <div [formGroup]="appInfoFormLocalModel">
+    <div class="row">
+      <div class="form-group col-xs-6" >
+        <label for="companyId" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{'company.id'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <input id="companyId" class="form-control full-width" (blur)="onblur()"
+                 formControlName="companyId" maxlength="6"/>
+          <control-messages *ngIf="appInfoFormLocalModel.controls.companyId.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="appInfoFormLocalModel.controls.companyId"
+                            controlId="companyId" label="company.id" parentId="appInfoDetails"
+                            parentLabel="Application Information"></control-messages>
+        </label>
+      </div>
+      <div class="form-group col-xs-6" >
+        <label for="dossierId" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{'dossier.id'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <input id="dossierId" class="form-control full-width"  (blur)="onblur()"
+                 formControlName="dossierId" maxlength="5"/>
+          <control-messages *ngIf="appInfoFormLocalModel.controls.dossierId.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="appInfoFormLocalModel.controls.dossierId"
+                            controlId="dossierId" label="dossier.id" parentId="appInfoDetails"
+                            parentLabel="Application Information"></control-messages>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-6" >
+        <label for="qmscNum" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{'qmsc.number'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <input id="qmscNum" class="form-control full-width"  (blur)="onblur()"
+                 formControlName="qmscNum" maxlength="30"/>
+          <control-messages *ngIf="appInfoFormLocalModel.controls.qmscNum.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="appInfoFormLocalModel.controls.qmscNum"
+                            controlId="qmscNum" label="qmsc.number" parentId="appInfoDetails"
+                            parentLabel="Application Information"></control-messages>
+        </label>
+      </div>
+      <div class="form-group col-xs-6" >
+        <label for="licenceAppType" class="required full-width">
+          <span class="field-name" i18n>{{'licence.app.type' |translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <select id="licenceAppType" required class="form-control full-width" (blur)="onblur()"
+                  formControlName="licenceAppType">
+            <option *ngFor="let lat of licenceAppTypeList" [ngValue]="lat.id"> {{lat.text}}</option>
+
+          </select>
+          <control-messages *ngIf="appInfoFormLocalModel.controls.licenceAppType.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="appInfoFormLocalModel.controls.licenceAppType"
+                            controlId="licenceAppType" label="licence.app.type"
+                            parentId="appInfoDetails"
+                            parentLabel="Application Information"></control-messages>
+        </label>
+      </div>
+    </div>
+
+    <!--div>
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <div class="btn-group pull-right">
+          </div>
+          <h2 class="panel-title">{{'heading.appInfo'|translate}}</h2>
+        </header>
+        <div class="panel-body">
+          <div class="row">
+            <div class="form-group col-xs-3" >
+              <label for="appInfoType" class="full-width">
+                <span class="field-name" i18n>{{'appInfo.type'|translate}}</span>
+                <input id="appInfoType" class="form-control" [readonly]="true"
+                       formControlName="appInfoType" size="20"/>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-xs-12">
+              <label for="deviceName" class="required full-width">
+                <span class="field-name">{{'device.name'|translate}}</span>
+                <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                <textarea type="text" class="form-control full-width" id="deviceName" (blur)="onblur()"
+                          formControlName="deviceName" maxlength="150"></textarea>
+                <control-messages *ngIf="appInfoFormLocalModel.controls.deviceName.invalid"
+                                  [showError]="showFieldErrors"
+                                  [control]="appInfoFormLocalModel.controls.deviceName"
+                                  controlId="deviceName" label="device.name" parentId="appInfoDetails"
+                                  parentLabel="Application Information"></control-messages>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-xs-12" >
+              <label for="hasQMSC" class="required full-width">
+                <span class="field-name" i18n>{{'has.qmsc' |translate}}</span>
+                <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                <select id="hasQMSC" required class="form-control" (blur)="onblur()"
+                        formControlName="hasQMSC">
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
+                <control-messages *ngIf="appInfoFormLocalModel.controls.hasQMSC.invalid"
+                                  [showError]="showFieldErrors"
+                                  [control]="appInfoFormLocalModel.controls.hasQMSC"
+                                  controlId="hasQMSC" label="has.qmsc" parentId="appInfoDetails"
+                                  parentLabel="Application Information"></control-messages>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div *ngIf="isQmsc()" class="form-group col-xs-12 col-sm-6" >
+              <label for="qMSCRegistrar" class="required full-width">
+                <span class="field-name" i18n>{{'qmsc.registrar' |translate}}</span>
+                <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                <select id="qMSCRegistrar" required class="form-control full-width" (blur)="onblur()"
+                        formControlName="qMSCRegistrar">
+                  <option *ngFor="let registrar of registrarList" [ngValue]="registrar.id"> {{registrar.text}}</option>
+
+                </select>
+                <control-messages *ngIf="appInfoFormLocalModel.controls.qMSCRegistrar.invalid"
+                                  [showError]="showFieldErrors"
+                                  [control]="appInfoFormLocalModel.controls.qMSCRegistrar"
+                                  controlId="qMSCRegistrar" label="qmsc.registrar" parentId="appInfoDetails"
+                                  parentLabel="Application Information"></control-messages>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-xs-12">
+              <label for="additionalField" class="full-width">
+                <span class="field-name">{{'add.field'|translate}}</span>
+                <textarea type="text" class="form-control full-width" id="additionalField" (blur)="onblur()"
+                          formControlName="additionalField" maxlength="150"></textarea>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div-->
+
+
+
+    <div>
+      <section class="panel  panel-default">
+        <header class="panel-heading clearfix">
+          <div class="btn-group pull-right">
+          </div>
+          <h3 class="panel-title">{{'heading.devices'|translate}}</h3>
+        </header>
+        <div class="panel-body">
+          <device-list  (errors)="processDeviceErrors($event)"
+                         [deviceModel]="deviceModel"></device-list>
+        </div>
+      </section>
+    </div>
+
+    <!--div>
+      <section class="panel  panel-default">
+        <header class="panel-heading clearfix">
+          <div class="btn-group pull-right">
+          </div>
+          <h3 class="panel-title">{{'heading.material'|translate}}</h3>
+        </header>
+        <div class="panel-body">
+          <material-list  (errors)="processContactErrors($event)" [isInternal]="isInternalSite"
+                        [contactModel]="contactModel"></material-list>
+        </div>
+      </section>
+    </div -->
+    <!-- <pre>{{appInfoFormLocalModel.value |json}}</pre>-->
+  </div>
+</div>

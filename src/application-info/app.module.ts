@@ -12,6 +12,7 @@ import {ApplicationInfoDetailsComponent} from '../app/application-info-details/a
 import {DeviceModule} from '../app/device/device.module';
 import {MaterialModule} from '../app/bio-material/material.module';
 import {FileIoModule} from '../app/filereader/file-io/file-io.module';
+import {CompanyDataLoaderService} from '../app/data-loader/company-data-loader.service';
 
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
@@ -49,8 +50,8 @@ import {DataLoaderModule} from '../app/data-loader/data-loader.module';
   ],
   providers: [
     ValidationService,
-    GlobalsService
-    // DossierDataLoaderService
+    GlobalsService,
+    CompanyDataLoaderService
   ],
   exports: [
     TranslateModule

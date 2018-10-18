@@ -24,7 +24,8 @@ export class ApplicationInfoBaseService {
       status: '',
       enrolVersion: 0.0,
       lastSavedDate: '',
-      companyId: ['', [Validators.required, Validators.min(5)]]
+      companyId: ['', [Validators.required, Validators.min(6)]],
+      dossierId: ['', [Validators.required, Validators.min(7)]]
     });
   }
 
@@ -46,21 +47,6 @@ export class ApplicationInfoBaseService {
             '_label_fr': ''
           },
         postal: ''
-      }
-    );
-  }
-
-  /**
-   * Gets an empty general info model
-   *
-   */
-  public static getEmptyGenInfoModel() {
-    return (
-      {
-        status: '',
-        enrolVersion: 0.0,
-        lastSavedDate: '',
-        companyId: ''
       }
     );
   }

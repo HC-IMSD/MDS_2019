@@ -1,0 +1,22 @@
+<div>
+  <div [formGroup]="deviceFormLocalModel">
+
+    <div class="row">
+      <div class="form-group col-sm-12" >
+        <label for="deviceName" class="full-width">
+          <span class="field-name" i18n>{{'device.name'|translate}}</span>
+          <input id="deviceName" class="form-control full-width" formControlName="deviceName"/>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-12 ">
+        <label for="licenceNum">
+          <span class="field-name" i18n>{{'licence.number' |translate}}</span>
+          <input id="licenceNum" class="form-control" formControlName="licenceNum"/>
+        </label>
+      </div>
+    </div>
+    <!-- <pre>{{deviceFormLocalModel.value |json}}</pre>-->
+  </div>
+</div>

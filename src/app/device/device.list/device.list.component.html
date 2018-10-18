@@ -1,0 +1,33 @@
+<div [formGroup]="deviceListForm">
+  <div formArrayName="devices">
+    <expander-component [group]="dataModel"
+                        [isValid]="validRec" [addRecord]="addRecordMsg"
+                        [columnDefinitions]="columnDefinitions"
+                        [deleteRecord]="deleteRecordMsg">
+      <device-record
+        [detailsChanged]="updateDeviceDetails"
+        (saveRecord)="saveDeviceRecord($event)"
+        (errors)="updateErrorList($event)"
+        (revertRecord)="revertDevice($event)" (deleteRecord)="deleteDevice($event)"></device-record>
+
+    </expander-component>
+    <div *ngIf="newRecordIndicator">
+      <device-record
+        [detailsChanged]="updateDeviceDetails"
+        [group]="newDeviceForm"
+        (saveRecord)="saveDeviceRecord($event)"
+        (errors)="updateErrorList($event)"
+        (revertRecord)="revertDevice($event)" (deleteRecord)="deleteDevice($event)"></device-record>
+    </div>
+  </div>
+  <div class="row mrgn-tp-md mrgn-bttm-lg">
+    <div class="btn-group-sm col-md-12 text-right">
+      <button class="btn btn-primary" (click)="addDevice()"
+              [disabled]="!deviceListForm.valid || isDirty()">
+       {{'add.repres'|translate}}
+      </button>
+    </div>
+  </div>
+<!--pre>Form Data {{deviceListForm.value |json}}</pre>
+  <pre>Data Model for Device List {{dataModel|json}}</pre-->
+</div>

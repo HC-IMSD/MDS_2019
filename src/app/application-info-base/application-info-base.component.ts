@@ -14,7 +14,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {DatePipe} from '@angular/common';
 
 @Component({
-  selector: 'appl-info-base',
+  selector: 'app-info-base',
   templateUrl: './application-info-base.component.html',
   styleUrls: ['./application-info-base.component.css']
 })
@@ -27,7 +27,7 @@ export class ApplicationInfoBaseComponent implements OnInit {
   private _appInfoDetailErrors = [];
   private _deviceErrors = [];
   private _materialErrors = [];
-  public appInfoForm: FormGroup;
+  public appInfoForm: FormGroup;  // todo: do we need it? could remove?
   public errorList = [];
   public rootTagText = 'APPLICATION_INFO_ENROL';
   public countryList = [];
@@ -52,9 +52,9 @@ export class ApplicationInfoBaseComponent implements OnInit {
   }
 
   async ngOnInit() {
-    // if (!this.appInfoForm) {
-    //   this.appInfoForm = ApplicationInfoBaseService.getReactiveModel(this._fb);
-    // }
+    if (!this.appInfoForm) {
+      this.appInfoForm = ApplicationInfoBaseService.getReactiveModel(this._fb);
+    }
     this.countryList = await (this.dataLoader.getCountries(this.translate.currentLang));
   }
 
@@ -117,7 +117,7 @@ export class ApplicationInfoBaseComponent implements OnInit {
   public processFile(fileData: ConvertResults) {
      console.log('processing file.....');
      console.log(fileData);
-    this.appInfoModel = fileData.data.COMPANY_ENROL.address;
+    this.appInfoModel = fileData.data.APPLICATION_INFO_ENROL.application_info;
     const dev = fileData.data.APPLICATION_INFO_ENROL.devices;
     this.deviceModel = (dev instanceof Array) ? dev : [dev];
     const mat = fileData.data.APPLICATION_INFO_ENROL.materials;
@@ -133,7 +133,6 @@ export class ApplicationInfoBaseComponent implements OnInit {
 
   public preload() {
     // console.log("Calling preload")
-   // this.theraModelList = [{'id': 0, 'theraDetails': 'Test'}];
   }
 
   public updateChild() {
