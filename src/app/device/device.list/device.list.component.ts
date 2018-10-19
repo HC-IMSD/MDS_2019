@@ -41,12 +41,12 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
   public columnDefinitions = [
     {
       label: 'Name of Cmpatible Device',
-      binding: 'deviceName',
+      binding: 'device_name',
       width: '65'
     },
     {
       label: 'Licence Number',
-      binding: 'licenceNum',
+      binding: 'licence_number',
       width: '35'
     }
   ];

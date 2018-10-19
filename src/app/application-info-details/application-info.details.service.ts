@@ -168,12 +168,12 @@ export class ApplicationInfoDetailsService {
     // } else {
     //   formRecord.controls.qMSCRegistrar.setValue(null);
     // }
-    // const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, dossierModel.licence_application_type.__text, 'id');
-    // if (recordIndex2 > -1) {
-    //   formRecord.controls.licenceAppType.setValue(this.licenceAppTypeList[recordIndex2].id);
-    // } else {
-    //   formRecord.controls.licenceAppType.setValue(null);
-    // }
+    const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, dossierModel.licence_application_type.__text, 'id');
+    if (recordIndex2 > -1) {
+      formRecord.controls.licenceAppType.setValue(this.licenceAppTypeList[recordIndex2].id);
+    } else {
+      formRecord.controls.licenceAppType.setValue(null);
+    }
     // formRecord.controls.additionalField.setValue(dossierModel.additional_field);
   }
 

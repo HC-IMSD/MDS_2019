@@ -19,7 +19,7 @@
           <span class="field-name" i18n>{{'dossier.id'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <input id="dossierId" class="form-control full-width"  (blur)="onblur()"
-                 formControlName="dossierId" maxlength="5"/>
+                 formControlName="dossierId" maxlength="7"/>
           <control-messages *ngIf="appInfoFormLocalModel.controls.dossierId.invalid"
                             [showError]="showFieldErrors"
                             [control]="appInfoFormLocalModel.controls.dossierId"

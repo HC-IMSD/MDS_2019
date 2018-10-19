@@ -21,11 +21,12 @@ export class ApplicationInfoBaseService {
       return null;
     }
     return fb.group({
-      status: '',
-      enrolVersion: 0.0,
+      enrolVersion: '0.0',
       lastSavedDate: '',
       companyId: ['', [Validators.required, Validators.min(6)]],
-      dossierId: ['', [Validators.required, Validators.min(7)]]
+      dossierId: ['', [Validators.required, Validators.min(7)]],
+      qmscNum: [null, Validators.required],
+      licenceAppType: [null, Validators.required]
     });
   }
 
@@ -37,16 +38,16 @@ export class ApplicationInfoBaseService {
 
     return (
       {
-        lastSavedDate: '',
-        address: '',
-        provText: '',
-        city: '',
-        country: {
+        enrol_version: '0.0',
+        last_saved_date: '',  // todo: to map into form model ???
+        company_id: '',
+        dossier_id: '',
+        qmsc_number: '',
+        licence_application_type: {
             '__text': '',
             '_label_en': '',
             '_label_fr': ''
-          },
-        postal: ''
+          }
       }
     );
   }

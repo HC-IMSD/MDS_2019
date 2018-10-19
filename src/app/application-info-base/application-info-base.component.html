@@ -32,7 +32,9 @@
             <app-info-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
                               [detailsChanged]="updateChild" [appInfoModel]="appInfoModel"
                               [deviceModel]="deviceModel" [materialModel]="materialModel"
-                              (errorList)="processAddressErrors($event)"></app-info-details>
+                              (detailErrorList)="processDetailErrors($event)"
+                              (deviceErrorList)="processDeviceErrors($event)"
+                              (materialErrorList)="processMaterialtErrors($event)"></app-info-details>
 
             </div>
         </section>

@@ -76,7 +76,7 @@ export class ApplicationInfoBaseComponent implements OnInit {
     this.processErrors();
   }
 
-  processContactErrors(errorList) {
+  processMaterialtErrors(errorList) {
     this._materialErrors = errorList;
     this.processErrors();
   }
@@ -90,6 +90,7 @@ export class ApplicationInfoBaseComponent implements OnInit {
   }
 
   public saveXmlFile() {
+    this._updatedAutoFields();
     if (this.errorList && this.errorList.length > 0) {
       this.showErrors = true;
     } else {
@@ -100,18 +101,20 @@ export class ApplicationInfoBaseComponent implements OnInit {
           'materials': this.materialModel
         }
       };
-      this.fileServices.saveXmlToFile(result, 'hcmdsco', true, this.xslName);
+      const fileName = 'hcrepdi-' + this.appInfoModel.last_saved_date;
+      this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
     }
   }
 
   public saveWorkingCopyFile() {
     this._updatedSavedDate();
     const result = {'APPLICATION_INFO_ENROL': {
-      'address': this.appInfoModel,
+      'application_info': this.appInfoModel,
       'devices': this.deviceModel,
       'materials': this.materialModel
     }};
-    this.fileServices.saveJsonToFile(result, 'hcmdsco-test', null);
+    const fileName = 'hcrepdi-' + this.appInfoModel.last_saved_date;
+    this.fileServices.saveJsonToFile(result, fileName, null);
   }
 
   public processFile(fileData: ConvertResults) {
@@ -128,7 +131,14 @@ export class ApplicationInfoBaseComponent implements OnInit {
   private _updatedSavedDate() {
     const today = new Date();
     const pipe = new DatePipe('en-US');
-    this.appInfoModel.lastSavedDate = pipe.transform(today, 'yyyy-MM-dd');
+    this.appInfoModel.last_saved_date = pipe.transform(today, 'yyyy-MM-dd-hhmm');
+  }
+
+  private _updatedAutoFields() {
+    this._updatedSavedDate();
+    const version: Array<any> = this.appInfoModel.enrol_version.split('.');
+    version[0] = (Number(version[0]) + 1).toString();
+    this.appInfoModel.enrol_version = version[0] + '.' + version[1];
   }
 
   public preload() {

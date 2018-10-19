@@ -18,7 +18,6 @@ export class DeviceDetailsService {
   public static getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
-      deviceId: '',
       deviceName: '',
       licenceNum: ''
     });
@@ -32,7 +31,6 @@ export class DeviceDetailsService {
 
     return (
       {
-        deviceId: '',
         device_name: '',
         licence_number: ''
       }
@@ -41,13 +39,11 @@ export class DeviceDetailsService {
 
 
   public static mapFormModelToDataModel(formRecord: FormGroup, deviceModel) {
-    deviceModel.deviceId = formRecord.controls.deviceId.value;
     deviceModel.device_name = formRecord.controls.deviceName.value;
     deviceModel.licence_number = formRecord.controls.licenceNum.value;
   }
 
   public static mapDataModelToFormModel(deviceModel, formRecord: FormGroup) {
-    formRecord.controls.deviceId.setValue(deviceModel.deviceId);
     formRecord.controls.deviceName.setValue(deviceModel.device_name);
     formRecord.controls.licenceNum.setValue(deviceModel.licence_number);
   }
