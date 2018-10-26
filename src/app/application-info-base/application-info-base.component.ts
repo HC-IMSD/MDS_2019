@@ -38,7 +38,6 @@ export class ApplicationInfoBaseComponent implements OnInit {
   public deviceModel = [];
   public materialModel = [];
   public fileServices: FileConversionService;
-  public saveXmlLabel = 'save.draft';
   public xslName = 'REP_MDS_AI_1_0.xsl';
 
   /* public customSettings: TinyMce.Settings | any;*/

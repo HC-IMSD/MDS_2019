@@ -53,6 +53,7 @@ export class DossierDetailsService {
     );
   }
 
+  // todo: move statice data to data loader serivce
   /**
    * Gets an data array
    *

@@ -157,19 +157,19 @@
       </section>
     </div>
 
-    <!--div>
+    <div>
       <section class="panel  panel-default">
         <header class="panel-heading clearfix">
           <div class="btn-group pull-right">
           </div>
-          <h3 class="panel-title">{{'heading.material'|translate}}</h3>
+          <h3 class="panel-title">{{'heading.material.table'|translate}}</h3>
         </header>
         <div class="panel-body">
-          <material-list  (errors)="processContactErrors($event)" [isInternal]="isInternalSite"
-                        [contactModel]="contactModel"></material-list>
+          <material-list  (errors)="processMaterialErrors($event)" [countryList]="countryList"
+                          [materialModel]="materialModel"></material-list>
         </div>
       </section>
-    </div -->
+    </div>
     <!-- <pre>{{appInfoFormLocalModel.value |json}}</pre>-->
   </div>
 </div>

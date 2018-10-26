@@ -1,0 +1,30 @@
+<div class="container-fluid" [formGroup]="materialRecordModel">
+  <h3>{{'heading.material'| translate}}&nbsp;{{materialRecordModel.controls.id.value + 1}}</h3>
+  <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
+                 [errorList]="errorList" headingPreamble="heading.materialRecord"
+                 [headingLevel]="headingLevel" label="Biological Material Record" compId="materialRec"></error-summary>
+  <material-details [showErrors]="showErrors" [countries]="countries"
+                    [speciesFamilyList]="speciesFamilyList"
+                    [tissueTypeList]="tissueTypeList"
+                    [derivativeList]="derivativeList"
+                   [detailsChanged]="updateChild" [group]="materialRecordModel.controls.materialDetails"
+                   (errorList)="updateErrorList($event)"></material-details>
+
+  <div class="row">
+    <div class="btn-group-sm col-xs-12 text-right">
+      <button class="btn btn-primary" (click)="saveMaterialRecord()" i18n>{{'save.material'|translate}}</button>
+      <button class="btn btn-danger" (click)="deleteMaterialRecord()" i18n>{{'delete.material'|translate}}</button>
+      <button class="btn btn-default" (click)="revertMaterialRecord()" i18n>{{'discard.changes'|translate}}</button>
+    </div>
+  </div>
+  <!--<div class="row" *ngIf="materialRecordModel.dirty">-->
+    <!--<div class="col-xs-7 form-group">-->
+      <!--<div class="alert alert-info" role="alert"-->
+           <!--aria-live="polite">-->
+        <!--<span>{{'common.saveRevert'|translate}}</span>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--pre>{{materialRecordModel.value |json}}</pre-->
+</div>

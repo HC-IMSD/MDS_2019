@@ -13,6 +13,7 @@ import {DeviceModule} from '../app/device/device.module';
 import {MaterialModule} from '../app/bio-material/material.module';
 import {FileIoModule} from '../app/filereader/file-io/file-io.module';
 import {CompanyDataLoaderService} from '../app/data-loader/company-data-loader.service';
+import {AppInfoDataLoaderService} from '../app/data-loader/app-info-data-loader.service';
 
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';

@@ -8,6 +8,7 @@ import {ListService} from '../../list-service';
 @Injectable()
 export class ContactDetailsService {
 
+  // todo: move statice data to data loader serivce
   public statusListExternal: Array<any> = [
     {id: 'NEW', label_en: 'New', label_fr: 'fr_New'},
     {id: 'AMEND', label_en: 'Amend', label_fr: 'fr_Amend'},

@@ -1,0 +1,41 @@
+<div [formGroup]="materialListForm">
+  <div formArrayName="materials">
+    <expander-component [group]="dataModel"
+                        [isValid]="validRec" [addRecord]="addRecordMsg"
+                        [columnDefinitions]="columnDefinitions"
+                        [deleteRecord]="deleteRecordMsg">
+      <material-record
+        [detailsChanged]="updateMaterialDetails"
+        [countries]="countryList"
+        [speciesFamilyList]="speciesFamilyList"
+        [tissueTypeList]="tissueTypeList"
+        [derivativeList]="derivativeList"
+        (saveRecord)="saveMaterialRecord($event)"
+        (errors)="updateErrorList($event)"
+        (revertRecord)="revertMaterial($event)" (deleteRecord)="deleteMaterial($event)"></material-record>
+
+    </expander-component>
+    <div *ngIf="newRecordIndicator">
+      <material-record
+        [detailsChanged]="updateMaterialDetails"
+        [countries]="countryList"
+        [speciesFamilyList]="speciesFamilyList"
+        [tissueTypeList]="tissueTypeList"
+        [derivativeList]="derivativeList"
+        [group]="newMaterialForm"
+        (saveRecord)="saveMaterialRecord($event)"
+        (errors)="updateErrorList($event)"
+        (revertRecord)="revertMaterial($event)" (deleteRecord)="deleteMaterial($event)"></material-record>
+    </div>
+  </div>
+  <div class="row mrgn-tp-md mrgn-bttm-lg">
+    <div class="btn-group-sm col-md-12 text-right">
+      <button class="btn btn-primary" (click)="addMaterial()"
+              [disabled]="!materialListForm.valid || isDirty()">
+       {{'add.material'|translate}}
+      </button>
+    </div>
+  </div>
+<pre>Form Data {{materialListForm.value |json}}</pre>
+  <pre>Data Model for Material List {{dataModel|json}}</pre>
+</div>

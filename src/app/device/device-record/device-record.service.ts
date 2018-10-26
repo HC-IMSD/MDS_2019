@@ -25,11 +25,11 @@ export class DeviceRecordService {
   /** returns a data model for this **/
   public static getEmptyModel() {
 
-    const deviceModel = DeviceDetailsService.getEmptyModel();
-    const companyModel = {
+    const emptyModel = DeviceDetailsService.getEmptyModel();
+    const deviceModel = {
       id: '',
     };
-    return this.extend(companyModel, deviceModel);
+    return this.extend(deviceModel, emptyModel);
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, deviceRecordModel) {
