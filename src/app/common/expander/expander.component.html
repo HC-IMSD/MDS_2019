@@ -16,6 +16,8 @@
                              [ngClass]="{'fa-caret-right':isCollapsed(i), 'fa-caret-down':isExpanded(i) }"></span>
         </td>
         <td *ngFor="let def of columnDefinitions" width="{{def.width}}%">
+           <!--<span ng-if="!def.binding2"> {{record[def.binding]}}</span>-->
+            <!--<span ng-if="def.binding2">{{record[def.binding][def.binding2]}}</span>-->
           <span>{{record[def.binding]}}</span>
           <!-- <span ng-if="!def.isHtml"> {{  record[def.binding]|translate}}</span>-->
           <!--  <span ng-if="def.isHtml" ng-bind-html="record[def.binding]"></span>-->

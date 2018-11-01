@@ -61,87 +61,279 @@
       </div>
     </div>
 
-    <!--div>
-      <section class="panel panel-primary mrgn-tp-lg">
+    <div>
+      <section class="panel  panel-default">
         <header class="panel-heading clearfix">
           <div class="btn-group pull-right">
           </div>
-          <h2 class="panel-title">{{'heading.appInfo'|translate}}</h2>
+          <h2 class="panel-title">{{'place.use'|translate}}</h2>
         </header>
         <div class="panel-body">
           <div class="row">
-            <div class="form-group col-xs-3" >
-              <label for="appInfoType" class="full-width">
-                <span class="field-name" i18n>{{'appInfo.type'|translate}}</span>
-                <input id="appInfoType" class="form-control" [readonly]="true"
-                       formControlName="appInfoType" size="20"/>
+            <div class="form-group col-xs-12" >
+              <label for="isIvdd" class="required full-width">
+                <span class="field-name" i18n>{{'is.ivdd' |translate}}</span>
+                <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                <select id="isIvdd" required class="form-control" (blur)="onblur()"
+                        formControlName="isIvdd">
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
+                <control-messages *ngIf="appInfoFormLocalModel.controls.isIvdd.invalid"
+                                  [showError]="showFieldErrors"
+                                  [control]="appInfoFormLocalModel.controls.isIvdd"
+                                  controlId="isIvdd" label="is.ivdd" parentId="appInfoDetails"
+                                  parentLabel="Application Information"></control-messages>
               </label>
             </div>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="isIVDD()">
             <div class="form-group col-xs-12">
-              <label for="deviceName" class="required full-width">
-                <span class="field-name">{{'device.name'|translate}}</span>
+              <label for="isHomeUse" class="required full-width">
+                <span class="field-name" i18n>{{'is.home.use' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <textarea type="text" class="form-control full-width" id="deviceName" (blur)="onblur()"
-                          formControlName="deviceName" maxlength="150"></textarea>
-                <control-messages *ngIf="appInfoFormLocalModel.controls.deviceName.invalid"
+                <select id="isHomeUse" required class="form-control" (blur)="onblur()"
+                        formControlName="isHomeUse">
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
+                <control-messages *ngIf="appInfoFormLocalModel.controls.isHomeUse.invalid"
                                   [showError]="showFieldErrors"
-                                  [control]="appInfoFormLocalModel.controls.deviceName"
-                                  controlId="deviceName" label="device.name" parentId="appInfoDetails"
+                                  [control]="appInfoFormLocalModel.controls.isHomeUse"
+                                  controlId="isHomeUse" label="is.home.use" parentId="appInfoDetails"
+                                  parentLabel="Application Information"></control-messages>
+              </label>
+            </div>
+            <div class="form-group col-xs-12" >
+              <label for="isCarePoint" class="required full-width">
+                <span class="field-name" i18n>{{'is.point.care' |translate}}</span>
+                <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                <select id="isCarePoint" required class="form-control" (blur)="onblur()"
+                        formControlName="isCarePoint">
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
+                <control-messages *ngIf="appInfoFormLocalModel.controls.isCarePoint.invalid"
+                                  [showError]="showFieldErrors"
+                                  [control]="appInfoFormLocalModel.controls.isCarePoint"
+                                  controlId="isCarePoint" label="is.point.care" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
               </label>
             </div>
           </div>
           <div class="row">
             <div class="form-group col-xs-12" >
-              <label for="hasQMSC" class="required full-width">
-                <span class="field-name" i18n>{{'has.qmsc' |translate}}</span>
+              <label for="isEmitRadiation" class="required full-width">
+                <span class="field-name" i18n>{{'contain.radiation' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <select id="hasQMSC" required class="form-control" (blur)="onblur()"
-                        formControlName="hasQMSC">
+                <select id="isEmitRadiation" required class="form-control" (blur)="onblur()"
+                        formControlName="isEmitRadiation">
                   <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
                 </select>
-                <control-messages *ngIf="appInfoFormLocalModel.controls.hasQMSC.invalid"
+                <control-messages *ngIf="appInfoFormLocalModel.controls.isEmitRadiation.invalid"
                                   [showError]="showFieldErrors"
-                                  [control]="appInfoFormLocalModel.controls.hasQMSC"
-                                  controlId="hasQMSC" label="has.qmsc" parentId="appInfoDetails"
+                                  [control]="appInfoFormLocalModel.controls.isEmitRadiation"
+                                  controlId="isEmitRadiation" label="contain.radiation" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
               </label>
             </div>
           </div>
-          <div class="row">
-            <div *ngIf="isQmsc()" class="form-group col-xs-12 col-sm-6" >
-              <label for="qMSCRegistrar" class="required full-width">
-                <span class="field-name" i18n>{{'qmsc.registrar' |translate}}</span>
+          <div class="row" *ngIf="isNOIVDD()">
+            <div class="form-group col-xs-12" >
+              <label for="hasDrug" class="required full-width">
+                <span class="field-name" i18n>{{'contain.drug' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <select id="qMSCRegistrar" required class="form-control full-width" (blur)="onblur()"
-                        formControlName="qMSCRegistrar">
-                  <option *ngFor="let registrar of registrarList" [ngValue]="registrar.id"> {{registrar.text}}</option>
+                <select id="hasDrug" required class="form-control" (blur)="onblur()"
+                        formControlName="hasDrug">
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
+                <control-messages *ngIf="appInfoFormLocalModel.controls.hasDrug.invalid"
+                                  [showError]="showFieldErrors"
+                                  [control]="appInfoFormLocalModel.controls.hasDrug"
+                                  controlId="hasDrug" label="contain.drug" parentId="appInfoDetails"
+                                  parentLabel="Application Information"></control-messages>
+              </label>
+            </div>
+            <div *ngIf="hasDrug()" class="form-group col-xs-12 col-sm-6" >
+              <label for="hasDinNpn" class="full-width">
+                <span class="field-name" i18n>{{'have.din.npn' |translate}}</span>
+                <select id="hasDinNpn" class="form-control full-width" (blur)="onblur()"
+                        formControlName="hasDinNpn">
+                  <option *ngFor="let drugType of drugTypeList" [ngValue]="drugType"> {{drugType | translate}}</option>
 
                 </select>
-                <control-messages *ngIf="appInfoFormLocalModel.controls.qMSCRegistrar.invalid"
+              </label>
+            </div>
+            <div  *ngIf="hasDin()" class="form-group col-xs-6" >
+              <label for="din" class="required full-width" aria-required="true">
+                <span class="field-name" i18n>{{'din'|translate}}</span>
+                <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                <input id="din" class="form-control full-width"  (blur)="onblur()"
+                       formControlName="din" maxlength="8"/>
+                <control-messages *ngIf="appInfoFormLocalModel.controls.din.invalid"
                                   [showError]="showFieldErrors"
-                                  [control]="appInfoFormLocalModel.controls.qMSCRegistrar"
-                                  controlId="qMSCRegistrar" label="qmsc.registrar" parentId="appInfoDetails"
+                                  [control]="appInfoFormLocalModel.controls.din"
+                                  controlId="din" label="din" parentId="appInfoDetails"
+                                  parentLabel="Application Information"></control-messages>
+              </label>
+            </div>
+            <div  *ngIf="hasNpn()" class="form-group col-xs-6" >
+              <label for="npn" class="required full-width" aria-required="true">
+                <span class="field-name" i18n>{{'npn'|translate}}</span>
+                <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                <input id="npn" class="form-control full-width"  (blur)="onblur()"
+                       formControlName="npn" maxlength="8"/>
+                <control-messages *ngIf="appInfoFormLocalModel.controls.npn.invalid"
+                                  [showError]="showFieldErrors"
+                                  [control]="appInfoFormLocalModel.controls.npn"
+                                  controlId="npn" label="npn" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
               </label>
             </div>
           </div>
-          <div class="row">
-            <div class="form-group col-xs-12">
-              <label for="additionalField" class="full-width">
-                <span class="field-name">{{'add.field'|translate}}</span>
-                <textarea type="text" class="form-control full-width" id="additionalField" (blur)="onblur()"
-                          formControlName="additionalField" maxlength="150"></textarea>
-              </label>
+          <div *ngIf="isNoDinNpn()">
+            <div class="row">
+              <div class="col-xs-12 form-group alert alert-info" role="alert">
+                     <span>
+                      <p aria-live="polite">{{'combination.products.related'|translate}}</p>
+                     </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-12">
+                <label for="drugName" class="full-width">
+                  <span class="field-name">{{'drug.name'|translate}}</span>
+                  <textarea type="text" class="form-control full-width" id="drugName" (blur)="onblur()"
+                            formControlName="drugName" maxlength="256"></textarea>
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-12">
+                <label for="activeIngredients" class="full-width">
+                  <span class="field-name">{{'active.ingredient'|translate}}</span>
+                  <textarea type="text" class="form-control full-width" id="activeIngredients" (blur)="onblur()"
+                            formControlName="activeIngredients" maxlength="256"></textarea>
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-12" >
+                <label for="manufacturer" class="full-width">
+                  <span class="field-name" i18n>{{'manufacturer'|translate}}</span>
+                  <input id="manufacturer" class="form-control full-width" (blur)="onblur()"
+                         formControlName="manufacturer" maxlength="80"/>
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <fieldset id="compliance">
+                <label>
+                  <span class="field-name">{{'compliance' | translate}}</span>
+                </label>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="checkbox">
+                      <label for="chk-compliance-usp">
+                        <input type="checkbox" class="form-control full-width" (blur)="onblur()"
+                               formControlName="complianceUsp"
+                               id="chk-compliance-usp"/>
+                        <span>{{'compliance.usp'|translate}}</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="checkbox">
+                      <label for="chk-compliance-gmp">
+                        <input type="checkbox" class="form-control full-width" (blur)="onblur()"
+                               formControlName="complianceGmp"
+                               id="chk-compliance-gmp"/>
+                        <span>{{'compliance.gmp'|translate}}</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="checkbox">
+                      <label for="chk-compliance-other">
+                        <input type="checkbox" class="form-control full-width" (blur)="onblur()"
+                               formControlName="complianceOther"
+                               id="chk-compliance-other"/>
+                        <span>{{'compliance.other'|translate}}</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="iOtherPharmacopeia()" class="row">
+                  <div class="form-group col-xs-12" >
+                    <label for="otherPharmacopeia" class="full-width">
+                      <span class="field-name" i18n>{{'other.pharmacopeia'|translate}}</span>
+                      <input id="otherPharmacopeia" class="form-control full-width" (blur)="onblur()"
+                             formControlName="otherPharmacopeia" maxlength="20"/>
+                    </label>
+                  </div>
+                </div>
+              </fieldset>
             </div>
           </div>
         </div>
       </section>
-    </div-->
+    </div>
 
-
+    <div>
+      <section class="panel  panel-default">
+        <header class="panel-heading clearfix">
+          <div class="btn-group pull-right">
+          </div>
+          <h2 class="panel-title">{{'device.history'|translate}}</h2>
+        </header>
+        <div class="panel-body">
+          <div class="row">
+            <fieldset id="device-history">
+              <label>
+                <span class="field-name">{{'provision.mdr' | translate}}</span>
+              </label>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="checkbox">
+                    <label for="chk-mdr-it">
+                      <input type="checkbox" class="form-control full-width" (blur)="onblur()"
+                             formControlName="provisionMdrIT"
+                             id="chk-mdr-it"/>
+                      <span>{{'mdr.it'|translate}}</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="checkbox">
+                    <label for="chk-mdr-sa">
+                      <input type="checkbox" class="form-control full-width" (blur)="onblur()"
+                             formControlName="provisionMdrSA"
+                             id="chk-mdr-sa"/>
+                      <span>{{'mdr.sa'|translate}}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="isIt()" class="row">
+                <div  class="form-group col-xs-6" >
+                  <label for="authorizationNum" class=" full-width">
+                    <span class="field-name" i18n>{{'authorization.number'|translate}}</span>
+                    <input id="authorizationNum" class="form-control full-width"  (blur)="onblur()"
+                           formControlName="authorizationNum" maxlength="30"/>
+                  </label>
+                </div>
+              </div>
+              <div *ngIf="isSa()" class="row">
+                <div  class="form-group col-xs-6" >
+                  <label for="deviceId" class=" full-width">
+                    <span class="field-name" i18n>{{'device.id'|translate}}</span>
+                    <input id="deviceId" class="form-control full-width"  (blur)="onblur()"
+                           formControlName="deviceId" maxlength="30"/>
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </section>
+    </div>
 
     <div>
       <section class="panel  panel-default">
@@ -162,14 +354,113 @@
         <header class="panel-heading clearfix">
           <div class="btn-group pull-right">
           </div>
-          <h3 class="panel-title">{{'heading.material.table'|translate}}</h3>
+          <h2 class="panel-title">{{'standards.list'|translate}}</h2>
         </header>
         <div class="panel-body">
-          <material-list  (errors)="processMaterialErrors($event)" [countryList]="countryList"
-                          [materialModel]="materialModel"></material-list>
+          <div class="row">
+            <div class="form-group col-xs-12" >
+              <label for="declarationConformity" class="required full-width">
+                <span class="field-name" i18n>{{'conformity.declaration' |translate}}</span>
+                <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                <select id="declarationConformity" required class="form-control" (blur)="onblur()"
+                        formControlName="declarationConformity">
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
+                <control-messages *ngIf="appInfoFormLocalModel.controls.declarationConformity.invalid"
+                                  [showError]="showFieldErrors"
+                                  [control]="appInfoFormLocalModel.controls.declarationConformity"
+                                  controlId="declarationConformity" label="conformity.declaration" parentId="appInfoDetails"
+                                  parentLabel="Application Information"></control-messages>
+              </label>
+            </div>
+          </div>
+          <div *ngIf="isNoDeclaration()" class="row">
+            <div class="col-xs-12 form-group alert alert-info" role="alert">
+                     <span>
+                      <p aria-live="polite">{{'declaration.instruct'|translate}}</p>
+                     </span>
+            </div>
+          </div>
         </div>
       </section>
     </div>
+
+    <div>
+      <section class="panel  panel-default">
+        <header class="panel-heading clearfix">
+          <div class="btn-group pull-right">
+          </div>
+          <h2 class="panel-title">{{'containing.material'|translate}}</h2>
+        </header>
+        <div class="panel-body">
+          <div class="row">
+            <div class="form-group col-xs-12" >
+              <label for="hasRecombinant" class="required full-width">
+                <span class="field-name" i18n>{{'consist.recombinant' |translate}}</span>
+                <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                <select id="hasRecombinant" required class="form-control" (blur)="onblur()"
+                        formControlName="hasRecombinant">
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
+                <control-messages *ngIf="appInfoFormLocalModel.controls.hasRecombinant.invalid"
+                                  [showError]="showFieldErrors"
+                                  [control]="appInfoFormLocalModel.controls.hasRecombinant"
+                                  controlId="hasRecombinant" label="consist.recombinant" parentId="appInfoDetails"
+                                  parentLabel="Application Information"></control-messages>
+              </label>
+            </div>
+          </div>
+          <div *ngIf="isRecombinant()" class="row">
+            <div class="form-group col-xs-12" >
+              <label for="isAnimalHumanSourced" class="required full-width">
+                <span class="field-name" i18n>{{'conformity.declaration' |translate}}</span>
+                <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                <select id="isAnimalHumanSourced" required class="form-control" (blur)="onblur()"
+                        formControlName="isAnimalHumanSourced">
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
+                <control-messages *ngIf="appInfoFormLocalModel.controls.isAnimalHumanSourced.invalid"
+                                  [showError]="showFieldErrors"
+                                  [control]="appInfoFormLocalModel.controls.isAnimalHumanSourced"
+                                  controlId="isAnimalHumanSourced" label="conformity.declaration" parentId="appInfoDetails"
+                                  parentLabel="Application Information"></control-messages>
+              </label>
+            </div>
+          </div>
+          <div *ngIf="isAnimalHumanSourced()" class="row">
+            <div class="form-group col-xs-12" >
+              <label for="isListedIddTable" class="required full-width">
+                <span class="field-name" i18n>{{'is.same.material' |translate}}</span>
+                <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                <select id="isListedIddTable" required class="form-control" (blur)="onblur()"
+                        formControlName="isListedIddTable">
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
+                <control-messages *ngIf="appInfoFormLocalModel.controls.isListedIddTable.invalid"
+                                  [showError]="showFieldErrors"
+                                  [control]="appInfoFormLocalModel.controls.isListedIddTable"
+                                  controlId="isListedIddTable" label="is.same.material" parentId="appInfoDetails"
+                                  parentLabel="Application Information"></control-messages>
+              </label>
+            </div>
+          </div>
+          <div *ngIf="isListedIddTable()">
+            <section class="panel  panel-default">
+              <header class="panel-heading clearfix">
+                <div class="btn-group pull-right">
+                </div>
+                <h3 class="panel-title">{{'heading.material.table'|translate}}</h3>
+              </header>
+              <div class="panel-body">
+                <material-list  (errors)="processMaterialErrors($event)" [countryList]="countryList"
+                                [materialModel]="materialModel"></material-list>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </div>
+
     <!-- <pre>{{appInfoFormLocalModel.value |json}}</pre>-->
   </div>
 </div>

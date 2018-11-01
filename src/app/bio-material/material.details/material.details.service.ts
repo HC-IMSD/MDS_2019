@@ -21,11 +21,11 @@ export class MaterialDetailsService {
       materialId: '',
       materialName: ['', Validators.required],
       deviceName: ['', Validators.required],
-      originCountry: null,
+      originCountry: ['', []],
       specFamily: ['', Validators.required],
-      tissueType: '',
+      tissueType: ['', []],
       tissueTypeOtherDetails: '',
-      derivative: '',
+      derivative: ['', []],
       derivativeOtherDetails: ''
     });
   }
@@ -62,6 +62,7 @@ export class MaterialDetailsService {
       if (country_record && country_record.id) {
         materialModel.origin_country = {
           '__text': country_record.id,
+          // '_label': country_record.text,
           '_label_en': country_record.en,
           '_label_fr': country_record.fr
         };
@@ -79,8 +80,9 @@ export class MaterialDetailsService {
       if (species_record && species_record.id) {
         materialModel.family_of_species = {
           '__text': species_record.id,
-          '_label_en': species_record.en,
-          '_label_fr': species_record.fr
+          // '_label': species_record.text,
+          '_label_en': species_record.label_en,
+          '_label_fr': species_record.label_fr
         };
       } else {
         materialModel.family_of_species = null;
@@ -96,8 +98,9 @@ export class MaterialDetailsService {
       if (tissue_type_record && tissue_type_record.id) {
         materialModel.tissue_substance_type = {
           '__text': tissue_type_record.id,
-          '_label_en': tissue_type_record.en,
-          '_label_fr': tissue_type_record.fr
+         // '_label': tissue_type_record.text,
+          '_label_en': tissue_type_record.label_en,
+          '_label_fr': tissue_type_record.label_fr
         };
       } else {
         materialModel.tissue_substance_type = null;
@@ -115,8 +118,9 @@ export class MaterialDetailsService {
       if (derivative_record && derivative_record.id) {
         materialModel.derivative = {
           '__text': derivative_record.id,
-          '_label_en': derivative_record.en,
-          '_label_fr': derivative_record.fr
+         // '_label': derivative_record.text,
+          '_label_en': derivative_record.label_en,
+          '_label_fr': derivative_record.label_fr
         };
       } else {
         materialModel.derivative = null;
@@ -127,7 +131,8 @@ export class MaterialDetailsService {
     materialModel.derivative_other_details = formRecord.controls.derivativeOtherDetails.value;
   }
 
-  public static mapDataModelToFormModel(materialModel, formRecord: FormGroup, countryList, speciesFamilyList, tissueTypeList, derivativeList) {
+  public static mapDataModelToFormModel(materialModel,
+               formRecord: FormGroup, countryList, speciesFamilyList, tissueTypeList, derivativeList) {
     formRecord.controls.materialId.setValue(materialModel.material_id);
     formRecord.controls.materialName.setValue(materialModel.material_name);
     formRecord.controls.deviceName.setValue(materialModel.device_name);
@@ -218,7 +223,7 @@ export class MaterialDetailsService {
    */
   public static findRecordByTerm(list, criteria, searchTerm) {
 
-    let result = list.filter(
+    const result = list.filter(
       item => item[searchTerm] === criteria[searchTerm]);
     if (result && result.length > 0) {
       return result[0];

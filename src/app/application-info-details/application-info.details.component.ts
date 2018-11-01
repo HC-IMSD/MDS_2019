@@ -41,7 +41,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
-  public registrarList = [];
+  public drugTypeList = [];
   public deviceClassList: Array<any> = [];
   public yesNoList: Array<any> = [];
   public licenceAppTypeList: Array<any> = [];
@@ -54,9 +54,9 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     // todo: dataLoader = new DossierDataLoaderService(this.http);
     this.showFieldErrors = false;
     this.showErrors = false;
-    this.registrarList = [];
+    this.drugTypeList = [];
     this.detailsService = new ApplicationInfoDetailsService();
-    this.deviceClassList = this.detailsService.getDeviceClassList();
+    // this.deviceClassList = this.detailsService.getDeviceClassList();
     this.yesNoList = this.detailsService.getYesNoList();
   }
 
@@ -65,7 +65,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       this.appInfoFormLocalModel = this.detailsService.getReactiveModel(this._fb);
     }
     this.detailsChanged = 0;
-    // this.registrarList = await (this.dataLoader.getRegistrars(this.translate.currentLang));
+    this.drugTypeList = ApplicationInfoDetailsService.getDrugTypes();
     this.licenceAppTypeList = ApplicationInfoDetailsService.getLicenceAppTypeList(this.lang); // todo: test which lang is working
   }
 
@@ -130,8 +130,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
         this.appInfoFormLocalModel = this.detailsService.getReactiveModel(this._fb);
         this.appInfoFormLocalModel.markAsPristine();
       }
-      ApplicationInfoDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.appInfoFormLocalModel),
-        this.registrarList);
+      ApplicationInfoDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.appInfoFormLocalModel));
       // emit hasQMSC value
       // if (this.appInfoFormLocalModel.controls.hasQMSC) {
       //   this.hasQmsc.emit(this.appInfoFormLocalModel.controls.hasQMSC.value);
@@ -145,7 +144,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
         // this.appInfoFormLocalModel.controls.appInfoType.setValue(GlobalsService.DEVICE_TYPE_FR);
       }
       ApplicationInfoDetailsService.mapFormModelToDataModel((<FormGroup>this.appInfoFormLocalModel),
-        this.appInfoModel, this.registrarList);
+        this.appInfoModel);
     }
   }
 
@@ -163,19 +162,10 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   onblur() {
     // console.log('input is typed');
     ApplicationInfoDetailsService.mapFormModelToDataModel((<FormGroup>this.appInfoFormLocalModel),
-      this.appInfoModel, this.registrarList);
+      this.appInfoModel);
     // if (this.appInfoFormLocalModel.controls.hasQMSC) {
     //   this.hasQmsc.emit(this.appInfoFormLocalModel.controls.hasQMSC.value);
     // }
-  }
-
-  existsInList(rec) {
-    for (let registrar of this.registrarList) {
-      if (registrar.id === rec) {
-        return true;
-      }
-    }
-    return false;
   }
 
   isQmsc() {
@@ -190,6 +180,88 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   processMaterialErrors(errorList) {
     this.materialErrorList.emit(errorList);
+  }
+
+  isIVDD() {
+    if (this.appInfoFormLocalModel.controls.isIvdd.value) {
+      return (this.appInfoFormLocalModel.controls.isIvdd.value === GlobalsService.YES);
+    }
+    return false;
+  }
+
+  isNOIVDD() {
+    if (this.appInfoFormLocalModel.controls.isIvdd.value) {
+      return (this.appInfoFormLocalModel.controls.isIvdd.value === GlobalsService.NO);
+    }
+    return false;
+  }
+
+  hasDrug() {
+    if (this.appInfoFormLocalModel.controls.hasDrug.value) {
+      return (this.appInfoFormLocalModel.controls.hasDrug.value === GlobalsService.YES);
+    }
+    return false;
+  }
+
+  hasDin() {
+    if (this.appInfoFormLocalModel.controls.hasDinNpn.value) {
+      return (this.appInfoFormLocalModel.controls.hasDinNpn.value === 'din');
+    }
+    return false;
+  }
+
+  hasNpn() {
+    if (this.appInfoFormLocalModel.controls.hasDinNpn.value) {
+      return (this.appInfoFormLocalModel.controls.hasDinNpn.value === 'npn');
+    }
+    return false;
+  }
+
+  isNoDinNpn() {
+    if (this.appInfoFormLocalModel.controls.hasDinNpn.value) {
+      return (this.appInfoFormLocalModel.controls.hasDinNpn.value === 'nodinnpn');
+    }
+    return false;
+  }
+
+  iOtherPharmacopeia() {
+      return this.appInfoFormLocalModel.controls.complianceOther.value;
+  }
+
+  isIt() {
+      return this.appInfoFormLocalModel.controls.provisionMdrIT.value;
+  }
+
+  isSa() {
+      return this.appInfoFormLocalModel.controls.provisionMdrSA.value;
+  }
+
+  isNoDeclaration() {
+    if (this.appInfoFormLocalModel.controls.declarationConformity.value) {
+      return (this.appInfoFormLocalModel.controls.declarationConformity.value === GlobalsService.NO);
+    }
+    return false;
+  }
+
+  isRecombinant() {
+    if (this.appInfoFormLocalModel.controls.hasRecombinant.value) {
+      return (this.appInfoFormLocalModel.controls.hasRecombinant.value === GlobalsService.YES);
+    }
+    return false;
+  }
+
+  isAnimalHumanSourced() {
+    if (this.appInfoFormLocalModel.controls.isAnimalHumanSourced.value) {
+      return (this.appInfoFormLocalModel.controls.isAnimalHumanSourced.value === GlobalsService.YES);
+    }
+    return false;
+  }
+
+  isListedIddTable() {
+    if (this.appInfoFormLocalModel.controls.isListedIddTable.value) {
+      return (this.appInfoFormLocalModel.controls.isListedIddTable.value === GlobalsService.YES);
+    }
+    return false;
   }
 }
 

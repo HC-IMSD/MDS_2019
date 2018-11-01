@@ -50,23 +50,26 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
     {
       label: 'Name of Material',
       binding: 'material_name',
-      width: '25'
+      width: '50'
     },
     {
       label: 'Name of Device',
       binding: 'device_name',
-      width: '25'
-    },
+      width: '50'
+    }
+    /*,
     {
       label: 'Country of Origin',
       binding: 'origin_country',
+      // binding2: '_label',
       width: '25'
     },
     {
       label: 'Family of Species',
-      binding: 'family_of_species',
+      binding: 'family_of_species._label',
       width: '25'
     }
+    */
   ];
 
   constructor(private _fb: FormBuilder, private translate: TranslateService) {

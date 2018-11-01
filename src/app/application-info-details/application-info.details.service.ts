@@ -22,12 +22,35 @@ export class ApplicationInfoDetailsService {
     return fb.group({
       companyId: [null, [Validators.required, ValidationService.companyIdValidator]],
       dossierId: [null, [Validators.required, ValidationService.dossierIdValidator]],
-      deviceClass: [null, Validators.required],
       qmscNum: [null, Validators.required],
-      hasQMSC: [null, Validators.required],
-      qMSCRegistrar: [null, Validators.required],
       licenceAppType: [null, Validators.required],
-      additionalField: ['', []]
+      isIvdd: [null, Validators.required],
+      isHomeUse: [null, Validators.required],
+      isCarePoint: [null, Validators.required],
+      isEmitRadiation: [null, Validators.required],
+      hasDrug: [null, Validators.required],
+      hasDinNpn: [null, []],
+      din: ['', []],
+      npn: ['', []],
+      drugName: ['', []],
+      activeIngredients: ['', []],
+      manufacturer: ['', []],
+      complianceUsp: [false, []],
+      complianceGmp: [false, []],
+      complianceOther: [false, []],
+      otherPharmacopeia: ['', []],
+      provisionMdrIT: [false, []],
+      provisionMdrSA: [false, []],
+      authorizationNum: ['', []],
+      deviceId: ['', []],
+      declarationConformity : [null, Validators.required],
+      hasRecombinant: [null, Validators.required],
+      isAnimalHumanSourced : [null, Validators.required],
+      isListedIddTable: [null, Validators.required]
+      // deviceClass: [null, Validators.required],
+      // hasQMSC: [null, Validators.required],
+      // qMSCRegistrar: [null, Validators.required],
+      // additionalField: ['', []]
     });
   }
 
@@ -41,12 +64,35 @@ export class ApplicationInfoDetailsService {
       {
         company_id: '',
         dossier_id: '',
-        device_class: '',
         qmsc_number: '',
-        has_qmsc: '',
-        registrar: '',
         licence_application_type: '',
-        additional_field: ''
+        is_ivdd: '',
+        is_home_use: '',
+        is_care_point_use: '',
+        is_emit_radiation: '',
+        has_drug: '',
+        has_din_npn: '',
+        din: '',
+        npn: '',
+        drug_name: '',
+        active_ingredients: '',
+        manufacturer: '',
+        compliance_usp: '',
+        compliance_gmp: '',
+        compliance_other: '',
+        other_pharmacopeia: '',
+        provision_mdr_it: '',
+        provision_mdr_sa: '',
+        authorization_number: '',
+        device_id: '',
+        declaration_conformity : '',
+        has_recombinant: '',
+        is_animal_human_sourced : '',
+        is_listed_idd_table: ''
+        // device_class: '',
+        // has_qmsc: '',
+        // registrar: '',
+        // additional_field: ''
       }
     );
   }
@@ -55,8 +101,8 @@ export class ApplicationInfoDetailsService {
    * Gets an data array
    *
    */
-  public getDeviceClassList() {
-    return ['DC2', 'DC3', 'DC4'];
+  public static getDrugTypes() {
+    return ['din', 'npn', 'nodinnpn'];
   }
 
   /**
@@ -123,10 +169,10 @@ export class ApplicationInfoDetailsService {
     return this._convertListText(rawList, lang);
   }
 
-  public static mapFormModelToDataModel(formRecord: FormGroup, dossierModel, registrarList) {
+  public static mapFormModelToDataModel(formRecord: FormGroup, dossierModel) {
     dossierModel.company_id = formRecord.controls.companyId.value;
     dossierModel.dossier_id = formRecord.controls.dossierId.value;
-    dossierModel.device_class = formRecord.controls.deviceClass.value;
+    // dossierModel.device_class = formRecord.controls.deviceClass.value;
     dossierModel.qmsc_number = formRecord.controls.qmscNum.value;
     // dossierModel.has_qmsc = formRecord.controls.hasQMSC.value;
     // if (formRecord.controls.qMSCRegistrar.value) {
@@ -156,10 +202,10 @@ export class ApplicationInfoDetailsService {
     // dossierModel.additional_field = formRecord.controls.additionalField.value;
   }
 
-  public static mapDataModelToFormModel(dossierModel, formRecord: FormGroup, registrarList) {
+  public static mapDataModelToFormModel(dossierModel, formRecord: FormGroup) {
     formRecord.controls.companyId.setValue(dossierModel.company_id);
     formRecord.controls.dossierId.setValue(dossierModel.dossier_id);
-    formRecord.controls.deviceClass.setValue(dossierModel.device_class);
+    // formRecord.controls.deviceClass.setValue(dossierModel.device_class);
     formRecord.controls.qmscNum.setValue(dossierModel.qmsc_number);
     // formRecord.controls.hasQMSC.setValue(dossierModel.has_qmsc);
     // const recordIndex = ListService.getRecord(registrarList, dossierModel.registrar.__text, 'id');

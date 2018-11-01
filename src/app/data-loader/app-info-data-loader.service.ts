@@ -7,18 +7,18 @@ import {GlobalsService} from '../globals/globals.service';
 export class AppInfoDataLoaderService {
 
   private rawSpecFamilyList: Array<any> = [
-    {id: '2	', label_en: 'BOVINE', label_fr: 'fr_BOVINE'},
-    {id: '4	', label_en: 'CAPRINE', label_fr: 'fr_CAPRINE'},
-    {id: '9	', label_en: 'EQUINE', label_fr: 'fr_EQUINE'},
+    {id: '2', label_en: 'BOVINE', label_fr: 'fr_BOVINE'},
+    {id: '4', label_en: 'CAPRINE', label_fr: 'fr_CAPRINE'},
+    {id: '9', label_en: 'EQUINE', label_fr: 'fr_EQUINE'},
     {id: '11', label_en: 'FISH', label_fr: 'fr_FISH'},
     {id: '12', label_en: 'HONEY BEE', label_fr: 'fr_HONEY BEE'},
-    {id: '1	', label_en: 'HUMAN', label_fr: 'fr_HUMAN'},
-    {id: '3	', label_en: 'OVINE', label_fr: 'fr_OVINE'},
-    {id: '5	', label_en: 'PORCINE', label_fr: 'fr_PORCINE'},
-    {id: '7	', label_en: 'ROOSTER', label_fr: 'fr_ROOSTER'},
-    {id: '6	', label_en: 'SHARK', label_fr: 'fr_SHARK'},
+    {id: '1', label_en: 'HUMAN', label_fr: 'fr_HUMAN'},
+    {id: '3', label_en: 'OVINE', label_fr: 'fr_OVINE'},
+    {id: '5', label_en: 'PORCINE', label_fr: 'fr_PORCINE'},
+    {id: '7', label_en: 'ROOSTER', label_fr: 'fr_ROOSTER'},
+    {id: '6', label_en: 'SHARK', label_fr: 'fr_SHARK'},
     {id: '10', label_en: 'SHRIMP-PANDALUS BORREALIS', label_fr: 'fr_SHRIMP-PANDALUS BORREALIS'},
-    {id: '8	', label_en: 'SILK WORM', label_fr: 'fr_SILK WORM'},
+    {id: '8', label_en: 'SILK WORM', label_fr: 'fr_SILK WORM'},
     {id: 'other', label_en: 'OTHER', label_fr: 'fr_OTHER'}
   ];
 

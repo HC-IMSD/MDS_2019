@@ -14,7 +14,7 @@
         <label for="companyId" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'company.id'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="companyId" class="form-control full-width" (blur)="onblur()"
+          <input id="companyId" class="form-control full-width" (blur)="onblur()" required
                  formControlName="companyId" maxlength="6"/>
           <control-messages *ngIf="dossierFormLocalModel.controls.companyId.invalid"
                             [showError]="showFieldErrors"
@@ -27,7 +27,7 @@
         <label for="contactId" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'contact.id'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="contactId" class="form-control full-width"  (blur)="onblur()"
+          <input id="contactId" class="form-control full-width"  (blur)="onblur()" required
                  formControlName="contactId" maxlength="5"/>
           <control-messages *ngIf="dossierFormLocalModel.controls.contactId.invalid"
                             [showError]="showFieldErrors"
@@ -59,7 +59,7 @@
           <span class="field-name">{{'device.name'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <textarea type="text" class="form-control full-width" id="deviceName" (blur)="onblur()"
-                    formControlName="deviceName" maxlength="150"></textarea>
+                    required formControlName="deviceName" maxlength="150"></textarea>
           <control-messages *ngIf="dossierFormLocalModel.controls.deviceName.invalid"
                               [showError]="showFieldErrors"
                               [control]="dossierFormLocalModel.controls.deviceName"
