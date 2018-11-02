@@ -47,10 +47,6 @@ export class ApplicationInfoDetailsService {
       hasRecombinant: [null, Validators.required],
       isAnimalHumanSourced : [null, Validators.required],
       isListedIddTable: [null, Validators.required]
-      // deviceClass: [null, Validators.required],
-      // hasQMSC: [null, Validators.required],
-      // qMSCRegistrar: [null, Validators.required],
-      // additionalField: ['', []]
     });
   }
 
@@ -89,10 +85,6 @@ export class ApplicationInfoDetailsService {
         has_recombinant: '',
         is_animal_human_sourced : '',
         is_listed_idd_table: ''
-        // device_class: '',
-        // has_qmsc: '',
-        // registrar: '',
-        // additional_field: ''
       }
     );
   }
@@ -199,28 +191,69 @@ export class ApplicationInfoDetailsService {
     } else {
       dossierModel.licence_application_type = null;
     }
-    // dossierModel.additional_field = formRecord.controls.additionalField.value;
+    dossierModel.is_ivdd = formRecord.controls.isIvdd.value;
+    dossierModel.is_home_use = formRecord.controls.isHomeUse.value;
+    dossierModel.is_care_point_use = formRecord.controls.isCarePoint.value;
+    dossierModel.is_emit_radiation = formRecord.controls.isEmitRadiation.value;
+    dossierModel.has_drug = formRecord.controls.hasDrug.value;
+    dossierModel.has_din_npn = formRecord.controls.hasDinNpn.value;
+    dossierModel.din = formRecord.controls.din.value;
+    dossierModel.npn = formRecord.controls.npn.value;
+    dossierModel.drug_name = formRecord.controls.drugName.value;
+    dossierModel.active_ingredients = formRecord.controls.activeIngredients.value;
+    dossierModel.manufacturer = formRecord.controls.manufacturer.value;
+    dossierModel.compliance_usp = formRecord.controls.complianceUsp.value ? GlobalsService.YES : GlobalsService.NO;
+    dossierModel.compliance_gmp = formRecord.controls.complianceGmp.value ? GlobalsService.YES : GlobalsService.NO;
+    dossierModel.compliance_other = formRecord.controls.complianceOther.value ? GlobalsService.YES : GlobalsService.NO;
+    dossierModel.other_pharmacopeia = formRecord.controls.otherPharmacopeia.value;
+    dossierModel.provision_mdr_it = formRecord.controls.provisionMdrIT.value ? GlobalsService.YES : GlobalsService.NO;
+    dossierModel.provision_mdr_sa = formRecord.controls.provisionMdrSA.value ? GlobalsService.YES : GlobalsService.NO;
+    dossierModel.authorization_number = formRecord.controls.authorizationNum.value;
+    dossierModel.device_id = formRecord.controls.deviceId.value;
+    dossierModel.declaration_conformity = formRecord.controls.declarationConformity.value;
+    dossierModel.has_recombinant = formRecord.controls.hasRecombinant.value;
+    dossierModel.is_animal_human_sourced = formRecord.controls.isAnimalHumanSourced.value;
+    dossierModel.is_listed_idd_table = formRecord.controls.isListedIddTable.value;
   }
 
   public static mapDataModelToFormModel(dossierModel, formRecord: FormGroup) {
     formRecord.controls.companyId.setValue(dossierModel.company_id);
     formRecord.controls.dossierId.setValue(dossierModel.dossier_id);
-    // formRecord.controls.deviceClass.setValue(dossierModel.device_class);
     formRecord.controls.qmscNum.setValue(dossierModel.qmsc_number);
-    // formRecord.controls.hasQMSC.setValue(dossierModel.has_qmsc);
-    // const recordIndex = ListService.getRecord(registrarList, dossierModel.registrar.__text, 'id');
-    // if (recordIndex > -1) {
-    //   formRecord.controls.qMSCRegistrar.setValue(registrarList[recordIndex].id);
-    // } else {
-    //   formRecord.controls.qMSCRegistrar.setValue(null);
-    // }
     const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, dossierModel.licence_application_type.__text, 'id');
     if (recordIndex2 > -1) {
       formRecord.controls.licenceAppType.setValue(this.licenceAppTypeList[recordIndex2].id);
     } else {
       formRecord.controls.licenceAppType.setValue(null);
     }
-    // formRecord.controls.additionalField.setValue(dossierModel.additional_field);
+    formRecord.controls.isIvdd.setValue(dossierModel.is_ivdd);
+    formRecord.controls.isHomeUse.setValue(dossierModel.is_home_use);
+    formRecord.controls.isCarePoint.setValue(dossierModel.is_care_point_use);
+    formRecord.controls.isEmitRadiation.setValue(dossierModel.is_emit_radiation);
+    formRecord.controls.hasDrug.setValue(dossierModel.has_drug);
+    formRecord.controls.hasDinNpn.setValue(dossierModel.has_din_npn);
+    formRecord.controls.din.setValue(dossierModel.din);
+    formRecord.controls.npn.setValue(dossierModel.npn);
+    formRecord.controls.drugName.setValue(dossierModel.drug_name);
+    formRecord.controls.activeIngredients.setValue(dossierModel.active_ingredients);
+    formRecord.controls.manufacturer.setValue(dossierModel.manufacturer);
+    const cusp = dossierModel.compliance_usp === GlobalsService.YES ? true : false;
+    formRecord.controls.complianceUsp.setValue(cusp);
+    const cgmp = dossierModel.compliance_gmp === GlobalsService.YES ? true : false;
+    formRecord.controls.complianceGmp.setValue(cgmp);
+    const cother = dossierModel.compliance_other === GlobalsService.YES ? true : false;
+    formRecord.controls.complianceOther.setValue(cother);
+    formRecord.controls.otherPharmacopeia.setValue(dossierModel.other_pharmacopeia);
+    const mdtit = dossierModel.provision_mdr_it === GlobalsService.YES ? true : false;
+    formRecord.controls.provisionMdrIT.setValue(mdtit);
+    const mdrsa = dossierModel.provision_mdr_sa === GlobalsService.YES ? true : false;
+    formRecord.controls.provisionMdrSA.setValue(mdrsa);
+    formRecord.controls.authorizationNum.setValue(dossierModel.authorization_number);
+    formRecord.controls.deviceId.setValue(dossierModel.device_id);
+    formRecord.controls.declarationConformity.setValue(dossierModel.declaration_conformity);
+    formRecord.controls.hasRecombinant.setValue(dossierModel.has_recombinant);
+    formRecord.controls.isAnimalHumanSourced.setValue(dossierModel.is_animal_human_sourced);
+    formRecord.controls.isListedIddTable.setValue(dossierModel.is_listed_idd_table);
   }
 
   /**

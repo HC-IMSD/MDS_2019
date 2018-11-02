@@ -52,6 +52,7 @@
   "drug.name": "Brand/Trade Name of Drug",
   "active.ingredient": "Active Ingredient(s)",
   "manufacturer": "Manufacturer",
+  "compliance": "Compliance",
   "compliance.usp": "USP",
   "compliance.gmp": "GMP",
   "compliance.other": "Other Pharmcopeia",

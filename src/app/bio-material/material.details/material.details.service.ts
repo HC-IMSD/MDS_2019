@@ -62,7 +62,6 @@ export class MaterialDetailsService {
       if (country_record && country_record.id) {
         materialModel.origin_country = {
           '__text': country_record.id,
-          // '_label': country_record.text,
           '_label_en': country_record.en,
           '_label_fr': country_record.fr
         };
@@ -80,7 +79,6 @@ export class MaterialDetailsService {
       if (species_record && species_record.id) {
         materialModel.family_of_species = {
           '__text': species_record.id,
-          // '_label': species_record.text,
           '_label_en': species_record.label_en,
           '_label_fr': species_record.label_fr
         };
@@ -98,7 +96,6 @@ export class MaterialDetailsService {
       if (tissue_type_record && tissue_type_record.id) {
         materialModel.tissue_substance_type = {
           '__text': tissue_type_record.id,
-         // '_label': tissue_type_record.text,
           '_label_en': tissue_type_record.label_en,
           '_label_fr': tissue_type_record.label_fr
         };
@@ -118,7 +115,6 @@ export class MaterialDetailsService {
       if (derivative_record && derivative_record.id) {
         materialModel.derivative = {
           '__text': derivative_record.id,
-         // '_label': derivative_record.text,
           '_label_en': derivative_record.label_en,
           '_label_fr': derivative_record.label_fr
         };

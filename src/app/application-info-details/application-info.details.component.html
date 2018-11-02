@@ -224,7 +224,7 @@
               </div>
             </div>
             <div class="row">
-              <fieldset id="compliance">
+              <fieldset id="compliance" class="form-group col-xs-12">
                 <label>
                   <span class="field-name">{{'compliance' | translate}}</span>
                 </label>
@@ -232,7 +232,7 @@
                   <div class="col-sm-4">
                     <div class="checkbox">
                       <label for="chk-compliance-usp">
-                        <input type="checkbox" class="form-control full-width" (blur)="onblur()"
+                        <input type="checkbox" (blur)="onblur()"
                                formControlName="complianceUsp"
                                id="chk-compliance-usp"/>
                         <span>{{'compliance.usp'|translate}}</span>
@@ -242,7 +242,7 @@
                   <div class="col-sm-4">
                     <div class="checkbox">
                       <label for="chk-compliance-gmp">
-                        <input type="checkbox" class="form-control full-width" (blur)="onblur()"
+                        <input type="checkbox" (blur)="onblur()"
                                formControlName="complianceGmp"
                                id="chk-compliance-gmp"/>
                         <span>{{'compliance.gmp'|translate}}</span>
@@ -252,7 +252,7 @@
                   <div class="col-sm-4">
                     <div class="checkbox">
                       <label for="chk-compliance-other">
-                        <input type="checkbox" class="form-control full-width" (blur)="onblur()"
+                        <input type="checkbox" (blur)="onblur()"
                                formControlName="complianceOther"
                                id="chk-compliance-other"/>
                         <span>{{'compliance.other'|translate}}</span>
@@ -260,7 +260,7 @@
                     </div>
                   </div>
                 </div>
-                <div *ngIf="iOtherPharmacopeia()" class="row">
+                <div *ngIf="isOtherPharmacopeia()" class="row">
                   <div class="form-group col-xs-12" >
                     <label for="otherPharmacopeia" class="full-width">
                       <span class="field-name" i18n>{{'other.pharmacopeia'|translate}}</span>
@@ -284,7 +284,7 @@
           <h2 class="panel-title">{{'device.history'|translate}}</h2>
         </header>
         <div class="panel-body">
-          <div class="row">
+          <div class="row form-group col-xs-12">
             <fieldset id="device-history">
               <label>
                 <span class="field-name">{{'provision.mdr' | translate}}</span>
@@ -293,7 +293,7 @@
                 <div class="col-sm-4">
                   <div class="checkbox">
                     <label for="chk-mdr-it">
-                      <input type="checkbox" class="form-control full-width" (blur)="onblur()"
+                      <input type="checkbox" (blur)="onblur()"
                              formControlName="provisionMdrIT"
                              id="chk-mdr-it"/>
                       <span>{{'mdr.it'|translate}}</span>
@@ -303,10 +303,10 @@
                 <div class="col-sm-4">
                   <div class="checkbox">
                     <label for="chk-mdr-sa">
-                      <input type="checkbox" class="form-control full-width" (blur)="onblur()"
+                      <input type="checkbox" (blur)="onblur()"
                              formControlName="provisionMdrSA"
                              id="chk-mdr-sa"/>
-                      <span>{{'mdr.sa'|translate}}</span>
+                      {{'mdr.sa'|translate}}
                     </label>
                   </div>
                 </div>

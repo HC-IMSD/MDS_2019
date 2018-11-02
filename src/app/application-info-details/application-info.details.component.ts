@@ -224,7 +224,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     return false;
   }
 
-  iOtherPharmacopeia() {
+  isOtherPharmacopeia() {
       return this.appInfoFormLocalModel.controls.complianceOther.value;
   }
 
