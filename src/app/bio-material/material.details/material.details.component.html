@@ -17,7 +17,7 @@
     <div class="row">
       <div class="form-group col-sm-12" >
         <label for="deviceName" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'device..name'|translate}}</span>
+          <span class="field-name" i18n>{{'device.name'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <input id="deviceName" class="form-control full-width" formControlName="deviceName" maxlength="150"/>
           <control-messages *ngIf="materialFormLocalModel.controls.deviceName.invalid"
@@ -34,7 +34,7 @@
           <span class="field-name" i18n>{{'country'|translate}}</span>
           <div class="margin-top-small">
             <ng-select id="originCountry" formControlName="originCountry"
-                       [allowClear]="false"
+                       [allowClear]="false" [placeholder]="Search"
                        [items]="countries">
             </ng-select>
           </div>
@@ -64,7 +64,7 @@
           <span class="field-name" i18n>{{'tissue.type'|translate}}</span>
           <div class="margin-top-small">
             <ng-select id="tissueType" formControlName="tissueType"
-                       [allowClear]="false"
+                       [allowClear]="false" [placeholder]="Search"
                        [items]="tissueTypeList">
             </ng-select>
           </div>
@@ -83,7 +83,7 @@
           <span class="field-name" i18n>{{'derivative'|translate}}</span>
           <div class="margin-top-small">
             <ng-select id="derivative" formControlName="derivative"
-                       [allowClear]="false"
+                       [allowClear]="false" [placeholder]="Search"
                        [items]="derivativeList">
             </ng-select>
           </div>

@@ -121,10 +121,13 @@ export class ApplicationInfoBaseComponent implements OnInit {
      console.log(fileData);
     this.appInfoModel = fileData.data.APPLICATION_INFO_ENROL.application_info;
     const dev = fileData.data.APPLICATION_INFO_ENROL.devices;
-    this.deviceModel = (dev instanceof Array) ? dev : [dev];
+    if (dev) {
+      this.deviceModel = (dev instanceof Array) ? dev : [dev];
+    }
     const mat = fileData.data.APPLICATION_INFO_ENROL.materials;
-    this.materialModel = (mat instanceof Array) ? mat : [mat];
-
+    if (mat) {
+      this.materialModel = (mat instanceof Array) ? mat : [mat];
+    }
   }
 
   private _updatedSavedDate() {

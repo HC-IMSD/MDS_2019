@@ -21,11 +21,11 @@ export class MaterialDetailsService {
       materialId: '',
       materialName: ['', Validators.required],
       deviceName: ['', Validators.required],
-      originCountry: ['', []],
+      originCountry: [[{id: '', text: ''}], []],
       specFamily: ['', Validators.required],
-      tissueType: ['', []],
+      tissueType: [[{id: '', text: ''}], []],
       tissueTypeOtherDetails: '',
-      derivative: ['', []],
+      derivative: [[{id: '', text: ''}], []],
       derivativeOtherDetails: ''
     });
   }
@@ -133,12 +133,13 @@ export class MaterialDetailsService {
     formRecord.controls.materialName.setValue(materialModel.material_name);
     formRecord.controls.deviceName.setValue(materialModel.device_name);
 
-    const recordIndex = ListService.getRecord(countryList, materialModel.origin_country.__text, 'id');
-    let labelText = '';
-    if (recordIndex > -1) {
-      labelText = countryList[recordIndex].text;
-    }
+
     if (materialModel.origin_country) {
+      const recordIndex = ListService.getRecord(countryList, materialModel.origin_country.__text, 'id');
+      let labelText = '';
+      if (recordIndex > -1) {
+        labelText = countryList[recordIndex].text;
+      }
       formRecord.controls.originCountry.setValue([
         {
           'id': materialModel.origin_country.__text,
@@ -146,15 +147,16 @@ export class MaterialDetailsService {
         }
       ]);
     } else {
-      formRecord.controls.originCountry.setValue(null);
+      formRecord.controls.originCountry.setValue([{id: '', text: ''}]);
     }
 
-    const sfRecordIndex = ListService.getRecord(speciesFamilyList, materialModel.family_of_species.__text, 'id');
-    let sfLabelText = '';
-    if (sfRecordIndex > -1) {
-      sfLabelText = speciesFamilyList[sfRecordIndex].text;
-    }
+
     if (materialModel.family_of_species) {
+      const sfRecordIndex = ListService.getRecord(speciesFamilyList, materialModel.family_of_species.__text, 'id');
+      let sfLabelText = '';
+      if (sfRecordIndex > -1) {
+        sfLabelText = speciesFamilyList[sfRecordIndex].text;
+      }
       formRecord.controls.specFamily.setValue([
         {
           'id': materialModel.family_of_species.__text,
@@ -165,12 +167,13 @@ export class MaterialDetailsService {
       formRecord.controls.specFamily.setValue(null);
     }
 
-    const ttRecordIndex = ListService.getRecord(tissueTypeList, materialModel.tissue_substance_type.__text, 'id');
-    let ttLabelText = '';
-    if (ttRecordIndex > -1) {
-      ttLabelText = tissueTypeList[ttRecordIndex].text;
-    }
+
     if (materialModel.tissue_substance_type) {
+      const ttRecordIndex = ListService.getRecord(tissueTypeList, materialModel.tissue_substance_type.__text, 'id');
+      let ttLabelText = '';
+      if (ttRecordIndex > -1) {
+        ttLabelText = tissueTypeList[ttRecordIndex].text;
+      }
       formRecord.controls.tissueType.setValue([
         {
           'id': materialModel.tissue_substance_type.__text,
@@ -178,16 +181,17 @@ export class MaterialDetailsService {
         }
       ]);
     } else {
-      formRecord.controls.tissueType.setValue(null);
+      formRecord.controls.tissueType.setValue([{id: '', text: ''}]);
     }
     formRecord.controls.tissueTypeOtherDetails.setValue(materialModel.tissue_type_other_details);
 
-    const deRecordIndex = ListService.getRecord(derivativeList, materialModel.derivative.__text, 'id');
-    let deLabelText = '';
-    if (deRecordIndex > -1) {
-      deLabelText = derivativeList[deRecordIndex].text;
-    }
+
     if (materialModel.derivative) {
+      const deRecordIndex = ListService.getRecord(derivativeList, materialModel.derivative.__text, 'id');
+      let deLabelText = '';
+      if (deRecordIndex > -1) {
+        deLabelText = derivativeList[deRecordIndex].text;
+      }
       formRecord.controls.derivative.setValue([
         {
           'id': materialModel.derivative.__text,
@@ -195,7 +199,7 @@ export class MaterialDetailsService {
         }
       ]);
     } else {
-      formRecord.controls.derivative.setValue(null);
+      formRecord.controls.derivative.setValue([{id: '', text: ''}]);
     }
     formRecord.controls.derivativeOtherDetails.setValue(materialModel.derivative_other_details);
   }
