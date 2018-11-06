@@ -5,26 +5,26 @@
         <label for="companyId" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'company.id'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="companyId" class="form-control full-width" (blur)="onblur()"
-                 formControlName="companyId" maxlength="6"/>
           <control-messages *ngIf="appInfoFormLocalModel.controls.companyId.invalid"
                             [showError]="showFieldErrors"
                             [control]="appInfoFormLocalModel.controls.companyId"
                             controlId="companyId" label="company.id" parentId="appInfoDetails"
                             parentLabel="Application Information"></control-messages>
+          <input id="companyId" class="form-control full-width" (blur)="onblur()"
+                 formControlName="companyId" maxlength="6"/>
         </label>
       </div>
       <div class="form-group col-xs-6" >
         <label for="dossierId" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'dossier.id'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="dossierId" class="form-control full-width"  (blur)="onblur()"
-                 formControlName="dossierId" maxlength="7"/>
           <control-messages *ngIf="appInfoFormLocalModel.controls.dossierId.invalid"
                             [showError]="showFieldErrors"
                             [control]="appInfoFormLocalModel.controls.dossierId"
                             controlId="dossierId" label="dossier.id" parentId="appInfoDetails"
                             parentLabel="Application Information"></control-messages>
+          <input id="dossierId" class="form-control full-width"  (blur)="onblur()"
+                 formControlName="dossierId" maxlength="7"/>
         </label>
       </div>
     </div>
@@ -33,30 +33,30 @@
         <label for="qmscNum" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'qmsc.number'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="qmscNum" class="form-control full-width"  (blur)="onblur()"
-                 formControlName="qmscNum" maxlength="30"/>
           <control-messages *ngIf="appInfoFormLocalModel.controls.qmscNum.invalid"
                             [showError]="showFieldErrors"
                             [control]="appInfoFormLocalModel.controls.qmscNum"
                             controlId="qmscNum" label="qmsc.number" parentId="appInfoDetails"
                             parentLabel="Application Information"></control-messages>
+          <input id="qmscNum" class="form-control full-width"  (blur)="onblur()"
+                 formControlName="qmscNum" maxlength="30"/>
         </label>
       </div>
       <div class="form-group col-xs-6" >
         <label for="licenceAppType" class="required full-width">
           <span class="field-name" i18n>{{'licence.app.type' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <select id="licenceAppType" required class="form-control full-width" (blur)="onblur()"
-                  formControlName="licenceAppType">
-            <option *ngFor="let lat of licenceAppTypeList" [ngValue]="lat.id"> {{lat.text}}</option>
-
-          </select>
           <control-messages *ngIf="appInfoFormLocalModel.controls.licenceAppType.invalid"
                             [showError]="showFieldErrors"
                             [control]="appInfoFormLocalModel.controls.licenceAppType"
                             controlId="licenceAppType" label="licence.app.type"
                             parentId="appInfoDetails"
                             parentLabel="Application Information"></control-messages>
+          <select id="licenceAppType" required class="form-control full-width" (blur)="onblur()"
+                  formControlName="licenceAppType">
+            <option *ngFor="let lat of licenceAppTypeList" [ngValue]="lat.id"> {{lat.text}}</option>
+
+          </select>
         </label>
       </div>
     </div>
@@ -74,15 +74,15 @@
               <label for="isIvdd" class="required full-width">
                 <span class="field-name" i18n>{{'is.ivdd' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <select id="isIvdd" required class="form-control" (blur)="onblur()"
-                        formControlName="isIvdd">
-                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
-                </select>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.isIvdd.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.isIvdd"
                                   controlId="isIvdd" label="is.ivdd" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
+                <select id="isIvdd" required class="form-control" (blur)="onblur()"
+                        formControlName="isIvdd">
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
               </label>
             </div>
           </div>
@@ -91,30 +91,30 @@
               <label for="isHomeUse" class="required full-width">
                 <span class="field-name" i18n>{{'is.home.use' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <select id="isHomeUse" required class="form-control" (blur)="onblur()"
-                        formControlName="isHomeUse">
-                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
-                </select>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.isHomeUse.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.isHomeUse"
                                   controlId="isHomeUse" label="is.home.use" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
+                <select id="isHomeUse" required class="form-control" (blur)="onblur()"
+                        formControlName="isHomeUse">
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
               </label>
             </div>
             <div class="form-group col-xs-12" >
               <label for="isCarePoint" class="required full-width">
                 <span class="field-name" i18n>{{'is.point.care' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <select id="isCarePoint" required class="form-control" (blur)="onblur()"
-                        formControlName="isCarePoint">
-                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
-                </select>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.isCarePoint.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.isCarePoint"
                                   controlId="isCarePoint" label="is.point.care" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
+                <select id="isCarePoint" required class="form-control" (blur)="onblur()"
+                        formControlName="isCarePoint">
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
               </label>
             </div>
           </div>
@@ -123,15 +123,15 @@
               <label for="isEmitRadiation" class="required full-width">
                 <span class="field-name" i18n>{{'contain.radiation' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <select id="isEmitRadiation" required class="form-control" (blur)="onblur()"
-                        formControlName="isEmitRadiation">
-                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
-                </select>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.isEmitRadiation.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.isEmitRadiation"
                                   controlId="isEmitRadiation" label="contain.radiation" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
+                <select id="isEmitRadiation" required class="form-control" (blur)="onblur()"
+                        formControlName="isEmitRadiation">
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
               </label>
             </div>
           </div>
@@ -140,15 +140,15 @@
               <label for="hasDrug" class="required full-width">
                 <span class="field-name" i18n>{{'contain.drug' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <select id="hasDrug" required class="form-control" (blur)="onblur()"
-                        formControlName="hasDrug">
-                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
-                </select>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.hasDrug.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.hasDrug"
                                   controlId="hasDrug" label="contain.drug" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
+                <select id="hasDrug" required class="form-control" (blur)="onblur()"
+                        formControlName="hasDrug">
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
               </label>
             </div>
             <div *ngIf="hasDrug()" class="form-group col-xs-12 col-sm-6" >
@@ -165,26 +165,26 @@
               <label for="din" class="required full-width" aria-required="true">
                 <span class="field-name" i18n>{{'din'|translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <input id="din" class="form-control full-width"  (blur)="onblur()"
-                       formControlName="din" maxlength="8"/>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.din.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.din"
                                   controlId="din" label="din" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
+                <input id="din" class="form-control full-width"  (blur)="onblur()"
+                       formControlName="din" maxlength="8"/>
               </label>
             </div>
             <div  *ngIf="hasNpn()" class="form-group col-xs-6" >
               <label for="npn" class="required full-width" aria-required="true">
                 <span class="field-name" i18n>{{'npn'|translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <input id="npn" class="form-control full-width"  (blur)="onblur()"
-                       formControlName="npn" maxlength="8"/>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.npn.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.npn"
                                   controlId="npn" label="npn" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
+                <input id="npn" class="form-control full-width"  (blur)="onblur()"
+                       formControlName="npn" maxlength="8"/>
               </label>
             </div>
           </div>
@@ -321,7 +321,7 @@
                 </div>
               </div>
               <div *ngIf="isSa()" class="row">
-                <div  class="form-group col-xs-6" >
+                <div  class="form-group col-xs-6">
                   <label for="deviceId" class=" full-width">
                     <span class="field-name" i18n>{{'device.id'|translate}}</span>
                     <input id="deviceId" class="form-control full-width"  (blur)="onblur()"
@@ -362,15 +362,15 @@
               <label for="declarationConformity" class="required full-width">
                 <span class="field-name" i18n>{{'conformity.declaration' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <select id="declarationConformity" required class="form-control" (blur)="onblur()"
-                        formControlName="declarationConformity">
-                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
-                </select>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.declarationConformity.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.declarationConformity"
                                   controlId="declarationConformity" label="conformity.declaration" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
+                <select id="declarationConformity" required class="form-control" (blur)="onblur()"
+                        formControlName="declarationConformity">
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
               </label>
             </div>
           </div>
@@ -398,15 +398,15 @@
               <label for="hasRecombinant" class="required full-width">
                 <span class="field-name" i18n>{{'consist.recombinant' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <select id="hasRecombinant" required class="form-control" (blur)="onblur()"
-                        formControlName="hasRecombinant">
-                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
-                </select>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.hasRecombinant.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.hasRecombinant"
                                   controlId="hasRecombinant" label="consist.recombinant" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
+                <select id="hasRecombinant" required class="form-control" (blur)="onblur()"
+                        formControlName="hasRecombinant">
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
               </label>
             </div>
           </div>
@@ -415,15 +415,15 @@
               <label for="isAnimalHumanSourced" class="required full-width">
                 <span class="field-name" i18n>{{'conformity.declaration' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <select id="isAnimalHumanSourced" required class="form-control" (blur)="onblur()"
-                        formControlName="isAnimalHumanSourced">
-                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
-                </select>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.isAnimalHumanSourced.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.isAnimalHumanSourced"
                                   controlId="isAnimalHumanSourced" label="conformity.declaration" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
+                <select id="isAnimalHumanSourced" required class="form-control" (blur)="onblur()"
+                        formControlName="isAnimalHumanSourced">
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
               </label>
             </div>
           </div>
@@ -432,15 +432,15 @@
               <label for="isListedIddTable" class="required full-width">
                 <span class="field-name" i18n>{{'is.same.material' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <select id="isListedIddTable" required class="form-control" (blur)="onblur()"
-                        formControlName="isListedIddTable">
-                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
-                </select>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.isListedIddTable.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.isListedIddTable"
                                   controlId="isListedIddTable" label="is.same.material" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
+                <select id="isListedIddTable" required class="form-control" (blur)="onblur()"
+                        formControlName="isListedIddTable">
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
               </label>
             </div>
           </div>
