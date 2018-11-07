@@ -413,12 +413,12 @@
           <div *ngIf="isRecombinant()" class="row">
             <div class="form-group col-xs-12" >
               <label for="isAnimalHumanSourced" class="required full-width">
-                <span class="field-name" i18n>{{'conformity.declaration' |translate}}</span>
+                <span class="field-name" i18n>{{'contain.material' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.isAnimalHumanSourced.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.isAnimalHumanSourced"
-                                  controlId="isAnimalHumanSourced" label="conformity.declaration" parentId="appInfoDetails"
+                                  controlId="isAnimalHumanSourced" label="contain.material" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
                 <select id="isAnimalHumanSourced" required class="form-control" (blur)="onblur()"
                         formControlName="isAnimalHumanSourced">
@@ -444,7 +444,7 @@
               </label>
             </div>
           </div>
-          <div *ngIf="isListedIddTable()">
+          <div *ngIf="isAnimalHumanSourced()">
             <section class="panel  panel-default">
               <header class="panel-heading clearfix">
                 <div class="btn-group pull-right">

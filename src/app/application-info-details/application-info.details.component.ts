@@ -184,56 +184,156 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   isIVDD() {
     if (this.appInfoFormLocalModel.controls.isIvdd.value) {
-      return (this.appInfoFormLocalModel.controls.isIvdd.value === GlobalsService.YES);
+      if (this.appInfoFormLocalModel.controls.isIvdd.value === GlobalsService.YES) {
+        return true;
+      } else {
+        this.appInfoFormLocalModel.controls.isHomeUse.setValue(null);
+        this.appInfoFormLocalModel.controls.isHomeUse.markAsUntouched();
+        this.appInfoFormLocalModel.controls.isCarePoint.setValue(null);
+        this.appInfoFormLocalModel.controls.isCarePoint.markAsUntouched();
+      }
     }
     return false;
   }
 
   isNOIVDD() {
     if (this.appInfoFormLocalModel.controls.isIvdd.value) {
-      return (this.appInfoFormLocalModel.controls.isIvdd.value === GlobalsService.NO);
+      if (this.appInfoFormLocalModel.controls.isIvdd.value === GlobalsService.NO) {
+        return true;
+      } else {
+        this.appInfoFormLocalModel.controls.hasDrug.setValue(null);
+        this.appInfoFormLocalModel.controls.hasDrug.markAsUntouched();
+        this.appInfoFormLocalModel.controls.hasDinNpn.setValue(null);
+        this.appInfoFormLocalModel.controls.hasDinNpn.markAsUntouched();
+        this.appInfoFormLocalModel.controls.din.setValue('');
+        this.appInfoFormLocalModel.controls.din.markAsUntouched();
+        this.appInfoFormLocalModel.controls.npn.setValue('');
+        this.appInfoFormLocalModel.controls.npn.markAsUntouched();
+        this.appInfoFormLocalModel.controls.drugName.setValue('');
+        this.appInfoFormLocalModel.controls.drugName.markAsUntouched();
+        this.appInfoFormLocalModel.controls.activeIngredients.setValue('');
+        this.appInfoFormLocalModel.controls.activeIngredients.markAsUntouched();
+        this.appInfoFormLocalModel.controls.manufacturer.setValue('');
+        this.appInfoFormLocalModel.controls.manufacturer.markAsUntouched();
+        this.appInfoFormLocalModel.controls.complianceUsp.setValue(false);
+        this.appInfoFormLocalModel.controls.complianceUsp.markAsUntouched();
+        this.appInfoFormLocalModel.controls.complianceGmp.setValue(false);
+        this.appInfoFormLocalModel.controls.complianceGmp.markAsUntouched();
+        this.appInfoFormLocalModel.controls.complianceOther.setValue(false);
+        this.appInfoFormLocalModel.controls.complianceOther.markAsUntouched();
+        this.appInfoFormLocalModel.controls.otherPharmacopeia.setValue('');
+        this.appInfoFormLocalModel.controls.otherPharmacopeia.markAsUntouched();
+      }
     }
     return false;
   }
 
   hasDrug() {
     if (this.appInfoFormLocalModel.controls.hasDrug.value) {
-      return (this.appInfoFormLocalModel.controls.hasDrug.value === GlobalsService.YES);
+      if (this.appInfoFormLocalModel.controls.hasDrug.value === GlobalsService.YES) {
+        return true;
+      } else {
+        this.appInfoFormLocalModel.controls.hasDinNpn.setValue(null);
+        this.appInfoFormLocalModel.controls.hasDinNpn.markAsUntouched();
+        this.appInfoFormLocalModel.controls.din.setValue('');
+        this.appInfoFormLocalModel.controls.din.markAsUntouched();
+        this.appInfoFormLocalModel.controls.npn.setValue('');
+        this.appInfoFormLocalModel.controls.npn.markAsUntouched();
+        this.appInfoFormLocalModel.controls.drugName.setValue('');
+        this.appInfoFormLocalModel.controls.drugName.markAsUntouched();
+        this.appInfoFormLocalModel.controls.activeIngredients.setValue('');
+        this.appInfoFormLocalModel.controls.activeIngredients.markAsUntouched();
+        this.appInfoFormLocalModel.controls.manufacturer.setValue('');
+        this.appInfoFormLocalModel.controls.manufacturer.markAsUntouched();
+        this.appInfoFormLocalModel.controls.complianceUsp.setValue(false);
+        this.appInfoFormLocalModel.controls.complianceUsp.markAsUntouched();
+        this.appInfoFormLocalModel.controls.complianceGmp.setValue(false);
+        this.appInfoFormLocalModel.controls.complianceGmp.markAsUntouched();
+        this.appInfoFormLocalModel.controls.complianceOther.setValue(false);
+        this.appInfoFormLocalModel.controls.complianceOther.markAsUntouched();
+        this.appInfoFormLocalModel.controls.otherPharmacopeia.setValue('');
+        this.appInfoFormLocalModel.controls.otherPharmacopeia.markAsUntouched();
+      }
     }
     return false;
   }
 
   hasDin() {
     if (this.appInfoFormLocalModel.controls.hasDinNpn.value) {
-      return (this.appInfoFormLocalModel.controls.hasDinNpn.value === 'din');
+      if (this.appInfoFormLocalModel.controls.hasDinNpn.value === 'din') {
+        return true;
+      } else {
+        this.appInfoFormLocalModel.controls.din.setValue('');
+        this.appInfoFormLocalModel.controls.din.markAsUntouched();
+      }
     }
     return false;
   }
 
   hasNpn() {
     if (this.appInfoFormLocalModel.controls.hasDinNpn.value) {
-      return (this.appInfoFormLocalModel.controls.hasDinNpn.value === 'npn');
+      if (this.appInfoFormLocalModel.controls.hasDinNpn.value === 'npn') {
+        return true;
+      } else {
+        this.appInfoFormLocalModel.controls.npn.setValue('');
+        this.appInfoFormLocalModel.controls.npn.markAsUntouched();
+      }
     }
     return false;
   }
 
   isNoDinNpn() {
     if (this.appInfoFormLocalModel.controls.hasDinNpn.value) {
-      return (this.appInfoFormLocalModel.controls.hasDinNpn.value === 'nodinnpn');
+      if (this.appInfoFormLocalModel.controls.hasDinNpn.value === 'nodinnpn') {
+        return true;
+      } else {
+        this.appInfoFormLocalModel.controls.drugName.setValue('');
+        this.appInfoFormLocalModel.controls.drugName.markAsUntouched();
+        this.appInfoFormLocalModel.controls.activeIngredients.setValue('');
+        this.appInfoFormLocalModel.controls.activeIngredients.markAsUntouched();
+        this.appInfoFormLocalModel.controls.manufacturer.setValue('');
+        this.appInfoFormLocalModel.controls.manufacturer.markAsUntouched();
+        this.appInfoFormLocalModel.controls.complianceUsp.setValue(false);
+        this.appInfoFormLocalModel.controls.complianceUsp.markAsUntouched();
+        this.appInfoFormLocalModel.controls.complianceGmp.setValue(false);
+        this.appInfoFormLocalModel.controls.complianceGmp.markAsUntouched();
+        this.appInfoFormLocalModel.controls.complianceOther.setValue(false);
+        this.appInfoFormLocalModel.controls.complianceOther.markAsUntouched();
+        this.appInfoFormLocalModel.controls.otherPharmacopeia.setValue('');
+        this.appInfoFormLocalModel.controls.otherPharmacopeia.markAsUntouched();
+      }
     }
     return false;
   }
 
   isOtherPharmacopeia() {
-      return this.appInfoFormLocalModel.controls.complianceOther.value;
+    if (this.appInfoFormLocalModel.controls.complianceOther.value) {
+      return true;
+    } else {
+      this.appInfoFormLocalModel.controls.otherPharmacopeia.setValue('');
+      this.appInfoFormLocalModel.controls.otherPharmacopeia.markAsUntouched();
+    }
+    return false;
   }
 
   isIt() {
-      return this.appInfoFormLocalModel.controls.provisionMdrIT.value;
+      if (this.appInfoFormLocalModel.controls.provisionMdrIT.value) {
+      return true;
+    } else {
+      this.appInfoFormLocalModel.controls.authorizationNum.setValue('');
+      this.appInfoFormLocalModel.controls.authorizationNum.markAsUntouched();
+    }
+    return false;
   }
 
   isSa() {
-      return this.appInfoFormLocalModel.controls.provisionMdrSA.value;
+    if (this.appInfoFormLocalModel.controls.provisionMdrSA.value) {
+      return true;
+    } else {
+      this.appInfoFormLocalModel.controls.deviceId.setValue('');
+      this.appInfoFormLocalModel.controls.deviceId.markAsUntouched();
+    }
+    return false;
   }
 
   isNoDeclaration() {
@@ -245,21 +345,28 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   isRecombinant() {
     if (this.appInfoFormLocalModel.controls.hasRecombinant.value) {
-      return (this.appInfoFormLocalModel.controls.hasRecombinant.value === GlobalsService.YES);
+      if (this.appInfoFormLocalModel.controls.hasRecombinant.value === GlobalsService.YES) {
+        return true;
+      } else {
+        this.appInfoFormLocalModel.controls.isAnimalHumanSourced.setValue(null);
+        this.appInfoFormLocalModel.controls.isAnimalHumanSourced.markAsUntouched();
+        this.appInfoFormLocalModel.controls.isListedIddTable.setValue(null);
+        this.appInfoFormLocalModel.controls.isListedIddTable.markAsUntouched();
+        this.materialModel = [];
+      }
     }
     return false;
   }
 
   isAnimalHumanSourced() {
     if (this.appInfoFormLocalModel.controls.isAnimalHumanSourced.value) {
-      return (this.appInfoFormLocalModel.controls.isAnimalHumanSourced.value === GlobalsService.YES);
-    }
-    return false;
-  }
-
-  isListedIddTable() {
-    if (this.appInfoFormLocalModel.controls.isListedIddTable.value) {
-      return (this.appInfoFormLocalModel.controls.isListedIddTable.value === GlobalsService.YES);
+      if (this.appInfoFormLocalModel.controls.isAnimalHumanSourced.value === GlobalsService.YES) {
+        return true;
+      } else {
+        this.appInfoFormLocalModel.controls.isListedIddTable.setValue(null);
+        this.appInfoFormLocalModel.controls.isListedIddTable.markAsUntouched();
+        this.materialModel = [];
+      }
     }
     return false;
   }
