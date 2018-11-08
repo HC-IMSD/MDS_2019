@@ -36,7 +36,9 @@
       "root": "src",
       "outDir": "./dist/dev/company",
       "assets": [
-        "assets",
+        "assets/data",
+        "assets/i18n/company",
+        "assets/lib",
         "GCWeb",
         "wet-boew",
         "favicon.ico"
@@ -66,7 +68,9 @@
       "root": "src",
       "outDir": "./dist/dev/company_internal",
       "assets": [
-        "assets",
+        "assets/data",
+        "assets/i18n/company",
+        "assets/lib",
         "GCWeb",
         "wet-boew",
         "favicon.ico"
@@ -96,7 +100,9 @@
       "root": "src",
       "outDir": "./dist/dev/dossier",
       "assets": [
-        "assets",
+        "assets/data",
+        "assets/i18n/dossier",
+        "assets/lib",
         "GCWeb",
         "wet-boew",
         "favicon.ico"
@@ -126,7 +132,9 @@
       "root": "src",
       "outDir": "./dist/dev/dossier",
       "assets": [
-        "assets",
+        "assets/data",
+        "assets/i18n/dossier",
+        "assets/lib",
         "GCWeb",
         "wet-boew",
         "favicon.ico"
@@ -156,7 +164,9 @@
       "root": "src",
       "outDir": "./dist/dev/transaction",
       "assets": [
-        "assets",
+        "assets/data",
+        "assets/i18n/transaction",
+        "assets/lib",
         "GCWeb",
         "wet-boew",
         "favicon.ico"
@@ -186,7 +196,9 @@
       "root": "src",
       "outDir": "./dist/dev/application-info",
       "assets": [
-        "assets",
+        "assets/data",
+        "assets/i18n/applicationInfo",
+        "assets/lib",
         "GCWeb",
         "wet-boew",
         "favicon.ico"

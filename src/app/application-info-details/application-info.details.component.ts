@@ -131,20 +131,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
         this.appInfoFormLocalModel.markAsPristine();
       }
       ApplicationInfoDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.appInfoFormLocalModel));
-      // emit hasQMSC value
-      // if (this.appInfoFormLocalModel.controls.hasQMSC) {
-      //   this.hasQmsc.emit(this.appInfoFormLocalModel.controls.hasQMSC.value);
-      // }
-    }
-    if (changes['lang']) {
-      const language = changes['lang'].currentValue;
-      if (language === GlobalsService.ENGLISH) {
-        // this.appInfoFormLocalModel.controls.appInfoType.setValue(GlobalsService.DEVICE_TYPE_EN);
-      } else if (language === GlobalsService.FRENCH) {
-        // this.appInfoFormLocalModel.controls.appInfoType.setValue(GlobalsService.DEVICE_TYPE_FR);
-      }
-      ApplicationInfoDetailsService.mapFormModelToDataModel((<FormGroup>this.appInfoFormLocalModel),
-        this.appInfoModel);
     }
   }
 
