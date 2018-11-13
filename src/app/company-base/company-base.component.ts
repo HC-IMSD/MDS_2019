@@ -138,7 +138,9 @@ export class CompanyBaseComponent implements OnInit {
         'MDS_COMPANY_ENROL': {
           'general_information': this.genInfoModel,
           'address': this.addressModel,
-          'contacts': this.contactModel
+          'contacts': {
+            'contact': this.contactModel
+          }
         }
       };
       this.fileServices.saveXmlToFile(result, 'hcmdsco', true, this.xslName);
@@ -150,7 +152,9 @@ export class CompanyBaseComponent implements OnInit {
     const result = {'MDS_COMPANY_ENROL': {
       'general_information': this.genInfoModel,
       'address': this.addressModel,
-      'contacts': this.contactModel
+      'contacts': {
+        'contact': this.contactModel
+      }
     }};
     this.fileServices.saveJsonToFile(result, 'hcmdsco-test', null);
   }
@@ -161,7 +165,7 @@ export class CompanyBaseComponent implements OnInit {
     this.genInfoModel = fileData.data.MDS_COMPANY_ENROL.general_information;
     this.isFinal = (this.genInfoModel.status === GlobalsService.FINAL);
     this.addressModel = fileData.data.MDS_COMPANY_ENROL.address;
-    const cont = fileData.data.MDS_COMPANY_ENROL.contacts;
+    const cont = fileData.data.MDS_COMPANY_ENROL.contacts.contact;
     this.contactModel = (cont instanceof Array) ? cont : [cont];
 
     // this.testData = fileData.data;
