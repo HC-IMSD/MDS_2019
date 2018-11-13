@@ -29,7 +29,7 @@ export class ApplicationInfoBaseComponent implements OnInit {
   private _materialErrors = [];
   public appInfoForm: FormGroup;  // todo: do we need it? could remove?
   public errorList = [];
-  public rootTagText = 'APPLICATION_INFO_ENROL';
+  public rootTagText = 'MDS_APPLICATION_INFO_ENROL';
   public countryList = [];
   public showErrors: boolean;
   public title = '';
@@ -94,10 +94,14 @@ export class ApplicationInfoBaseComponent implements OnInit {
       this.showErrors = true;
     } else {
       const result = {
-        'APPLICATION_INFO_ENROL': {
+        'MDS_APPLICATION_INFO_ENROL': {
           'application_info': this.appInfoModel,
-          'devices': this.deviceModel,
-          'materials': this.materialModel
+          'devices': {
+            'device': this.deviceModel
+          },
+          'materials': {
+            'material': this.materialModel
+          }
         }
       };
       const fileName = 'hcrepdi-' + this.appInfoModel.last_saved_date;
@@ -107,10 +111,14 @@ export class ApplicationInfoBaseComponent implements OnInit {
 
   public saveWorkingCopyFile() {
     this._updatedSavedDate();
-    const result = {'APPLICATION_INFO_ENROL': {
+    const result = {'MDS_APPLICATION_INFO_ENROL': {
       'application_info': this.appInfoModel,
-      'devices': this.deviceModel,
-      'materials': this.materialModel
+      'devices': {
+        'device': this.deviceModel
+      },
+      'materials': {
+        'material': this.materialModel
+      }
     }};
     const fileName = 'hcrepdi-' + this.appInfoModel.last_saved_date;
     this.fileServices.saveJsonToFile(result, fileName, null);
@@ -119,12 +127,12 @@ export class ApplicationInfoBaseComponent implements OnInit {
   public processFile(fileData: ConvertResults) {
      console.log('processing file.....');
      console.log(fileData);
-    this.appInfoModel = fileData.data.APPLICATION_INFO_ENROL.application_info;
-    const dev = fileData.data.APPLICATION_INFO_ENROL.devices;
+    this.appInfoModel = fileData.data.MDS_APPLICATION_INFO_ENROL.application_info;
+    const dev = fileData.data.MDS_APPLICATION_INFO_ENROL.devices.device;
     if (dev) {
       this.deviceModel = (dev instanceof Array) ? dev : [dev];
     }
-    const mat = fileData.data.APPLICATION_INFO_ENROL.materials;
+    const mat = fileData.data.MDS_APPLICATION_INFO_ENROL.materials.material;
     if (mat) {
       this.materialModel = (mat instanceof Array) ? mat : [mat];
     }

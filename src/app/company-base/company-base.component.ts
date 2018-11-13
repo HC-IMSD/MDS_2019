@@ -31,7 +31,7 @@ export class CompanyBaseComponent implements OnInit {
   public isFinal = false;
   public companyForm: FormGroup;
   public errorList = [];
-  public rootTagText = 'COMPANY_ENROL';
+  public rootTagText = 'MDS_COMPANY_ENROL';
   public isInternalSite = false;
   // public testData: ConvertResults = null;
   // public _theraErrors = [];
@@ -135,7 +135,7 @@ export class CompanyBaseComponent implements OnInit {
         this.genInfoModel.status = CompanyBaseService.setFinalStatus();
       }
       const result = {
-        'COMPANY_ENROL': {
+        'MDS_COMPANY_ENROL': {
           'general_information': this.genInfoModel,
           'address': this.addressModel,
           'contacts': this.contactModel
@@ -147,7 +147,7 @@ export class CompanyBaseComponent implements OnInit {
 
   public saveWorkingCopyFile() {
     this._updatedSavedDate();
-    const result = {'COMPANY_ENROL': {
+    const result = {'MDS_COMPANY_ENROL': {
       'general_information': this.genInfoModel,
       'address': this.addressModel,
       'contacts': this.contactModel
@@ -158,10 +158,10 @@ export class CompanyBaseComponent implements OnInit {
   public processFile(fileData: ConvertResults) {
      console.log('processing file.....');
      console.log(fileData);
-    this.genInfoModel = fileData.data.COMPANY_ENROL.general_information;
+    this.genInfoModel = fileData.data.MDS_COMPANY_ENROL.general_information;
     this.isFinal = (this.genInfoModel.status === GlobalsService.FINAL);
-    this.addressModel = fileData.data.COMPANY_ENROL.address;
-    const cont = fileData.data.COMPANY_ENROL.contacts;
+    this.addressModel = fileData.data.MDS_COMPANY_ENROL.address;
+    const cont = fileData.data.MDS_COMPANY_ENROL.contacts;
     this.contactModel = (cont instanceof Array) ? cont : [cont];
 
     // this.testData = fileData.data;
