@@ -1,0 +1,22 @@
+<div>
+  <div [formGroup]="requesterFormLocalModel">
+
+    <div class="row">
+      <div class="form-group col-sm-12" >
+        <label for="requesterName" class="full-width">
+          <span class="field-name" i18n>{{'requester.name'|translate}}</span>
+          <input id="requesterName" class="form-control full-width" formControlName="requesterName"/>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-12 ">
+        <label for="licenceNum">
+          <span class="field-name" i18n>{{'licence.number' |translate}}</span>
+          <input id="licenceNum" class="form-control" formControlName="licenceNum"/>
+        </label>
+      </div>
+    </div>
+    <!-- <pre>{{requesterFormLocalModel.value |json}}</pre>-->
+  </div>
+</div>

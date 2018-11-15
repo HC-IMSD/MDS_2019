@@ -53,7 +53,7 @@ export class AppInfoDataLoaderService {
       {id: '1', label_en: 'TENDON', label_fr: 'fr_TENDON'},
       {id: '17', label_en: 'TRACHEA', label_fr: 'fr_TRACHEA'},
       {id: '29', label_en: 'URINARY BLADDER MATRIX', label_fr: 'fr_URINARY BLADDER MATRIX'},
-      {id: 'other ', label_en: 'OTHER', label_fr: 'fr_OTHER'}
+      {id: 'other', label_en: 'OTHER', label_fr: 'fr_OTHER'}
   ];
 
   private derivativeList: Array<any> = [

@@ -1,0 +1,58 @@
+<div class="container-fluid">
+  <form [formGroup]="transactionForm" novalidate>
+    <div>
+      <h1>{{'transaction.form.title'|translate}}</h1>
+
+      <div>
+        <section class="panel panel-primary mrgn-tp-lg">
+          <header class="panel-heading clearfix">
+            <div class="btn-group pull-right">
+            </div>
+            <h2 class="panel-title">{{'transaction.load.file'|translate}}</h2>
+          </header>
+          <div class="panel-body">
+            <div class="row">
+              <filereader (complete)="processFile($event)" [rootTag]="rootTagText"></filereader>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
+                     headingPreamble="errorSummary.transaction"></error-summary>
+
+      <div>
+        <section class="panel panel-primary mrgn-tp-lg">
+          <header class="panel-heading clearfix">
+            <div class="btn-group pull-right">
+            </div>
+            <h2 class="panel-title">{{'heading.transaction'|translate}}</h2>
+          </header>
+          <div class="panel-body">
+            <transaction-details [showErrors]="showErrors" [lang]="lang"
+                              [detailsChanged]="updateChild" [transactionModel]="transactionModel"
+                              [requesterModel]="requesterModel" [transFeesModel]="transFeesModel"
+                              (detailErrorList)="processDetailErrors($event)"
+                              (requesterErrorList)="processDeviceErrors($event)"
+                              (transFeesErrorList)="processMaterialtErrors($event)"></transaction-details>
+
+            </div>
+        </section>
+      </div>
+    </div>
+    <div class="row btn-group-sm">
+      <div class="form-group col-md-4">
+        <button class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()" i18n>
+          {{'save.working.copy'|translate}}
+        </button>
+      </div>
+      <div class="form-group col-md-4">
+        <button class="btn btn-primary btn-lg active" (click)="saveXmlFile()" i18n>
+          {{'generate.final'|translate}}
+        </button>
+      </div>
+    </div>
+    <!--pre> myForm valid{{myForm.valid}}</pre>
+    <pre> myForm{{myForm.value |json}}</pre-->
+  </form>
+</div>

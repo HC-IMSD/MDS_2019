@@ -1,0 +1,19 @@
+<div class="container-fluid" [formGroup]="requesterRecordModel">
+  <h3>{{'heading.interdependent.requester'| translate}}&nbsp;{{requesterRecordModel.controls.id.value + 1}}</h3>
+  <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
+                 [errorList]="errorList" headingPreamble="heading.requester.record"
+                 [headingLevel]="headingLevel" label="Requester Record" compId="requesterRec"></error-summary>
+  <requester-details [showErrors]="showErrors"
+                   [detailsChanged]="updateChild" [group]="requesterRecordModel.controls.requesterDetails"
+                   (errorList)="updateErrorList($event)"></requester-details>
+
+  <div class="row">
+    <div class="btn-group-sm col-xs-12 text-left">
+      <button class="btn btn-primary" (click)="saveRequesterRecord()" i18n>{{'save.requester'|translate}}</button>
+      <button class="btn btn-danger" (click)="deleteRequesterRecord()" i18n>{{'delete.requester'|translate}}</button>
+      <button class="btn btn-default" (click)="revertRequesterRecord()" i18n>{{'discard.changes'|translate}}</button>
+    </div>
+  </div>
+
+  <!--pre>{{requesterRecordModel.value |json}}</pre-->
+</div>
