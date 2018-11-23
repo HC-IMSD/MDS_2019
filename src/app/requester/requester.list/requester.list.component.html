@@ -5,29 +5,31 @@
                         [columnDefinitions]="columnDefinitions"
                         [deleteRecord]="deleteRecordMsg">
       <requester-record
-        [detailsChanged]="updateDeviceDetails"
-        (saveRecord)="saveDeviceRecord($event)"
+        [detailsChanged]="updateRequesterDetails"
+        [userList]="userList"
+        (saveRecord)="saveRequesterRecord($event)"
         (errors)="updateErrorList($event)"
-        (revertRecord)="revertDevice($event)" (deleteRecord)="deleteDevice($event)"></requester-record>
+        (revertRecord)="revertRequester($event)" (deleteRecord)="deleteRequester($event)"></requester-record>
 
     </expander-component>
     <div *ngIf="newRecordIndicator">
       <requester-record
-        [detailsChanged]="updateDeviceDetails"
-        [group]="newDeviceForm"
-        (saveRecord)="saveDeviceRecord($event)"
+        [detailsChanged]="updateRequesterDetails"
+        [userList]="userList"
+        [group]="newRequesterForm"
+        (saveRecord)="saveRequesterRecord($event)"
         (errors)="updateErrorList($event)"
-        (revertRecord)="revertDevice($event)" (deleteRecord)="deleteDevice($event)"></requester-record>
+        (revertRecord)="revertRequester($event)" (deleteRecord)="deleteRequester($event)"></requester-record>
     </div>
   </div>
   <div class="row mrgn-tp-md mrgn-bttm-lg">
     <div class="btn-group-sm col-md-12 text-left">
-      <button class="btn btn-primary" (click)="addDevice()"
+      <button class="btn btn-primary" (click)="addRequester()"
               [disabled]="!requesterListForm.valid || isDirty()">
        {{'add.requester'|translate}}
       </button>
     </div>
   </div>
 <!--pre>Form Data {{requesterListForm.value |json}}</pre>
-  <pre>Data Model for Device List {{dataModel|json}}</pre-->
+  <pre>Data Model for Requester List {{dataModel|json}}</pre-->
 </div>

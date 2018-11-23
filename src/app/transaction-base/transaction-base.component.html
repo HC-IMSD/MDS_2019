@@ -29,12 +29,12 @@
             <h2 class="panel-title">{{'heading.transaction'|translate}}</h2>
           </header>
           <div class="panel-body">
-            <transaction-details [showErrors]="showErrors" [lang]="lang"
+            <transaction-details [showErrors]="showErrors" [lang]="lang" [userList]="userList"
                               [detailsChanged]="updateChild" [transactionModel]="transactionModel"
                               [requesterModel]="requesterModel" [transFeesModel]="transFeesModel"
                               (detailErrorList)="processDetailErrors($event)"
-                              (requesterErrorList)="processDeviceErrors($event)"
-                              (transFeesErrorList)="processMaterialtErrors($event)"></transaction-details>
+                              (requesterErrorList)="processRequesterErrors($event)"
+                              (transFeesErrorList)="processTransFeesErrors($event)"></transaction-details>
 
             </div>
         </section>

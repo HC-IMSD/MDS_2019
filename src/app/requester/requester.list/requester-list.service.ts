@@ -11,9 +11,10 @@ export class RequesterListService extends ListService implements IMasterDetails 
 
   /***
    *  The data list of requester records
-   * @type {{id: number; requester: string; country: {id: string; text: string}}[]}
+   * @type {{id: number; requester: {id: string; text: string}}[]}
    */
   private requesterList = [];
+  public userList = [];
 
   constructor() {
     super();
@@ -23,7 +24,7 @@ export class RequesterListService extends ListService implements IMasterDetails 
 
   /**
    * Gets the array of  model records
-   * @returns {{id: number; requester: string; city: string; country: {id: string; text: string}}[]}
+   * @returns {{id: number; requester: {id: string; text: string}}[]}
    */
   public getModelRecordList() {
     return this.requesterList;
@@ -58,22 +59,22 @@ export class RequesterListService extends ListService implements IMasterDetails 
   }
 
 
-  public requesterFormToData(record: FormGroup, requesterModel) {
-    RequesterRecordService.mapFormModelToDataModel(record, requesterModel);
+  public requesterFormToData(record: FormGroup, requesterModel, userList) {
+    RequesterRecordService.mapFormModelToDataModel(record, requesterModel, userList);
     return (record);
 
   }
 
-  public createFormDataList(modelDataList, fb: FormBuilder, theList) {
+  public createFormDataList(modelDataList, fb: FormBuilder, theList, userList) {
     for (let i = 0; i < modelDataList.length; i++) {
       const formRecord = RequesterRecordService.getReactiveModel(fb);
-      this.requesterDataToForm(modelDataList[i], formRecord);
+      this.requesterDataToForm(modelDataList[i], formRecord, userList);
       theList.push(formRecord);
     }
   }
 
-  public requesterDataToForm(requesterModel, record: FormGroup) {
-    RequesterRecordService.mapDataModelFormModel(requesterModel, record);
+  public requesterDataToForm(requesterModel, record: FormGroup, userList) {
+    RequesterRecordService.mapDataModelFormModel(requesterModel, record, userList);
     return (record);
   }
 
@@ -82,12 +83,12 @@ export class RequesterListService extends ListService implements IMasterDetails 
       // this.setRecordId(record, this.getNextIndex());
       record.controls.isNew.setValue(false);
       let requesterModel = this.getRequesterModel();
-      this.requesterFormToData(record, requesterModel);
+      this.requesterFormToData(record, requesterModel, this.userList);
       this.requesterList.push(requesterModel);
       return requesterModel.id;
     } else {
       let modelRecord = this.getModelRecord(record.controls.id.value);
-      let updatedModel = this.requesterFormToData(record, modelRecord);
+      let updatedModel = this.requesterFormToData(record, modelRecord, this.userList);
     }
   }
 

@@ -3,17 +3,23 @@
 
     <div class="row">
       <div class="form-group col-sm-12" >
-        <label for="requesterName" class="full-width">
-          <span class="field-name" i18n>{{'requester.name'|translate}}</span>
-          <input id="requesterName" class="form-control full-width" formControlName="requesterName"/>
-        </label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group col-sm-12 ">
-        <label for="licenceNum">
-          <span class="field-name" i18n>{{'licence.number' |translate}}</span>
-          <input id="licenceNum" class="form-control" formControlName="licenceNum"/>
+        <label for="requester" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{'requester.title'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="requesterFormLocalModel.controls.requester.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="requesterFormLocalModel.controls.requester"
+                            controlId="requester" label="requester.title" parentId="requesterDetails"
+                            parentLabel="Requester Details"></control-messages>
+          <div class="margin-top-small">
+            <ng-select id="requester" formControlName="requester" class="required"
+                       [allowClear]="false"
+                       [items]="requesters"
+                       (typed)="typed($event)"
+                       (blur)="typed($event)"
+                       (selected)="typed($event)">
+            </ng-select>
+          </div>
         </label>
       </div>
     </div>

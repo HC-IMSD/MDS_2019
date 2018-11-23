@@ -22,6 +22,7 @@ export class RequesterListComponent extends ListOperations implements OnInit, On
   @Input() public requesterModel = [];
   @Input() public saveRequester;
   @Input() public showErrors: boolean;
+  @Input() userList;
   @Output() public errors = new EventEmitter();
 
   @ViewChild(RequesterRecordComponent) requesterChild: RequesterRecordComponent;
@@ -40,20 +41,16 @@ export class RequesterListComponent extends ListOperations implements OnInit, On
   public validRec = true;
   public columnDefinitions = [
     {
-      label: 'Name of Cmpatible Requester',
-      binding: 'requester_name',
-      width: '65'
-    },
-    {
-      label: 'Licence Number',
-      binding: 'licence_number',
-      width: '35'
+      label: 'Requester of Solicited Information',
+      binding: 'requester.id',
+      width: '100'
     }
   ];
 
   constructor(private _fb: FormBuilder, private translate: TranslateService) {
     super();
     this.service = new RequesterListService();
+    this.service.userList = this.userList;
     this.dataModel = this.service.getModelRecordList();
     this.translate.get('error.msg.required').subscribe(res => {
       console.log(res);
@@ -132,9 +129,11 @@ export class RequesterListComponent extends ListOperations implements OnInit, On
       this.service.setModelRecordList(changes['requesterModel'].currentValue);
       this.service.initIndex(changes['requesterModel'].currentValue);
       this.dataModel = this.service.getModelRecordList();
-      // this.requesterListForm.controls['requesters'] = this._fb.array([]);
-      this.service.createFormDataList(this.dataModel, this._fb, this.requesterListForm.controls['requesters']);
+      this.service.createFormDataList(this.dataModel, this._fb, this.requesterListForm.controls['requesters'], this.userList);
       this.validRec = true;
+    }
+    if (changes['userList']) {
+      this.service.userList = this.userList;
     }
 
   }
@@ -248,7 +247,7 @@ export class RequesterListComponent extends ListOperations implements OnInit, On
     }
     let rec = this._getFormRequester(recordId);
     if (rec) {
-      RequesterRecordService.mapDataModelFormModel(modelRecord, rec);
+      RequesterRecordService.mapDataModelFormModel(modelRecord, rec, this.userList);
     } else {
       // should never happen, there should always be a UI record
       console.warn('RequesterList:rec is null');

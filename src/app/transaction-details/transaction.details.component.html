@@ -1,13 +1,13 @@
 <div>
-  <div [formGroup]="appInfoFormLocalModel">
+  <div [formGroup]="transDetailsFormLocalModel">
     <div class="row">
       <div class="form-group col-xs-6" >
         <label for="companyId" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'company.id'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="appInfoFormLocalModel.controls.companyId.invalid"
+          <control-messages *ngIf="transDetailsFormLocalModel.controls.companyId.invalid"
                             [showError]="showFieldErrors"
-                            [control]="appInfoFormLocalModel.controls.companyId"
+                            [control]="transDetailsFormLocalModel.controls.companyId"
                             controlId="companyId" label="company.id" parentId="appInfoDetails"
                             parentLabel="Application Information"></control-messages>
           <input id="companyId" class="form-control full-width" (blur)="onblur()"
@@ -18,9 +18,9 @@
         <label for="dossierId" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'dossier.id'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="appInfoFormLocalModel.controls.dossierId.invalid"
+          <control-messages *ngIf="transDetailsFormLocalModel.controls.dossierId.invalid"
                             [showError]="showFieldErrors"
-                            [control]="appInfoFormLocalModel.controls.dossierId"
+                            [control]="transDetailsFormLocalModel.controls.dossierId"
                             controlId="dossierId" label="dossier.id" parentId="appInfoDetails"
                             parentLabel="Application Information"></control-messages>
           <input id="dossierId" class="form-control full-width"  (blur)="onblur()"
@@ -33,9 +33,9 @@
         <label for="qmscNum" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'qmsc.number'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="appInfoFormLocalModel.controls.qmscNum.invalid"
+          <control-messages *ngIf="transDetailsFormLocalModel.controls.qmscNum.invalid"
                             [showError]="showFieldErrors"
-                            [control]="appInfoFormLocalModel.controls.qmscNum"
+                            [control]="transDetailsFormLocalModel.controls.qmscNum"
                             controlId="qmscNum" label="qmsc.number" parentId="appInfoDetails"
                             parentLabel="Application Information"></control-messages>
           <input id="qmscNum" class="form-control full-width"  (blur)="onblur()"
@@ -46,9 +46,9 @@
         <label for="licenceAppType" class="required full-width">
           <span class="field-name" i18n>{{'licence.app.type' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="appInfoFormLocalModel.controls.licenceAppType.invalid"
+          <control-messages *ngIf="transDetailsFormLocalModel.controls.licenceAppType.invalid"
                             [showError]="showFieldErrors"
-                            [control]="appInfoFormLocalModel.controls.licenceAppType"
+                            [control]="transDetailsFormLocalModel.controls.licenceAppType"
                             controlId="licenceAppType" label="licence.app.type"
                             parentId="appInfoDetails"
                             parentLabel="Application Information"></control-messages>
@@ -74,9 +74,9 @@
               <label for="isIvdd" class="required full-width">
                 <span class="field-name" i18n>{{'is.ivdd' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <control-messages *ngIf="appInfoFormLocalModel.controls.isIvdd.invalid"
+                <control-messages *ngIf="transDetailsFormLocalModel.controls.isIvdd.invalid"
                                   [showError]="showFieldErrors"
-                                  [control]="appInfoFormLocalModel.controls.isIvdd"
+                                  [control]="transDetailsFormLocalModel.controls.isIvdd"
                                   controlId="isIvdd" label="is.ivdd" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
                 <select id="isIvdd" required class="form-control" (blur)="onblur()"
@@ -91,9 +91,9 @@
               <label for="isHomeUse" class="required full-width">
                 <span class="field-name" i18n>{{'is.home.use' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <control-messages *ngIf="appInfoFormLocalModel.controls.isHomeUse.invalid"
+                <control-messages *ngIf="transDetailsFormLocalModel.controls.isHomeUse.invalid"
                                   [showError]="showFieldErrors"
-                                  [control]="appInfoFormLocalModel.controls.isHomeUse"
+                                  [control]="transDetailsFormLocalModel.controls.isHomeUse"
                                   controlId="isHomeUse" label="is.home.use" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
                 <select id="isHomeUse" required class="form-control" (blur)="onblur()"
@@ -106,9 +106,9 @@
               <label for="isCarePoint" class="required full-width">
                 <span class="field-name" i18n>{{'is.point.care' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <control-messages *ngIf="appInfoFormLocalModel.controls.isCarePoint.invalid"
+                <control-messages *ngIf="transDetailsFormLocalModel.controls.isCarePoint.invalid"
                                   [showError]="showFieldErrors"
-                                  [control]="appInfoFormLocalModel.controls.isCarePoint"
+                                  [control]="transDetailsFormLocalModel.controls.isCarePoint"
                                   controlId="isCarePoint" label="is.point.care" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
                 <select id="isCarePoint" required class="form-control" (blur)="onblur()"
@@ -123,9 +123,9 @@
               <label for="isEmitRadiation" class="required full-width">
                 <span class="field-name" i18n>{{'contain.radiation' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <control-messages *ngIf="appInfoFormLocalModel.controls.isEmitRadiation.invalid"
+                <control-messages *ngIf="transDetailsFormLocalModel.controls.isEmitRadiation.invalid"
                                   [showError]="showFieldErrors"
-                                  [control]="appInfoFormLocalModel.controls.isEmitRadiation"
+                                  [control]="transDetailsFormLocalModel.controls.isEmitRadiation"
                                   controlId="isEmitRadiation" label="contain.radiation" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
                 <select id="isEmitRadiation" required class="form-control" (blur)="onblur()"
@@ -140,9 +140,9 @@
               <label for="hasDrug" class="required full-width">
                 <span class="field-name" i18n>{{'contain.drug' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <control-messages *ngIf="appInfoFormLocalModel.controls.hasDrug.invalid"
+                <control-messages *ngIf="transDetailsFormLocalModel.controls.hasDrug.invalid"
                                   [showError]="showFieldErrors"
-                                  [control]="appInfoFormLocalModel.controls.hasDrug"
+                                  [control]="transDetailsFormLocalModel.controls.hasDrug"
                                   controlId="hasDrug" label="contain.drug" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
                 <select id="hasDrug" required class="form-control" (blur)="onblur()"
@@ -165,9 +165,9 @@
               <label for="din" class="required full-width" aria-required="true">
                 <span class="field-name" i18n>{{'din'|translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <control-messages *ngIf="appInfoFormLocalModel.controls.din.invalid"
+                <control-messages *ngIf="transDetailsFormLocalModel.controls.din.invalid"
                                   [showError]="showFieldErrors"
-                                  [control]="appInfoFormLocalModel.controls.din"
+                                  [control]="transDetailsFormLocalModel.controls.din"
                                   controlId="din" label="din" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
                 <input id="din" class="form-control full-width"  (blur)="onblur()"
@@ -178,9 +178,9 @@
               <label for="npn" class="required full-width" aria-required="true">
                 <span class="field-name" i18n>{{'npn'|translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <control-messages *ngIf="appInfoFormLocalModel.controls.npn.invalid"
+                <control-messages *ngIf="transDetailsFormLocalModel.controls.npn.invalid"
                                   [showError]="showFieldErrors"
-                                  [control]="appInfoFormLocalModel.controls.npn"
+                                  [control]="transDetailsFormLocalModel.controls.npn"
                                   controlId="npn" label="npn" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
                 <input id="npn" class="form-control full-width"  (blur)="onblur()"
@@ -343,7 +343,7 @@
           <h3 class="panel-title">{{'heading.requesters'|translate}}</h3>
         </header>
         <div class="panel-body">
-          <requester-list  (errors)="processDeviceErrors($event)"
+          <requester-list  (errors)="processRequesterErrors($event)"
                          [requesterModel]="requesterModel"></requester-list>
         </div>
       </section>
@@ -362,9 +362,9 @@
               <label for="declarationConformity" class="required full-width">
                 <span class="field-name" i18n>{{'conformity.declaration' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <control-messages *ngIf="appInfoFormLocalModel.controls.declarationConformity.invalid"
+                <control-messages *ngIf="transDetailsFormLocalModel.controls.declarationConformity.invalid"
                                   [showError]="showFieldErrors"
-                                  [control]="appInfoFormLocalModel.controls.declarationConformity"
+                                  [control]="transDetailsFormLocalModel.controls.declarationConformity"
                                   controlId="declarationConformity" label="conformity.declaration" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
                 <select id="declarationConformity" required class="form-control" (blur)="onblur()"
@@ -398,9 +398,9 @@
               <label for="hasRecombinant" class="required full-width">
                 <span class="field-name" i18n>{{'consist.recombinant' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <control-messages *ngIf="appInfoFormLocalModel.controls.hasRecombinant.invalid"
+                <control-messages *ngIf="transDetailsFormLocalModel.controls.hasRecombinant.invalid"
                                   [showError]="showFieldErrors"
-                                  [control]="appInfoFormLocalModel.controls.hasRecombinant"
+                                  [control]="transDetailsFormLocalModel.controls.hasRecombinant"
                                   controlId="hasRecombinant" label="consist.recombinant" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
                 <select id="hasRecombinant" required class="form-control" (blur)="onblur()"
@@ -415,9 +415,9 @@
               <label for="isAnimalHumanSourced" class="required full-width">
                 <span class="field-name" i18n>{{'contain.material' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <control-messages *ngIf="appInfoFormLocalModel.controls.isAnimalHumanSourced.invalid"
+                <control-messages *ngIf="transDetailsFormLocalModel.controls.isAnimalHumanSourced.invalid"
                                   [showError]="showFieldErrors"
-                                  [control]="appInfoFormLocalModel.controls.isAnimalHumanSourced"
+                                  [control]="transDetailsFormLocalModel.controls.isAnimalHumanSourced"
                                   controlId="isAnimalHumanSourced" label="contain.material" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
                 <select id="isAnimalHumanSourced" required class="form-control" (blur)="onblur()"
@@ -432,9 +432,9 @@
               <label for="isListedIddTable" class="required full-width">
                 <span class="field-name" i18n>{{'is.same.material' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <control-messages *ngIf="appInfoFormLocalModel.controls.isListedIddTable.invalid"
+                <control-messages *ngIf="transDetailsFormLocalModel.controls.isListedIddTable.invalid"
                                   [showError]="showFieldErrors"
-                                  [control]="appInfoFormLocalModel.controls.isListedIddTable"
+                                  [control]="transDetailsFormLocalModel.controls.isListedIddTable"
                                   controlId="isListedIddTable" label="is.same.material" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
                 <select id="isListedIddTable" required class="form-control" (blur)="onblur()"
@@ -452,8 +452,8 @@
                 <h3 class="panel-title">{{'heading.material.table'|translate}}</h3>
               </header>
               <div class="panel-body">
-                <!--<material-list  (errors)="processMaterialErrors($event)" [countryList]="countryList"-->
-                                <!--[materialModel]="materialModel"></material-list>-->
+                <!--<transaction-fees  (errors)="processTransFeesErrors($event)"-->
+                                <!--[transFeesModel]="transFeesModel"></transaction-fees>-->
               </div>
             </section>
           </div>
@@ -461,6 +461,6 @@
       </section>
     </div>
 
-    <!-- <pre>{{appInfoFormLocalModel.value |json}}</pre>-->
+    <!-- <pre>{{transDetailsFormLocalModel.value |json}}</pre>-->
   </div>
 </div>

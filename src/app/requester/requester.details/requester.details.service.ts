@@ -18,8 +18,7 @@ export class RequesterDetailsService {
   public static getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
-      requesterName: '',
-      licenceNum: ''
+      requester: ''
     });
   }
 
@@ -31,21 +30,53 @@ export class RequesterDetailsService {
 
     return (
       {
-        requester_name: '',
-        licence_number: ''
+        requester: ''
       }
     );
   }
 
 
-  public static mapFormModelToDataModel(formRecord: FormGroup, requesterModel) {
-    requesterModel.requester_name = formRecord.controls.requesterName.value;
-    requesterModel.licence_number = formRecord.controls.licenceNum.value;
+  public static mapFormModelToDataModel(formRecord: FormGroup, requesterModel, requesterList) {
+    if (formRecord.controls.requester.value && formRecord.controls.requester.value.length > 0) {
+      const requester_record = RequesterDetailsService.findRecordByTerm(requesterList, formRecord.controls.requester.value[0], 'id');
+      // this removes the 'text' property that the control needs
+      if (requester_record && requester_record.id) {
+        requesterModel.requester = {
+          '__text': requester_record.id,
+          '_label_en': requester_record.en,
+          '_label_fr': requester_record.fr
+        };
+      } else {
+        requesterModel.requester = formRecord.controls.requester.value[0]; // todo: need to debug to set proper format ???
+      }
+    } else {
+      requesterModel.requester = null;
+    }
   }
 
-  public static mapDataModelToFormModel(requesterModel, formRecord: FormGroup) {
-    formRecord.controls.requesterName.setValue(requesterModel.requester_name);
-    formRecord.controls.licenceNum.setValue(requesterModel.licence_number);
+  public static mapDataModelToFormModel(requesterModel, formRecord: FormGroup, requesterList) {
+    const recordIndex = ListService.getRecord(requesterList, requesterModel.requester.__text, 'id');
+    let labelText = '';
+    if (recordIndex > -1) {
+      labelText = requesterList[recordIndex].text;
+      if (requesterModel.requester) {
+        formRecord.controls.requester.setValue([
+          {
+            'id': requesterModel.requester.__text,
+            'text': labelText
+          }
+        ]);
+      } else {
+        formRecord.controls.requester.setValue(null);
+      }
+    } else {
+      formRecord.controls.requester.setValue([
+          {
+            'id': requesterModel.requester.__text,
+            'text': requesterModel.requester.__text
+          }
+      ]);
+    }
   }
 
   public static getRecordId(record: FormGroup) {
@@ -59,4 +90,19 @@ export class RequesterDetailsService {
     record.controls.id.setValue(value);
   }
 
+  /**
+   * Find a record by its unique id,. If a dup, returns first instance
+   * @param list
+   * @param criteria
+   * @returns {any}
+   */
+  public static findRecordByTerm(list, criteria, searchTerm) {
+
+    let result = list.filter(
+      item => item[searchTerm] === criteria[searchTerm]);
+    if (result && result.length > 0) {
+      return result[0];
+    }
+    return null;
+  }
 }

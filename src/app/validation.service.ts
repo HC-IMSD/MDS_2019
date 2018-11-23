@@ -20,7 +20,11 @@ export class ValidationService {
       'error.mgs.zip': 'error.mgs.zip',
       'error.mgs.company.id': 'error.mgs.company.id',
       'error.mgs.contact.id': 'error.mgs.contact.id',
-      'error.mgs.dossier.id': 'error.mgs.dossier.id'
+      'error.mgs.regu.company.id': 'error.mgs.regu.company.id',
+      'error.mgs.regu.contact.id': 'error.mgs.regu.contact.id',
+      'error.mgs.dossier.id': 'error.mgs.dossier.id',
+      'error.mgs.licence.number': 'error.mgs.licence.number',
+      'error.mgs.application.number': 'error.mgs.application.number'
     };
 
     return config[validatorName];
@@ -102,6 +106,17 @@ export class ValidationService {
     }
   }
 
+  static regulatoryCompanyIdValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[A-Za-z0-9]{6}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.company.id': true};
+    }
+  }
+
   static dossierIdValidator(control) {
     if (!control.value) {
       return null;
@@ -121,6 +136,39 @@ export class ValidationService {
       return null;
     } else {
       return {'error.mgs.contact.id': true};
+    }
+  }
+
+  static regulatoryContactIdValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[A-Za-z0-9]{5}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.contact.id': true};
+    }
+  }
+
+  static licenceNumValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]{6}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.licence.number': true};
+    }
+  }
+
+  static appNumValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]{6}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.application.number': true};
     }
   }
 }

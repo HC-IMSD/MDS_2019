@@ -6,23 +6,23 @@ import {GlobalsService} from '../globals/globals.service';
 @Injectable()
 export class TransactionDataLoaderService {
 
-  private _registrarList = [];
-  private countryJsonPath = GlobalsService.DATA_PATH + 'registrars.json';
+  private _requesterList = [];
+  private usersJsonPath = GlobalsService.DATA_PATH + 'users.json';
 
   constructor(private http: HttpClient) {
   }
 
-  async getRegistrarJSON(): Promise<any> {
-    const response = await this.http.get(this.countryJsonPath).toPromise();
+  async getRequesterJSON(): Promise<any> {
+    const response = await this.http.get(this.usersJsonPath).toPromise();
     return response;
   }
 
-  async getRegistrars(lang) {
-    if (!this._registrarList || this._registrarList.length === 0) {
-      const rawList = await this.getRegistrarJSON();
-      this._registrarList = this._convertListText(rawList, lang);
+  async getRequesters(lang) {
+    if (!this._requesterList || this._requesterList.length === 0) {
+      const rawList = await this.getRequesterJSON();
+      this._requesterList = this._convertListText(rawList, lang);
     }
-    return (this._registrarList);
+    return (this._requesterList);
 
   }
 

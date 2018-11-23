@@ -30,7 +30,7 @@ export class TransactionBaseComponent implements OnInit {
   public transactionForm: FormGroup;  // todo: do we need it? could remove?
   public errorList = [];
   public rootTagText = 'MDS_TRANSACTION_ENROL';
-  // public countryList = [];
+  public userList = [];
   public showErrors: boolean;
   public title = '';
   public headingLevel = 'h2';
@@ -45,7 +45,7 @@ export class TransactionBaseComponent implements OnInit {
               private http: HttpClient, private translate: TranslateService) {
 
     dataLoader = new TransactionDataLoaderService(this.http);
-    // this.countryList = [];
+    this.userList = [];
     this.showErrors = false;
     this.fileServices = new FileConversionService();
   }
@@ -54,7 +54,7 @@ export class TransactionBaseComponent implements OnInit {
     if (!this.transactionForm) {
       this.transactionForm = TransactionBaseService.getReactiveModel(this._fb);
     }
-    // todo: load daata -- this.countryList = await (this.dataLoader.getCountries(this.translate.currentLang));
+    this.userList = await (this.dataLoader.getRequesters(this.translate.currentLang));
   }
 
   processErrors() {
@@ -71,12 +71,12 @@ export class TransactionBaseComponent implements OnInit {
     this.processErrors();
   }
 
-  processDeviceErrors(errorList) {
+  processRequesterErrors(errorList) {
     this._requesterErrors = errorList;
     this.processErrors();
   }
 
-  processMaterialtErrors(errorList) {
+  processTransFeesErrors(errorList) {
     this._transFeesErrors = errorList;
     this.processErrors();
   }

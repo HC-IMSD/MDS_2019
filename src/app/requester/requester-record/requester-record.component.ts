@@ -22,6 +22,7 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
   public requesterRecordModel: FormGroup;
   @Input('group') public requesterFormRecord: FormGroup;
   @Input() detailsChanged: number;
+  @Input() userList: Array<any>;
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
@@ -154,7 +155,7 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
     this.deleteRecord.emit(this.requesterRecordModel.value.id);
   }
 
-  public saveRequesterRecord(): void {
+  public saveRequesterRecord(record: FormGroup): void {
     if (this.requesterRecordModel.valid) {
       this.saveRecord.emit((this.requesterRecordModel));
       this.showErrSummary = false;

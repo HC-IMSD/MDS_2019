@@ -21,12 +21,15 @@ export class RequesterDetailsComponent implements OnInit, OnChanges, AfterViewIn
   public requesterFormLocalModel: FormGroup;
   @Input('group') public requesterRecord: FormGroup;
   @Input() detailsChanged: number;
+  @Input() userList: Array<any>;
   @Input() showErrors: boolean;
+  @Output() saveRecord = new EventEmitter();
   @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
+  public requesters: Array<any> = [];
   public showFieldErrors: boolean = false;
   private detailsService: RequesterDetailsService;
 
@@ -48,13 +51,6 @@ export class RequesterDetailsComponent implements OnInit, OnChanges, AfterViewIn
     this.msgList.changes.subscribe(errorObjs => {
       let temp = [];
       this._updateErrorList(errorObjs);
-
-      /* errorObjs.forEach(
-         error => {
-           temp.push(error);
-         }
-       );
-       this.errorList.emit(temp);*/
     });
     this.msgList.notifyOnChanges();
 
@@ -99,7 +95,9 @@ export class RequesterDetailsComponent implements OnInit, OnChanges, AfterViewIn
       }
       this.errorList.emit(temp);
     }
-
+    if (changes['userList']) {
+      this.requesters = changes['userList'].currentValue;
+    }
   }
 
   /**
@@ -111,6 +109,19 @@ export class RequesterDetailsComponent implements OnInit, OnChanges, AfterViewIn
     if (!this.requesterFormLocalModel.pristine) {
       this.requesterFormLocalModel.markAsPristine();
     }
+  }
+
+  typed(rec) {
+    let content = rec.toString().replace(/[\x00-\x7F]/g, '', '');
+    if (content) {
+      this.requesterFormLocalModel.controls.requester.setValue([content]);
+      this.saveRecord.emit((this.requesterFormLocalModel)); // todo: this is needed?
+    }
+  }
+
+  onblur() {
+    // console.log('input is typed');
+    this.saveRecord.emit((this.requesterFormLocalModel)); // todo: this is needed?
   }
 }
 

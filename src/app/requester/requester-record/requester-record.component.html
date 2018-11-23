@@ -3,13 +3,13 @@
   <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="heading.requester.record"
                  [headingLevel]="headingLevel" label="Requester Record" compId="requesterRec"></error-summary>
-  <requester-details [showErrors]="showErrors"
+  <requester-details [showErrors]="showErrors" [userList]="userList"
                    [detailsChanged]="updateChild" [group]="requesterRecordModel.controls.requesterDetails"
-                   (errorList)="updateErrorList($event)"></requester-details>
+                   (errorList)="updateErrorList($event)" (saveRecord)="saveRequesterRecord($event)"></requester-details>
 
   <div class="row">
     <div class="btn-group-sm col-xs-12 text-left">
-      <button class="btn btn-primary" (click)="saveRequesterRecord()" i18n>{{'save.requester'|translate}}</button>
+      <!--<button class="btn btn-primary" (click)="saveRequesterRecord()" i18n>{{'save.requester'|translate}}</button>-->
       <button class="btn btn-danger" (click)="deleteRequesterRecord()" i18n>{{'delete.requester'|translate}}</button>
       <button class="btn btn-default" (click)="revertRequesterRecord()" i18n>{{'discard.changes'|translate}}</button>
     </div>

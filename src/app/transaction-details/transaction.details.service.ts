@@ -7,7 +7,7 @@ import {ListService} from '../list-service';
 @Injectable()
 export class TransactionDetailsService {
 
-  private static licenceAppTypeList: Array<any> = TransactionDetailsService.getRawLicenceAppTypeList();
+  // private static licenceAppTypeList: Array<any> = TransactionDetailsService.getRawLicenceAppTypeList();
 
   constructor() {
   }
@@ -20,33 +20,24 @@ export class TransactionDetailsService {
   public getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
-      companyId: [null, [Validators.required, ValidationService.companyIdValidator]],
       dossierId: [null, [Validators.required, ValidationService.dossierIdValidator]],
-      qmscNum: [null, Validators.required],
-      licenceAppType: [null, Validators.required],
-      isIvdd: [null, Validators.required],
-      isHomeUse: [null, Validators.required],
-      isCarePoint: [null, Validators.required],
-      isEmitRadiation: [null, Validators.required],
-      hasDrug: [null, Validators.required],
-      hasDinNpn: [null, []],
-      din: ['', []],
-      npn: ['', []],
-      drugName: ['', []],
-      activeIngredients: ['', []],
-      manufacturer: ['', []],
-      complianceUsp: [false, []],
-      complianceGmp: [false, []],
-      complianceOther: [false, []],
-      otherPharmacopeia: ['', []],
-      provisionMdrIT: [false, []],
-      provisionMdrSA: [false, []],
-      authorizationNum: ['', []],
-      deviceId: ['', []],
-      declarationConformity : [null, Validators.required],
-      hasRecombinant: [null, Validators.required],
-      isAnimalHumanSourced : [null, Validators.required],
-      isListedIddTable: [null, Validators.required]
+      dossierType: ['Medical device', []],
+      manuCompanyId: [null, [Validators.required, ValidationService.companyIdValidator]],
+      manuContactId: [null, [Validators.required, ValidationService.dossierContactIdValidator]],
+      reguCompanyId: [null, [Validators.required, ValidationService.companyIdValidator]],
+      reguContactId: [null, [Validators.required, ValidationService.dossierContactIdValidator]],
+      activityLead: [null, Validators.required],
+      activityType: [null, Validators.required],
+      transDescription: [null, Validators.required],
+      deviceClass: [null, Validators.required],
+      amendReason: [null, Validators.required],
+      licenceNum: [null, [Validators.required, ValidationService.licenceNumValidator]],
+      appNum: [null, [Validators.required, ValidationService.appNumValidator]],
+      deviceName: [null, Validators.required],
+      requestDate: [null, Validators.required],
+      hasDdt: [false, []],
+      hasAppInfo: [false, []],
+      isSolicitedInfo: [null, Validators.required]
     });
   }
 
@@ -58,33 +49,24 @@ export class TransactionDetailsService {
 
     return (
       {
-        company_id: '',
         dossier_id: '',
-        qmsc_number: '',
-        licence_application_type: '',
-        is_ivdd: '',
-        is_home_use: '',
-        is_care_point_use: '',
-        is_emit_radiation: '',
-        has_drug: '',
-        has_din_npn: '',
-        din: '',
-        npn: '',
-        drug_name: '',
-        active_ingredients: '',
-        manufacturer: '',
-        compliance_usp: '',
-        compliance_gmp: '',
-        compliance_other: '',
-        other_pharmacopeia: '',
-        provision_mdr_it: '',
-        provision_mdr_sa: '',
-        authorization_number: '',
-        device_id: '',
-        declaration_conformity : '',
-        has_recombinant: '',
-        is_animal_human_sourced : '',
-        is_listed_idd_table: ''
+        dossier_type: 'Medical Device',
+        manufacturing_company_id: '',
+        manufacturing_contact_id: '',
+        regulatory_company_id: '',
+        regulatory_contact_id: '',
+        activity_lead: '',
+        activity_type: '',
+        transaction_description: '',
+        device_class: '',
+        amend_reason: '',
+        licence_number: '',
+        application_number: '',
+        device_name: '',
+        request_date: '',
+        has_ddt: '',
+        has_app_info: '',
+        is_solicited_info: ''
       }
     );
   }
@@ -93,8 +75,12 @@ export class TransactionDetailsService {
    * Gets an data array
    *
    */
-  public static getDrugTypes() {
-    return ['din', 'npn', 'nodinnpn'];
+  public static getActivityLeads() {
+    return ['Medical Device Bureau', 'MHPD'];
+  }
+
+  public static getRawActivityTypes() {
+    return ['Fax-back', 'Licence', 'Licence Amendment'];
   }
 
   /**
@@ -112,42 +98,72 @@ export class TransactionDetailsService {
    * Gets an data array
    *
    */
-  private static getRawLicenceAppTypeList() {
+  private static getRawTransDescList() {
     return [
       {
-        id: 'D',
-        en: 'Single Device',
-        fr: 'Instrument à article unique'
+        id: 'ACD',
+        en: 'Appeal Comprehensive Document',
+        fr: 'Appeal Comprehensive Document'
       },
       {
-        id: 'S',
-        en: 'System',
-        fr: 'Système'
+        id: 'LIA',
+        en: 'Letter of Intent to Appeal',
+        fr: 'Letter of Intent to Appeal'
       },
       {
-        id: 'K',
-        en: 'Test Kit',
-        fr: 'Trousse d\'essai'
+        id: 'LIOH',
+        en: 'Letter of Intent to Invoke Opportunity to be Heard',
+        fr: 'Letter of Intent to Invoke Opportunity to be Heard'
       },
       {
-        id: 'F',
-        en: 'Device Family',
-        fr: 'Famille d\'instruments'
+        id: 'OHCD',
+        en: 'Opportunity to be Heard Comprehensive Document',
+        fr: 'Opportunity to be Heard Comprehensive Document'
       },
       {
-        id: 'G',
-        en: 'Device Group',
-        fr: 'Groupe d\'instruments'
+        id: 'RAIL',
+        en: 'Response to Additional Information Letter',
+        fr: 'Response to Additional Information Letter'
       },
       {
-        id: 'Y',
-        en: 'Device Group Family',
-        fr: 'Famille de groupe d\'instruments'
+        id: 'RS',
+        en: 'Response to SDL',
+        fr: 'Response to SDL'
       },
       {
-        id: 'U',
-        en: 'Unknown',
-        fr: 'Indéterminé'
+        id: 'RS36L',
+        en: 'Response to S.36 Letter',
+        fr: 'Response to S.36 Letter'
+      },
+      {
+        id: 'RS39L',
+        en: 'Response to S.39 Letter',
+        fr: 'Response to S.39 Letter'
+      },
+      {
+        id: 'WR',
+        en: 'Withdrawal Request',
+        fr: 'Withdrawal Request'
+      },
+      {
+        id: 'INITIAL',
+        en: 'Initial',
+        fr: 'Initial'
+      },
+      {
+        id: 'MM',
+        en: 'Minutes of Meeting',
+        fr: 'Minutes of Meeting'
+      },
+      {
+        id: 'RER',
+        en: 'Response to E-mail Request',
+        fr: 'Response to E-mail Request'
+      },
+      {
+        id: 'UD',
+        en: 'Unsolicited Data',
+        fr: 'Unsolicited Data'
       }
     ];
   }
@@ -156,15 +172,44 @@ export class TransactionDetailsService {
    * Gets an data array
    *
    */
-  public static getLicenceAppTypeList(lang) {
-    const rawList = this.getRawLicenceAppTypeList();
-    return this._convertListText(rawList, lang);
+  public getDeviceClassList() {
+    return ['DC2', 'DC3', 'DC4'];
   }
 
+  /**
+   * Gets an data array
+   *
+   */
+  private static getRawAmendReasonList() {
+    return [
+      'classification.change',
+      'licence.change',
+      'process.change',
+      'quality.change',
+      'design.change',
+      'materials.change',
+      'labelling.change',
+      'safety.change',
+      'purpose.change',
+      'add.delete.change'
+    ];
+  }
+
+  /**
+   * Gets an data array
+   *
+   */
+  // public static getLicenceAppTypeList(lang) {
+  //   const rawList = this.getRawLicenceAppTypeList();
+  //   return this._convertListText(rawList, lang);
+  // }
+
   public static mapFormModelToDataModel(formRecord: FormGroup, appInfoModel) {
-    appInfoModel.company_id = formRecord.controls.companyId.value;
     appInfoModel.dossier_id = formRecord.controls.dossierId.value;
-    // appInfoModel.device_class = formRecord.controls.deviceClass.value;
+    appInfoModel.manufacturing_company_id = formRecord.controls.manuCompanyId.value;
+    appInfoModel.manufacturing_contact_id = formRecord.controls.manuContactId.value;
+    appInfoModel.regulatory_company_id = formRecord.controls.reguCompanyId.value;
+    appInfoModel.regulatory_contact_id = formRecord.controls.reguContactId.value;
     appInfoModel.qmsc_number = formRecord.controls.qmscNum.value;
     // appInfoModel.has_qmsc = formRecord.controls.hasQMSC.value;
     // if (formRecord.controls.qMSCRegistrar.value) {
@@ -179,18 +224,18 @@ export class TransactionDetailsService {
     // } else {
     //   appInfoModel.registrar = null;
     // }
-    if (formRecord.controls.licenceAppType.value) {
-      const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, formRecord.controls.licenceAppType.value, 'id');
-      if (recordIndex2 > -1) {
-        appInfoModel.licence_application_type = {
-          '__text': this.licenceAppTypeList[recordIndex2].id,
-          '_label_en': this.licenceAppTypeList[recordIndex2].en,
-          '_label_fr': this.licenceAppTypeList[recordIndex2].fr
-        };
-      }
-    } else {
-      appInfoModel.licence_application_type = null;
-    }
+    // if (formRecord.controls.licenceAppType.value) {
+    //   const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, formRecord.controls.licenceAppType.value, 'id');
+    //   if (recordIndex2 > -1) {
+    //     appInfoModel.licence_application_type = {
+    //       '__text': this.licenceAppTypeList[recordIndex2].id,
+    //       '_label_en': this.licenceAppTypeList[recordIndex2].en,
+    //       '_label_fr': this.licenceAppTypeList[recordIndex2].fr
+    //     };
+    //   }
+    // } else {
+    //   appInfoModel.licence_application_type = null;
+    // }
     appInfoModel.is_ivdd = formRecord.controls.isIvdd.value;
     appInfoModel.is_home_use = formRecord.controls.isHomeUse.value;
     appInfoModel.is_care_point_use = formRecord.controls.isCarePoint.value;
@@ -220,16 +265,16 @@ export class TransactionDetailsService {
     formRecord.controls.companyId.setValue(appInfoModel.company_id);
     formRecord.controls.dossierId.setValue(appInfoModel.dossier_id);
     formRecord.controls.qmscNum.setValue(appInfoModel.qmsc_number);
-    if (appInfoModel.licence_application_type) {
-      const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, appInfoModel.licence_application_type.__text, 'id');
-      if (recordIndex2 > -1) {
-        formRecord.controls.licenceAppType.setValue(this.licenceAppTypeList[recordIndex2].id);
-      } else {
-        formRecord.controls.licenceAppType.setValue(null);
-      }
-    } else {
-      formRecord.controls.licenceAppType.setValue(null);
-    }
+    // if (appInfoModel.licence_application_type) {
+    //   const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, appInfoModel.licence_application_type.__text, 'id');
+    //   if (recordIndex2 > -1) {
+    //     formRecord.controls.licenceAppType.setValue(this.licenceAppTypeList[recordIndex2].id);
+    //   } else {
+    //     formRecord.controls.licenceAppType.setValue(null);
+    //   }
+    // } else {
+    //   formRecord.controls.licenceAppType.setValue(null);
+    // }
     formRecord.controls.isIvdd.setValue(appInfoModel.is_ivdd);
     formRecord.controls.isHomeUse.setValue(appInfoModel.is_home_use);
     formRecord.controls.isCarePoint.setValue(appInfoModel.is_care_point_use);

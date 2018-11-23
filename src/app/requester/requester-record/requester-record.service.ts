@@ -32,20 +32,20 @@ export class RequesterRecordService {
     return this.extend(requesterModel, emptyModel);
   }
 
-  public static mapFormModelToDataModel(formRecord: FormGroup, requesterRecordModel) {
+  public static mapFormModelToDataModel(formRecord: FormGroup, requesterRecordModel, userList) {
     console.log(requesterRecordModel);
     console.log(formRecord);
     requesterRecordModel.id = formRecord.controls.id.value;
     // requesterRecordModel.company = formRecord.controls.companyName.value;
-    RequesterDetailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls.requesterDetails), requesterRecordModel);
+    RequesterDetailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls.requesterDetails), requesterRecordModel, userList);
 
   }
 
 
-  public static mapDataModelFormModel(requesterRecordModel, formRecord: FormGroup) {
+  public static mapDataModelFormModel(requesterRecordModel, formRecord: FormGroup, userList) {
     formRecord.controls.id.setValue(requesterRecordModel.id);
     // formRecord.controls.companyName.setValue(requesterRecordModel.company);
-    RequesterDetailsService.mapDataModelToFormModel(requesterRecordModel, <FormGroup>formRecord.controls.requesterDetails);
+    RequesterDetailsService.mapDataModelToFormModel(requesterRecordModel, <FormGroup>formRecord.controls.requesterDetails, userList);
   }
 
   public static extend(dest, src) {

@@ -177,7 +177,7 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
-      "prefix": "co",
+      "prefix": "rt",
       "styles": [
         "styles/styles.css",
         "styles/rep.css"
@@ -209,7 +209,7 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
-      "prefix": "co",
+      "prefix": "ai",
       "styles": [
         "styles/styles.css",
         "styles/rep.css"
