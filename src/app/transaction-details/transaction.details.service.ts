@@ -31,6 +31,16 @@ export class TransactionDetailsService {
       transDescription: [null, Validators.required],
       deviceClass: [null, Validators.required],
       amendReason: [null, Validators.required],
+      classChange: [false, []],
+      licenceChange: [false, []],
+      processChange: [false, []],
+      qualityChange: [false, []],
+      designChange: [false, []],
+      materialsChange: [false, []],
+      labellingChange: [false, []],
+      safetyChange: [false, []],
+      purposeChange: [false, []],
+      addChange: [false, []],
       licenceNum: [null, [Validators.required, ValidationService.licenceNumValidator]],
       appNum: [null, [Validators.required, ValidationService.appNumValidator]],
       deviceName: [null, Validators.required],
@@ -59,7 +69,18 @@ export class TransactionDetailsService {
         activity_type: '',
         transaction_description: '',
         device_class: '',
-        amend_reason: '',
+        amend_reasons: {
+          classification_change: '',
+          licence_change: '',
+          process_change: '',
+          quality_change: '',
+          design_change: '',
+          materials_change: '',
+          labelling_change: '',
+          safety_change: '',
+          purpose_change: '',
+          add_delete_change: ''
+        },
         licence_number: '',
         application_number: '',
         device_name: '',
@@ -76,7 +97,7 @@ export class TransactionDetailsService {
    *
    */
   public static getActivityLeads() {
-    return ['Medical Device Bureau', 'MHPD'];
+    return ['Medical Device Bureau'];
   }
 
   public static getRawActivityTypes() {
@@ -92,6 +113,33 @@ export class TransactionDetailsService {
       GlobalsService.YES,
       GlobalsService.NO
     ];
+  }
+
+  /**
+   * Gets an data array
+   *
+   */
+  public static getDeviceClassList() {
+    return ['DC2', 'DC3', 'DC4'];
+  }
+
+  /**
+   * Gets an data array
+   *
+   */
+  public static getLicenceDescriptions() {
+    const descArray = TransactionDetailsService.getRawTransDescList();
+    return [descArray[0], descArray[1], descArray[4], descArray[5],
+      descArray[8], descArray[9], descArray[10], descArray[11], descArray[12]];
+  }
+
+  /**
+   * Gets an data array
+   *
+   */
+  public static getFaxbackDescriptions() {
+    const descArray = TransactionDetailsService.getRawTransDescList();
+    return [descArray[8], descArray[9], descArray[11]];
   }
 
   /**
@@ -166,14 +214,6 @@ export class TransactionDetailsService {
         fr: 'Unsolicited Data'
       }
     ];
-  }
-
-  /**
-   * Gets an data array
-   *
-   */
-  public getDeviceClassList() {
-    return ['DC2', 'DC3', 'DC4'];
   }
 
   /**

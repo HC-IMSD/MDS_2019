@@ -10,6 +10,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {GlobalsService} from '../globals/globals.service';
 import {isArray} from 'util';
 import {noUndefined} from '@angular/compiler/src/util';
+import {forEach} from '@angular/router/src/utils/collection';
 
 
 @Component({
@@ -44,7 +45,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   public transDescList;
   public amendReasonList;
   public yesNoList: Array<any> = [];
-  public licenceAppTypeList: Array<any> = [];
+  public devClassList: Array<any> = [];
+  public reasonArray: Array<boolean> = [];
   public showFieldErrors = false;
   private detailsService: TransactionDetailsService;
 
@@ -58,6 +60,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.actTypeList = [];
     this.transDescList = [];
     this.amendReasonList = [];
+    this.reasonArray = [false, false, false, false, false, false, false, false, false, false];
     this.detailsService = new TransactionDetailsService();
     this.yesNoList = this.detailsService.getYesNoList();
   }
@@ -68,9 +71,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     }
     this.detailsChanged = 0;
     this.actLeadList = TransactionDetailsService.getActivityLeads();
-    // this.actTypeList = TransactionDetailsService.getActivityTypes();
-    // this.transDescList = TransactionDetailsService.getDrugTypes();
-    // this.amendReasonList = TransactionDetailsService.getDrugTypes();
+    this.devClassList = TransactionDetailsService.getDeviceClassList();
   }
 
   ngAfterViewInit() {
@@ -155,6 +156,103 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
       this.transactionModel);
   }
 
+  activityLeadOnblur() {
+    if (this.transDetailsFormLocalModel.controls.activityLead.value &&
+      this.transDetailsFormLocalModel.controls.activityLead.value === 'Medical Device Bureau') {
+      this.actTypeList = TransactionDetailsService.getRawActivityTypes();
+    } else {
+      this.actTypeList = [];
+      this.transDescList = [];
+    }
+    this.onblur();
+  }
+
+  activityTypeOnblur() {
+    if (this.transDetailsFormLocalModel.controls.activityType.value) {
+      if (this.transDetailsFormLocalModel.controls.activityType.value === 'Licence') {
+        this.transDescList = TransactionDetailsService.getLicenceDescriptions();
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'Fax-back') {
+        this.transDescList = TransactionDetailsService.getFaxbackDescriptions();
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'Licence Amendment') {
+        this.transDescList = TransactionDetailsService.getLicenceDescriptions();
+      }
+    } else {
+      this.transDescList = [];
+    }
+    this.onblur();
+  }
+
+  descrDeviceOnblur() {
+    if (this.transDetailsFormLocalModel.controls.activityType.value !== 'Licence' &&
+             this.transDetailsFormLocalModel.controls.transDescription.value &&
+             this.transDetailsFormLocalModel.controls.transDescription.value.id === 'INITIAL' &&
+             this.transDetailsFormLocalModel.controls.deviceClass.value) {
+      // todo: ???
+      if (this.transDetailsFormLocalModel.controls.activityType.value.id === 'Licence Amendment') {
+        switch (this.transDetailsFormLocalModel.controls.deviceClass.value) {
+          case 'DC2':
+            this.reasonArray = [true, true, false, false, false, false, false, false, true, true];
+            break;
+          case 'DC3':
+            this.reasonArray = [true, true, true, true, true, true, true, true, false, true];
+            break;
+          case 'DC4':
+            this.reasonArray = [true, true, true, true, true, true, true, true, false, true];
+            break;
+        }
+
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value.id === 'Fax-back') {
+            this.reasonArray = [false, true, false, false, false, false, false, false, false, true];
+      }
+    } else {
+      this.reasonArray = [false, false, false, false, false, false, false, false, false, false];
+      this.transDetailsFormLocalModel.controls.amendReason.setValue(null);
+      this.transDetailsFormLocalModel.controls.amendReason.markAsUntouched();
+      this.transDetailsFormLocalModel.controls.classChange.setValue(false);
+      this.transDetailsFormLocalModel.controls.classChange.markAsUntouched();
+      this.transDetailsFormLocalModel.controls.licenceChange.setValue(false);
+      this.transDetailsFormLocalModel.controls.licenceChange.markAsUntouched();
+      this.transDetailsFormLocalModel.controls.processChange.setValue(false);
+      this.transDetailsFormLocalModel.controls.processChange.markAsUntouched();
+      this.transDetailsFormLocalModel.controls.qualityChange.setValue(false);
+      this.transDetailsFormLocalModel.controls.qualityChange.markAsUntouched();
+      this.transDetailsFormLocalModel.controls.designChange.setValue(false);
+      this.transDetailsFormLocalModel.controls.designChange.markAsUntouched();
+      this.transDetailsFormLocalModel.controls.materialsChange.setValue(false);
+      this.transDetailsFormLocalModel.controls.materialsChange.markAsUntouched();
+      this.transDetailsFormLocalModel.controls.labellingChange.setValue(false);
+      this.transDetailsFormLocalModel.controls.labellingChange.markAsUntouched();
+      this.transDetailsFormLocalModel.controls.safetyChange.setValue(false);
+      this.transDetailsFormLocalModel.controls.safetyChange.markAsUntouched();
+      this.transDetailsFormLocalModel.controls.purposeChange.setValue(false);
+      this.transDetailsFormLocalModel.controls.purposeChange.markAsUntouched();
+      this.transDetailsFormLocalModel.controls.addChange.setValue(false);
+      this.transDetailsFormLocalModel.controls.addChange.markAsUntouched();
+    }
+    this.onblur();
+  }
+
+  reasonOnblur(int) {
+    if (this.transDetailsFormLocalModel.controls.classChange.value) {
+      this.transDetailsFormLocalModel.controls.amendReason.setValue('reasonFilled');
+      this.reasonArray[int] = true;
+    } else {
+      this.reasonArray[int] = false;
+      this.resetReasonFlag();
+    }
+    this.onblur();
+  }
+
+  resetReasonFlag() {
+    this.transDetailsFormLocalModel.controls.amendReason.setValue(null);
+    for (let reason of this.reasonArray){
+      if (reason) {
+        this.transDetailsFormLocalModel.controls.amendReason.setValue('reasonFilled');
+        break;
+      }
+    }
+  }
+
   processRequesterErrors(errorList) {
     this.requesterErrorList.emit(errorList);
 
@@ -164,178 +262,34 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.transFeesErrorList.emit(errorList);
   }
 
-  isIVDD() {
-    if (this.transDetailsFormLocalModel.controls.isIvdd.value) {
-      if (this.transDetailsFormLocalModel.controls.isIvdd.value === GlobalsService.YES) {
+  isInitial() {
+    if (this.transDetailsFormLocalModel.controls.transDescription.value) {
+      if (this.transDetailsFormLocalModel.controls.transDescription.value.id === 'INITIAL') {
         return true;
-      } else {
-        this.transDetailsFormLocalModel.controls.isHomeUse.setValue(null);
-        this.transDetailsFormLocalModel.controls.isHomeUse.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.isCarePoint.setValue(null);
-        this.transDetailsFormLocalModel.controls.isCarePoint.markAsUntouched();
       }
     }
     return false;
   }
 
-  isNOIVDD() {
-    if (this.transDetailsFormLocalModel.controls.isIvdd.value) {
-      if (this.transDetailsFormLocalModel.controls.isIvdd.value === GlobalsService.NO) {
+  isLicence() {
+    if (this.transDetailsFormLocalModel.controls.activityType.value) {
+      if (this.transDetailsFormLocalModel.controls.activityType.value === 'Licence') {
         return true;
-      } else {
-        this.transDetailsFormLocalModel.controls.hasDrug.setValue(null);
-        this.transDetailsFormLocalModel.controls.hasDrug.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.hasDinNpn.setValue(null);
-        this.transDetailsFormLocalModel.controls.hasDinNpn.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.din.setValue('');
-        this.transDetailsFormLocalModel.controls.din.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.npn.setValue('');
-        this.transDetailsFormLocalModel.controls.npn.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.drugName.setValue('');
-        this.transDetailsFormLocalModel.controls.drugName.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.activeIngredients.setValue('');
-        this.transDetailsFormLocalModel.controls.activeIngredients.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.manufacturer.setValue('');
-        this.transDetailsFormLocalModel.controls.manufacturer.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.complianceUsp.setValue(false);
-        this.transDetailsFormLocalModel.controls.complianceUsp.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.complianceGmp.setValue(false);
-        this.transDetailsFormLocalModel.controls.complianceGmp.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.complianceOther.setValue(false);
-        this.transDetailsFormLocalModel.controls.complianceOther.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.otherPharmacopeia.setValue('');
-        this.transDetailsFormLocalModel.controls.otherPharmacopeia.markAsUntouched();
       }
     }
     return false;
   }
 
-  hasDrug() {
-    if (this.transDetailsFormLocalModel.controls.hasDrug.value) {
-      if (this.transDetailsFormLocalModel.controls.hasDrug.value === GlobalsService.YES) {
+  isInitialNotLicence() {
+    if (this.isInitial() && !this.isLicence()) {
         return true;
-      } else {
-        this.transDetailsFormLocalModel.controls.hasDinNpn.setValue(null);
-        this.transDetailsFormLocalModel.controls.hasDinNpn.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.din.setValue('');
-        this.transDetailsFormLocalModel.controls.din.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.npn.setValue('');
-        this.transDetailsFormLocalModel.controls.npn.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.drugName.setValue('');
-        this.transDetailsFormLocalModel.controls.drugName.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.activeIngredients.setValue('');
-        this.transDetailsFormLocalModel.controls.activeIngredients.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.manufacturer.setValue('');
-        this.transDetailsFormLocalModel.controls.manufacturer.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.complianceUsp.setValue(false);
-        this.transDetailsFormLocalModel.controls.complianceUsp.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.complianceGmp.setValue(false);
-        this.transDetailsFormLocalModel.controls.complianceGmp.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.complianceOther.setValue(false);
-        this.transDetailsFormLocalModel.controls.complianceOther.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.otherPharmacopeia.setValue('');
-        this.transDetailsFormLocalModel.controls.otherPharmacopeia.markAsUntouched();
-      }
-    }
-    return false;
-  }
-
-  hasDin() {
-    if (this.transDetailsFormLocalModel.controls.hasDinNpn.value) {
-      if (this.transDetailsFormLocalModel.controls.hasDinNpn.value === 'din') {
-        return true;
-      } else {
-        this.transDetailsFormLocalModel.controls.din.setValue('');
-        this.transDetailsFormLocalModel.controls.din.markAsUntouched();
-      }
-    }
-    return false;
-  }
-
-  hasNpn() {
-    if (this.transDetailsFormLocalModel.controls.hasDinNpn.value) {
-      if (this.transDetailsFormLocalModel.controls.hasDinNpn.value === 'npn') {
-        return true;
-      } else {
-        this.transDetailsFormLocalModel.controls.npn.setValue('');
-        this.transDetailsFormLocalModel.controls.npn.markAsUntouched();
-      }
-    }
-    return false;
-  }
-
-  isNoDinNpn() {
-    if (this.transDetailsFormLocalModel.controls.hasDinNpn.value) {
-      if (this.transDetailsFormLocalModel.controls.hasDinNpn.value === 'nodinnpn') {
-        return true;
-      } else {
-        this.transDetailsFormLocalModel.controls.drugName.setValue('');
-        this.transDetailsFormLocalModel.controls.drugName.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.activeIngredients.setValue('');
-        this.transDetailsFormLocalModel.controls.activeIngredients.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.manufacturer.setValue('');
-        this.transDetailsFormLocalModel.controls.manufacturer.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.complianceUsp.setValue(false);
-        this.transDetailsFormLocalModel.controls.complianceUsp.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.complianceGmp.setValue(false);
-        this.transDetailsFormLocalModel.controls.complianceGmp.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.complianceOther.setValue(false);
-        this.transDetailsFormLocalModel.controls.complianceOther.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.otherPharmacopeia.setValue('');
-        this.transDetailsFormLocalModel.controls.otherPharmacopeia.markAsUntouched();
-      }
-    }
-    return false;
-  }
-
-  isOtherPharmacopeia() {
-    if (this.transDetailsFormLocalModel.controls.complianceOther.value) {
-      return true;
     } else {
-      this.transDetailsFormLocalModel.controls.otherPharmacopeia.setValue('');
-      this.transDetailsFormLocalModel.controls.otherPharmacopeia.markAsUntouched();
-    }
-    return false;
-  }
-
-  isIt() {
-      if (this.transDetailsFormLocalModel.controls.provisionMdrIT.value) {
-      return true;
-    } else {
-      this.transDetailsFormLocalModel.controls.authorizationNum.setValue('');
-      this.transDetailsFormLocalModel.controls.authorizationNum.markAsUntouched();
-    }
-    return false;
-  }
-
-  isSa() {
-    if (this.transDetailsFormLocalModel.controls.provisionMdrSA.value) {
-      return true;
-    } else {
-      this.transDetailsFormLocalModel.controls.deviceId.setValue('');
-      this.transDetailsFormLocalModel.controls.deviceId.markAsUntouched();
-    }
-    return false;
-  }
-
-  isNoDeclaration() {
-    if (this.transDetailsFormLocalModel.controls.declarationConformity.value) {
-      return (this.transDetailsFormLocalModel.controls.declarationConformity.value === GlobalsService.NO);
-    }
-    return false;
-  }
-
-  isRecombinant() {
-    if (this.transDetailsFormLocalModel.controls.hasRecombinant.value) {
-      if (this.transDetailsFormLocalModel.controls.hasRecombinant.value === GlobalsService.YES) {
-        return true;
-      } else {
-        this.transDetailsFormLocalModel.controls.isAnimalHumanSourced.setValue(null);
-        this.transDetailsFormLocalModel.controls.isAnimalHumanSourced.markAsUntouched();
-        this.transDetailsFormLocalModel.controls.isListedIddTable.setValue(null);
-        this.transDetailsFormLocalModel.controls.isListedIddTable.markAsUntouched();
-        this.transFeesModel = [];
-      }
+      this.transDetailsFormLocalModel.controls.deviceClass.setValue(null);
+      this.transDetailsFormLocalModel.controls.deviceClass.markAsUntouched();
+      this.transDetailsFormLocalModel.controls.amendReason.setValue(null);
+      this.transDetailsFormLocalModel.controls.amendReason.markAsUntouched();
+      this.transDetailsFormLocalModel.controls.licenceNum.setValue(null);
+      this.transDetailsFormLocalModel.controls.licenceNum.markAsUntouched();
     }
     return false;
   }

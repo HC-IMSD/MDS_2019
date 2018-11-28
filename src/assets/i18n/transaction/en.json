@@ -3,7 +3,7 @@
   "transaction.load.file": "Load a Transaction Enrolment File",
   "transaction.enrolment": "Regulatory Transaction Enrolment",
   "dossier.id": "Dossier ID",
-  "Dossier.type": "Dossier Type",
+  "dossier.type": "Dossier Type",
   "manufacturing.company.id": "Manufacturing Company ID",
   "manufacturing.contact.id": "Manufacturing Contact ID",
   "regulatory.company.id": "Regulatory Company ID",
