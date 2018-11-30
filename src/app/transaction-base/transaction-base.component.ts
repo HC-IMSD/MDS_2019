@@ -29,7 +29,7 @@ export class TransactionBaseComponent implements OnInit {
   private _transFeesErrors = [];
   public transactionForm: FormGroup;  // todo: do we need it? could remove?
   public errorList = [];
-  public rootTagText = 'MDS_TRANSACTION_ENROL';
+  public rootTagText = 'DEVICE_TRANSACTION_ENROL';
   public userList = [];
   public showErrors: boolean;
   public title = '';
@@ -91,7 +91,7 @@ export class TransactionBaseComponent implements OnInit {
       this.showErrors = true;
     } else {
       const result = {
-        'MDS_TRANSACTION_ENROL': {
+        'DEVICE_TRANSACTION_ENROL': {
           'application_info': this.transactionModel,
           'requesters': {
             'requester': this.requesterModel
@@ -99,33 +99,33 @@ export class TransactionBaseComponent implements OnInit {
           'transFees': this.transFeesModel
         }
       };
-      const fileName = 'hcrepdi-' + this.transactionModel.last_saved_date;
+      const fileName = 'hcreprt-' + this.transactionModel.last_saved_date;
       this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
     }
   }
 
   public saveWorkingCopyFile() {
     this._updatedSavedDate();
-    const result = {'MDS_TRANSACTION_ENROL': {
+    const result = {'DEVICE_TRANSACTION_ENROL': {
       'application_info': this.transactionModel,
       'requesters': {
         'requester': this.requesterModel
       },
       'transFees': this.transFeesModel
     }};
-    const fileName = 'hcrepdi-' + this.transactionModel.last_saved_date;
+    const fileName = 'hcreprt-' + this.transactionModel.last_saved_date;
     this.fileServices.saveJsonToFile(result, fileName, null);
   }
 
   public processFile(fileData: ConvertResults) {
      console.log('processing file.....');
      console.log(fileData);
-    this.transactionModel = fileData.data.MDS_TRANSACTION_ENROL.application_info;
-    const dev = fileData.data.MDS_TRANSACTION_ENROL.requesters.requester;
+    this.transactionModel = fileData.data.DEVICE_TRANSACTION_ENROL.application_info;
+    const dev = fileData.data.DEVICE_TRANSACTION_ENROL.requesters.requester;
     if (dev) {
       this.requesterModel = (dev instanceof Array) ? dev : [dev];
     }
-    const mat = fileData.data.MDS_TRANSACTION_ENROL.transFees;
+    const mat = fileData.data.DEVICE_TRANSACTION_ENROL.transFees;
     if (mat) {
       this.transFeesModel = (mat instanceof Array) ? mat : [mat];
     }

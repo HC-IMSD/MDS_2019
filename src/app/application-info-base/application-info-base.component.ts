@@ -29,7 +29,7 @@ export class ApplicationInfoBaseComponent implements OnInit {
   private _materialErrors = [];
   public appInfoForm: FormGroup;  // todo: do we need it? could remove?
   public errorList = [];
-  public rootTagText = 'MDS_APPLICATION_INFO_ENROL';
+  public rootTagText = 'DEVICE_APPLICATION_INFO';
   public countryList = [];
   public showErrors: boolean;
   public title = '';
@@ -94,7 +94,7 @@ export class ApplicationInfoBaseComponent implements OnInit {
       this.showErrors = true;
     } else {
       const result = {
-        'MDS_APPLICATION_INFO_ENROL': {
+        'DEVICE_APPLICATION_INFO': {
           'application_info': this.appInfoModel,
           'devices': {
             'device': this.deviceModel
@@ -111,7 +111,7 @@ export class ApplicationInfoBaseComponent implements OnInit {
 
   public saveWorkingCopyFile() {
     this._updatedSavedDate();
-    const result = {'MDS_APPLICATION_INFO_ENROL': {
+    const result = {'DEVICE_APPLICATION_INFO': {
       'application_info': this.appInfoModel,
       'devices': {
         'device': this.deviceModel
@@ -127,12 +127,12 @@ export class ApplicationInfoBaseComponent implements OnInit {
   public processFile(fileData: ConvertResults) {
      console.log('processing file.....');
      console.log(fileData);
-    this.appInfoModel = fileData.data.MDS_APPLICATION_INFO_ENROL.application_info;
-    const dev = fileData.data.MDS_APPLICATION_INFO_ENROL.devices.device;
+    this.appInfoModel = fileData.data.DEVICE_APPLICATION_INFO.application_info;
+    const dev = fileData.data.DEVICE_APPLICATION_INFO.devices.device;
     if (dev) {
       this.deviceModel = (dev instanceof Array) ? dev : [dev];
     }
-    const mat = fileData.data.MDS_APPLICATION_INFO_ENROL.materials.material;
+    const mat = fileData.data.DEVICE_APPLICATION_INFO.materials.material;
     if (mat) {
       this.materialModel = (mat instanceof Array) ? mat : [mat];
     }

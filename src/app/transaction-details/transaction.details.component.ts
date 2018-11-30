@@ -14,7 +14,7 @@ import {forEach} from '@angular/router/src/utils/collection';
 
 
 @Component({
-  selector: 'app-info-details',
+  selector: 'transaction-details',
   templateUrl: 'transaction.details.component.html'
 })
 
@@ -32,7 +32,6 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   @Input() requesterModel;
   @Input() transFeesModel;
   @Input() lang;
-  // @Output() hasQmsc = new EventEmitter();
   @Output() detailErrorList = new EventEmitter(true);
   @Output() requesterErrorList = new EventEmitter(true);
   @Output() transFeesErrorList = new EventEmitter(true);
@@ -43,7 +42,6 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   public actLeadList;
   public actTypeList;
   public transDescList;
-  public amendReasonList;
   public yesNoList: Array<any> = [];
   public devClassList: Array<any> = [];
   public reasonArray: Array<boolean> = [];
@@ -59,7 +57,6 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.actLeadList = [];
     this.actTypeList = [];
     this.transDescList = [];
-    this.amendReasonList = [];
     this.reasonArray = [false, false, false, false, false, false, false, false, false, false];
     this.detailsService = new TransactionDetailsService();
     this.yesNoList = this.detailsService.getYesNoList();
@@ -132,7 +129,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
         this.transDetailsFormLocalModel = this.detailsService.getReactiveModel(this._fb);
         this.transDetailsFormLocalModel.markAsPristine();
       }
-      TransactionDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.transDetailsFormLocalModel));
+      TransactionDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.transDetailsFormLocalModel), this.lang);
     }
     if (changes['userList']) {
       this.userList = changes['userList'].currentValue;
@@ -187,7 +184,6 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
              this.transDetailsFormLocalModel.controls.transDescription.value &&
              this.transDetailsFormLocalModel.controls.transDescription.value.id === 'INITIAL' &&
              this.transDetailsFormLocalModel.controls.deviceClass.value) {
-      // todo: ???
       if (this.transDetailsFormLocalModel.controls.activityType.value.id === 'Licence Amendment') {
         switch (this.transDetailsFormLocalModel.controls.deviceClass.value) {
           case 'DC2':

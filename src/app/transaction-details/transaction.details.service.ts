@@ -216,133 +216,104 @@ export class TransactionDetailsService {
     ];
   }
 
-  /**
-   * Gets an data array
-   *
-   */
-  private static getRawAmendReasonList() {
-    return [
-      'classification.change',
-      'licence.change',
-      'process.change',
-      'quality.change',
-      'design.change',
-      'materials.change',
-      'labelling.change',
-      'safety.change',
-      'purpose.change',
-      'add.delete.change'
-    ];
+  public static mapFormModelToDataModel(formRecord: FormGroup, transactionModel) {
+    transactionModel.dossier_id = formRecord.controls.dossierId.value;
+    transactionModel.manufacturing_company_id = formRecord.controls.manuCompanyId.value;
+    transactionModel.manufacturing_contact_id = formRecord.controls.manuContactId.value;
+    transactionModel.regulatory_company_id = formRecord.controls.reguCompanyId.value;
+    transactionModel.regulatory_contact_id = formRecord.controls.reguContactId.value;
+    transactionModel.activity_lead = formRecord.controls.activityLead.value;
+    transactionModel.activity_type = formRecord.controls.activityType.value;
+    const descArray = TransactionDetailsService.getRawTransDescList();
+    if (formRecord.controls.transDescription.value) {
+      const recordIndex1 = ListService.getRecord(descArray, formRecord.controls.transDescription.value, 'id');
+      if (recordIndex1 > -1) {
+        transactionModel.transaction_description = {
+          '__text': descArray[recordIndex1].id,
+          '_label_en': descArray[recordIndex1].en,
+          '_label_fr': descArray[recordIndex1].fr
+        };
+      }
+    } else {
+      transactionModel.transaction_description = null;
+    }
+    transactionModel.device_class = formRecord.controls.deviceClass.value;
+    transactionModel.amend_reasons.classification_change = formRecord.controls.classChange.value ? GlobalsService.YES : GlobalsService.NO;
+    transactionModel.amend_reasons.licence_change = formRecord.controls.licenceChange.value ? GlobalsService.YES : GlobalsService.NO;
+    transactionModel.amend_reasons.process_change = formRecord.controls.processChange.value ? GlobalsService.YES : GlobalsService.NO;
+    transactionModel.amend_reasons.quality_change = formRecord.controls.qualityChange.value ? GlobalsService.YES : GlobalsService.NO;
+    transactionModel.amend_reasons.design_change = formRecord.controls.designChange.value ? GlobalsService.YES : GlobalsService.NO;
+    transactionModel.amend_reasons.materials_change = formRecord.controls.materialsChange.value ? GlobalsService.YES : GlobalsService.NO;
+    transactionModel.amend_reasons.labelling_change = formRecord.controls.labellingChange.value ? GlobalsService.YES : GlobalsService.NO;
+    transactionModel.amend_reasons.safety_change = formRecord.controls.safetyChange.value ? GlobalsService.YES : GlobalsService.NO;
+    transactionModel.amend_reasons.purpose_change = formRecord.controls.purposeChange.value ? GlobalsService.YES : GlobalsService.NO;
+    transactionModel.amend_reasons.add_delete_change = formRecord.controls.addChange.value ? GlobalsService.YES : GlobalsService.NO;
+    transactionModel.licence_number = formRecord.controls.licenceNum.value;
+    transactionModel.application_number = formRecord.controls.appNum.value;
+    transactionModel.device_name = formRecord.controls.deviceName.value;
+    transactionModel.request_date = formRecord.controls.requestDate.value;
+    transactionModel.has_ddt = formRecord.controls.hasDdt.value ? GlobalsService.YES : GlobalsService.NO;
+    transactionModel.has_app_info = formRecord.controls.hasAppInfo.value ? GlobalsService.YES : GlobalsService.NO;
+    transactionModel.is_solicited_info = formRecord.controls.isSolicitedInfo.value;
   }
 
-  /**
-   * Gets an data array
-   *
-   */
-  // public static getLicenceAppTypeList(lang) {
-  //   const rawList = this.getRawLicenceAppTypeList();
-  //   return this._convertListText(rawList, lang);
-  // }
+  public static mapDataModelToFormModel(transactionModel, formRecord: FormGroup, lang) {
+    formRecord.controls.dossierId.setValue(transactionModel.dossier_id);
+    formRecord.controls.manuCompanyId.setValue(transactionModel.manufacturing_company_id);
+    formRecord.controls.manuContactId.setValue(transactionModel.manufacturing_contact_id);
+    formRecord.controls.reguCompanyId.setValue(transactionModel.regulatory_company_id);
+    formRecord.controls.reguContactId.setValue(transactionModel.regulatory_contact_id);
+    formRecord.controls.activityLead.setValue(transactionModel.activity_lead);
+    formRecord.controls.activityType.setValue(transactionModel.activity_type);
 
-  public static mapFormModelToDataModel(formRecord: FormGroup, appInfoModel) {
-    appInfoModel.dossier_id = formRecord.controls.dossierId.value;
-    appInfoModel.manufacturing_company_id = formRecord.controls.manuCompanyId.value;
-    appInfoModel.manufacturing_contact_id = formRecord.controls.manuContactId.value;
-    appInfoModel.regulatory_company_id = formRecord.controls.reguCompanyId.value;
-    appInfoModel.regulatory_contact_id = formRecord.controls.reguContactId.value;
-    appInfoModel.qmsc_number = formRecord.controls.qmscNum.value;
-    // appInfoModel.has_qmsc = formRecord.controls.hasQMSC.value;
-    // if (formRecord.controls.qMSCRegistrar.value) {
-    //   const recordIndex1 = ListService.getRecord(registrarList, formRecord.controls.qMSCRegistrar.value, 'id');
-    //   if (recordIndex1 > -1) {
-    //     appInfoModel.registrar = {
-    //       '__text': registrarList[recordIndex1].id,
-    //       '_label_en': registrarList[recordIndex1].en,
-    //       '_label_fr': registrarList[recordIndex1].fr
-    //     };
-    //   }
-    // } else {
-    //   appInfoModel.registrar = null;
-    // }
-    // if (formRecord.controls.licenceAppType.value) {
-    //   const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, formRecord.controls.licenceAppType.value, 'id');
-    //   if (recordIndex2 > -1) {
-    //     appInfoModel.licence_application_type = {
-    //       '__text': this.licenceAppTypeList[recordIndex2].id,
-    //       '_label_en': this.licenceAppTypeList[recordIndex2].en,
-    //       '_label_fr': this.licenceAppTypeList[recordIndex2].fr
-    //     };
-    //   }
-    // } else {
-    //   appInfoModel.licence_application_type = null;
-    // }
-    appInfoModel.is_ivdd = formRecord.controls.isIvdd.value;
-    appInfoModel.is_home_use = formRecord.controls.isHomeUse.value;
-    appInfoModel.is_care_point_use = formRecord.controls.isCarePoint.value;
-    appInfoModel.is_emit_radiation = formRecord.controls.isEmitRadiation.value;
-    appInfoModel.has_drug = formRecord.controls.hasDrug.value;
-    appInfoModel.has_din_npn = formRecord.controls.hasDinNpn.value;
-    appInfoModel.din = formRecord.controls.din.value;
-    appInfoModel.npn = formRecord.controls.npn.value;
-    appInfoModel.drug_name = formRecord.controls.drugName.value;
-    appInfoModel.active_ingredients = formRecord.controls.activeIngredients.value;
-    appInfoModel.manufacturer = formRecord.controls.manufacturer.value;
-    appInfoModel.compliance_usp = formRecord.controls.complianceUsp.value ? GlobalsService.YES : GlobalsService.NO;
-    appInfoModel.compliance_gmp = formRecord.controls.complianceGmp.value ? GlobalsService.YES : GlobalsService.NO;
-    appInfoModel.compliance_other = formRecord.controls.complianceOther.value ? GlobalsService.YES : GlobalsService.NO;
-    appInfoModel.other_pharmacopeia = formRecord.controls.otherPharmacopeia.value;
-    appInfoModel.provision_mdr_it = formRecord.controls.provisionMdrIT.value ? GlobalsService.YES : GlobalsService.NO;
-    appInfoModel.provision_mdr_sa = formRecord.controls.provisionMdrSA.value ? GlobalsService.YES : GlobalsService.NO;
-    appInfoModel.authorization_number = formRecord.controls.authorizationNum.value;
-    appInfoModel.device_id = formRecord.controls.deviceId.value;
-    appInfoModel.declaration_conformity = formRecord.controls.declarationConformity.value;
-    appInfoModel.has_recombinant = formRecord.controls.hasRecombinant.value;
-    appInfoModel.is_animal_human_sourced = formRecord.controls.isAnimalHumanSourced.value;
-    appInfoModel.is_listed_idd_table = formRecord.controls.isListedIddTable.value;
-  }
+    const descriptions = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
+    if (transactionModel.transaction_description) {
+      const recordIndex = ListService.getRecord(descriptions, transactionModel.transaction_description.__text, 'id');
+      if (recordIndex > -1) {
+        const labelText = descriptions[recordIndex].text;
+        formRecord.controls.transDescription.setValue(
+          {
+            'id': transactionModel.transaction_description.__text,
+            'text': labelText
+          }
+        );
+      } else {
+        formRecord.controls.transDescription.setValue(null);
+      }
+    } else {
+      formRecord.controls.transDescription.setValue(null);
+    }
 
-  public static mapDataModelToFormModel(appInfoModel, formRecord: FormGroup) {
-    formRecord.controls.companyId.setValue(appInfoModel.company_id);
-    formRecord.controls.dossierId.setValue(appInfoModel.dossier_id);
-    formRecord.controls.qmscNum.setValue(appInfoModel.qmsc_number);
-    // if (appInfoModel.licence_application_type) {
-    //   const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, appInfoModel.licence_application_type.__text, 'id');
-    //   if (recordIndex2 > -1) {
-    //     formRecord.controls.licenceAppType.setValue(this.licenceAppTypeList[recordIndex2].id);
-    //   } else {
-    //     formRecord.controls.licenceAppType.setValue(null);
-    //   }
-    // } else {
-    //   formRecord.controls.licenceAppType.setValue(null);
-    // }
-    formRecord.controls.isIvdd.setValue(appInfoModel.is_ivdd);
-    formRecord.controls.isHomeUse.setValue(appInfoModel.is_home_use);
-    formRecord.controls.isCarePoint.setValue(appInfoModel.is_care_point_use);
-    formRecord.controls.isEmitRadiation.setValue(appInfoModel.is_emit_radiation);
-    formRecord.controls.hasDrug.setValue(appInfoModel.has_drug);
-    formRecord.controls.hasDinNpn.setValue(appInfoModel.has_din_npn);
-    formRecord.controls.din.setValue(appInfoModel.din);
-    formRecord.controls.npn.setValue(appInfoModel.npn);
-    formRecord.controls.drugName.setValue(appInfoModel.drug_name);
-    formRecord.controls.activeIngredients.setValue(appInfoModel.active_ingredients);
-    formRecord.controls.manufacturer.setValue(appInfoModel.manufacturer);
-    const cusp = appInfoModel.compliance_usp === GlobalsService.YES ? true : false;
-    formRecord.controls.complianceUsp.setValue(cusp);
-    const cgmp = appInfoModel.compliance_gmp === GlobalsService.YES ? true : false;
-    formRecord.controls.complianceGmp.setValue(cgmp);
-    const cother = appInfoModel.compliance_other === GlobalsService.YES ? true : false;
-    formRecord.controls.complianceOther.setValue(cother);
-    formRecord.controls.otherPharmacopeia.setValue(appInfoModel.other_pharmacopeia);
-    const mdtit = appInfoModel.provision_mdr_it === GlobalsService.YES ? true : false;
-    formRecord.controls.provisionMdrIT.setValue(mdtit);
-    const mdrsa = appInfoModel.provision_mdr_sa === GlobalsService.YES ? true : false;
-    formRecord.controls.provisionMdrSA.setValue(mdrsa);
-    formRecord.controls.authorizationNum.setValue(appInfoModel.authorization_number);
-    formRecord.controls.deviceId.setValue(appInfoModel.device_id);
-    formRecord.controls.declarationConformity.setValue(appInfoModel.declaration_conformity);
-    formRecord.controls.hasRecombinant.setValue(appInfoModel.has_recombinant);
-    formRecord.controls.isAnimalHumanSourced.setValue(appInfoModel.is_animal_human_sourced);
-    formRecord.controls.isListedIddTable.setValue(appInfoModel.is_listed_idd_table);
+    formRecord.controls.deviceClass.setValue(transactionModel.device_class);
+    const clsc = transactionModel.amend_reasons.classification_change === GlobalsService.YES ? true : false;
+    formRecord.controls.classChange.setValue(clsc);
+    const licc = transactionModel.amend_reasons.licence_change === GlobalsService.YES ? true : false;
+    formRecord.controls.licenceChange.setValue(licc);
+    const proc = transactionModel.amend_reasons.process_change === GlobalsService.YES ? true : false;
+    formRecord.controls.processChange.setValue(proc);
+    const quac = transactionModel.amend_reasons.quality_change === GlobalsService.YES ? true : false;
+    formRecord.controls.qualityChange.setValue(quac);
+    const desc = transactionModel.amend_reasons.design_change === GlobalsService.YES ? true : false;
+    formRecord.controls.designChange.setValue(desc);
+    const matc = transactionModel.amend_reasons.materials_change === GlobalsService.YES ? true : false;
+    formRecord.controls.materialsChange.setValue(matc);
+    const labc = transactionModel.amend_reasons.labelling_change === GlobalsService.YES ? true : false;
+    formRecord.controls.labellingChange.setValue(labc);
+    const safc = transactionModel.amend_reasons.safety_change === GlobalsService.YES ? true : false;
+    formRecord.controls.safetyChange.setValue(safc);
+    const purc = transactionModel.amend_reasons.purpose_change === GlobalsService.YES ? true : false;
+    formRecord.controls.purposeChange.setValue(purc);
+    const addc = transactionModel.amend_reasons.add_delete_change === GlobalsService.YES ? true : false;
+    formRecord.controls.addChange.setValue(addc);
+    formRecord.controls.licenceNum.setValue(transactionModel.licence_number);
+    formRecord.controls.appNum.setValue(transactionModel.application_number);
+    formRecord.controls.deviceName.setValue(transactionModel.device_name);
+    formRecord.controls.requestDate.setValue(transactionModel.request_date);
+    const hasddt = transactionModel.has_ddt === GlobalsService.YES ? true : false;
+    formRecord.controls.hasDdt.setValue(hasddt);
+    const hasapp = transactionModel.has_app_info === GlobalsService.YES ? true : false;
+    formRecord.controls.hasAppInfo.setValue(hasapp);
+    formRecord.controls.isSolicitedInfo.setValue(transactionModel.is_solicited_info);
   }
 
   /**

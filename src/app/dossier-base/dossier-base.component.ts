@@ -28,7 +28,7 @@ export class DossierBaseComponent implements OnInit {
   public isFinal = false;
   public dossierForm: FormGroup;
   public errorList = [];
-  public rootTagText = 'MDS_DOSSIER_ENROL';
+  public rootTagText = 'DEVICE_DOSSIER_ENROL';
   public isInternalSite = false;
   public showErrors: boolean;
   public title = '';
@@ -91,7 +91,7 @@ export class DossierBaseComponent implements OnInit {
     } else {
       this._updatedAutoFields();
       const result = {
-        'MDS_DOSSIER_ENROL': {
+        'DEVICE_DOSSIER_ENROL': {
           'general_information': this.genInfoModel,
           'dossier': this.dossierModel
         }
@@ -103,7 +103,7 @@ export class DossierBaseComponent implements OnInit {
 
   public saveWorkingCopyFile() {
     this._updatedSavedDate();
-    const result = {'MDS_DOSSIER_ENROL': {
+    const result = {'DEVICE_DOSSIER_ENROL': {
       'general_information': this.genInfoModel,
       'dossier': this.dossierModel
     }};
@@ -115,9 +115,9 @@ export class DossierBaseComponent implements OnInit {
   public processFile(fileData: ConvertResults) {
      // console.log('processing file.....');
      console.log(fileData);
-    this.genInfoModel = fileData.data.MDS_DOSSIER_ENROL.general_information;
+    this.genInfoModel = fileData.data.DEVICE_DOSSIER_ENROL.general_information;
     this.isFinal = (this.genInfoModel.status === GlobalsService.FINAL);
-    this.dossierModel = fileData.data.MDS_DOSSIER_ENROL.dossier;
+    this.dossierModel = fileData.data.DEVICE_DOSSIER_ENROL.dossier;
   }
 
   private _updatedAutoFields() {

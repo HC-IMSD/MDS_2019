@@ -1,5 +1,5 @@
 <div class="container-fluid" [formGroup]="requesterRecordModel">
-  <h3>{{'heading.interdependent.requester'| translate}}&nbsp;{{requesterRecordModel.controls.id.value + 1}}</h3>
+  <h3>{{'heading.requesterDetail'| translate}}&nbsp;{{requesterRecordModel.controls.id.value + 1}}</h3>
   <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="heading.requester.record"
                  [headingLevel]="headingLevel" label="Requester Record" compId="requesterRec"></error-summary>

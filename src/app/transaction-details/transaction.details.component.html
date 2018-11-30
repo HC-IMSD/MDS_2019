@@ -130,7 +130,7 @@
                             parentLabel="Transaction Information"></control-messages>
           <select id="transDescription" required class="form-control full-width" (blur)="onblur()"
                   (select)="onblur()" formControlName="transDescription">
-            <option *ngFor="let lead of actLeadList" [ngValue]="lead"> {{lead|translate}}</option>
+            <option *ngFor="let desc of transDescList" [ngValue]="desc.id"> {{desc|translate}}</option>
 
           </select>
         </label>
@@ -336,69 +336,67 @@
         </label>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="form-group col-xs-6" *ngIf="isInitialNotLicence()">
-      <div class="form-group">
-      </div>
-      <label for="requestDate" class="required full-width">
-        <span class="field-name" i18n>{{'request.date' |translate}}</span>
-        <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-        <control-messages *ngIf="transDetailsFormLocalModel.controls.requestDate.invalid"
-                          [showError]="showFieldErrors"
-                          [control]="transDetailsFormLocalModel.controls.requestDate"
-                          controlId="requestDate" label="request.date"
-                          parentId="transDetails"
-                          parentLabel="Transaction Information"></control-messages>
-        <input id="requestDate" type="date" class="form-control full-width" (blur)="onblur()"
-               formControlName="requestDate" min="1970-01-01" max="2099-12-31"/>
-        </span>
-      </label>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="checkbox">
-        <label for="hasDdt">
-          <input type="checkbox" (blur)="onblur()"
-                 formControlName="hasDdt"
-                 id="hasDdt"/>
-          <span>{{'has.ddt'|translate}}</span>
+    <div class="row">
+      <div class="form-group col-xs-6" *ngIf="isInitialNotLicence()">
+        <div class="form-group">
+        </div>
+        <label for="requestDate" class="required full-width">
+          <span class="field-name" i18n>{{'request.date' |translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="transDetailsFormLocalModel.controls.requestDate.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="transDetailsFormLocalModel.controls.requestDate"
+                            controlId="requestDate" label="request.date"
+                            parentId="transDetails"
+                            parentLabel="Transaction Information"></control-messages>
+          <input id="requestDate" type="date" class="form-control full-width" (blur)="onblur()"
+                 formControlName="requestDate" min="1970-01-01" max="2099-12-31"/>
         </label>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="checkbox">
-        <label for="hasAppInfo">
-          <input type="checkbox" (blur)="onblur()"
-                 formControlName="hasAppInfo"
-                 id="hasAppInfo"/>
-          <span>{{'has.app.info'|translate}}</span>
-        </label>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="checkbox">
+          <label for="hasDdt">
+            <input type="checkbox" (blur)="onblur()"
+                   formControlName="hasDdt"
+                   id="hasDdt"/>
+            <span>{{'has.ddt'|translate}}</span>
+          </label>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="form-group col-xs-6" >
-      <label for="isSolicitedInfo" class="required full-width">
-        <span class="field-name" i18n>{{'is.solicited' |translate}}</span>
-        <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-        <control-messages *ngIf="transDetailsFormLocalModel.controls.isSolicitedInfo.invalid"
-                          [showError]="showFieldErrors"
-                          [control]="transDetailsFormLocalModel.controls.isSolicitedInfo"
-                          controlId="isSolicitedInfo" label="is.solicited"
-                          parentId="transDetails"
-                          parentLabel="Transaction Information"></control-messages>
-        <select id="isSolicitedInfo" required class="form-control full-width" (blur)="onblur()"
-                (select)="onblur()" formControlName="isSolicitedInfo">
-          <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="checkbox">
+          <label for="hasAppInfo">
+            <input type="checkbox" (blur)="onblur()"
+                   formControlName="hasAppInfo"
+                   id="hasAppInfo"/>
+            <span>{{'has.app.info'|translate}}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-6" >
+        <label for="isSolicitedInfo" class="required full-width">
+          <span class="field-name" i18n>{{'is.solicited' |translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="transDetailsFormLocalModel.controls.isSolicitedInfo.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="transDetailsFormLocalModel.controls.isSolicitedInfo"
+                            controlId="isSolicitedInfo" label="is.solicited"
+                            parentId="transDetails"
+                            parentLabel="Transaction Information"></control-messages>
+          <select id="isSolicitedInfo" required class="form-control full-width" (blur)="onblur()"
+                  (select)="onblur()" formControlName="isSolicitedInfo">
+            <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
 
-        </select>
-      </label>
+          </select>
+        </label>
+      </div>
     </div>
-  </div>
 
     <div>
       <section class="panel  panel-default">
@@ -413,6 +411,20 @@
         </div>
       </section>
     </div>
+
+  <!--<div>-->
+    <!--<section class="panel  panel-default">-->
+      <!--<header class="panel-heading clearfix">-->
+        <!--<div class="btn-group pull-right">-->
+        <!--</div>-->
+        <!--<h3 class="panel-title">{{'fees'|translate}}</h3>-->
+      <!--</header>-->
+      <!--<div class="panel-body">-->
+        <!--<transaction-fees (errors)="processTransFeesErrors($event)"-->
+                         <!--[transFeesModel]="transFeesModel"></transaction-fees>-->
+      <!--</div>-->
+    <!--</section>-->
+  <!--</div>-->
 
 
     <!-- <pre>{{transDetailsFormLocalModel.value |json}}</pre>-->
