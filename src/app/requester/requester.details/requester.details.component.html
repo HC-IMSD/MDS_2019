@@ -15,7 +15,6 @@
             <ng-select id="requester" formControlName="requester" class="required"
                        [allowClear]="false"
                        [items]="requesters"
-                       (typed)="typed($event)"
                        (blur)="typed($event)"
                        (selected)="typed($event)">
             </ng-select>

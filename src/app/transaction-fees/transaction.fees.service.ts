@@ -7,7 +7,7 @@ import {ListService} from '../list-service';
 @Injectable()
 export class TransactionFeesService {
 
-  private static licenceAppTypeList: Array<any> = TransactionFeesService.getRawLicenceAppTypeList();
+  private static appNatureFeesList: Array<any> = TransactionFeesService.getRawAppNatureFeesList();
 
   constructor() {
   }
@@ -20,33 +20,24 @@ export class TransactionFeesService {
   public getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
-      companyId: [null, [Validators.required, ValidationService.companyIdValidator]],
-      dossierId: [null, [Validators.required, ValidationService.dossierIdValidator]],
-      qmscNum: [null, Validators.required],
-      licenceAppType: [null, Validators.required],
-      isIvdd: [null, Validators.required],
-      isHomeUse: [null, Validators.required],
-      isCarePoint: [null, Validators.required],
-      isEmitRadiation: [null, Validators.required],
-      hasDrug: [null, Validators.required],
-      hasDinNpn: [null, []],
-      din: ['', []],
-      npn: ['', []],
-      drugName: ['', []],
-      activeIngredients: ['', []],
-      manufacturer: ['', []],
-      complianceUsp: [false, []],
-      complianceGmp: [false, []],
-      complianceOther: [false, []],
-      otherPharmacopeia: ['', []],
-      provisionMdrIT: [false, []],
-      provisionMdrSA: [false, []],
-      authorizationNum: ['', []],
-      deviceId: ['', []],
-      declarationConformity : [null, Validators.required],
-      hasRecombinant: [null, Validators.required],
-      isAnimalHumanSourced : [null, Validators.required],
-      isListedIddTable: [null, Validators.required]
+      hasFees: [null, Validators.required],
+      billCompanyId: [null, [Validators.required, ValidationService.companyIdValidator]],
+      billContactId: [null, [Validators.required, ValidationService.dossierContactIdValidator]],
+      appNature: [null, Validators.required],
+      fees: [null, Validators.required],
+      deferralRequest: [null, Validators.required],
+      feeRemission: [null, Validators.required],
+      grossRevenue: ['', Validators.required],
+      percentGross: ['', []],
+      deferralStatement: [false, Validators.required],
+      remissionCertified: [false, Validators.required],
+      marketPlan: [false, []],
+      salesHistory: [false, []],
+      estMarketShare: [false, []],
+      avgSalePrice: [false, []],
+      comparisonProducts: [false, []],
+      other: [false, []],
+      other_details: ['', Validators.required]
     });
   }
 
@@ -58,43 +49,28 @@ export class TransactionFeesService {
 
     return (
       {
-        company_id: '',
-        dossier_id: '',
-        qmsc_number: '',
-        licence_application_type: '',
-        is_ivdd: '',
-        is_home_use: '',
-        is_care_point_use: '',
-        is_emit_radiation: '',
-        has_drug: '',
-        has_din_npn: '',
-        din: '',
-        npn: '',
-        drug_name: '',
-        active_ingredients: '',
-        manufacturer: '',
-        compliance_usp: '',
-        compliance_gmp: '',
-        compliance_other: '',
-        other_pharmacopeia: '',
-        provision_mdr_it: '',
-        provision_mdr_sa: '',
-        authorization_number: '',
-        device_id: '',
-        declaration_conformity : '',
-        has_recombinant: '',
-        is_animal_human_sourced : '',
-        is_listed_idd_table: ''
+        has_fees: '',
+        billing_company_id: '',
+        billing_contact_id: '',
+        application_nature: '',
+        fees: '',
+        deferral_request: '',
+        fee_remission: '',
+        gross_revenue: '',
+        percent_gross: '',
+        required_docs: {
+          deferral_statement: '',
+          remission_certified: '',
+          market_plan: '',
+          sales_history: '',
+          est_market_share: '',
+          avg_sale_price: '',
+          comparison_products: '',
+          other: '',
+          other_details: ''
+        }
       }
     );
-  }
-
-  /**
-   * Gets an data array
-   *
-   */
-  public static getDrugTypes() {
-    return ['din', 'npn', 'nodinnpn'];
   }
 
   /**
@@ -112,42 +88,83 @@ export class TransactionFeesService {
    * Gets an data array
    *
    */
-  private static getRawLicenceAppTypeList() {
+   private static getRawAppNatureFeesList() {
     return [
       {
-        id: 'D',
-        en: 'Single Device',
-        fr: 'Instrument à article unique'
+        id: 'C2NLA',
+        fee: '405',
+        en: 'Class II -New Licence Application',
+        fr: 'Class II -New Licence Application'
       },
       {
-        id: 'S',
-        en: 'System',
-        fr: 'Système'
+        id: 'C3NLA',
+        fee: '5805',
+        en: 'Class III - New Licence Application',
+        fr: 'Class III - New Licence Application'
       },
       {
-        id: 'K',
-        en: 'Test Kit',
-        fr: 'Trousse d\'essai'
+        id: 'C3NLANPVDD',
+        fee: '9881',
+        en: 'Class III - New Licence Application for a near patient in vitro diagnostic device',
+        fr: 'Class III - New Licence Application for a near patient in vitro diagnostic device'
       },
       {
-        id: 'F',
-        en: 'Device Family',
-        fr: 'Famille d\'instruments'
+        id: 'C3AASCRM',
+        fee: '1462',
+        en: 'Class III - Amendment Application - a significant change that relates to manufacturing',
+        fr: 'Class III - Amendment Application - a significant change that relates to manufacturing'
       },
       {
-        id: 'G',
-        en: 'Device Group',
-        fr: 'Groupe d\'instruments'
+        id: 'C3AASCNRM',
+        fee: '5437',
+        en: 'Class III - Amendment Application - a significant change or change' +
+        ' that would affect the Class of the device that is not related to manufacturing',
+        fr: 'Class III - Amendment Application - a significant change or change' +
+        ' that would affect the Class of the device that is not related to manufacturing'
       },
       {
-        id: 'Y',
-        en: 'Device Group Family',
-        fr: 'Famille de groupe d\'instruments'
+        id: 'C4NLA',
+        fee: '13500',
+        en: 'Class IV - New Licence Application',
+        fr: 'Class IV - New Licence Application'
       },
       {
-        id: 'U',
-        en: 'Unknown',
-        fr: 'Indéterminé'
+        id: 'C4NLACHAT',
+        fee: '12594',
+        en: 'Class IV - New Licence Application for devices that contain human or animal tissue',
+        fr: 'Class IV - New Licence Application for devices that contain human or animal tissue'
+      },
+      {
+        id: 'C4NLANPVDD',
+        fee: '23012',
+        en: 'Class IV - New Licence Application for a near patient in vitro diagnostic device',
+        fr: 'Class IV - New Licence Application for a near patient in vitro diagnostic device'
+      },
+      {
+        id: 'C4AASCRM',
+        fee: '1462',
+        en: 'Class IV - Amendment Application - a significant change that relates to manufacturing',
+        fr: 'Class IV - Amendment Application - a significant change that relates to manufacturing'
+      },
+      {
+        id: 'C4AASCNRM',
+        fee: '6195',
+        en: 'Class IV - Amendment Application - a significant change or change' +
+        ' that would affect the Class of the device that is not related to manufacturing',
+        fr: 'Class IV - Amendment Application - a significant change or change' +
+        ' that would affect the Class of the device that is not related to manufacturing'
+      },
+      {
+        id: 'C3AANSC',
+        fee: '0',
+        en: 'Class III - Amendment Application - non-significant change',
+        fr: 'Class III - Amendment Application - non-significant change'
+      },
+      {
+        id: 'C4AANSC',
+        fee: '0',
+        en: 'Class IV - Amendment Application - non-significant change',
+        fr: 'Class IV - Amendment Application - non-significant change'
       }
     ];
   }
@@ -156,8 +173,8 @@ export class TransactionFeesService {
    * Gets an data array
    *
    */
-  public static getLicenceAppTypeList(lang) {
-    const rawList = this.getRawLicenceAppTypeList();
+  public static getAppNatureFeesList(lang) {
+    const rawList = this.getRawAppNatureFeesList();
     return this._convertListText(rawList, lang);
   }
 
@@ -179,18 +196,18 @@ export class TransactionFeesService {
     // } else {
     //   appInfoModel.registrar = null;
     // }
-    if (formRecord.controls.licenceAppType.value) {
-      const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, formRecord.controls.licenceAppType.value, 'id');
-      if (recordIndex2 > -1) {
-        appInfoModel.licence_application_type = {
-          '__text': this.licenceAppTypeList[recordIndex2].id,
-          '_label_en': this.licenceAppTypeList[recordIndex2].en,
-          '_label_fr': this.licenceAppTypeList[recordIndex2].fr
-        };
-      }
-    } else {
-      appInfoModel.licence_application_type = null;
-    }
+    // if (formRecord.controls.licenceAppType.value) {
+    //   const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, formRecord.controls.licenceAppType.value, 'id');
+    //   if (recordIndex2 > -1) {
+    //     appInfoModel.licence_application_type = {
+    //       '__text': this.licenceAppTypeList[recordIndex2].id,
+    //       '_label_en': this.licenceAppTypeList[recordIndex2].en,
+    //       '_label_fr': this.licenceAppTypeList[recordIndex2].fr
+    //     };
+    //   }
+    // } else {
+    //   appInfoModel.licence_application_type = null;
+    // }
     appInfoModel.is_ivdd = formRecord.controls.isIvdd.value;
     appInfoModel.is_home_use = formRecord.controls.isHomeUse.value;
     appInfoModel.is_care_point_use = formRecord.controls.isCarePoint.value;
@@ -220,16 +237,16 @@ export class TransactionFeesService {
     formRecord.controls.companyId.setValue(appInfoModel.company_id);
     formRecord.controls.dossierId.setValue(appInfoModel.dossier_id);
     formRecord.controls.qmscNum.setValue(appInfoModel.qmsc_number);
-    if (appInfoModel.licence_application_type) {
-      const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, appInfoModel.licence_application_type.__text, 'id');
-      if (recordIndex2 > -1) {
-        formRecord.controls.licenceAppType.setValue(this.licenceAppTypeList[recordIndex2].id);
-      } else {
-        formRecord.controls.licenceAppType.setValue(null);
-      }
-    } else {
-      formRecord.controls.licenceAppType.setValue(null);
-    }
+    // if (appInfoModel.licence_application_type) {
+    //   const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, appInfoModel.licence_application_type.__text, 'id');
+    //   if (recordIndex2 > -1) {
+    //     formRecord.controls.licenceAppType.setValue(this.licenceAppTypeList[recordIndex2].id);
+    //   } else {
+    //     formRecord.controls.licenceAppType.setValue(null);
+    //   }
+    // } else {
+    //   formRecord.controls.licenceAppType.setValue(null);
+    // }
     formRecord.controls.isIvdd.setValue(appInfoModel.is_ivdd);
     formRecord.controls.isHomeUse.setValue(appInfoModel.is_home_use);
     formRecord.controls.isCarePoint.setValue(appInfoModel.is_care_point_use);

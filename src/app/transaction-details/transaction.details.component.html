@@ -93,7 +93,7 @@
                             parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
           <select id="activityLead" required class="form-control full-width" (blur)="activityLeadOnblur()"
-                  (select)="activityLeadOnblur()" formControlName="activityLead">
+                  (selected)="activityLeadOnblur()" formControlName="activityLead">
             <option *ngFor="let lead of actLeadList" [ngValue]="lead"> {{lead|translate}}</option>
 
           </select>
@@ -110,7 +110,8 @@
                             parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
           <select id="activityType" required class="form-control full-width" (blur)="activityTypeOnblur()"
-                  (select)="activityTypeOnblur()" formControlName="activityType">
+                  (click)="activityTypeOnblur()"
+                  (selected)="activityTypeOnblur()" formControlName="activityType">
             <option *ngFor="let type of actTypeList" [ngValue]="type"> {{type|translate}}</option>
 
           </select>
@@ -128,9 +129,10 @@
                             controlId="transDescription" label="trans.description"
                             parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
-          <select id="transDescription" required class="form-control full-width" (blur)="onblur()"
-                  (select)="onblur()" formControlName="transDescription">
-            <option *ngFor="let desc of transDescList" [ngValue]="desc.id"> {{desc|translate}}</option>
+          <select id="transDescription" required class="form-control full-width" (blur)="descrDeviceOnblur()"
+                  (click)="descrDeviceOnblur()"
+                  (selected)="descrDeviceOnblur()" formControlName="transDescription">
+            <option *ngFor="let desc of transDescList" [ngValue]="desc.id"> {{desc.text|translate}}</option>
 
           </select>
         </label>
@@ -145,8 +147,8 @@
                             controlId="deviceClass" label="device.class"
                             parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
-          <select id="deviceClass" required class="form-control full-width" (blur)="onblur()"
-                  (select)="onblur()"
+          <select id="deviceClass" required class="form-control full-width" (blur)="descrDeviceOnblur()"
+                  (selected)="descrDeviceOnblur()" (click)="descrDeviceOnblur()"
                   formControlName="deviceClass">
             <option *ngFor="let class of devClassList" [ngValue]="class"> {{class|translate}}</option>
 
@@ -154,8 +156,7 @@
         </label>
       </div>
     </div>
-    <div class="row" *ngIf="isInitialNotLicence()">
-      <div class="row">
+    <div class="row" *ngIf="isInitialNotLicenceDCSet()">
         <fieldset id="amendReasons" class="form-group col-xs-12">
           <label>
             <span class="field-name">{{'amend.reason' | translate}}</span>
@@ -193,7 +194,7 @@
               </div>
             </div>
           </div>
-          <div class="row" *ngIf="reasonArray[2]">
+          <div class="row" *ngIf="getReasonArrayVelue(2)">
             <div class="col-sm-12">
               <div class="checkbox">
                 <label for="processChange">
@@ -205,7 +206,7 @@
               </div>
             </div>
           </div>
-          <div class="row" *ngIf="reasonArray[3]">
+          <div class="row" *ngIf="getReasonArrayVelue(3)">
             <div class="col-sm-12">
               <div class="checkbox">
                 <label for="qualityChange">
@@ -217,7 +218,7 @@
               </div>
             </div>
           </div>
-          <div class="row" *ngIf="reasonArray[4]">
+          <div class="row" *ngIf="getReasonArrayVelue(4)">
             <div class="col-sm-12">
               <div class="checkbox">
                 <label for="designChange">
@@ -229,7 +230,7 @@
               </div>
             </div>
           </div>
-          <div class="row" *ngIf="reasonArray[5]">
+          <div class="row" *ngIf="getReasonArrayVelue(5)">
             <div class="col-sm-12">
               <div class="checkbox">
                 <label for="materialsChange">
@@ -241,7 +242,7 @@
               </div>
             </div>
           </div>
-          <div class="row" *ngIf="reasonArray[6]">
+          <div class="row" *ngIf="getReasonArrayVelue(6)">
             <div class="col-sm-12">
               <div class="checkbox">
                 <label for="labellingChange">
@@ -253,7 +254,7 @@
               </div>
             </div>
           </div>
-          <div class="row" *ngIf="reasonArray[7]">
+          <div class="row" *ngIf="getReasonArrayVelue(7)">
             <div class="col-sm-12">
               <div class="checkbox">
                 <label for="safetyChange">
@@ -265,11 +266,11 @@
               </div>
             </div>
           </div>
-          <div class="row" *ngIf="reasonArray[8]">
+          <div class="row" *ngIf="getReasonArrayVelue(8)">
             <div class="col-sm-12">
               <div class="checkbox">
                 <label for="purposeChange">
-                  <input type="checkbox" (blur)="reasonOnblur(8)"
+                  <input type="checkbox" (blur)="reasonOnblur(purposeChange,8)"
                          formControlName="purposeChange"
                          id="purposeChange"/>
                   <span>{{'purpose.change'|translate}}</span>
@@ -277,7 +278,7 @@
               </div>
             </div>
           </div>
-          <div class="row" *ngIf="reasonArray[9]">
+          <div class="row" *ngIf="getReasonArrayVelue(9)">
             <div class="col-sm-12">
               <div class="checkbox">
                 <label for="addChange">
@@ -291,7 +292,6 @@
           </div>
         </fieldset>
       </div>
-    </div>
     <div class="row">
       <div class="form-group col-xs-6" *ngIf="isInitialNotLicence()">
         <label for="licenceNum" class="required full-width">
@@ -307,7 +307,7 @@
                  formControlName="licenceNum" maxlength="6"/>
         </label>
       </div>
-      <div class="form-group col-xs-6" *ngIf="!isInitial()">
+      <div class="form-group col-xs-6" *ngIf="isNotInitial()">
         <label for="appNum" class="required full-width">
           <span class="field-name" i18n>{{'application.number' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
@@ -337,7 +337,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-xs-6" *ngIf="isInitialNotLicence()">
+      <div class="form-group col-xs-6" *ngIf="showDate">
         <div class="form-group">
         </div>
         <label for="requestDate" class="required full-width">
@@ -355,13 +355,31 @@
       </div>
     </div>
     <div class="row">
+      <div class="form-group col-xs-12" *ngIf="showBriefDesc">
+        <div class="form-group">
+        </div>
+        <label for="briefDesc" class="required full-width">
+          <span class="field-name" i18n>{{'brief.descr' |translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="transDetailsFormLocalModel.controls.briefDesc.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="transDetailsFormLocalModel.controls.briefDesc"
+                            controlId="briefDesc" label="brief.descr"
+                            parentId="transDetails"
+                            parentLabel="Transaction Information"></control-messages>
+          <textarea type="text" class="form-control full-width" id="briefDesc" (blur)="onblur()"
+                    required formControlName="briefDesc"></textarea>
+        </label>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-sm-12">
         <div class="checkbox">
           <label for="hasDdt">
             <input type="checkbox" (blur)="onblur()"
                    formControlName="hasDdt"
                    id="hasDdt"/>
-            <span>{{'has.ddt'|translate}}</span>
+            <strong>{{'has.ddt'|translate}}</strong>
           </label>
         </div>
       </div>
@@ -373,13 +391,13 @@
             <input type="checkbox" (blur)="onblur()"
                    formControlName="hasAppInfo"
                    id="hasAppInfo"/>
-            <span>{{'has.app.info'|translate}}</span>
+            <strong>{{'has.app.info'|translate}}</strong>
           </label>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-xs-6" >
+      <div class="form-group col-xs-6 rep-margin-top-12" >
         <label for="isSolicitedInfo" class="required full-width">
           <span class="field-name" i18n>{{'is.solicited' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
@@ -390,43 +408,13 @@
                             parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
           <select id="isSolicitedInfo" required class="form-control full-width" (blur)="onblur()"
-                  (select)="onblur()" formControlName="isSolicitedInfo">
+                  (selected)="onblur()" formControlName="isSolicitedInfo">
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
 
           </select>
         </label>
       </div>
     </div>
-
-    <div>
-      <section class="panel  panel-default">
-        <header class="panel-heading clearfix">
-          <div class="btn-group pull-right">
-          </div>
-          <h3 class="panel-title">{{'heading.requesters'|translate}}</h3>
-        </header>
-        <div class="panel-body">
-          <requester-list  (errors)="processRequesterErrors($event)"
-                         [requesterModel]="requesterModel"></requester-list>
-        </div>
-      </section>
-    </div>
-
-  <!--<div>-->
-    <!--<section class="panel  panel-default">-->
-      <!--<header class="panel-heading clearfix">-->
-        <!--<div class="btn-group pull-right">-->
-        <!--</div>-->
-        <!--<h3 class="panel-title">{{'fees'|translate}}</h3>-->
-      <!--</header>-->
-      <!--<div class="panel-body">-->
-        <!--<transaction-fees (errors)="processTransFeesErrors($event)"-->
-                         <!--[transFeesModel]="transFeesModel"></transaction-fees>-->
-      <!--</div>-->
-    <!--</section>-->
-  <!--</div>-->
-
-
     <!-- <pre>{{transDetailsFormLocalModel.value |json}}</pre>-->
   </div>
 </div>

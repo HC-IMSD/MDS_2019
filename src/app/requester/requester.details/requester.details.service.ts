@@ -30,7 +30,8 @@ export class RequesterDetailsService {
 
     return (
       {
-        requester: ''
+        requester: '',
+        requester_text: ''
       }
     );
   }
@@ -38,6 +39,7 @@ export class RequesterDetailsService {
 
   public static mapFormModelToDataModel(formRecord: FormGroup, requesterModel, requesterList) {
     if (formRecord.controls.requester.value && formRecord.controls.requester.value.length > 0) {
+      requesterModel.requester_text = formRecord.controls.requester.value[0].text;
       const requester_record = RequesterDetailsService.findRecordByTerm(requesterList, formRecord.controls.requester.value[0], 'id');
       // this removes the 'text' property that the control needs
       if (requester_record && requester_record.id) {

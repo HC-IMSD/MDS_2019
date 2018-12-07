@@ -8,6 +8,7 @@ import {TransactionFeesService} from './transaction.fees.service';
 import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
 import {GlobalsService} from '../globals/globals.service';
+import {ListService} from '../list-service';
 import {isArray} from 'util';
 import {noUndefined} from '@angular/compiler/src/util';
 
@@ -26,33 +27,23 @@ export class TransactionFeesComponent implements OnInit, OnChanges, AfterViewIni
   @Input('group') public transFeesFormRecord: FormGroup;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
-  @Input() countryList;
   @Input() transFeesModel;
-  @Input() deviceModel;
-  @Input() materialModel;
   @Input() lang;
-  // @Output() hasQmsc = new EventEmitter();
-  @Output() detailErrorList = new EventEmitter(true);
-  @Output() deviceErrorList = new EventEmitter(true);
-  @Output() materialErrorList = new EventEmitter(true);
+  @Output() feesErrorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
-  public drugTypeList = [];
-  public deviceClassList: Array<any> = [];
   public yesNoList: Array<any> = [];
-  public licenceAppTypeList: Array<any> = [];
+  public appNatureFeesList: Array<any> = [];
   public showFieldErrors = false;
   private feesService: TransactionFeesService;
 
-  constructor(private _fb: FormBuilder, // todo: private dataLoader: DossierDataLoaderService,
+  constructor(private _fb: FormBuilder,
               private http: HttpClient, private translate: TranslateService,
               private cdr: ChangeDetectorRef) {
-    // todo: dataLoader = new DossierDataLoaderService(this.http);
     this.showFieldErrors = false;
     this.showErrors = false;
-    this.drugTypeList = [];
     this.feesService = new TransactionFeesService();
     this.yesNoList = this.feesService.getYesNoList();
   }
@@ -62,8 +53,7 @@ export class TransactionFeesComponent implements OnInit, OnChanges, AfterViewIni
       this.transFeesFormLocalModel = this.feesService.getReactiveModel(this._fb);
     }
     this.detailsChanged = 0;
-    this.drugTypeList = TransactionFeesService.getDrugTypes();
-    this.licenceAppTypeList = TransactionFeesService.getLicenceAppTypeList(this.lang); // todo: test which lang is working
+    this.appNatureFeesList = TransactionFeesService.getAppNatureFeesList(this.lang);
   }
 
   ngAfterViewInit() {
@@ -84,7 +74,7 @@ export class TransactionFeesComponent implements OnInit, OnChanges, AfterViewIni
         }
       );
     }
-    this.detailErrorList.emit(temp);
+    this.feesErrorList.emit(temp);
 
   }
 
@@ -112,10 +102,7 @@ export class TransactionFeesComponent implements OnInit, OnChanges, AfterViewIni
           // console.log(item);
         });
       }
-      this.detailErrorList.emit(temp);
-    }
-    if (changes['deviceClassList']) {
-      this.deviceClassList = changes['deviceClassList'].currentValue;
+      this.feesErrorList.emit(temp);
     }
     if (changes['transFeesFormLocalModel']) {
       console.log('**********the Transaction fees changed');
@@ -146,212 +133,214 @@ export class TransactionFeesComponent implements OnInit, OnChanges, AfterViewIni
     // console.log('input is typed');
     TransactionFeesService.mapFormModelToDataModel((<FormGroup>this.transFeesFormLocalModel),
       this.transFeesModel);
-    // if (this.transFeesFormLocalModel.controls.hasQMSC) {
-    //   this.hasQmsc.emit(this.transFeesFormLocalModel.controls.hasQMSC.value);
-    // }
   }
 
-  isQmsc() {
-    const iscert = this.transFeesFormLocalModel.controls.hasQMSC.value;
-    return (iscert && iscert === GlobalsService.YES);
-  }
-
-  processDeviceErrors(errorList) {
-    this.deviceErrorList.emit(errorList);
-
-  }
-
-  processMaterialErrors(errorList) {
-    this.materialErrorList.emit(errorList);
-  }
-
-  isIVDD() {
-    if (this.transFeesFormLocalModel.controls.isIvdd.value) {
-      if (this.transFeesFormLocalModel.controls.isIvdd.value === GlobalsService.YES) {
-        return true;
+  appNatureOnblur() {
+    // console.log('input is typed');
+    if (this.transFeesFormLocalModel.controls.appNature.value) {
+      const recordIndex = ListService.getRecord(this.appNatureFeesList, this.transFeesFormLocalModel.controls.appNature.value, 'id');
+      if (recordIndex > -1) {
+        this.transFeesFormLocalModel.controls.fees.setValue(this.appNatureFeesList[recordIndex].fees);
       } else {
-        this.transFeesFormLocalModel.controls.isHomeUse.setValue(null);
-        this.transFeesFormLocalModel.controls.isHomeUse.markAsUntouched();
-        this.transFeesFormLocalModel.controls.isCarePoint.setValue(null);
-        this.transFeesFormLocalModel.controls.isCarePoint.markAsUntouched();
+        this.transFeesFormLocalModel.controls.fees.setValue(null);
       }
-    }
-    return false;
-  }
-
-  isNOIVDD() {
-    if (this.transFeesFormLocalModel.controls.isIvdd.value) {
-      if (this.transFeesFormLocalModel.controls.isIvdd.value === GlobalsService.NO) {
-        return true;
-      } else {
-        this.transFeesFormLocalModel.controls.hasDrug.setValue(null);
-        this.transFeesFormLocalModel.controls.hasDrug.markAsUntouched();
-        this.transFeesFormLocalModel.controls.hasDinNpn.setValue(null);
-        this.transFeesFormLocalModel.controls.hasDinNpn.markAsUntouched();
-        this.transFeesFormLocalModel.controls.din.setValue('');
-        this.transFeesFormLocalModel.controls.din.markAsUntouched();
-        this.transFeesFormLocalModel.controls.npn.setValue('');
-        this.transFeesFormLocalModel.controls.npn.markAsUntouched();
-        this.transFeesFormLocalModel.controls.drugName.setValue('');
-        this.transFeesFormLocalModel.controls.drugName.markAsUntouched();
-        this.transFeesFormLocalModel.controls.activeIngredients.setValue('');
-        this.transFeesFormLocalModel.controls.activeIngredients.markAsUntouched();
-        this.transFeesFormLocalModel.controls.manufacturer.setValue('');
-        this.transFeesFormLocalModel.controls.manufacturer.markAsUntouched();
-        this.transFeesFormLocalModel.controls.complianceUsp.setValue(false);
-        this.transFeesFormLocalModel.controls.complianceUsp.markAsUntouched();
-        this.transFeesFormLocalModel.controls.complianceGmp.setValue(false);
-        this.transFeesFormLocalModel.controls.complianceGmp.markAsUntouched();
-        this.transFeesFormLocalModel.controls.complianceOther.setValue(false);
-        this.transFeesFormLocalModel.controls.complianceOther.markAsUntouched();
-        this.transFeesFormLocalModel.controls.otherPharmacopeia.setValue('');
-        this.transFeesFormLocalModel.controls.otherPharmacopeia.markAsUntouched();
-      }
-    }
-    return false;
-  }
-
-  hasDrug() {
-    if (this.transFeesFormLocalModel.controls.hasDrug.value) {
-      if (this.transFeesFormLocalModel.controls.hasDrug.value === GlobalsService.YES) {
-        return true;
-      } else {
-        this.transFeesFormLocalModel.controls.hasDinNpn.setValue(null);
-        this.transFeesFormLocalModel.controls.hasDinNpn.markAsUntouched();
-        this.transFeesFormLocalModel.controls.din.setValue('');
-        this.transFeesFormLocalModel.controls.din.markAsUntouched();
-        this.transFeesFormLocalModel.controls.npn.setValue('');
-        this.transFeesFormLocalModel.controls.npn.markAsUntouched();
-        this.transFeesFormLocalModel.controls.drugName.setValue('');
-        this.transFeesFormLocalModel.controls.drugName.markAsUntouched();
-        this.transFeesFormLocalModel.controls.activeIngredients.setValue('');
-        this.transFeesFormLocalModel.controls.activeIngredients.markAsUntouched();
-        this.transFeesFormLocalModel.controls.manufacturer.setValue('');
-        this.transFeesFormLocalModel.controls.manufacturer.markAsUntouched();
-        this.transFeesFormLocalModel.controls.complianceUsp.setValue(false);
-        this.transFeesFormLocalModel.controls.complianceUsp.markAsUntouched();
-        this.transFeesFormLocalModel.controls.complianceGmp.setValue(false);
-        this.transFeesFormLocalModel.controls.complianceGmp.markAsUntouched();
-        this.transFeesFormLocalModel.controls.complianceOther.setValue(false);
-        this.transFeesFormLocalModel.controls.complianceOther.markAsUntouched();
-        this.transFeesFormLocalModel.controls.otherPharmacopeia.setValue('');
-        this.transFeesFormLocalModel.controls.otherPharmacopeia.markAsUntouched();
-      }
-    }
-    return false;
-  }
-
-  hasDin() {
-    if (this.transFeesFormLocalModel.controls.hasDinNpn.value) {
-      if (this.transFeesFormLocalModel.controls.hasDinNpn.value === 'din') {
-        return true;
-      } else {
-        this.transFeesFormLocalModel.controls.din.setValue('');
-        this.transFeesFormLocalModel.controls.din.markAsUntouched();
-      }
-    }
-    return false;
-  }
-
-  hasNpn() {
-    if (this.transFeesFormLocalModel.controls.hasDinNpn.value) {
-      if (this.transFeesFormLocalModel.controls.hasDinNpn.value === 'npn') {
-        return true;
-      } else {
-        this.transFeesFormLocalModel.controls.npn.setValue('');
-        this.transFeesFormLocalModel.controls.npn.markAsUntouched();
-      }
-    }
-    return false;
-  }
-
-  isNoDinNpn() {
-    if (this.transFeesFormLocalModel.controls.hasDinNpn.value) {
-      if (this.transFeesFormLocalModel.controls.hasDinNpn.value === 'nodinnpn') {
-        return true;
-      } else {
-        this.transFeesFormLocalModel.controls.drugName.setValue('');
-        this.transFeesFormLocalModel.controls.drugName.markAsUntouched();
-        this.transFeesFormLocalModel.controls.activeIngredients.setValue('');
-        this.transFeesFormLocalModel.controls.activeIngredients.markAsUntouched();
-        this.transFeesFormLocalModel.controls.manufacturer.setValue('');
-        this.transFeesFormLocalModel.controls.manufacturer.markAsUntouched();
-        this.transFeesFormLocalModel.controls.complianceUsp.setValue(false);
-        this.transFeesFormLocalModel.controls.complianceUsp.markAsUntouched();
-        this.transFeesFormLocalModel.controls.complianceGmp.setValue(false);
-        this.transFeesFormLocalModel.controls.complianceGmp.markAsUntouched();
-        this.transFeesFormLocalModel.controls.complianceOther.setValue(false);
-        this.transFeesFormLocalModel.controls.complianceOther.markAsUntouched();
-        this.transFeesFormLocalModel.controls.otherPharmacopeia.setValue('');
-        this.transFeesFormLocalModel.controls.otherPharmacopeia.markAsUntouched();
-      }
-    }
-    return false;
-  }
-
-  isOtherPharmacopeia() {
-    if (this.transFeesFormLocalModel.controls.complianceOther.value) {
-      return true;
     } else {
-      this.transFeesFormLocalModel.controls.otherPharmacopeia.setValue('');
-      this.transFeesFormLocalModel.controls.otherPharmacopeia.markAsUntouched();
+      this.transFeesFormLocalModel.controls.fees.setValue(null);
     }
-    return false;
+    this.onblur();
   }
 
-  isIt() {
-      if (this.transFeesFormLocalModel.controls.provisionMdrIT.value) {
-      return true;
-    } else {
-      this.transFeesFormLocalModel.controls.authorizationNum.setValue('');
-      this.transFeesFormLocalModel.controls.authorizationNum.markAsUntouched();
-    }
-    return false;
-  }
-
-  isSa() {
-    if (this.transFeesFormLocalModel.controls.provisionMdrSA.value) {
-      return true;
-    } else {
-      this.transFeesFormLocalModel.controls.deviceId.setValue('');
-      this.transFeesFormLocalModel.controls.deviceId.markAsUntouched();
-    }
-    return false;
-  }
-
-  isNoDeclaration() {
-    if (this.transFeesFormLocalModel.controls.declarationConformity.value) {
-      return (this.transFeesFormLocalModel.controls.declarationConformity.value === GlobalsService.NO);
-    }
-    return false;
-  }
-
-  isRecombinant() {
-    if (this.transFeesFormLocalModel.controls.hasRecombinant.value) {
-      if (this.transFeesFormLocalModel.controls.hasRecombinant.value === GlobalsService.YES) {
+  isFeeAssociated() {
+    if (this.transFeesFormLocalModel.controls.hasFees.value) {
+      if (this.transFeesFormLocalModel.controls.hasFees.value === GlobalsService.YES) {
         return true;
       } else {
-        this.transFeesFormLocalModel.controls.isAnimalHumanSourced.setValue(null);
-        this.transFeesFormLocalModel.controls.isAnimalHumanSourced.markAsUntouched();
-        this.transFeesFormLocalModel.controls.isListedIddTable.setValue(null);
-        this.transFeesFormLocalModel.controls.isListedIddTable.markAsUntouched();
-        this.materialModel = [];
+        this.transFeesFormLocalModel.controls.appNature.setValue(null);
+        this.transFeesFormLocalModel.controls.appNature.markAsUntouched();
+        this.transFeesFormLocalModel.controls.fees.setValue(null);
+        this.transFeesFormLocalModel.controls.fees.markAsUntouched();
+        // todo: add more fields under hasfees here ???
       }
     }
     return false;
   }
 
-  isAnimalHumanSourced() {
-    if (this.transFeesFormLocalModel.controls.isAnimalHumanSourced.value) {
-      if (this.transFeesFormLocalModel.controls.isAnimalHumanSourced.value === GlobalsService.YES) {
-        return true;
-      } else {
-        this.transFeesFormLocalModel.controls.isListedIddTable.setValue(null);
-        this.transFeesFormLocalModel.controls.isListedIddTable.markAsUntouched();
-        this.materialModel = [];
-      }
-    }
-    return false;
-  }
+  // isQmsc() {
+  //   const iscert = this.transFeesFormLocalModel.controls.hasQMSC.value;
+  //   return (iscert && iscert === GlobalsService.YES);
+  // }
+  //
+  // isNOIVDD() {
+  //   if (this.transFeesFormLocalModel.controls.isIvdd.value) {
+  //     if (this.transFeesFormLocalModel.controls.isIvdd.value === GlobalsService.NO) {
+  //       return true;
+  //     } else {
+  //       this.transFeesFormLocalModel.controls.hasDrug.setValue(null);
+  //       this.transFeesFormLocalModel.controls.hasDrug.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.hasDinNpn.setValue(null);
+  //       this.transFeesFormLocalModel.controls.hasDinNpn.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.din.setValue('');
+  //       this.transFeesFormLocalModel.controls.din.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.npn.setValue('');
+  //       this.transFeesFormLocalModel.controls.npn.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.drugName.setValue('');
+  //       this.transFeesFormLocalModel.controls.drugName.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.activeIngredients.setValue('');
+  //       this.transFeesFormLocalModel.controls.activeIngredients.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.manufacturer.setValue('');
+  //       this.transFeesFormLocalModel.controls.manufacturer.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.complianceUsp.setValue(false);
+  //       this.transFeesFormLocalModel.controls.complianceUsp.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.complianceGmp.setValue(false);
+  //       this.transFeesFormLocalModel.controls.complianceGmp.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.complianceOther.setValue(false);
+  //       this.transFeesFormLocalModel.controls.complianceOther.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.otherPharmacopeia.setValue('');
+  //       this.transFeesFormLocalModel.controls.otherPharmacopeia.markAsUntouched();
+  //     }
+  //   }
+  //   return false;
+  // }
+  //
+  // hasDrug() {
+  //   if (this.transFeesFormLocalModel.controls.hasDrug.value) {
+  //     if (this.transFeesFormLocalModel.controls.hasDrug.value === GlobalsService.YES) {
+  //       return true;
+  //     } else {
+  //       this.transFeesFormLocalModel.controls.hasDinNpn.setValue(null);
+  //       this.transFeesFormLocalModel.controls.hasDinNpn.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.din.setValue('');
+  //       this.transFeesFormLocalModel.controls.din.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.npn.setValue('');
+  //       this.transFeesFormLocalModel.controls.npn.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.drugName.setValue('');
+  //       this.transFeesFormLocalModel.controls.drugName.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.activeIngredients.setValue('');
+  //       this.transFeesFormLocalModel.controls.activeIngredients.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.manufacturer.setValue('');
+  //       this.transFeesFormLocalModel.controls.manufacturer.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.complianceUsp.setValue(false);
+  //       this.transFeesFormLocalModel.controls.complianceUsp.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.complianceGmp.setValue(false);
+  //       this.transFeesFormLocalModel.controls.complianceGmp.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.complianceOther.setValue(false);
+  //       this.transFeesFormLocalModel.controls.complianceOther.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.otherPharmacopeia.setValue('');
+  //       this.transFeesFormLocalModel.controls.otherPharmacopeia.markAsUntouched();
+  //     }
+  //   }
+  //   return false;
+  // }
+  //
+  // hasDin() {
+  //   if (this.transFeesFormLocalModel.controls.hasDinNpn.value) {
+  //     if (this.transFeesFormLocalModel.controls.hasDinNpn.value === 'din') {
+  //       return true;
+  //     } else {
+  //       this.transFeesFormLocalModel.controls.din.setValue('');
+  //       this.transFeesFormLocalModel.controls.din.markAsUntouched();
+  //     }
+  //   }
+  //   return false;
+  // }
+  //
+  // hasNpn() {
+  //   if (this.transFeesFormLocalModel.controls.hasDinNpn.value) {
+  //     if (this.transFeesFormLocalModel.controls.hasDinNpn.value === 'npn') {
+  //       return true;
+  //     } else {
+  //       this.transFeesFormLocalModel.controls.npn.setValue('');
+  //       this.transFeesFormLocalModel.controls.npn.markAsUntouched();
+  //     }
+  //   }
+  //   return false;
+  // }
+  //
+  // isNoDinNpn() {
+  //   if (this.transFeesFormLocalModel.controls.hasDinNpn.value) {
+  //     if (this.transFeesFormLocalModel.controls.hasDinNpn.value === 'nodinnpn') {
+  //       return true;
+  //     } else {
+  //       this.transFeesFormLocalModel.controls.drugName.setValue('');
+  //       this.transFeesFormLocalModel.controls.drugName.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.activeIngredients.setValue('');
+  //       this.transFeesFormLocalModel.controls.activeIngredients.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.manufacturer.setValue('');
+  //       this.transFeesFormLocalModel.controls.manufacturer.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.complianceUsp.setValue(false);
+  //       this.transFeesFormLocalModel.controls.complianceUsp.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.complianceGmp.setValue(false);
+  //       this.transFeesFormLocalModel.controls.complianceGmp.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.complianceOther.setValue(false);
+  //       this.transFeesFormLocalModel.controls.complianceOther.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.otherPharmacopeia.setValue('');
+  //       this.transFeesFormLocalModel.controls.otherPharmacopeia.markAsUntouched();
+  //     }
+  //   }
+  //   return false;
+  // }
+  //
+  // isOtherPharmacopeia() {
+  //   if (this.transFeesFormLocalModel.controls.complianceOther.value) {
+  //     return true;
+  //   } else {
+  //     this.transFeesFormLocalModel.controls.otherPharmacopeia.setValue('');
+  //     this.transFeesFormLocalModel.controls.otherPharmacopeia.markAsUntouched();
+  //   }
+  //   return false;
+  // }
+  //
+  // isIt() {
+  //     if (this.transFeesFormLocalModel.controls.provisionMdrIT.value) {
+  //     return true;
+  //   } else {
+  //     this.transFeesFormLocalModel.controls.authorizationNum.setValue('');
+  //     this.transFeesFormLocalModel.controls.authorizationNum.markAsUntouched();
+  //   }
+  //   return false;
+  // }
+  //
+  // isSa() {
+  //   if (this.transFeesFormLocalModel.controls.provisionMdrSA.value) {
+  //     return true;
+  //   } else {
+  //     this.transFeesFormLocalModel.controls.deviceId.setValue('');
+  //     this.transFeesFormLocalModel.controls.deviceId.markAsUntouched();
+  //   }
+  //   return false;
+  // }
+  //
+  // isNoDeclaration() {
+  //   if (this.transFeesFormLocalModel.controls.declarationConformity.value) {
+  //     return (this.transFeesFormLocalModel.controls.declarationConformity.value === GlobalsService.NO);
+  //   }
+  //   return false;
+  // }
+  //
+  // isRecombinant() {
+  //   if (this.transFeesFormLocalModel.controls.hasRecombinant.value) {
+  //     if (this.transFeesFormLocalModel.controls.hasRecombinant.value === GlobalsService.YES) {
+  //       return true;
+  //     } else {
+  //       this.transFeesFormLocalModel.controls.isAnimalHumanSourced.setValue(null);
+  //       this.transFeesFormLocalModel.controls.isAnimalHumanSourced.markAsUntouched();
+  //       this.transFeesFormLocalModel.controls.isListedIddTable.setValue(null);
+  //       this.transFeesFormLocalModel.controls.isListedIddTable.markAsUntouched();
+  //     }
+  //   }
+  //   return false;
+  // }
+  //
+  // isAnimalHumanSourced() {
+  //   if (this.transFeesFormLocalModel.controls.isAnimalHumanSourced.value) {
+  //     if (this.transFeesFormLocalModel.controls.isAnimalHumanSourced.value === GlobalsService.YES) {
+  //       return true;
+  //     } else {
+  //       this.transFeesFormLocalModel.controls.isListedIddTable.setValue(null);
+  //       this.transFeesFormLocalModel.controls.isListedIddTable.markAsUntouched();
+  //     }
+  //   }
+  //   return false;
+  // }
 }
 

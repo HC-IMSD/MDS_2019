@@ -55,6 +55,7 @@ export class TransactionBaseComponent implements OnInit {
       this.transactionForm = TransactionBaseService.getReactiveModel(this._fb);
     }
     this.userList = await (this.dataLoader.getRequesters(this.translate.currentLang));
+    console.log();
   }
 
   processErrors() {
@@ -94,7 +95,7 @@ export class TransactionBaseComponent implements OnInit {
         'DEVICE_TRANSACTION_ENROL': {
           'application_info': this.transactionModel,
           'requesters': {
-            'requester': this.requesterModel
+            'requester': this._deleteText(this.requesterModel)
           },
           'transFees': this.transFeesModel
         }
@@ -109,7 +110,7 @@ export class TransactionBaseComponent implements OnInit {
     const result = {'DEVICE_TRANSACTION_ENROL': {
       'application_info': this.transactionModel,
       'requesters': {
-        'requester': this.requesterModel
+        'requester': this._deleteText(this.requesterModel)
       },
       'transFees': this.transFeesModel
     }};
@@ -121,13 +122,14 @@ export class TransactionBaseComponent implements OnInit {
      console.log('processing file.....');
      console.log(fileData);
     this.transactionModel = fileData.data.DEVICE_TRANSACTION_ENROL.application_info;
-    const dev = fileData.data.DEVICE_TRANSACTION_ENROL.requesters.requester;
-    if (dev) {
-      this.requesterModel = (dev instanceof Array) ? dev : [dev];
+    const req = fileData.data.DEVICE_TRANSACTION_ENROL.requesters.requester;
+    if (req) {
+      this.requesterModel = (req instanceof Array) ? req : [req];
+      this._insertTextfield();
     }
-    const mat = fileData.data.DEVICE_TRANSACTION_ENROL.transFees;
-    if (mat) {
-      this.transFeesModel = (mat instanceof Array) ? mat : [mat];
+    const fee = fileData.data.DEVICE_TRANSACTION_ENROL.transFees;
+    if (fee) {
+      this.transFeesModel = (fee instanceof Array) ? fee : [fee];
     }
   }
 
@@ -142,6 +144,20 @@ export class TransactionBaseComponent implements OnInit {
     const version: Array<any> = this.transactionModel.enrol_version.split('.');
     version[0] = (Number(version[0]) + 1).toString();
     this.transactionModel.enrol_version = version[0] + '.' + version[1];
+  }
+
+  private _deleteText(dataModel) {
+    const dataCopy = JSON.parse(JSON.stringify(dataModel));
+    dataCopy.forEach (item => {
+      delete item.requester_text;
+    });
+    return dataCopy;
+  }
+
+  private _insertTextfield() {
+    this.requesterModel.forEach (item => {
+      item.requester_text = this.lang === GlobalsService.ENGLISH ? item.requester._label_en : item.requester._label_fr;
+    });
   }
 
   public preload() {

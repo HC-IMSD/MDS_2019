@@ -1,64 +1,80 @@
 <div>
   <div [formGroup]="transFeesFormLocalModel">
     <div class="row">
-      <div class="form-group col-xs-6" >
-        <label for="companyId" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'company.id'|translate}}</span>
+      <div class="form-group col-xs-12" >
+        <label for="hasFees" class="required full-width">
+          <span class="field-name" i18n>{{'are.fees' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="transFeesFormLocalModel.controls.companyId.invalid"
+          <control-messages *ngIf="transFeesFormLocalModel.controls.hasFees.invalid"
                             [showError]="showFieldErrors"
-                            [control]="transFeesFormLocalModel.controls.companyId"
-                            controlId="companyId" label="company.id" parentId="transFees"
-                            parentLabel="Application Information"></control-messages>
-          <input id="companyId" class="form-control full-width" (blur)="onblur()"
-                 formControlName="companyId" maxlength="6"/>
-        </label>
-      </div>
-      <div class="form-group col-xs-6" >
-        <label for="dossierId" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'dossier.id'|translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="transFeesFormLocalModel.controls.dossierId.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="transFeesFormLocalModel.controls.dossierId"
-                            controlId="dossierId" label="dossier.id" parentId="transFees"
-                            parentLabel="Application Information"></control-messages>
-          <input id="dossierId" class="form-control full-width"  (blur)="onblur()"
-                 formControlName="dossierId" maxlength="7"/>
+                            [control]="transFeesFormLocalModel.controls.hasFees"
+                            controlId="hasFees" label="are.fees" parentId="transFees"
+                            parentLabel="Transaction Information"></control-messages>
+          <select id="hasFees" required class="form-control" (blur)="onblur()"
+                  formControlName="hasFees">
+            <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+          </select>
         </label>
       </div>
     </div>
     <div class="row">
       <div class="form-group col-xs-6" >
-        <label for="qmscNum" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'qmsc.number'|translate}}</span>
+        <label for="billCompanyId" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{'billing.company.id'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="transFeesFormLocalModel.controls.qmscNum.invalid"
+          <control-messages *ngIf="transFeesFormLocalModel.controls.billCompanyId.invalid"
                             [showError]="showFieldErrors"
-                            [control]="transFeesFormLocalModel.controls.qmscNum"
-                            controlId="qmscNum" label="qmsc.number" parentId="transFees"
-                            parentLabel="Application Information"></control-messages>
-          <input id="qmscNum" class="form-control full-width"  (blur)="onblur()"
-                 formControlName="qmscNum" maxlength="30"/>
+                            [control]="transFeesFormLocalModel.controls.billCompanyId"
+                            controlId="billCompanyId" label="billing.company.id" parentId="transFees"
+                            parentLabel="Transaction Information"></control-messages>
+          <input id="billCompanyId" class="form-control full-width" (blur)="onblur()"
+                 formControlName="billCompanyId" maxlength="6"/>
         </label>
       </div>
       <div class="form-group col-xs-6" >
-        <label for="licenceAppType" class="required full-width">
-          <span class="field-name" i18n>{{'licence.app.type' |translate}}</span>
+        <label for="billContactId" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{'dossier.id'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="transFeesFormLocalModel.controls.licenceAppType.invalid"
+          <control-messages *ngIf="transFeesFormLocalModel.controls.billContactId.invalid"
                             [showError]="showFieldErrors"
-                            [control]="transFeesFormLocalModel.controls.licenceAppType"
-                            controlId="licenceAppType" label="licence.app.type"
-                            parentId="transFees"
-                            parentLabel="Application Information"></control-messages>
-          <select id="licenceAppType" required class="form-control full-width" (blur)="onblur()"
-                  formControlName="licenceAppType">
-            <option *ngFor="let lat of licenceAppTypeList" [ngValue]="lat.id"> {{lat.text}}</option>
-
-          </select>
+                            [control]="transFeesFormLocalModel.controls.billContactId"
+                            controlId="billContactId" label="dossier.id" parentId="transFees"
+                            parentLabel="Transaction Information"></control-messages>
+          <input id="billContactId" class="form-control full-width"  (blur)="onblur()"
+                 formControlName="billContactId" maxlength="5"/>
         </label>
       </div>
+    </div>
+    <div *ngIf="isFeeAssociated()">
+      <div class="row">
+        <div class="form-group col-xs-12" >
+          <label for="appNature" class="required full-width">
+            <span class="field-name" i18n>{{'app.nature' |translate}}</span>
+            <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+            <control-messages *ngIf="transFeesFormLocalModel.controls.appNature.invalid"
+                              [showError]="showFieldErrors"
+                              [control]="transFeesFormLocalModel.controls.appNature"
+                              controlId="appNature" label="app.nature"
+                              parentId="transFees"
+                              parentLabel="Transaction Information"></control-messages>
+            <select id="appNature" required class="form-control full-width" (blur)="appNatureOnblur()"
+                    (selected)="appNatureOnblur()" formControlName="appNature">
+              <option *ngFor="let nat of appNatureFeesList" [ngValue]="nat.id"> {{nat.text}}</option>
+
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-4" >
+          <label for="fees">
+            <span class="field-name" i18n>{{'fees'|translate}}</span>
+            <input id="fees" class="form-control full-width"
+                   formControlName="fees" [readonly]="true"/>
+          </label>
+        </div>
+      </div>
+      <!--todo: add more fields here ??? -->
     </div>
 
     <div>
@@ -78,7 +94,7 @@
                                   [showError]="showFieldErrors"
                                   [control]="transFeesFormLocalModel.controls.isIvdd"
                                   controlId="isIvdd" label="is.ivdd" parentId="transFees"
-                                  parentLabel="Application Information"></control-messages>
+                                  parentLabel="Transaction Information"></control-messages>
                 <select id="isIvdd" required class="form-control" (blur)="onblur()"
                         formControlName="isIvdd">
                   <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
@@ -95,7 +111,7 @@
                                   [showError]="showFieldErrors"
                                   [control]="transFeesFormLocalModel.controls.isHomeUse"
                                   controlId="isHomeUse" label="is.home.use" parentId="transFees"
-                                  parentLabel="Application Information"></control-messages>
+                                  parentLabel="Transaction Information"></control-messages>
                 <select id="isHomeUse" required class="form-control" (blur)="onblur()"
                         formControlName="isHomeUse">
                   <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
@@ -110,7 +126,7 @@
                                   [showError]="showFieldErrors"
                                   [control]="transFeesFormLocalModel.controls.isCarePoint"
                                   controlId="isCarePoint" label="is.point.care" parentId="transFees"
-                                  parentLabel="Application Information"></control-messages>
+                                  parentLabel="Transaction Information"></control-messages>
                 <select id="isCarePoint" required class="form-control" (blur)="onblur()"
                         formControlName="isCarePoint">
                   <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
@@ -127,7 +143,7 @@
                                   [showError]="showFieldErrors"
                                   [control]="transFeesFormLocalModel.controls.isEmitRadiation"
                                   controlId="isEmitRadiation" label="contain.radiation" parentId="transFees"
-                                  parentLabel="Application Information"></control-messages>
+                                  parentLabel="Transaction Information"></control-messages>
                 <select id="isEmitRadiation" required class="form-control" (blur)="onblur()"
                         formControlName="isEmitRadiation">
                   <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
@@ -144,7 +160,7 @@
                                   [showError]="showFieldErrors"
                                   [control]="transFeesFormLocalModel.controls.hasDrug"
                                   controlId="hasDrug" label="contain.drug" parentId="transFees"
-                                  parentLabel="Application Information"></control-messages>
+                                  parentLabel="Transaction Information"></control-messages>
                 <select id="hasDrug" required class="form-control" (blur)="onblur()"
                         formControlName="hasDrug">
                   <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
@@ -169,7 +185,7 @@
                                   [showError]="showFieldErrors"
                                   [control]="transFeesFormLocalModel.controls.din"
                                   controlId="din" label="din" parentId="transFees"
-                                  parentLabel="Application Information"></control-messages>
+                                  parentLabel="Transaction Information"></control-messages>
                 <input id="din" class="form-control full-width"  (blur)="onblur()"
                        formControlName="din" maxlength="8"/>
               </label>
@@ -182,7 +198,7 @@
                                   [showError]="showFieldErrors"
                                   [control]="transFeesFormLocalModel.controls.npn"
                                   controlId="npn" label="npn" parentId="transFees"
-                                  parentLabel="Application Information"></control-messages>
+                                  parentLabel="Transaction Information"></control-messages>
                 <input id="npn" class="form-control full-width"  (blur)="onblur()"
                        formControlName="npn" maxlength="8"/>
               </label>
@@ -335,19 +351,6 @@
       </section>
     </div>
 
-    <div>
-      <section class="panel  panel-default">
-        <header class="panel-heading clearfix">
-          <div class="btn-group pull-right">
-          </div>
-          <h3 class="panel-title">{{'heading.devices'|translate}}</h3>
-        </header>
-        <div class="panel-body">
-          <device-list  (errors)="processDeviceErrors($event)"
-                         [deviceModel]="deviceModel"></device-list>
-        </div>
-      </section>
-    </div>
 
     <div>
       <section class="panel  panel-default">
@@ -366,7 +369,7 @@
                                   [showError]="showFieldErrors"
                                   [control]="transFeesFormLocalModel.controls.declarationConformity"
                                   controlId="declarationConformity" label="conformity.declaration" parentId="transFees"
-                                  parentLabel="Application Information"></control-messages>
+                                  parentLabel="Transaction Information"></control-messages>
                 <select id="declarationConformity" required class="form-control" (blur)="onblur()"
                         formControlName="declarationConformity">
                   <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
@@ -380,82 +383,6 @@
                       <p aria-live="polite">{{'declaration.instruct'|translate}}</p>
                      </span>
             </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <div>
-      <section class="panel  panel-default">
-        <header class="panel-heading clearfix">
-          <div class="btn-group pull-right">
-          </div>
-          <h2 class="panel-title">{{'containing.material'|translate}}</h2>
-        </header>
-        <div class="panel-body">
-          <div class="row">
-            <div class="form-group col-xs-12" >
-              <label for="hasRecombinant" class="required full-width">
-                <span class="field-name" i18n>{{'consist.recombinant' |translate}}</span>
-                <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <control-messages *ngIf="transFeesFormLocalModel.controls.hasRecombinant.invalid"
-                                  [showError]="showFieldErrors"
-                                  [control]="transFeesFormLocalModel.controls.hasRecombinant"
-                                  controlId="hasRecombinant" label="consist.recombinant" parentId="transFees"
-                                  parentLabel="Application Information"></control-messages>
-                <select id="hasRecombinant" required class="form-control" (blur)="onblur()"
-                        formControlName="hasRecombinant">
-                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
-                </select>
-              </label>
-            </div>
-          </div>
-          <div *ngIf="isRecombinant()" class="row">
-            <div class="form-group col-xs-12" >
-              <label for="isAnimalHumanSourced" class="required full-width">
-                <span class="field-name" i18n>{{'contain.material' |translate}}</span>
-                <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <control-messages *ngIf="transFeesFormLocalModel.controls.isAnimalHumanSourced.invalid"
-                                  [showError]="showFieldErrors"
-                                  [control]="transFeesFormLocalModel.controls.isAnimalHumanSourced"
-                                  controlId="isAnimalHumanSourced" label="contain.material" parentId="transFees"
-                                  parentLabel="Application Information"></control-messages>
-                <select id="isAnimalHumanSourced" required class="form-control" (blur)="onblur()"
-                        formControlName="isAnimalHumanSourced">
-                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
-                </select>
-              </label>
-            </div>
-          </div>
-          <div *ngIf="isAnimalHumanSourced()" class="row">
-            <div class="form-group col-xs-12" >
-              <label for="isListedIddTable" class="required full-width">
-                <span class="field-name" i18n>{{'is.same.material' |translate}}</span>
-                <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <control-messages *ngIf="transFeesFormLocalModel.controls.isListedIddTable.invalid"
-                                  [showError]="showFieldErrors"
-                                  [control]="transFeesFormLocalModel.controls.isListedIddTable"
-                                  controlId="isListedIddTable" label="is.same.material" parentId="transFees"
-                                  parentLabel="Application Information"></control-messages>
-                <select id="isListedIddTable" required class="form-control" (blur)="onblur()"
-                        formControlName="isListedIddTable">
-                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
-                </select>
-              </label>
-            </div>
-          </div>
-          <div *ngIf="isAnimalHumanSourced()">
-            <section class="panel  panel-default">
-              <header class="panel-heading clearfix">
-                <div class="btn-group pull-right">
-                </div>
-                <h3 class="panel-title">{{'heading.material.table'|translate}}</h3>
-              </header>
-              <div class="panel-body">
-                <material-list  (errors)="processMaterialErrors($event)" [countryList]="countryList"
-                                [materialModel]="materialModel"></material-list>
-              </div>
-            </section>
           </div>
         </div>
       </section>

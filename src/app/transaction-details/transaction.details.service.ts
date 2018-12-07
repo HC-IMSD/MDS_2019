@@ -45,6 +45,7 @@ export class TransactionDetailsService {
       appNum: [null, [Validators.required, ValidationService.appNumValidator]],
       deviceName: [null, Validators.required],
       requestDate: [null, Validators.required],
+      briefDesc: [null, Validators.required],
       hasDdt: [false, []],
       hasAppInfo: [false, []],
       isSolicitedInfo: [null, Validators.required]
@@ -85,6 +86,7 @@ export class TransactionDetailsService {
         application_number: '',
         device_name: '',
         request_date: '',
+        brief_description: '',
         has_ddt: '',
         has_app_info: '',
         is_solicited_info: ''
@@ -127,8 +129,8 @@ export class TransactionDetailsService {
    * Gets an data array
    *
    */
-  public static getLicenceDescriptions() {
-    const descArray = TransactionDetailsService.getRawTransDescList();
+  public static getLicenceDescriptions(lang) {
+    const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
     return [descArray[0], descArray[1], descArray[4], descArray[5],
       descArray[8], descArray[9], descArray[10], descArray[11], descArray[12]];
   }
@@ -137,8 +139,8 @@ export class TransactionDetailsService {
    * Gets an data array
    *
    */
-  public static getFaxbackDescriptions() {
-    const descArray = TransactionDetailsService.getRawTransDescList();
+  public static getFaxbackDescriptions(lang) {
+    const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
     return [descArray[8], descArray[9], descArray[11]];
   }
 
@@ -252,6 +254,7 @@ export class TransactionDetailsService {
     transactionModel.application_number = formRecord.controls.appNum.value;
     transactionModel.device_name = formRecord.controls.deviceName.value;
     transactionModel.request_date = formRecord.controls.requestDate.value;
+    transactionModel.brief_description = formRecord.controls.briefDesc.value;
     transactionModel.has_ddt = formRecord.controls.hasDdt.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.has_app_info = formRecord.controls.hasAppInfo.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.is_solicited_info = formRecord.controls.isSolicitedInfo.value;
@@ -270,13 +273,8 @@ export class TransactionDetailsService {
     if (transactionModel.transaction_description) {
       const recordIndex = ListService.getRecord(descriptions, transactionModel.transaction_description.__text, 'id');
       if (recordIndex > -1) {
-        const labelText = descriptions[recordIndex].text;
-        formRecord.controls.transDescription.setValue(
-          {
-            'id': transactionModel.transaction_description.__text,
-            'text': labelText
-          }
-        );
+        // const labelText = descriptions[recordIndex].text;
+        formRecord.controls.transDescription.setValue(descriptions[recordIndex].id);
       } else {
         formRecord.controls.transDescription.setValue(null);
       }
@@ -309,27 +307,12 @@ export class TransactionDetailsService {
     formRecord.controls.appNum.setValue(transactionModel.application_number);
     formRecord.controls.deviceName.setValue(transactionModel.device_name);
     formRecord.controls.requestDate.setValue(transactionModel.request_date);
+    formRecord.controls.briefDesc.setValue(transactionModel.brief_description);
     const hasddt = transactionModel.has_ddt === GlobalsService.YES ? true : false;
     formRecord.controls.hasDdt.setValue(hasddt);
     const hasapp = transactionModel.has_app_info === GlobalsService.YES ? true : false;
     formRecord.controls.hasAppInfo.setValue(hasapp);
     formRecord.controls.isSolicitedInfo.setValue(transactionModel.is_solicited_info);
-  }
-
-  /**
-   * Find a record by its unique id,. If a dup, returns first instance
-   * @param list
-   * @param criteria
-   * @returns {any}
-   */
-  public static findRecordByTerm(list, criteria, searchTerm) {
-
-    let result = list.filter(
-      item => item[searchTerm] === criteria[searchTerm]);
-    if (result && result.length > 0) {
-      return result[0];
-    }
-    return null;
   }
 
   /***

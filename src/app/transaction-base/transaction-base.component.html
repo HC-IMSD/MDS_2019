@@ -31,14 +31,37 @@
           <div class="panel-body">
             <transaction-details [showErrors]="showErrors" [lang]="lang" [userList]="userList"
                               [detailsChanged]="updateChild" [transactionModel]="transactionModel"
-                              [requesterModel]="requesterModel" [transFeesModel]="transFeesModel"
-                              (detailErrorList)="processDetailErrors($event)"
-                              (requesterErrorList)="processRequesterErrors($event)"
-                              (transFeesErrorList)="processTransFeesErrors($event)"></transaction-details>
+                              (detailErrorList)="processDetailErrors($event)"></transaction-details>
 
+          </div>
+          <section class="panel  panel-default">
+            <header class="panel-heading clearfix">
+              <div class="btn-group pull-right">
+              </div>
+              <h3 class="panel-title">{{'heading.requesters'|translate}}</h3>
+            </header>
+            <div class="panel-body">
+              <requester-list  (errors)="processRequesterErrors($event)"  [userList]="userList"
+                               [requesterModel]="requesterModel"></requester-list>
             </div>
+          </section>
+
+          <!--<div>-->
+          <!--<section class="panel  panel-default">-->
+          <!--<header class="panel-heading clearfix">-->
+          <!--<div class="btn-group pull-right">-->
+          <!--</div>-->
+          <!--<h3 class="panel-title">{{'fees'|translate}}</h3>-->
+          <!--</header>-->
+          <!--<div class="panel-body">-->
+          <!--<transaction-fees (feesErrorList)="processTransFeesErrors($event)"-->
+          <!--[transFeesModel]="transFeesModel"></transaction-fees>-->
+          <!--</div>-->
+          <!--</section>-->
+          <!--</div>-->
         </section>
       </div>
+
     </div>
     <div class="row btn-group-sm">
       <div class="form-group col-md-4">

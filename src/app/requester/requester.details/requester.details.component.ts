@@ -112,16 +112,16 @@ export class RequesterDetailsComponent implements OnInit, OnChanges, AfterViewIn
   }
 
   typed(rec) {
-    let content = rec.toString().replace(/[\x00-\x7F]/g, '', '');
-    if (content) {
-      this.requesterFormLocalModel.controls.requester.setValue([content]);
-      this.saveRecord.emit((this.requesterFormLocalModel)); // todo: this is needed?
+    // let content = rec.toString();
+    if (rec) {
+      this.requesterFormLocalModel.controls.requester.setValue([rec]);
+      this.saveRecord.emit((this.requesterFormLocalModel));
     }
   }
 
   onblur() {
     // console.log('input is typed');
-    this.saveRecord.emit((this.requesterFormLocalModel)); // todo: this is needed?
+    this.saveRecord.emit((this.requesterFormLocalModel));
   }
 }
 

@@ -29,7 +29,6 @@ export class RequesterListComponent extends ListOperations implements OnInit, On
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
 
   private errorSummaryChild = null;
-  // private prevRow = -1;
   public updateRequesterDetails = 0;
   public requesterListForm: FormGroup;
   public newRequesterForm: FormGroup;
@@ -42,7 +41,7 @@ export class RequesterListComponent extends ListOperations implements OnInit, On
   public columnDefinitions = [
     {
       label: 'Requester of Solicited Information',
-      binding: 'requester.id',
+      binding: 'requester_text',
       width: '100'
     }
   ];
@@ -133,6 +132,7 @@ export class RequesterListComponent extends ListOperations implements OnInit, On
       this.validRec = true;
     }
     if (changes['userList']) {
+      this.userList = changes['userList'].currentValue;
       this.service.userList = this.userList;
     }
 
