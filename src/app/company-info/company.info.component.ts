@@ -27,17 +27,19 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() inComplete: boolean;
   @Input() isInternal: boolean;
   @Output() errorList = new EventEmitter(true);
+  @Output() showAdminChanges = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   public isAmend = true;
   public showFieldErrors: boolean;
   public setAsComplete = true;
-  private detailsService: CompanyInfoService;
+  public yesNoList: Array<any> = [];
+  public amendReasonList: Array<any> = [];
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef) {
     this.showFieldErrors = false;
-    // this.showErrors = false;
-    this.detailsService = new CompanyInfoService();
+    this.yesNoList = CompanyInfoService.getYesNoList();
+    this.amendReasonList = CompanyInfoService.getAmendReasons();
   }
 
   ngOnInit() {
@@ -158,39 +160,25 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       this.genInfoModel);
   }
 
-  // typed(rec) {
-  //   var content = rec.replace(/[\x00-\x7F]/g, '', '');
-  //   console.log('this is typed');
-  //   if (content && this.existsInList(content)) {
-  //     this.generalInfoFormLocalModel.controls.country.setValue([content]);
-  //   }
-  // }
-  //
-  // existsInList(rec) {
-  //   for (let country of this.countries) {
-  //     if (country.id == rec) {
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // }
+  amendReasonOnblur() {
+    // console.log('input is onblur');
+    this.onblur();
+    this.showAdminChanges.emit(
+      this.generalInfoFormLocalModel.controls.amendReason.value === 'manuname' ||
+      this.generalInfoFormLocalModel.controls.amendReason.value === 'manuaddr' ||
+      this.generalInfoFormLocalModel.controls.amendReason.value === 'facility'
+    );
+  }
 
-  // private _setPostalPattern(countryValue) {
-  //   //  console.log("starting the postal Pattern");
-  //   // this.postalPattern=
-  //   if (CompanyInfoService.isCanada(countryValue)) {
-  //
-  //     this.postalLabel = 'postal.canada';
-  //     this.provinceLabel = 'generalInfo.province';
-  //     this.postalPattern = /^(?!.*[DFIOQU])[A-VXYa-vxy][0-9][A-Za-z] ?[0-9][A-Za-z][0-9]$/;
-  //   } else if (CompanyInfoService.isUsa(countryValue)) {
-  //     this.postalPattern = /^[0-9]{5}(?:-[0-9]{4})?$/;
-  //     this.postalLabel = 'postal.usa';
-  //     //  console.log("This is the postal label"+this.postalLabel);
-  //     this.provinceLabel = 'generalInfo.state';
-  //   } else {
-  //     this.postalPattern = null;
-  //   }
-  // }
+  licTransOnblur() {
+    // console.log('input is onblur');
+    this.onblur();
+    this.showAdminChanges.emit(
+      this.generalInfoFormLocalModel.controls.areLicensesTransfered.value === GlobalsService.YES);
+  }
+
+  isOther() {
+    return (this.generalInfoFormLocalModel.controls.amendReason.value === 'other');
+  }
 }
 

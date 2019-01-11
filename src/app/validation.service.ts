@@ -13,6 +13,7 @@ export class ValidationService {
     // TODO sucky need to make the keys the same as the translation for the error summary
     const config = {
       'required': 'required',
+      'error.msg.number': 'error.msg.number',
       'error.msg.phone': 'error.msg.phone',
       'error.msg.email': 'error.msg.email',
       'minlength': `Minimum length ${validatorValue.requiredLength}`,
@@ -95,6 +96,17 @@ export class ValidationService {
     }
   }
 
+  static numberValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]*$/)) {
+      return null;
+    } else {
+      return {'error.msg.number': true};
+    }
+  }
+
   static companyIdValidator(control) {
     if (!control.value) {
       return null;
@@ -146,7 +158,7 @@ export class ValidationService {
     if (control.value.match(/^[A-Za-z0-9]{5}$/)) {
       return null;
     } else {
-      return {'error.mgs.contact.id': true};
+      return {'error.mgs.regu.contact.id': true};
     }
   }
 

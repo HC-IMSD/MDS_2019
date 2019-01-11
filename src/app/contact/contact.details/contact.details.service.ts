@@ -14,11 +14,11 @@ export class ContactDetailsService {
     {id: 'AMEND', label_en: 'Amend', label_fr: 'fr_Amend'},
     {id: 'DELETE', label_en: 'Delete', label_fr: 'fr_Delete'}
   ];
-  public statusListAdd: Array<any> = [
+  public statusListInternal: Array<any> = [
     {id: 'ACTIVE', label_en: 'Active', label_fr: 'fr_Active'},
     {id: 'INACTIVE', label_en: 'Inactive', label_fr: 'fr_Inactive'}
   ];
-  public statusListInternal: Array<any> = this.statusListExternal.concat(this.statusListAdd);
+  // public statusListInternal: Array<any> = this.statusListExternal.concat(this.statusListAdd);
 
   public salutationList: Array<any> = [
     {id: 'DR', label_en: 'Dr.', label_fr: 'fr_Dr.'},
@@ -44,6 +44,7 @@ export class ContactDetailsService {
     return fb.group({
       contactId: '',
       status: '',
+      hcStatus: '',
       salutation: [null, Validators.required],
       firstName: [null, Validators.required],
       initials: '',
@@ -65,17 +66,18 @@ export class ContactDetailsService {
 
     return (
       {
-        contactId: '',
+        contact_id: '',
         status: '',
+        hc_status: '',
         salutation: '',
-        firstName: '',
+        first_name: '',
         initials: '',
-        lastName: '',
+        last_name: '',
         language: '',
-        jobTitle: '',
-        faxNumber: '',
-        phoneNumber: '',
-        phoneExtension: '',
+        job_title: '',
+        fax_number: '',
+        phone_number: '',
+        phone_extension: '',
         email: ''
       }
     );
@@ -83,32 +85,34 @@ export class ContactDetailsService {
 
 
   public static mapFormModelToDataModel(formRecord: FormGroup, contactModel) {
-    contactModel.contactId = formRecord.controls.contactId.value;
+    contactModel.contact_id = formRecord.controls.contactId.value;
     contactModel.status = formRecord.controls.status.value;
+    contactModel.hc_status = formRecord.controls.hcStatus.value;
     contactModel.salutation = formRecord.controls.salutation.value;
-    contactModel.firstName = formRecord.controls.firstName.value;
+    contactModel.first_name = formRecord.controls.firstName.value;
     contactModel.initials = formRecord.controls.initials.value;
-    contactModel.lastName = formRecord.controls.lastName.value;
+    contactModel.last_name = formRecord.controls.lastName.value;
     contactModel.language = formRecord.controls.language.value;
-    contactModel.jobTitle = formRecord.controls.jobTitle.value;
-    contactModel.faxNumber = formRecord.controls.faxNumber.value;
-    contactModel.phoneNumber = formRecord.controls.phoneNumber.value;
-    contactModel.phoneExtension = formRecord.controls.phoneExtension.value;
+    contactModel.job_title = formRecord.controls.jobTitle.value;
+    contactModel.fax_number = formRecord.controls.faxNumber.value;
+    contactModel.phone_number = formRecord.controls.phoneNumber.value;
+    contactModel.phone_extension = formRecord.controls.phoneExtension.value;
     contactModel.email = formRecord.controls.email.value;
   }
 
   public static mapDataModelToFormModel(contactModel, formRecord: FormGroup) {
-    formRecord.controls.contactId.setValue(contactModel.contactId);
+    formRecord.controls.contactId.setValue(contactModel.contact_id);
     formRecord.controls.status.setValue(contactModel.status);
+    formRecord.controls.hcStatus.setValue(contactModel.hc_status);
     formRecord.controls.salutation.setValue(contactModel.salutation);
-    formRecord.controls.firstName.setValue(contactModel.firstName);
+    formRecord.controls.firstName.setValue(contactModel.first_name);
     formRecord.controls.initials.setValue(contactModel.initials);
-    formRecord.controls.lastName.setValue(contactModel.lastName);
+    formRecord.controls.lastName.setValue(contactModel.last_name);
     formRecord.controls.language.setValue(contactModel.language);
-    formRecord.controls.jobTitle.setValue(contactModel.jobTitle);
-    formRecord.controls.faxNumber.setValue(contactModel.faxNumber);
-    formRecord.controls.phoneNumber.setValue(contactModel.phoneNumber);
-    formRecord.controls.phoneExtension.setValue(contactModel.phoneExtension);
+    formRecord.controls.jobTitle.setValue(contactModel.job_title);
+    formRecord.controls.faxNumber.setValue(contactModel.fax_number);
+    formRecord.controls.phoneNumber.setValue(contactModel.phone_number);
+    formRecord.controls.phoneExtension.setValue(contactModel.phone_extension);
     formRecord.controls.email.setValue(contactModel.email);
   }
 

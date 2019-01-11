@@ -25,6 +25,7 @@ export class AddressDetailsService {
   public static getReactiveModel(fb: FormBuilder) {
     if (!fb) return null;
     return fb.group({
+      companyName: [null, Validators.required],
       address: [null, Validators.required],
       provText: '',
       provList: '',
@@ -42,6 +43,7 @@ export class AddressDetailsService {
 
     return (
       {
+        company_name: '',
         address: '',
         prov_lov: '',
         prov_text: '',
@@ -54,6 +56,7 @@ export class AddressDetailsService {
 
 
   public static mapFormModelToDataModel(formRecord: FormGroup, addressModel, countryList) {
+    addressModel.company_name = formRecord.controls.companyName.value;
     addressModel.address = formRecord.controls.address.value;
     addressModel.city = formRecord.controls.city.value;
     if (formRecord.controls.country.value && formRecord.controls.country.value.length > 0) {
@@ -77,6 +80,7 @@ export class AddressDetailsService {
   }
 
   public static mapDataModelToFormModel(addressModel, formRecord: FormGroup, countryList) {
+    formRecord.controls.companyName.setValue(addressModel.company_name);
     formRecord.controls.address.setValue(addressModel.address);
     formRecord.controls.city.setValue(addressModel.city);
     formRecord.controls.postal.setValue(addressModel.postal);

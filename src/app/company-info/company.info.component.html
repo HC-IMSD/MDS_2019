@@ -25,7 +25,7 @@
       <div class="form-group col-xs-3">
         <label for="companyId" [ngClass]="{'required':isInternal}" aria-required="true">
           <span class="field-name" i18n>{{'company.id' |translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <strong class="required" *ngIf="isInternal" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <input id="companyId" class="form-control" formControlName="companyId"
                  [readonly]="disableAmend()" maxlength="7" (blur)="onblur()" />
           <control-messages *ngIf="(!disableAmend() && generalInfoFormLocalModel.controls.companyId.invalid)"
@@ -42,19 +42,55 @@
                 [disabled]="!setAsComplete" id="amendSubDisabled">
           {{'amend.enrol'|translate}}</button>
       </div>
+    </div>
+    <div class="row" *ngIf="isAmend">
+      <div class="form-group col-xs-6" >
+        <label for="amendReason" class="required full-width">
+          <span class="field-name" i18n>{{'reason.amend' |translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="generalInfoFormLocalModel.controls.amendReason.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="generalInfoFormLocalModel.controls.amendReason"
+                            controlId="amendReason" label="reason.amend"
+                            parentId="generalInfo"
+                            parentLabel="Regulatory Company Enrolment"></control-messages>
+          <select id="amendReason" required class="form-control full-width" (blur)="amendReasonOnblur()"
+                  (selected)="amendReasonOnblur()" formControlName="amendReason">
+            <option *ngFor="let rea of amendReasonList" [ngValue]="{{rea|translate}}"> {{rea|translate}}</option>
 
-      <div class="col-xs-7">
-        <div *ngIf="showAmendMsg()" class="alert alert-info" role="alert"
-             aria-live="polite">
-          <span>{{'amend.msg'|translate}}</span>
-        </div>
+          </select>
+        </label>
       </div>
-      <!--div *ngIf="isAmend" class="col-xs-12 form-group">
-        <label for="reasonAmend">{{'reason.amend'|translate}}</label>
-        <textarea type="text" class="form-control full-width" id="reasonAmend"
-                  maxlength="200" />
-      </div-->
+      <div *ngIf="isOther()" class="col-xs-6 form-group">
+        <label for="otherDetails">{{'other.details'|translate}}</label>
+        <textarea type="text" class="form-control full-width" id="otherDetails"
+                  formControlName="amendReason" maxlength="500" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-6 rep-margin-top-12" >
+        <label for="areLicensesTransfered" class="required full-width">
+          <span class="field-name" i18n>{{'is.solicited' |translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="generalInfoFormLocalModel.controls.areLicensesTransfered.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="generalInfoFormLocalModel.controls.areLicensesTransfered"
+                            controlId="areLicensesTransfered" label="is.solicited"
+                            parentId="generalInfo"
+                            parentLabel="Regulatory Company Enrolment"></control-messages>
+          <select id="areLicensesTransfered" required class="form-control full-width" (blur)="licTransOnblur()"
+                  (selected)="licTransOnblur()" formControlName="areLicensesTransfered">
+            <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+          </select>
+        </label>
+      </div>
+    </div>
+      <!--<div class="col-xs-7">-->
+        <!--<div *ngIf="showAmendMsg()" class="alert alert-info" role="alert"-->
+             <!--aria-live="polite">-->
+          <!--<span>{{'amend.msg'|translate}}</span>-->
+        <!--</div>-->
+      <!--</div>-->
     <!--pre>{{generalInfoFormLocalModel.value |json}}</pre>
       <pre>companyId.invalid={{generalInfoFormLocalModel.controls.companyId.invalid}}</pre-->
-  </div>
 </div>

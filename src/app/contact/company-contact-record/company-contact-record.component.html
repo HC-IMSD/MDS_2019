@@ -1,5 +1,5 @@
 <div class="container-fluid" [formGroup]="contactRecordModel">
-  <h3>{{'heading.contactDetails'| translate}}&nbsp;{{contactRecordModel.controls.id.value + 1}}</h3>
+  <h4>{{'heading.contactDetails'| translate}}&nbsp;{{contactRecordModel.controls.id.value + 1}}</h4>
   <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="heading.contactRecord"
                  [headingLevel]="headingLevel" label="Company Contact Record" compId="contactRec"></error-summary>
@@ -8,7 +8,7 @@
                    (errorList)="updateErrorList($event)"></contact-details>
 
   <div class="row">
-    <div class="btn-group-sm col-xs-12 text-right">
+    <div class="btn-group-sm col-xs-12 text-left">
       <button class="btn btn-primary" (click)="saveContactRecord()" i18n>{{'save.repres'|translate}}</button>
       <button class="btn btn-danger" (click)="deleteContactRecord()" i18n>{{'delete.repres'|translate}}</button>
       <button class="btn btn-default" (click)="revertContactRecord()" i18n>{{'discard.changes'|translate}}</button>

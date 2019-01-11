@@ -37,7 +37,7 @@ export class CompanyBaseService {
     return (
       {
         address: '',
-        provText: '',
+        prov_text: '',
         city: '',
         country: {
             '__text': '',
@@ -57,9 +57,9 @@ export class CompanyBaseService {
     return (
       {
         status: '',
-        enrolVersion: 0.0,
-        lastSavedDate: '',
-        companyId: ''
+        enrol_version: '0.0',
+        last_saved_date: '',
+        company_id: ''
       }
     );
   }

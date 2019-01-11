@@ -42,19 +42,29 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   public validRec = true;
   public columnDefinitions = [
     {
+      label: 'Contact ID',
+      binding: 'contact_id',
+      width: '10'
+    },
+    {
       label: 'First Name',
-      binding: 'firstName',
+      binding: 'first_name',
       width: '25'
     },
     {
       label: 'Last Name',
-      binding: 'lastName',
+      binding: 'last_name',
       width: '25'
     },
     {
       label: 'Job Title',
-      binding: 'jobTitle',
+      binding: 'job_title',
       width: '25'
+    },
+    {
+      label: 'Status',
+      binding: 'status',
+      width: '15'
     }
   ];
 
@@ -72,15 +82,15 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
 
   ngOnInit() {
     // console.log('this.isInterannnnnl: ' + this.isInternal);
-    if (this.isInternal) {
-      this.columnDefinitions.concat(
-        {
-          label: 'Status',
-          binding: 'contactStatus',
-          width: '25'
-        }
-      );
-    }
+    // if (this.isInternal) {
+    //   this.columnDefinitions.concat(
+    //     {
+    //       label: 'Status',
+    //       binding: 'contactStatus',
+    //       width: '25'
+    //     }
+    //   );
+    // }
   }
 
   ngAfterViewInit() {

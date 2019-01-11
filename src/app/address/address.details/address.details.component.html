@@ -2,11 +2,26 @@
   <div [formGroup]="addressFormLocalModel">
     <div class="row">
       <div class="form-group col-xs-12" >
+        <label for="companyName" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{'company.name.full'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <input id="companyName" class="form-control full-width" (blur)="onblur()"
+                 formControlName="companyName" maxlength="80"/>
+          <control-messages *ngIf="addressFormLocalModel.controls.companyName.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="addressFormLocalModel.controls.companyName"
+                            controlId="companyName" label="company.name.full" parentId="addressDetails"
+                            parentLabel="REP Address"></control-messages>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-12" >
         <label for="address" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'addressDetails.street'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <input id="address" class="form-control full-width" (blur)="onblur()"
-            formControlName="address" maxlength="80"/>
+            formControlName="address" maxlength="120"/>
           <control-messages *ngIf="addressFormLocalModel.controls.address.invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls.address"
@@ -21,7 +36,7 @@
           <span class="field-name" i18n>{{'addressDetails.city'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <input id="city" class="form-control full-width"  (blur)="onblur()"
-                 formControlName="city" maxlength="60"/>
+                 formControlName="city" maxlength="35"/>
           <control-messages *ngIf="addressFormLocalModel.controls.city.invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls.city"
@@ -73,7 +88,7 @@
         <label for="provText" class="full-width">
           <span class="field-name">{{'addressDetails.provState'|translate}}</span>
           <input id="provText" class="form-control full-width" (blur)="onblur()"
-                 formControlName="provText"/>
+                 formControlName="provText" maxlength="40"/>
         <!--  <control-messages *ngIf="addressFormLocalModel.controls.provText.invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls.provText"

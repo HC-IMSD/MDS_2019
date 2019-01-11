@@ -6,12 +6,12 @@ import {ListService} from '../list-service';
 
 @Injectable()
 export class CompanyInfoService {
+
   public statusList: Array<any> = [
     GlobalsService.NEW,
     GlobalsService.AMEND,
     GlobalsService.FINAL
   ];
-
 
   constructor() {
   }
@@ -25,10 +25,28 @@ export class CompanyInfoService {
     if (!fb) {return null; }
     return fb.group({
       formStatus: GlobalsService.NEW,
-      enrolVersion: '0.1',
+      enrolVersion: '0.0',
       lastSavedDate: '',
-      companyId: ['', [Validators.required, ValidationService.companyIdValidator]]
+      companyId: ['', [Validators.required, ValidationService.companyIdValidator]],
+      amendReason: ['', [Validators.required]],
+      otherDetails: '',
+      areLicensesTransfered: ['', [Validators.required]]
     });
+  }
+
+  public static getAmendReasons() {
+    return ['manuname', 'manuaddr', 'facility', 'other'];
+  }
+
+  /**
+   * Gets an yesno array
+   *
+   */
+  public static getYesNoList() {
+    return [
+      GlobalsService.YES,
+      GlobalsService.NO
+    ];
   }
 
   /**
@@ -39,25 +57,28 @@ export class CompanyInfoService {
     return (
       {
         status: '',
-        enrolVersion: '0.1',
-        lastSavedDate: '',
-        companyId: ''
+        enrol_version: '0.0',
+        last_saved_date: '',
+        company_id: '',
+        amend_reason: '',
+        other_details: '',
+        are_licenses_transfered: ''
       }
     );
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, generalInfoModel) {
     generalInfoModel.status = formRecord.controls.formStatus.value;
-    generalInfoModel.enrolVersion = formRecord.controls.enrolVersion.value;
-    generalInfoModel.lastSavedDate = formRecord.controls.lastSavedDate.value;
-    generalInfoModel.companyId = formRecord.controls.companyId.value;
+    generalInfoModel.enrol_version = formRecord.controls.enrolVersion.value;
+    generalInfoModel.last_saved_date = formRecord.controls.lastSavedDate.value;
+    generalInfoModel.company_id = formRecord.controls.companyId.value;
   }
 
   public static mapDataModelToFormModel(generalInfoModel, formRecord: FormGroup) {
     formRecord.controls.formStatus.setValue(generalInfoModel.status);
-    formRecord.controls.enrolVersion.setValue(generalInfoModel.enrolVersion);
-    formRecord.controls.lastSavedDate.setValue(generalInfoModel.lastSavedDate);
-    formRecord.controls.companyId.setValue(generalInfoModel.companyId);
+    formRecord.controls.enrolVersion.setValue(generalInfoModel.enrol_version);
+    formRecord.controls.lastSavedDate.setValue(generalInfoModel.last_saved_date);
+    formRecord.controls.companyId.setValue(generalInfoModel.company_id);
   }
 
   public static getRecordId(record: FormGroup) {

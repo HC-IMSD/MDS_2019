@@ -12,7 +12,7 @@ import {NgbTabset} from '@ng-bootstrap/ng-bootstrap';
 import {CompanyDataLoaderService} from '../data-loader/company-data-loader.service';
 import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
-import {DatePipe} from "@angular/common";
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'company-base',
@@ -131,6 +131,7 @@ export class CompanyBaseComponent implements OnInit {
     if (this.errorList && this.errorList.length > 0) {
       this.showErrors = true;
     } else {
+      this._updatedAutoFields();
       if (this.isInternalSite) {
         this.genInfoModel.status = CompanyBaseService.setFinalStatus();
       }
@@ -143,7 +144,8 @@ export class CompanyBaseComponent implements OnInit {
           }
         }
       };
-      this.fileServices.saveXmlToFile(result, 'hcmdsco', true, this.xslName);
+      const fileName = this._buildfileName();
+      this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
     }
   }
 
@@ -156,7 +158,9 @@ export class CompanyBaseComponent implements OnInit {
         'contact': this.contactModel
       }
     }};
-    this.fileServices.saveJsonToFile(result, 'hcmdsco-test', null);
+    const version: Array<any> = this.genInfoModel.enrol_version.toString().split('.');
+    const fileName = 'draftrepcom-' + version[0] + '-' + version[1];
+    this.fileServices.saveJsonToFile(result, fileName, null);
   }
 
   public processFile(fileData: ConvertResults) {
@@ -175,44 +179,27 @@ export class CompanyBaseComponent implements OnInit {
     this._updatedSavedDate();
     if (this.isInternalSite) {
       this.genInfoModel.status = CompanyBaseService.setFinalStatus();
-      this.genInfoModel.enrolVersion = Math.floor(this.genInfoModel.enrolVersion) + 1;
+      this.genInfoModel.enrol_version = (Math.floor(Number(this.genInfoModel.enrol_version)) + 1).toString() + '.0';
     } else {
-      this.genInfoModel.enrolVersion += 0.1;
+      const version: Array<any> = this.genInfoModel.enrol_version.split('.');
+      version[1] = (Number(version[1]) + 1).toString();
+      this.genInfoModel.enrol_version = version[0] + '.' + version[1];
     }
   }
 
   private _updatedSavedDate() {
     const today = new Date();
     const pipe = new DatePipe('en-US');
-    this.genInfoModel.lastSavedDate = pipe.transform(today, 'yyyy-MM-dd');
+    this.genInfoModel.last_saved_date = pipe.transform(today, 'yyyy-MM-dd');
   }
 
-  public preload() {
-    // console.log("Calling preload")
-   // this.theraModelList = [{'id': 0, 'theraDetails': 'Test'}];
+  private _buildfileName() {
+    const version: Array<any> = this.genInfoModel.enrol_version.split('.');
+    if (this.isInternalSite) {
+      return 'hcrepcom-' + this.genInfoModel.company_id + '-' + version[0] + '-' + version[1];
+    } else {
+      return 'draftrepcom-' + version[0] + '-' + version[1];
+    }
   }
-
-  public updateChild() {
-    // console.log("Calling updateChild")
-  }
-
-  // public loadAddressData() {
-  //   const modelData3 = {
-  //       'id': 124,
-  //       'company': 'asdaa',
-  //       'address': 'adasd',
-  //       'provText': '',
-  //       'provList': '',
-  //       'city': 'asdas',
-  //       'country': {
-  //         '__text': 'AIA',
-  //         '_label_en': 'Anguilla',
-  //         '_label_fr': 'Anguilla'
-  //       },
-  //       'postal': ''
-  //     };
-  //   this.addressModel = modelData3;
-  // }
-
 
 }
