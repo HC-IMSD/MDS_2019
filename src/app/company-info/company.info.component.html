@@ -44,28 +44,75 @@
       </div>
     </div>
     <div class="row" *ngIf="isAmend">
-      <div class="form-group col-xs-6" >
-        <label for="amendReason" class="required full-width">
-          <span class="field-name" i18n>{{'reason.amend' |translate}}</span>
+
+      <fieldset id="amendReasons" class="form-group col-xs-12">
+        <label>
+          <span class="field-name">{{'amend.reason' | translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="generalInfoFormLocalModel.controls.amendReason.invalid"
                             [showError]="showFieldErrors"
                             [control]="generalInfoFormLocalModel.controls.amendReason"
-                            controlId="amendReason" label="reason.amend"
-                            parentId="generalInfo"
+                            controlId="amendReason" label="amend.reason"
+                            parentId="amendReasons"
                             parentLabel="Regulatory Company Enrolment"></control-messages>
-          <select id="amendReason" required class="form-control full-width" (blur)="amendReasonOnblur()"
-                  (selected)="amendReasonOnblur()" formControlName="amendReason">
-            <option *ngFor="let rea of amendReasonList" [ngValue]="{{rea|translate}}"> {{rea|translate}}</option>
-
-          </select>
+          <input id="amendReason" type="hidden" class="form-control full-width"
+                 formControlName="amendReason"/>
         </label>
-      </div>
-      <div *ngIf="isOther()" class="col-xs-6 form-group">
-        <label for="otherDetails">{{'other.details'|translate}}</label>
-        <textarea type="text" class="form-control full-width" id="otherDetails"
-                  formControlName="amendReason" maxlength="500" />
-      </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="checkbox">
+              <label for="nameChange">
+                <input type="checkbox" (blur)="nameChangeOnblur"
+                       formControlName="nameChange"
+                       id="nameChange"/>
+                <span>{{'manuname.change'|translate}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="checkbox">
+              <label for="addressChange">
+                <input type="checkbox" (blur)="addressChangeOnblur"
+                       formControlName="addressChange"
+                       id="addressChange"/>
+                <span>{{'manuaddr.change'|translate}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="checkbox">
+              <label for="facilityChange">
+                <input type="checkbox" (blur)="facilityChangeOnblur"
+                       formControlName="facilityChange"
+                       id="facilityChange"/>
+                <span>{{'facility.change'|translate}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="checkbox">
+              <label for="otherChange">
+                <input type="checkbox" (blur)="amendReasonOnblur()"
+                       formControlName="otherChange"
+                       id="otherChange"/>
+                <span>{{'other'|translate}}</span>
+              </label>
+            </div>
+          </div>
+          <div *ngIf="isOther()" class="col-xs-6 form-group">
+            <label for="otherDetails">{{'other.details'|translate}}</label>
+            <textarea type="text" class="form-control full-width" id="otherDetails"
+                      formControlName="otherDetails" maxlength="500" />
+          </div>
+        </div>
+      </fieldset>
+
     </div>
     <div class="row">
       <div class="form-group col-xs-6 rep-margin-top-12" >
@@ -78,8 +125,8 @@
                             controlId="areLicensesTransfered" label="is.solicited"
                             parentId="generalInfo"
                             parentLabel="Regulatory Company Enrolment"></control-messages>
-          <select id="areLicensesTransfered" required class="form-control full-width" (blur)="licTransOnblur()"
-                  (selected)="licTransOnblur()" formControlName="areLicensesTransfered">
+          <select id="areLicensesTransfered" required class="form-control full-width" (blur)="amendReasonOnblur()"
+                  (selected)="amendReasonOnblur()" formControlName="areLicensesTransfered">
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
           </select>
         </label>

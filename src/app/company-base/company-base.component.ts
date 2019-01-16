@@ -39,6 +39,8 @@ export class CompanyBaseComponent implements OnInit {
   public countryList = [];
   public provinceList = [];
   public stateList = [];
+  public adminChanges = [];
+  public showAdminChanges: boolean;
   public showErrors: boolean;
   public title = '';
   public headingLevel = 'h2';
@@ -47,6 +49,7 @@ export class CompanyBaseComponent implements OnInit {
   public addressModel = CompanyBaseService.getEmptyAddressDetailsModel();
   public genInfoModel = CompanyBaseService.getEmptyGenInfoModel();
   public contactModel = [];
+  public adminChangesModel = CompanyBaseService.getEmptyAdminChangesModel();
   public foo = '';
   public fileServices: FileConversionService;
   public saveXmlLabel = 'save.draft';
@@ -58,6 +61,7 @@ export class CompanyBaseComponent implements OnInit {
 
     dataLoader = new CompanyDataLoaderService(this.http);
     this.countryList = [];
+    this.showAdminChanges = false;
     this.showErrors = false;
     this.fileServices = new FileConversionService();
   }
@@ -98,6 +102,15 @@ export class CompanyBaseComponent implements OnInit {
   processContactErrors(errorList) {
     this._contactErrors = errorList;
     this.processErrors();
+  }
+
+  processAdminChangesUpdate(adminChanges) {
+    this.adminChanges = adminChanges;
+    if (adminChanges && adminChanges.length > 0) {
+      this.showAdminChanges = adminChanges[0];
+    } else {
+      this.showAdminChanges = false;
+    }
   }
 
   // processTheraErrors(errorList) {

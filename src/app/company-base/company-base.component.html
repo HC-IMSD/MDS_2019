@@ -80,7 +80,24 @@
             </div>
         </section>
       </div>
-      <!--   <thera-list (errors)="processTheraErrors($event)"></thera-list>-->
+
+      <div *ngIf="showAdminChanges">
+        <section class="panel panel-primary mrgn-tp-lg">
+          <header class="panel-heading clearfix">
+            <div class="btn-group pull-right">
+            </div>
+            <h2 class="panel-title">{{'admin.changes'|translate}}</h2>
+          </header>
+          <div class="panel-body">
+            <div class="row">
+              <comp-admin-changes [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
+                                  [detailsChanged]="updateChild" [provinceList]="provinceList"
+                                  [addressModel]="addressModel" (errorList)="processAdminChangesUpdate($event)"
+                                  (errorList)="processAddressErrors($event)"></comp-admin-changes>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
     <div class="row btn-group-sm">
       <div class="form-group col-md-4">

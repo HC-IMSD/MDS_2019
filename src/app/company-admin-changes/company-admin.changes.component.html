@@ -1,0 +1,97 @@
+<div>
+  <div [formGroup]="adminChangesFormLocalModel">
+
+    <div *ngIf="showAmendInfo[1]" class="row">
+      <div class="col-xs-12 form-group alert alert-info" role="alert">
+           <span>
+            <p aria-live="polite">{{manufacturer.name.listed|translate}}</p>
+           </span>
+      </div>
+    </div>
+    <div *ngIf="showAmendInfo[2]" class="row">
+      <div class="col-xs-12 form-group alert alert-info" role="alert">
+           <span>
+            <p aria-live="polite">{{manufacturer.address.listed|translate}}</p>
+           </span>
+      </div>
+    </div>
+    <div *ngIf="showAmendInfo[3]" class="row">
+      <div class="col-xs-12 form-group alert alert-info" role="alert">
+           <span>
+            <p aria-live="polite">{{include.attestation|translate}}</p>
+           </span>
+      </div>
+    </div>
+
+    <div>
+      <section class="panel  panel-default">
+        <header class="panel-heading clearfix">
+          <div class="btn-group pull-right">
+          </div>
+          <h3 class="panel-title">{{'impacted.licence'|translate}}</h3>
+        </header>
+        <div class="panel-body">
+          <licence-list  (errors)="processLicenceErrors($event)"
+                        [licenceModel]="licenceModel"></licence-list>
+        </div>
+      </section>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-12" >
+        <label for="isReguChange" class="required full-width">
+          <span class="field-name" i18n>{{'is.change' |translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="adminChangesFormLocalModel.controls.isReguChange.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="adminChangesFormLocalModel.controls.isReguChange"
+                            controlId="isReguChange" label="is.change" parentId="adminChangesDetails"
+                            parentLabel="Admin Changes"></control-messages>
+          <select id="isReguChange" required class="form-control" (blur)="onblur()"
+                  formControlName="isReguChange">
+            <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="isReguChange()">
+      <div class="form-group col-xs-6" >
+        <label for="newCompanyId" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{'company.id'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="adminChangesFormLocalModel.controls.newCompanyId.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="adminChangesFormLocalModel.controls.newCompanyId"
+                            controlId="newCompanyId" label="company.id" parentId="adminChangesDetails"
+                            parentLabel="Admin Changes"></control-messages>
+          <input id="newCompanyId" class="form-control full-width" (blur)="onblur()"
+                 formControlName="newCompanyId" maxlength="6"/>
+        </label>
+      </div>
+      <div class="form-group col-xs-6" >
+        <label for="newContactId" class="full-width">
+          <span class="field-name" i18n>{{'new.contact.id'|translate}}</span>
+          <input id="newContactId" class="form-control full-width"  (blur)="onblur()"
+                 formControlName="newContactId" maxlength="5"/>
+        </label>
+      </div>
+    </div>
+    <div class="row" *ngIf="isReguChange()">
+      <div class="form-group col-xs-6" >
+        <label for="newContactName" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{'new.contact.name'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="adminChangesFormLocalModel.controls.newContactName.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="adminChangesFormLocalModel.controls.newContactName"
+                            controlId="newContactName" label="new.contact.name" parentId="adminChangesDetails"
+                            parentLabel="Admin Changes"></control-messages>
+          <input id="newContactName" class="form-control full-width"  (blur)="onblur()"
+                 formControlName="newContactName" maxlength="40"/>
+        </label>
+      </div>
+    </div>
+
+    <!-- <pre>{{adminChangesFormLocalModel.value |json}}</pre>-->
+  </div>
+</div>

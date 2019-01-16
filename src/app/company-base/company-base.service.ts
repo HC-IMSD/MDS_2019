@@ -59,7 +59,33 @@ export class CompanyBaseService {
         status: '',
         enrol_version: '0.0',
         last_saved_date: '',
-        company_id: ''
+        company_id: '',
+        amend_reasons: {
+          manufacturer_name_change: '',
+          manufacturer_address_change: '',
+          facility_change: '',
+          other_change: '',
+          other_details: ''
+        },
+        are_licenses_transfered: ''
+      }
+    );
+  }
+
+  /**
+   * Gets an empty Admin Changes Model
+   *
+   */
+  public static getEmptyAdminChangesModel() {
+
+    return (
+      {
+        all_licence_number: '',
+        all_dossier_id: '',
+        is_regulatory_change: '',
+        new_company_id: '',
+        new_contact_id: '',
+        new_contact_name: ''
       }
     );
   }

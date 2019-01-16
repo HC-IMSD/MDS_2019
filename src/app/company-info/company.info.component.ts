@@ -34,12 +34,12 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   public showFieldErrors: boolean;
   public setAsComplete = true;
   public yesNoList: Array<any> = [];
-  public amendReasonList: Array<any> = [];
+  public reasonFlags: Array<boolean> = [];
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef) {
     this.showFieldErrors = false;
     this.yesNoList = CompanyInfoService.getYesNoList();
-    this.amendReasonList = CompanyInfoService.getAmendReasons();
+    this.reasonFlags = [false, false, false, false]; // 0: show admin section; 1,2,3: amend reasons.
   }
 
   ngOnInit() {
@@ -160,25 +160,45 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       this.genInfoModel);
   }
 
-  amendReasonOnblur() {
+  nameChangeOnblur() {
     // console.log('input is onblur');
-    this.onblur();
-    this.showAdminChanges.emit(
-      this.generalInfoFormLocalModel.controls.amendReason.value === 'manuname' ||
-      this.generalInfoFormLocalModel.controls.amendReason.value === 'manuaddr' ||
-      this.generalInfoFormLocalModel.controls.amendReason.value === 'facility'
-    );
+    this.reasonFlags[1] = this.generalInfoFormLocalModel.controls.nameChange.value;
+    this.amendReasonOnblur();
   }
 
-  licTransOnblur() {
+  addressChangeOnblur() {
     // console.log('input is onblur');
+    this.reasonFlags[2] = this.generalInfoFormLocalModel.controls.addressChange.value;
+    this.amendReasonOnblur();
+  }
+
+  facilityChangeOnblur() {
+    // console.log('input is onblur');
+    this.reasonFlags[3] = this.generalInfoFormLocalModel.controls.facilityChange.value;
+    this.amendReasonOnblur();
+  }
+
+  amendReasonOnblur() {
+    // console.log('input is onblur');
+    this._hasReasonChecked();
+    this.reasonFlags[0] = (this.generalInfoFormLocalModel.controls.areLicensesTransfered.value === GlobalsService.YES) ||
+      this.reasonFlags[1] || this.reasonFlags[2] || this.reasonFlags[3];
     this.onblur();
-    this.showAdminChanges.emit(
-      this.generalInfoFormLocalModel.controls.areLicensesTransfered.value === GlobalsService.YES);
+    this.showAdminChanges.emit(this.reasonFlags);
   }
 
   isOther() {
-    return (this.generalInfoFormLocalModel.controls.amendReason.value === 'other');
+    return this.generalInfoFormLocalModel.controls.otherChange.value;
+  }
+
+  private _hasReasonChecked() {
+    this.generalInfoFormLocalModel.controls.amendReason.setValue(null);
+    if (this.generalInfoFormLocalModel.controls.nameChange.value ||
+      this.generalInfoFormLocalModel.controls.addressChange.value ||
+      this.generalInfoFormLocalModel.controls.facilityChange.value ||
+      this.generalInfoFormLocalModel.controls.otherChange.value) {
+      this.generalInfoFormLocalModel.controls.amendReason.setValue('reasonFilled');
+    }
   }
 }
 
