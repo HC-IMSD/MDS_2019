@@ -26,13 +26,13 @@
         <label for="companyId" [ngClass]="{'required':isInternal}" aria-required="true">
           <span class="field-name" i18n>{{'company.id' |translate}}</span>
           <strong class="required" *ngIf="isInternal" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="companyId" class="form-control" formControlName="companyId"
-                 [readonly]="disableAmend()" maxlength="7" (blur)="onblur()" />
           <control-messages *ngIf="(!disableAmend() && generalInfoFormLocalModel.controls.companyId.invalid)"
                             [showError]="showFieldErrors"
                             [control]="generalInfoFormLocalModel.controls.companyId"
                             controlId="companyId" label="company.id" parentId="generalInfo"
                             parentLabel="Regulatory Company Enrolment"></control-messages>
+          <input id="companyId" class="form-control" formControlName="companyId"
+                 [readonly]="disableAmend()" maxlength="7" (blur)="onblur()" />
         </label>
       </div>
     </div>
@@ -106,9 +106,10 @@
             </div>
           </div>
           <div *ngIf="isOther()" class="col-xs-6 form-group">
-            <label for="otherDetails">{{'other.details'|translate}}</label>
+            <label for="otherDetails">{{'other.details'|translate}}
             <textarea type="text" class="form-control full-width" id="otherDetails"
-                      formControlName="otherDetails" maxlength="500" />
+                      formControlName="otherDetails" maxlength="500"></textarea>
+            </label>
           </div>
         </div>
       </fieldset>
@@ -140,4 +141,5 @@
       <!--</div>-->
     <!--pre>{{generalInfoFormLocalModel.value |json}}</pre>
       <pre>companyId.invalid={{generalInfoFormLocalModel.controls.companyId.invalid}}</pre-->
+  </div>
 </div>

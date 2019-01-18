@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {DeviceDetailsComponent} from './device.details/device.details.component';
-import {DeviceRecordComponent} from './device-record/device-record.component';
+import {LicenceDetailsComponent} from './licence.details/licence.details.component';
+import {LicenceRecordComponent} from './licence-record/licence-record.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {SelectModule} from 'ng2-select';
 import {FileIoModule} from '../filereader/file-io/file-io.module';
 import {ErrorModule} from '../error-msg/error-ui.module';
-import {DeviceListComponent} from './device.list/device.list.component';
-import {DeviceListService} from './device.list/device-list.service';
+import {LicenceListComponent} from './licence.list/licence.list.component';
+import {LicenceListService} from './licence.list/licence-list.service';
 import {CommonFeatureModule} from '../common/common-feature.module';
 import {TranslateModule} from '@ngx-translate/core';
-import {NumbersOnlyDirective} from '../number-only/number.only.directive';
 
 @NgModule({
   imports: [
@@ -27,19 +26,18 @@ import {NumbersOnlyDirective} from '../number-only/number.only.directive';
 
   ],
   declarations: [
-    DeviceRecordComponent,
-    DeviceDetailsComponent,
-    DeviceListComponent,
-    NumbersOnlyDirective
+    LicenceRecordComponent,
+    LicenceDetailsComponent,
+    LicenceListComponent
 
   ],
   exports: [
-    DeviceRecordComponent,
-    DeviceDetailsComponent,
-    DeviceListComponent
+    LicenceRecordComponent,
+    LicenceDetailsComponent,
+    LicenceListComponent
   ],
   providers: [
-   DeviceListService
+   LicenceListService
   ]
 })
-export class DeviceModule { }
+export class LicenceModule { }

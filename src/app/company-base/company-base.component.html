@@ -35,6 +35,7 @@
             <com-gen-info [showErrors]="showErrors" [isInternal]="isInternalSite" [inComplete]="isFinal"
                               [detailsChanged]="updateChild" [lang]="lang"
                               [genInfoModel]="genInfoModel"
+                              (showAdminChanges)="processAdminChangesUpdate($event)"
                               (errorList)="processGenInfoErrors($event)">
             </com-gen-info>
 
@@ -90,10 +91,11 @@
           </header>
           <div class="panel-body">
             <div class="row">
-              <comp-admin-changes [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
-                                  [detailsChanged]="updateChild" [provinceList]="provinceList"
-                                  [addressModel]="addressModel" (errorList)="processAdminChangesUpdate($event)"
-                                  (errorList)="processAddressErrors($event)"></comp-admin-changes>
+              <comp-admin-changes [showErrors]="showErrors" [showAdminChanges]="countryList" [lang]="lang"
+                                  [detailsChanged]="updateChild" [isInternal]="isInternalSite"
+                                  [adminChangesModel]="adminChangesModel"
+                                  (adminChangesErrorList)="processAdminChangesErrors($event)"
+                                  (licenceErrorList)="processLicenceErrors($event)"></comp-admin-changes>
             </div>
           </div>
         </section>

@@ -26,9 +26,9 @@ export class CompanyAdminChangesComponent implements OnInit, OnChanges, AfterVie
   @Input('group') public adminChangesFormRecord: FormGroup;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
+  @Input() isInternal: boolean;
   @Input() showAdminChanges;
   @Input() adminChangesModel;
-  @Input() licenceModel;
   @Input() lang;
   @Output() adminChangesErrorList = new EventEmitter(true);
   @Output() licenceErrorList = new EventEmitter(true);
@@ -39,6 +39,7 @@ export class CompanyAdminChangesComponent implements OnInit, OnChanges, AfterVie
   public showAmendInfo: Array<boolean> = [false, false, false, false];
   public yesNoList: Array<any> = [];
   public showFieldErrors = false;
+  public licenceModel = [];
   private adminChangesService: CompanyAdminChangesService;
 
   constructor(private _fb: FormBuilder, // todo: private dataLoader: DossierDataLoaderService,
@@ -78,7 +79,6 @@ export class CompanyAdminChangesComponent implements OnInit, OnChanges, AfterVie
     this.adminChangesErrorList.emit(temp);
 
   }
-
 
   ngOnChanges(changes: SimpleChanges) {
 
@@ -139,6 +139,11 @@ export class CompanyAdminChangesComponent implements OnInit, OnChanges, AfterVie
   }
 
   processLicenceErrors(errorList) {
+    this.licenceErrorList.emit(errorList);
+
+  }
+
+  processLicenceModel(errorList) {
     this.licenceErrorList.emit(errorList);
 
   }

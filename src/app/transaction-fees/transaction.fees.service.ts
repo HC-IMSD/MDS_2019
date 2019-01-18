@@ -27,7 +27,7 @@ export class TransactionFeesService {
       fees: [null, Validators.required],
       deferralRequest: [null, Validators.required],
       feeRemission: [null, Validators.required],
-      grossRevenue: ['', Validators.required],
+      grossRevenue: ['', [Validators.required, ValidationService.numberValidator]],
       percentGross: ['', []],
       deferralStatement: [false, Validators.required],
       remissionCertified: [false, Validators.required],

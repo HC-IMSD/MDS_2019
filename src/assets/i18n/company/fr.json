@@ -96,6 +96,8 @@
   "all.licence.num": "fr_All licence number",
   "all.dossier.id": "fr_All dossier ID",
   "add.licence": "fr_Add licence",
+  "save.licence": "Save licence",
+  "delete.licence": "Delete licence",
   "licence.num": "fr_Licence number",
   "dossier.id": "fr_Dossier ID",
   "delete.licence": "fr_Delete licence",

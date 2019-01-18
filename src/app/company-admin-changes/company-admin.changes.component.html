@@ -4,21 +4,21 @@
     <div *ngIf="showAmendInfo[1]" class="row">
       <div class="col-xs-12 form-group alert alert-info" role="alert">
            <span>
-            <p aria-live="polite">{{manufacturer.name.listed|translate}}</p>
+            <p aria-live="polite">{{'manufacturer.name.listed'|translate}}</p>
            </span>
       </div>
     </div>
     <div *ngIf="showAmendInfo[2]" class="row">
       <div class="col-xs-12 form-group alert alert-info" role="alert">
            <span>
-            <p aria-live="polite">{{manufacturer.address.listed|translate}}</p>
+            <p aria-live="polite">{{'manufacturer.address.listed'|translate}}</p>
            </span>
       </div>
     </div>
     <div *ngIf="showAmendInfo[3]" class="row">
       <div class="col-xs-12 form-group alert alert-info" role="alert">
            <span>
-            <p aria-live="polite">{{include.attestation|translate}}</p>
+            <p aria-live="polite">{{'include.attestation'|translate}}</p>
            </span>
       </div>
     </div>
@@ -31,8 +31,8 @@
           <h3 class="panel-title">{{'impacted.licence'|translate}}</h3>
         </header>
         <div class="panel-body">
-          <licence-list  (errors)="processLicenceErrors($event)"
-                        [licenceModel]="licenceModel"></licence-list>
+          <licence-list  [licenceModel]="licenceModel" [showErrors]="showErrors" [isInternal]="isInternal"
+                        (errors)="processLicenceErrors($event)"></licence-list>
         </div>
       </section>
     </div>

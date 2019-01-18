@@ -1,0 +1,18 @@
+<div class="container-fluid" [formGroup]="licenceRecordModel">
+  <h3>{{'licence.details'| translate}}&nbsp;{{licenceRecordModel.controls.id.value + 1}}</h3>
+  <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
+                 [errorList]="errorList" headingPreamble="licence.record"
+                 [headingLevel]="headingLevel" label="Licence Record" compId="licenceRec"></error-summary>
+  <licence-details [showErrors]="showErrors" [isInternal]="isInternal"
+                   [detailsChanged]="updateChild" [group]="licenceRecordModel.controls.licenceDetails"
+                   (errorList)="updateErrorList($event)"></licence-details>
+
+  <div class="row">
+    <div class="btn-group-sm col-xs-12 text-left">
+      <button class="btn btn-primary" (click)="saveLicenceRecord()" i18n>{{'save.licence'|translate}}</button>
+      <button class="btn btn-danger" (click)="deleteLicenceRecord()" i18n>{{'delete.licence'|translate}}</button>
+    </div>
+  </div>
+
+  <!--pre>{{licenceRecordModel.value |json}}</pre-->
+</div>

@@ -35,6 +35,7 @@ export class CompanyAdminChangesService {
       {
         all_licence_number: '',
         all_dossier_id: '',
+        licences: '',
         is_regulatory_change: '',
         new_company_id: '',
         new_contact_id: '',
@@ -55,8 +56,26 @@ export class CompanyAdminChangesService {
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, adminChangesModel, licenceModel) {
-    adminChangesModel.all_licence_number = licenceModel.all_licence_number;
-    adminChangesModel.all_dossier_id = licenceModel.all_dossier_id;
+    // add licence number and dossier id to all fields
+    let aln = '';
+    licenceModel.forEach(record => {
+      aln += record.licence_number + ', ';
+    });
+    if (aln.length > 1) {
+      adminChangesModel.all_licence_number = aln.substring(0, (aln.length - 2));
+    } else {
+      adminChangesModel.all_licence_number = '';
+    }
+    let adi = '';
+    licenceModel.forEach(record => {
+      adi += record.dossier_id + ', ';
+    });
+    if (adi.length > 1) {
+      adminChangesModel.all_dossier_id = adi.substring(0, (aln.length - 2));
+    } else {
+      adminChangesModel.all_dossier_id = '';
+    }
+    adminChangesModel.licences = licenceModel;
     adminChangesModel.is_regulatory_change = formRecord.controls.isReguChange.value;
     adminChangesModel.new_company_id = formRecord.controls.newCompanyId.value;
     adminChangesModel.new_contact_id = formRecord.controls.newContactId.value;
@@ -64,12 +83,10 @@ export class CompanyAdminChangesService {
   }
 
   public static mapDataModelToFormModel(adminChangesModel, formRecord: FormGroup, licenceModel) {
-    licenceModel.all_licence_number = adminChangesModel.all_licence_number;
-    licenceModel.all_dossier_id = adminChangesModel.all_dossier_id;
+    licenceModel = adminChangesModel.licences;
     formRecord.controls.isReguChange.setValue(adminChangesModel.is_regulatory_change);
     formRecord.controls.newCompanyId.setValue(adminChangesModel.new_company_id);
     formRecord.controls.newContactId.setValue(adminChangesModel.new_contact_id);
     formRecord.controls.newContactName.setValue(adminChangesModel.new_contact_name);
   }
-
 }

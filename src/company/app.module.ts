@@ -9,9 +9,11 @@ import {CompanyBaseComponent} from '../app/company-base/company-base.component';
 import {MainPipeModule} from '../app/main-pipe/main-pipe.module';
 import {GlobalsService} from '../app/globals/globals.service';
 import {AddressModule} from '../app/address/address.module';
+import {LicenceModule} from '../app/licence/licence.module';
 // import {AddressDetailsComponent} from '../app/address/address.details/address.details.component';
 import {ContactModule} from '../app/contact/contact.module';
 import {CompanyInfoComponent} from '../app/company-info/company.info.component';
+import {CompanyAdminChangesComponent} from '../app/company-admin-changes/company-admin.changes.component';
 import {FileIoModule} from '../app/filereader/file-io/file-io.module';
 
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
@@ -27,6 +29,7 @@ import {CompanyDataLoaderService} from '../app/data-loader/company-data-loader.s
   declarations: [
     AppComponent,
     CompanyInfoComponent,
+    CompanyAdminChangesComponent,
     CompanyBaseComponent
   ],
   imports: [
@@ -37,6 +40,7 @@ import {CompanyDataLoaderService} from '../app/data-loader/company-data-loader.s
     MainPipeModule,
     AddressModule,
     ContactModule,
+    LicenceModule,
     FileIoModule,
     HttpClientModule,
     CommonFeatureModule,

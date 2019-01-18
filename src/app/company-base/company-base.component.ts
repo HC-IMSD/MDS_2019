@@ -104,7 +104,17 @@ export class CompanyBaseComponent implements OnInit {
     this.processErrors();
   }
 
-  processAdminChangesUpdate(adminChanges) {
+  processLicenceErrors(errorList) {
+    this._contactErrors = errorList;
+    this.processErrors();
+  }
+
+  processAdminChangesErrors(errorList) {
+    this._contactErrors = errorList;
+    this.processErrors();
+  }
+
+  processAdminChangesUpdate(adminChanges) { // todo: ?????
     this.adminChanges = adminChanges;
     if (adminChanges && adminChanges.length > 0) {
       this.showAdminChanges = adminChanges[0];

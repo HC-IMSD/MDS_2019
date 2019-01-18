@@ -1,0 +1,35 @@
+<div [formGroup]="licenceListForm">
+  <div formArrayName="licences">
+    <expander-component [group]="dataModel"
+                        [isValid]="validRec" [addRecord]="addRecordMsg"
+                        [columnDefinitions]="columnDefinitions"
+                        [deleteRecord]="deleteRecordMsg">
+      <licence-record
+        [detailsChanged]="updateLicenceDetails" [showErrors]="showErrors" [isInternal]="isInternal"
+        (saveRecord)="saveLicenceRecord($event)"
+        (errors)="updateErrorList($event)"
+        (revertRecord)="revertLicence($event)" (deleteRecord)="deleteLicence($event)"></licence-record>
+
+    </expander-component>
+    <div *ngIf="newRecordIndicator">
+      <licence-record
+        [detailsChanged]="updateLicenceDetails"
+        [group]="newLicenceForm"
+        [showErrors]="showErrors"
+        [isInternal]="isInternal"
+        (saveRecord)="saveLicenceRecord($event)"
+        (errors)="updateErrorList($event)"
+        (revertRecord)="revertLicence($event)" (deleteRecord)="deleteLicence($event)"></licence-record>
+    </div>
+  </div>
+  <div class="row mrgn-tp-md mrgn-bttm-lg">
+    <div class="btn-group-sm col-md-12 text-left">
+      <button class="btn btn-primary" (click)="addLicence()"
+              [disabled]="!licenceListForm.valid || isDirty()">
+       {{'add.licence'|translate}}
+      </button>
+    </div>
+  </div>
+<!--pre>Form Data {{licenceListForm.value |json}}</pre>
+  <pre>Data Model for Licence List {{dataModel|json}}</pre-->
+</div>
