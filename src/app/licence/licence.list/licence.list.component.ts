@@ -47,8 +47,8 @@ export class LicenceListComponent extends ListOperations implements OnInit, OnCh
       width: '60'
     },
     {
-      label: 'Licence Number',
-      binding: 'licence_number',
+      label: 'Dossier ID',
+      binding: 'dossier_id',
       width: '40'
     }
   ];
@@ -135,7 +135,7 @@ export class LicenceListComponent extends ListOperations implements OnInit, OnCh
       this.service.initIndex(changes['licenceModel'].currentValue);
       this.dataModel = this.service.getModelRecordList();
       // this.licenceListForm.controls['licences'] = this._fb.array([]);
-      this.service.createFormDataList(this.dataModel, this._fb, this.licenceListForm.controls['licences']);
+      this.service.createFormDataList(this.dataModel, this._fb, this.licenceListForm.controls['licences'], this.isInternal);
       this.validRec = true;
     }
 
@@ -182,7 +182,7 @@ export class LicenceListComponent extends ListOperations implements OnInit, OnCh
     let licenceFormList = <FormArray>this.licenceListForm.controls['licences'];
     console.log(licenceFormList);
     // 2. Get a blank Form Model for the new record
-    let formLicence = LicenceRecordService.getReactiveModel(this._fb);
+    let formLicence = LicenceRecordService.getReactiveModel(this._fb, this.isInternal);
     // 3. set record id
     this.service.setRecordId(formLicence, this.service.getNextIndex());
     // 4. Add the form record using the super class. New form is addded at the end

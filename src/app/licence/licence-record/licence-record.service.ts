@@ -8,7 +8,7 @@ export class LicenceRecordService {
   constructor() {
   }
 
-  public static getReactiveModel(fb: FormBuilder): FormGroup {
+  public static getReactiveModel(fb: FormBuilder, isInternal): FormGroup {
     if (!fb) {
       return null;
     }
@@ -17,7 +17,7 @@ export class LicenceRecordService {
         seqNumber: -1,
         detailsDirty: [false, Validators.required],
         isNew: true,
-        licenceDetails: LicenceDetailsService.getReactiveModel(fb)
+        licenceDetails: LicenceDetailsService.getReactiveModel(fb, isInternal)
       }
     );
   }

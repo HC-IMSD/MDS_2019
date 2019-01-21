@@ -164,7 +164,8 @@ export class CompanyBaseComponent implements OnInit {
           'address': this.addressModel,
           'contacts': {
             'contact': this.contactModel
-          }
+          },
+          'administrative_changes': this.adminChangesModel
         }
       };
       const fileName = this._buildfileName();
@@ -179,7 +180,8 @@ export class CompanyBaseComponent implements OnInit {
       'address': this.addressModel,
       'contacts': {
         'contact': this.contactModel
-      }
+      },
+      'administrative_changes': this.adminChangesModel
     }};
     const version: Array<any> = this.genInfoModel.enrol_version.toString().split('.');
     const fileName = 'draftrepcom-' + version[0] + '-' + version[1];
@@ -194,6 +196,9 @@ export class CompanyBaseComponent implements OnInit {
     this.addressModel = fileData.data.DEVICE_COMPANY_ENROL.address;
     const cont = fileData.data.DEVICE_COMPANY_ENROL.contacts.contact;
     this.contactModel = (cont instanceof Array) ? cont : [cont];
+    if (fileData.data.DEVICE_COMPANY_ENROL.administrative_changes) {
+      this.adminChangesModel = fileData.data.DEVICE_COMPANY_ENROL.administrative_changes;
+    }
 
     // this.testData = fileData.data;
   }

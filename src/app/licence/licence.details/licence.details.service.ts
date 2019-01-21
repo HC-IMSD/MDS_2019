@@ -15,12 +15,20 @@ export class LicenceDetailsService {
    * @param {FormBuilder} fb
    * @returns {any}
    */
-  public static getReactiveModel(fb: FormBuilder) {
-    if (!fb) {return null; }
-    return fb.group({
-      licenceNum: '',
-      dossierId: ''
-    });
+  public static getReactiveModel(fb: FormBuilder, isInternal) {
+    if (!fb) {
+      return null;
+    } else if (isInternal) {
+      return fb.group({
+        licenceNum: ['', [Validators.required, ValidationService.licenceNumValidator]],
+        dossierId: ['', [Validators.required]]
+      });
+    } else {
+      return fb.group({
+        licenceNum: ['', [Validators.required, ValidationService.licenceNumValidator]],
+        dossierId: ''
+      });
+    }
   }
 
   /**

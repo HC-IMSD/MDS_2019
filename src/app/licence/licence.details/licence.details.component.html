@@ -4,29 +4,29 @@
     <div class="row">
       <div class="form-group col-sm-12 ">
         <label for="licenceNum" class="required full-width">
-          <span class="field-name" i18n>{{'licence.number' |translate}}</span>
+          <span class="field-name" i18n>{{'licence.num' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="licenceFormLocalModel.controls.licenceNum.invalid"
                             [showError]="showFieldErrors"
                             [control]="licenceFormLocalModel.controls.licenceNum"
-                            controlId="licenceNum" label="licence.number" parentId="licenceDetails"
+                            controlId="licenceNum" label="licence.num" parentId="licenceDetails"
                             parentLabel="Licence Record"></control-messages>
-          <input id="licenceNum" class="form-control" formControlName="licenceNum"/>
+          <input id="licenceNum" class="form-control" formControlName="licenceNum" maxlength="10"/>
         </label>
       </div>
     </div>
     <div class="row">
       <div class="form-group col-sm-12" >
         <label for="dossierId" class="required full-width">
-          <span class="field-name" i18n>{{'licence.name'|translate}}</span>
+          <span class="field-name" i18n>{{'dossier.id'|translate}}</span>
           <strong *ngIf="isInternal" class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="licenceFormLocalModel.controls.dossierId.invalid"
+          <control-messages *ngIf="isInternal && licenceFormLocalModel.controls.dossierId.invalid"
                             [showError]="showFieldErrors"
                             [control]="licenceFormLocalModel.controls.dossierId"
-                            controlId="dossierId" label="company.id" parentId="licenceDetails"
+                            controlId="dossierId" label="dossier.id" parentId="licenceDetails"
                             parentLabel="Licence Record"></control-messages>
-          <input id="dossierId" class="form-control full-width" maxlength="6"
-                 [readonly]="isInternal" formControlName="dossierId"/>
+          <input id="dossierId" class="form-control" maxlength="7"
+                 [readonly]="!isInternal" formControlName="dossierId"/>
         </label>
       </div>
     </div>

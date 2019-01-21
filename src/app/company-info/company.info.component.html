@@ -62,7 +62,7 @@
           <div class="col-sm-12">
             <div class="checkbox">
               <label for="nameChange">
-                <input type="checkbox" (blur)="nameChangeOnblur"
+                <input type="checkbox" (blur)="nameChangeOnblur()"
                        formControlName="nameChange"
                        id="nameChange"/>
                 <span>{{'manuname.change'|translate}}</span>
@@ -74,7 +74,7 @@
           <div class="col-sm-12">
             <div class="checkbox">
               <label for="addressChange">
-                <input type="checkbox" (blur)="addressChangeOnblur"
+                <input type="checkbox" (blur)="addressChangeOnblur()"
                        formControlName="addressChange"
                        id="addressChange"/>
                 <span>{{'manuaddr.change'|translate}}</span>
@@ -86,7 +86,7 @@
           <div class="col-sm-12">
             <div class="checkbox">
               <label for="facilityChange">
-                <input type="checkbox" (blur)="facilityChangeOnblur"
+                <input type="checkbox" (blur)="facilityChangeOnblur()"
                        formControlName="facilityChange"
                        id="facilityChange"/>
                 <span>{{'facility.change'|translate}}</span>
@@ -105,8 +105,10 @@
               </label>
             </div>
           </div>
-          <div *ngIf="isOther()" class="col-xs-6 form-group">
-            <label for="otherDetails">{{'other.details'|translate}}
+        </div>
+        <div class="row">
+          <div *ngIf="isOther()" class="col-xs-12 form-group">
+            <label for="otherDetails"  class="full-width">{{'other.details'|translate}}
             <textarea type="text" class="form-control full-width" id="otherDetails"
                       formControlName="otherDetails" maxlength="500"></textarea>
             </label>
@@ -118,12 +120,12 @@
     <div class="row">
       <div class="form-group col-xs-6 rep-margin-top-12" >
         <label for="areLicensesTransfered" class="required full-width">
-          <span class="field-name" i18n>{{'is.solicited' |translate}}</span>
+          <span class="field-name" i18n>{{'ownership.transferred' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="generalInfoFormLocalModel.controls.areLicensesTransfered.invalid"
                             [showError]="showFieldErrors"
                             [control]="generalInfoFormLocalModel.controls.areLicensesTransfered"
-                            controlId="areLicensesTransfered" label="is.solicited"
+                            controlId="areLicensesTransfered" label="ownership.transferred"
                             parentId="generalInfo"
                             parentLabel="Regulatory Company Enrolment"></control-messages>
           <select id="areLicensesTransfered" required class="form-control full-width" (blur)="amendReasonOnblur()"

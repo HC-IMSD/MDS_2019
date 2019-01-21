@@ -71,7 +71,7 @@ export class CompanyAdminChangesService {
       adi += record.dossier_id + ', ';
     });
     if (adi.length > 1) {
-      adminChangesModel.all_dossier_id = adi.substring(0, (aln.length - 2));
+      adminChangesModel.all_dossier_id = adi.substring(0, (adi.length - 2));
     } else {
       adminChangesModel.all_dossier_id = '';
     }

@@ -89,7 +89,7 @@ export class LicenceRecordComponent implements OnInit, AfterViewInit {
 
 
   private _initLicence() {
-    return LicenceRecordService.getReactiveModel(this._fb);
+    return LicenceRecordService.getReactiveModel(this._fb, this.isInternal);
   }
 
   ngOnChanges (changes: SimpleChanges) {

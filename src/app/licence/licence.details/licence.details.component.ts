@@ -40,7 +40,7 @@ export class LicenceDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   ngOnInit() {
     if (!this.licenceFormLocalModel) {
-      this.licenceFormLocalModel = LicenceDetailsService.getReactiveModel(this._fb);
+      this.licenceFormLocalModel = LicenceDetailsService.getReactiveModel(this._fb, this.isInternal);
     }
     this.detailsChanged = 0;
 
@@ -84,7 +84,7 @@ export class LicenceDetailsComponent implements OnInit, OnChanges, AfterViewInit
         this.setToLocalModel();
 
       } else {
-        this.licenceFormLocalModel = LicenceDetailsService.getReactiveModel(this._fb);
+        this.licenceFormLocalModel = LicenceDetailsService.getReactiveModel(this._fb, this.isInternal);
         this.licenceFormLocalModel.markAsPristine();
       }
 

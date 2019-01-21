@@ -30,7 +30,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   @Output() showAdminChanges = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  public isAmend = true;
+  public isAmend = false;
   public showFieldErrors: boolean;
   public setAsComplete = true;
   public yesNoList: Array<any> = [];
@@ -109,13 +109,13 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       this.errorList.emit(temp);
     }
     if (changes['inComplete']) {
-      this.setAsComplete = changes['inComplete'].currentValue && this.isInternal;
+      this.setAsComplete = changes['inComplete'].currentValue; // && this.isInternal;
     }
     if (changes['genInfoModel']) {
       const dataModel = changes['genInfoModel'].currentValue;
       CompanyInfoService.mapDataModelToFormModel(dataModel,
         (<FormGroup>this.generalInfoFormLocalModel));
-      // this.validRec = true; todo: valid record ???
+      // this.isAmend = (dataModel.status === GlobalsService.FINAL);
     }
 
   }

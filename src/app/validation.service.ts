@@ -166,7 +166,7 @@ export class ValidationService {
     if (!control.value) {
       return null;
     }
-    if (control.value.match(/^[0-9]{6}$/)) {
+    if (control.value.match(/^[0-9]{10}$/)) {
       return null;
     } else {
       return {'error.mgs.licence.number': true};

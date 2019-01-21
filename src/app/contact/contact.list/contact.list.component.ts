@@ -49,17 +49,17 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     {
       label: 'First Name',
       binding: 'first_name',
-      width: '25'
+      width: '20'
     },
     {
       label: 'Last Name',
       binding: 'last_name',
-      width: '25'
+      width: '20'
     },
     {
       label: 'Job Title',
       binding: 'job_title',
-      width: '25'
+      width: '20'
     },
     {
       label: 'Status',
@@ -197,13 +197,38 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
    */
   ngOnChanges(changes: SimpleChanges) {
     if (changes['isInternal'] && changes['isInternal'].currentValue) {
-      this.columnDefinitions = this.columnDefinitions.concat(
+      this.columnDefinitions = [
+        {
+          label: 'Contact ID',
+          binding: 'contact_id',
+          width: '10'
+        },
+        {
+          label: 'First Name',
+          binding: 'first_name',
+          width: '20'
+        },
+        {
+          label: 'Last Name',
+          binding: 'last_name',
+          width: '20'
+        },
+        {
+          label: 'Job Title',
+          binding: 'job_title',
+          width: '20'
+        },
         {
           label: 'Status',
-          binding: 'contactStatus',
-          width: '25'
+          binding: 'status',
+          width: '15'
+        },
+        {
+          label: 'HC Status',
+          binding: 'hc_status',
+          width: '15'
         }
-      );
+      ];
     }
     if (changes['saveContact']) {
       this.saveContactRecord(changes['saveContact'].currentValue);

@@ -52,9 +52,9 @@ export class LicenceListService extends ListService implements IMasterDetails {
     return LicenceRecordService.getEmptyModel();
   }
 
-  getLicenceFormRecord(fb: FormBuilder) {
+  getLicenceFormRecord(fb: FormBuilder, isInternal) {
 
-    return LicenceRecordService.getReactiveModel(fb);
+    return LicenceRecordService.getReactiveModel(fb, isInternal);
   }
 
 
@@ -64,9 +64,9 @@ export class LicenceListService extends ListService implements IMasterDetails {
 
   }
 
-  public createFormDataList(modelDataList, fb: FormBuilder, theList) {
+  public createFormDataList(modelDataList, fb: FormBuilder, theList, isInternal) {
     for (let i = 0; i < modelDataList.length; i++) {
-      const formRecord = LicenceRecordService.getReactiveModel(fb);
+      const formRecord = LicenceRecordService.getReactiveModel(fb, isInternal);
       this.licenceDataToForm(modelDataList[i], formRecord);
       theList.push(formRecord);
     }

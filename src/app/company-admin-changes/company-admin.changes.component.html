@@ -1,21 +1,21 @@
 <div>
   <div [formGroup]="adminChangesFormLocalModel">
 
-    <div *ngIf="showAmendInfo[1]" class="row">
+    <div *ngIf="showAmendInfo[1]" class="row row-center">
       <div class="col-xs-12 form-group alert alert-info" role="alert">
            <span>
             <p aria-live="polite">{{'manufacturer.name.listed'|translate}}</p>
            </span>
       </div>
     </div>
-    <div *ngIf="showAmendInfo[2]" class="row">
+    <div *ngIf="showAmendInfo[2]" class="row row-center">
       <div class="col-xs-12 form-group alert alert-info" role="alert">
            <span>
             <p aria-live="polite">{{'manufacturer.address.listed'|translate}}</p>
            </span>
       </div>
     </div>
-    <div *ngIf="showAmendInfo[3]" class="row">
+    <div *ngIf="showAmendInfo[3]" class="row row-center">
       <div class="col-xs-12 form-group alert alert-info" role="alert">
            <span>
             <p aria-live="polite">{{'include.attestation'|translate}}</p>
@@ -36,7 +36,7 @@
         </div>
       </section>
     </div>
-    <div class="row">
+    <div class="row row-center">
       <div class="form-group col-xs-12" >
         <label for="isReguChange" class="required full-width">
           <span class="field-name" i18n>{{'is.change' |translate}}</span>
@@ -54,7 +54,7 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="isReguChange()">
+    <div class="row row-center" *ngIf="isReguChange()">
       <div class="form-group col-xs-6" >
         <label for="newCompanyId" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'company.id'|translate}}</span>
@@ -76,7 +76,7 @@
         </label>
       </div>
     </div>
-    <div class="row" *ngIf="isReguChange()">
+    <div class="row row-center" *ngIf="isReguChange()">
       <div class="form-group col-xs-6" >
         <label for="newContactName" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'new.contact.name'|translate}}</span>
