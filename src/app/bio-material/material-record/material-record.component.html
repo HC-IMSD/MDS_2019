@@ -1,7 +1,7 @@
 <div class="container-fluid" [formGroup]="materialRecordModel">
   <h3>{{'heading.material'| translate}}&nbsp;{{materialRecordModel.controls.id.value + 1}}</h3>
   <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
-                 [errorList]="errorList" headingPreamble="heading.materialRecord"
+                 [errorList]="errorList" headingPreamble="heading.material.record"
                  [headingLevel]="headingLevel" label="Biological Material Record" compId="materialRec"></error-summary>
   <material-details [showErrors]="showErrors" [countries]="countries"
                     [speciesFamilyList]="speciesFamilyList"

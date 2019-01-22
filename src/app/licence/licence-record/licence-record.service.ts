@@ -44,6 +44,7 @@ export class LicenceRecordService {
 
   public static mapDataModelFormModel(licenceRecordModel, formRecord: FormGroup) {
     formRecord.controls.id.setValue(licenceRecordModel.id);
+    formRecord.controls.isNew.setValue(false);
     // formRecord.controls.companyName.setValue(licenceRecordModel.company);
     LicenceDetailsService.mapDataModelToFormModel(licenceRecordModel, <FormGroup>formRecord.controls.licenceDetails);
   }

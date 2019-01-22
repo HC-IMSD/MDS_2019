@@ -117,7 +117,8 @@ export class CompanyAdminChangesComponent implements OnInit, OnChanges, AfterVie
         this.adminChangesFormLocalModel = this.adminChangesService.getReactiveModel(this._fb);
         this.adminChangesFormLocalModel.markAsPristine();
       }
-      CompanyAdminChangesService.mapDataModelToFormModel(dataModel, (<FormGroup>this.adminChangesFormLocalModel), this.licenceModel);
+      this.licenceModel = dataModel.licences;
+      CompanyAdminChangesService.mapDataModelToFormModel(dataModel, (<FormGroup>this.adminChangesFormLocalModel));
     }
   }
 

@@ -193,14 +193,13 @@ export class CompanyBaseComponent implements OnInit {
      console.log(fileData);
     this.genInfoModel = fileData.data.DEVICE_COMPANY_ENROL.general_information;
     this.isFinal = (this.genInfoModel.status === GlobalsService.FINAL);
+    this.showAdminChanges = (this.genInfoModel.are_licenses_transfered === GlobalsService.YES);
     this.addressModel = fileData.data.DEVICE_COMPANY_ENROL.address;
     const cont = fileData.data.DEVICE_COMPANY_ENROL.contacts.contact;
     this.contactModel = (cont instanceof Array) ? cont : [cont];
     if (fileData.data.DEVICE_COMPANY_ENROL.administrative_changes) {
       this.adminChangesModel = fileData.data.DEVICE_COMPANY_ENROL.administrative_changes;
     }
-
-    // this.testData = fileData.data;
   }
 
   private _updatedAutoFields() {

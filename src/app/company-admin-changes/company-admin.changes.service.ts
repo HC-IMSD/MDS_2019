@@ -82,8 +82,8 @@ export class CompanyAdminChangesService {
     adminChangesModel.new_contact_name = formRecord.controls.newContactName.value;
   }
 
-  public static mapDataModelToFormModel(adminChangesModel, formRecord: FormGroup, licenceModel) {
-    licenceModel = adminChangesModel.licences;
+  public static mapDataModelToFormModel(adminChangesModel, formRecord: FormGroup) {
+    // licenceModel = adminChangesModel.licences;
     formRecord.controls.isReguChange.setValue(adminChangesModel.is_regulatory_change);
     formRecord.controls.newCompanyId.setValue(adminChangesModel.new_company_id);
     formRecord.controls.newContactId.setValue(adminChangesModel.new_contact_id);

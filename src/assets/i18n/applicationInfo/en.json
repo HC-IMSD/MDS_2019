@@ -36,6 +36,7 @@
   "heading.device.material": "Devices containing Biological Material",
   "heading.material.table": "Biological Material Attribute Table",
   "heading.material": "Biological Material",
+  "heading.material.record": "Biological Material Record",
   "device.name": "Name of Compatible Device",
   "licence.number": "Licence number",
   "material.name": "Name of Material",

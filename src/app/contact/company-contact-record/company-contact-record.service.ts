@@ -44,6 +44,7 @@ export class CompanyContactRecordService {
 
   public static mapDataModelFormModel(contactRecordModel, formRecord: FormGroup) {
     formRecord.controls.id.setValue(contactRecordModel.id);
+    formRecord.controls.isNew.setValue(false);
     // formRecord.controls.companyName.setValue(contactRecordModel.company);
     ContactDetailsService.mapDataModelToFormModel(contactRecordModel, <FormGroup>formRecord.controls.contactDetails);
   }
