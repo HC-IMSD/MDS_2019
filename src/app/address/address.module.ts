@@ -11,7 +11,6 @@ import {AddressListComponent} from './address.list/address.list.component';
 import {AddressListService} from './address.list/address-list.service';
 import {CommonFeatureModule} from '../common/common-feature.module';
 import {TranslateModule} from '@ngx-translate/core';
-import {NumbersOnlyDirective} from '../number-only/number.only.directive';
 
 @NgModule({
   imports: [
@@ -29,8 +28,7 @@ import {NumbersOnlyDirective} from '../number-only/number.only.directive';
   declarations: [
     CompanyAddressRecordComponent,
     AddressDetailsComponent,
-    AddressListComponent,
-    NumbersOnlyDirective
+    AddressListComponent
 
   ],
   exports:[

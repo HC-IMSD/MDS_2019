@@ -35,7 +35,7 @@ export class CompanyAdminChangesService {
       {
         all_licence_number: '',
         all_dossier_id: '',
-        licences: '',
+        licences: [],
         is_regulatory_change: '',
         new_company_id: '',
         new_contact_id: '',
@@ -83,7 +83,6 @@ export class CompanyAdminChangesService {
   }
 
   public static mapDataModelToFormModel(adminChangesModel, formRecord: FormGroup) {
-    // licenceModel = adminChangesModel.licences;
     formRecord.controls.isReguChange.setValue(adminChangesModel.is_regulatory_change);
     formRecord.controls.newCompanyId.setValue(adminChangesModel.new_company_id);
     formRecord.controls.newContactId.setValue(adminChangesModel.new_contact_id);

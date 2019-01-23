@@ -24,7 +24,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() genInfoModel;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
-  @Input() inComplete: boolean;
+ // @Input() inComplete: boolean;
   @Input() isInternal: boolean;
   @Output() errorList = new EventEmitter(true);
   @Output() showAdminChanges = new EventEmitter(true);
@@ -32,7 +32,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
 
   public isAmend = false;
   public showFieldErrors: boolean;
-  public setAsComplete = true;
+  public setAsComplete = false;
   public yesNoList: Array<any> = [];
   public reasonFlags: Array<boolean> = [];
 
@@ -108,14 +108,18 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       }
       this.errorList.emit(temp);
     }
-    if (changes['inComplete']) {
-      this.setAsComplete = changes['inComplete'].currentValue; // && this.isInternal;
+    if (changes['isInternal']) {
+      if (!changes['isInternal'].currentValue) {
+        this.setAsComplete = (this.genInfoModel.status === GlobalsService.FINAL && !changes['isInternal'].currentValue);
+      } // && this.isInternal;
     }
     if (changes['genInfoModel']) {
       const dataModel = changes['genInfoModel'].currentValue;
       CompanyInfoService.mapDataModelToFormModel(dataModel,
         (<FormGroup>this.generalInfoFormLocalModel));
-      // this.isAmend = (dataModel.status === GlobalsService.FINAL);
+      this.setAsComplete = (dataModel.status === GlobalsService.FINAL && !this.isInternal);
+      this.isAmend = (dataModel.status === GlobalsService.AMEND);
+      this.amendReasonOnblur();
     }
 
   }
@@ -135,13 +139,13 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
     console.log(rec);
   }
 
-  showAmendMsg() {
-
-    if (!this.generalInfoFormLocalModel) {
-      return false;
-    }
-    return this.generalInfoFormLocalModel.controls.formStatus.value === GlobalsService.AMEND;
-  }
+  // showAmendMsg() {
+  //
+  //   if (!this.generalInfoFormLocalModel) {
+  //     return false;
+  //   }
+  //   return this.generalInfoFormLocalModel.controls.formStatus.value === GlobalsService.AMEND;
+  // }
 
   disableAmend () {
     return !this.isInternal;

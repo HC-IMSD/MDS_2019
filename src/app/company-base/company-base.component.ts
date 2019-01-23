@@ -28,7 +28,7 @@ export class CompanyBaseComponent implements OnInit {
 
   private _genInfoErrors = [];
   private _addressErrors = [];
-  public isFinal = false;
+ // public dataFileStatus = '';
   public companyForm: FormGroup;
   public errorList = [];
   public rootTagText = 'DEVICE_COMPANY_ENROL';
@@ -44,8 +44,6 @@ export class CompanyBaseComponent implements OnInit {
   public showErrors: boolean;
   public title = '';
   public headingLevel = 'h2';
-  // public theraModelList=[ {"id":0,"theraDetails":"Test"}];
-  // public theraModelList = [];
   public addressModel = CompanyBaseService.getEmptyAddressDetailsModel();
   public genInfoModel = CompanyBaseService.getEmptyGenInfoModel();
   public contactModel = [];
@@ -55,7 +53,6 @@ export class CompanyBaseComponent implements OnInit {
   public saveXmlLabel = 'save.draft';
   public xslName = 'REP_MDS_CO_1_0.xsl';
 
-  /* public customSettings: TinyMce.Settings | any;*/
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private dataLoader: CompanyDataLoaderService,
               private http: HttpClient, private translate: TranslateService) {
 
@@ -114,7 +111,7 @@ export class CompanyBaseComponent implements OnInit {
     this.processErrors();
   }
 
-  processAdminChangesUpdate(adminChanges) { // todo: ?????
+  processAdminChangesUpdate(adminChanges) {
     this.adminChanges = adminChanges;
     if (adminChanges && adminChanges.length > 0) {
       this.showAdminChanges = adminChanges[0];
@@ -122,25 +119,6 @@ export class CompanyBaseComponent implements OnInit {
       this.showAdminChanges = false;
     }
   }
-
-  // processTheraErrors(errorList) {
-  //   this._theraErrors = errorList;
-  //   // update values for tab
-  //   for (let err of this._theraErrors) {
-  //     err.tabSet = this.tabs;
-  //     err.tabId = 'tab-thera';
-  //   }
-  //
-  //
-  //   // TODO how to update the tab titles. Doesn't seem to work in Html
-  //   if (this._theraErrors.length > 0) {
-  //     this.title = 'Errors';
-  //   } else {
-  //     this.title = '';
-  //   }
-  //   // console.log("error lenght"+this._theraErrors.length);
-  //   this.processErrors();
-  // }
 
   public hideErrorSummary() {
     return (this.showErrors && this.errorList && this.errorList.length > 0);
@@ -192,14 +170,25 @@ export class CompanyBaseComponent implements OnInit {
      console.log('processing file.....');
      console.log(fileData);
     this.genInfoModel = fileData.data.DEVICE_COMPANY_ENROL.general_information;
-    this.isFinal = (this.genInfoModel.status === GlobalsService.FINAL);
-    this.showAdminChanges = (this.genInfoModel.are_licenses_transfered === GlobalsService.YES);
+   // set amend reasons and admin changes section to null if status is Final
+    if (this.genInfoModel.status === GlobalsService.FINAL) {
+      this.genInfoModel.amend_reasons = {
+        manufacturer_name_change: '',
+        manufacturer_address_change: '',
+        facility_change: '',
+        other_change: '',
+        other_details: ''
+      };
+      this.genInfoModel.are_licenses_transfered = '';
+    } else {
+      this._updateAdminChanges();
+      if (fileData.data.DEVICE_COMPANY_ENROL.administrative_changes) {
+        this.adminChangesModel = fileData.data.DEVICE_COMPANY_ENROL.administrative_changes;
+      }
+    }
     this.addressModel = fileData.data.DEVICE_COMPANY_ENROL.address;
     const cont = fileData.data.DEVICE_COMPANY_ENROL.contacts.contact;
     this.contactModel = (cont instanceof Array) ? cont : [cont];
-    if (fileData.data.DEVICE_COMPANY_ENROL.administrative_changes) {
-      this.adminChangesModel = fileData.data.DEVICE_COMPANY_ENROL.administrative_changes;
-    }
   }
 
   private _updatedAutoFields() {
@@ -220,6 +209,10 @@ export class CompanyBaseComponent implements OnInit {
     this.genInfoModel.last_saved_date = pipe.transform(today, 'yyyy-MM-dd');
   }
 
+  public updateChild() {
+    // console.log("Calling updateChild")
+  }
+
   private _buildfileName() {
     const version: Array<any> = this.genInfoModel.enrol_version.split('.');
     if (this.isInternalSite) {
@@ -227,6 +220,16 @@ export class CompanyBaseComponent implements OnInit {
     } else {
       return 'draftrepcom-' + version[0] + '-' + version[1];
     }
+  }
+/*
+ * update adminChanges to show the text info in the adminChanges component
+ */
+  private _updateAdminChanges() {
+    this.adminChanges[1] = this.genInfoModel.amend_reasons.manufacturer_name_change === GlobalsService.YES;
+    this.adminChanges[2] = this.genInfoModel.amend_reasons.manufacturer_address_change === GlobalsService.YES;
+    this.adminChanges[3] = this.genInfoModel.amend_reasons.facility_change === GlobalsService.YES;
+    this.adminChanges[0] = this.genInfoModel.are_licenses_transfered  === GlobalsService.YES ||
+        this.adminChanges[1] || this.adminChanges[2] || this.adminChanges[3];
   }
 
 }

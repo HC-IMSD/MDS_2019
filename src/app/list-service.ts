@@ -29,9 +29,11 @@ export abstract class ListService {
    */
   public initIndex(recordList) {
     this.resetIndex();
-    for (let record of recordList) {
-      if (record.id > this._indexValue) {
-        this._indexValue = record.id;
+    if (recordList && recordList.lenth > 0) {
+      for (let record of recordList) {
+        if (record.id > this._indexValue) {
+          this._indexValue = record.id;
+        }
       }
     }
     // console.log("The index value "+  this._indexValue)
@@ -43,7 +45,7 @@ export abstract class ListService {
    */
   getNextIndex() {
     this._indexValue++;
-    //console.log("In list service get id "+ this._indexValue);
+    // console.log("In list service get id "+ this._indexValue);
     return this._indexValue;
   }
 
