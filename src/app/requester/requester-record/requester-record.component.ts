@@ -152,7 +152,9 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
    * Deletes the requester reocord with the selected id from both the model and the form
    */
   public deleteRequesterRecord(): void {
+    this.errorSummaryChild = null;
     this.deleteRecord.emit(this.requesterRecordModel.value.id);
+    this._emitErrors();
   }
 
   public saveRequesterRecord(record: FormGroup): void {

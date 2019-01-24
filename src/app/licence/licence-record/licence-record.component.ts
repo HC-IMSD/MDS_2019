@@ -152,7 +152,9 @@ export class LicenceRecordComponent implements OnInit, AfterViewInit {
    * Deletes the licence reocord with the selected id from both the model and the form
    */
   public deleteLicenceRecord(): void {
+    this.errorSummaryChild = null;
     this.deleteRecord.emit(this.licenceRecordModel.value.id);
+    this._emitErrors();
   }
 
   public saveLicenceRecord(): void {

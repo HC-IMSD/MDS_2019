@@ -57,12 +57,12 @@
     <div class="row row-center" *ngIf="isReguChange()">
       <div class="form-group col-xs-6" >
         <label for="newCompanyId" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'company.id'|translate}}</span>
+          <span class="field-name" i18n>{{'new.company.id'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="adminChangesFormLocalModel.controls.newCompanyId.invalid"
                             [showError]="showFieldErrors"
                             [control]="adminChangesFormLocalModel.controls.newCompanyId"
-                            controlId="newCompanyId" label="company.id" parentId="adminChangesDetails"
+                            controlId="newCompanyId" label="new.company.id" parentId="adminChangesDetails"
                             parentLabel="Admin Changes"></control-messages>
           <input id="newCompanyId" class="form-control full-width" (blur)="onblur()"
                  formControlName="newCompanyId" maxlength="6"/>

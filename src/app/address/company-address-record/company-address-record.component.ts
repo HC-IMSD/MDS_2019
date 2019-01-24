@@ -154,7 +154,9 @@ export class CompanyAddressRecordComponent implements OnInit, AfterViewInit {
    * Deletes the address reocord with the selected id from both the model and the form
    */
   public deleteAddressRecord(): void {
+    this.errorSummaryChild = null;
     this.deleteRecord.emit(this.addressRecordModel.value.id);
+    this._emitErrors();
   }
 
   public saveAddressRecord(): void {

@@ -28,14 +28,13 @@ export class CompanyBaseComponent implements OnInit {
 
   private _genInfoErrors = [];
   private _addressErrors = [];
- // public dataFileStatus = '';
+  private _contactErrors = [];
+  private _adminChangesErrors = [];
+  private _licenceErrors = [];
   public companyForm: FormGroup;
   public errorList = [];
   public rootTagText = 'DEVICE_COMPANY_ENROL';
   public isInternalSite = false;
-  // public testData: ConvertResults = null;
-  // public _theraErrors = [];
-  private _contactErrors = [];
   public countryList = [];
   public provinceList = [];
   public stateList = [];
@@ -81,8 +80,10 @@ export class CompanyBaseComponent implements OnInit {
   processErrors() {
     // console.log('@@@@@@@@@@@@ Processing errors in Company base compo
     this.errorList = [];
-    // concat the two array
-    this.errorList = this._genInfoErrors.concat(this._addressErrors.concat(this._contactErrors)); // .concat(this._theraErrors);
+    // concat the error arrays
+    this.errorList = this._genInfoErrors.concat(
+      this._addressErrors.concat(this._contactErrors.concat(
+        this._licenceErrors.concat(this._adminChangesErrors))));
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -102,12 +103,12 @@ export class CompanyBaseComponent implements OnInit {
   }
 
   processLicenceErrors(errorList) {
-    this._contactErrors = errorList;
+    this._licenceErrors = errorList;
     this.processErrors();
   }
 
   processAdminChangesErrors(errorList) {
-    this._contactErrors = errorList;
+    this._adminChangesErrors = errorList;
     this.processErrors();
   }
 

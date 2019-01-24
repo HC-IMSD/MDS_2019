@@ -154,7 +154,9 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    * Deletes the contact reocord with the selected id from both the model and the form
    */
   public deleteContactRecord(): void {
+    this.errorSummaryChild = null;
     this.deleteRecord.emit(this.contactRecordModel.value.id);
+    this._emitErrors();
   }
 
   public saveContactRecord(): void {

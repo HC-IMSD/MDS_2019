@@ -146,11 +146,6 @@ export class CompanyAdminChangesComponent implements OnInit, OnChanges, AfterVie
 
   }
 
-  processLicenceModel(errorList) {
-    this.licenceErrorList.emit(errorList);
-
-  }
-
   isReguChange() {
     if (this.adminChangesFormLocalModel.controls.isReguChange.value) {
       if (this.adminChangesFormLocalModel.controls.isReguChange.value === GlobalsService.YES) {

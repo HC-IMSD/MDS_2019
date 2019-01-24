@@ -151,7 +151,9 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
    * Deletes the device reocord with the selected id from both the model and the form
    */
   public deleteDeviceRecord(): void {
+    this.errorSummaryChild = null;
     this.deleteRecord.emit(this.deviceRecordModel.value.id);
+    this._emitErrors();
   }
 
   public saveDeviceRecord(): void {

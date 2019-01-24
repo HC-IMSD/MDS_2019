@@ -157,7 +157,9 @@ export class MaterialRecordComponent implements OnInit, AfterViewInit {
    * Deletes the material reocord with the selected id from both the model and the form
    */
   public deleteMaterialRecord(): void {
+    this.errorSummaryChild = null;
     this.deleteRecord.emit(this.materialRecordModel.value.id);
+    this._emitErrors();
   }
 
   public saveMaterialRecord(): void {
