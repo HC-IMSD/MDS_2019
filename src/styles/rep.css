@@ -37,6 +37,11 @@ label > select {
     margin-left: auto;
 }
 
+.row-center {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
 .row-even-rep {
     overflow: hidden;
 }
