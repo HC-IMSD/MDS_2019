@@ -1,42 +1,42 @@
 <div>
   <div [formGroup]="generalInfoFormLocalModel">
     <div class="row">
-      <div class="form-group col-md-2" >
+      <div class="form-group col-xs-2" >
         <label for="formStatus">
           <span class="field-name">{{'appl.status' |translate}}</span>
-          <input id="formStatus" class="form-control full-width" [readonly]="true"
+          <input id="formStatus" class="form-control" [readonly]="true"
                  formControlName="formStatus" (blur)="onblur()" />
         </label>
       </div>
-      <div class="form-group col-md-3" >
+      <div class="form-group col-xs-2" >
         <label for="enrolVersion">
           <span class="field-name">{{'enrol.version' |translate}}</span>
-          <input id="enrolVersion" class="form-control full-width" [readonly]="true"
+          <input id="enrolVersion" class="form-control" [readonly]="true"
                  formControlName="enrolVersion" (blur)="onblur()" />
         </label>
       </div>
-      <div class="form-group col-md-3" >
+      <div class="form-group col-xs-2" >
         <label for="lastSavedDate">
           <span class="field-name">{{'date.saved' |translate}}</span>
-          <input id="lastSavedDate" class="form-control full-width" [readonly]="true"
+          <input id="lastSavedDate" class="form-control" [readonly]="true"
                  formControlName="lastSavedDate" (blur)="onblur()" />
         </label>
       </div>
-      <div class="form-group col-md-3">
+      <div class="form-group col-xs-5">
         <label for="dossierId" [ngClass]="{'required':isInternal}" aria-required="true">
           <span class="field-name" i18n>{{'dossier.id' |translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <strong class="required" i18n *ngIf="isInternalSite()">{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="(isInternalSite() && generalInfoFormLocalModel.controls.dossierId.invalid)"
+                            [showError]="showFieldErrors"
+                            [control]="generalInfoFormLocalModel.controls.dossierId"
+                            controlId="dossierId" label="dossier.id" parentId="dossierInfo"
+                            parentLabel="Regulatory Dossier Enrolment"></control-messages>
 
           <div class="rep-input-group">
             <span class="input-group-addon">HC6-024-</span>
             <input id="dossierId" class="form-control" formControlName="dossierId"
                  [readonly]="!isInternalSite()" maxlength="7" (blur)="onblur()" />
           </div>
-          <control-messages *ngIf="(isInternalSite() && generalInfoFormLocalModel.controls.dossierId.invalid)"
-                            [showError]="showFieldErrors"
-                            [control]="generalInfoFormLocalModel.controls.dossierId"
-                            controlId="dossierId" label="dossier.id" parentId="dossierInfo"
-                            parentLabel="Regulatory Dossier Enrolment"></control-messages>
         </label>
       </div>
     </div>

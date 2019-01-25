@@ -93,7 +93,7 @@ export class LicenceListComponent extends ListOperations implements OnInit, OnCh
     if (this.errorSummaryChild) {
       this.errorSummaryChild.index = this.getExpandedRow();
     }
-    console.log(this.errorSummaryChild);
+    // console.log(this.errorSummaryChild);
     this._emitErrors();
   }
 
@@ -180,14 +180,14 @@ export class LicenceListComponent extends ListOperations implements OnInit, OnCh
     // console.log('adding an licence');
     // 1. Get the list of reactive form Records
     let licenceFormList = <FormArray>this.licenceListForm.controls['licences'];
-    console.log(licenceFormList);
+    // console.log(licenceFormList);
     // 2. Get a blank Form Model for the new record
     let formLicence = LicenceRecordService.getReactiveModel(this._fb, this.isInternal);
     // 3. set record id
     this.service.setRecordId(formLicence, this.service.getNextIndex());
     // 4. Add the form record using the super class. New form is addded at the end
     this.addRecord(formLicence, licenceFormList);
-    console.log(licenceFormList);
+    // console.log(licenceFormList);
     // 5. Set the new form to the new licence form reference.
     this.newLicenceForm = <FormGroup> licenceFormList.controls[licenceFormList.length - 1];
 
@@ -202,6 +202,7 @@ export class LicenceListComponent extends ListOperations implements OnInit, OnCh
     this.dataModel = this.service.getModelRecordList();
     this.addRecordMsg++;
     this.validRec = true;
+    this.licenceModelUpdate.emit(this.dataModel); // update data model to upper level
   }
 
   /**
@@ -266,6 +267,7 @@ export class LicenceListComponent extends ListOperations implements OnInit, OnCh
     this.deleteRecord(id, licenceList, this.service);
     this.validRec = true;
     this.deleteRecordMsg++;
+    this.licenceModelUpdate.emit(licenceList);
   }
 
   /**

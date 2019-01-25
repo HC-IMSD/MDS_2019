@@ -29,11 +29,9 @@ export abstract class ListService {
    */
   public initIndex(recordList) {
     this.resetIndex();
-    if (recordList && recordList.lenth > 0) {
-      for (let record of recordList) {
-        if (record.id > this._indexValue) {
-          this._indexValue = record.id;
-        }
+    for (let record of recordList) {
+      if (record.id > this._indexValue) {
+        this._indexValue = record.id;
       }
     }
     // console.log("The index value "+  this._indexValue)

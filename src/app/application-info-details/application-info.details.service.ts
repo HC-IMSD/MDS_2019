@@ -30,8 +30,10 @@ export class ApplicationInfoDetailsService {
       isEmitRadiation: [null, Validators.required],
       hasDrug: [null, Validators.required],
       hasDinNpn: [null, []],
-      din: ['', []],
-      npn: ['', []],
+     /** din: ['', []],
+      npn: ['', []], **/
+      din: [null, [Validators.required, ValidationService.dinValidator]],
+      npn: [null, [Validators.required, ValidationService.npnValidator]],
       drugName: ['', []],
       activeIngredients: ['', []],
       manufacturer: ['', []],

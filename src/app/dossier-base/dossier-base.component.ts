@@ -108,7 +108,7 @@ export class DossierBaseComponent implements OnInit {
       'dossier': this.dossierModel
     }};
     const version: Array<any> = this.genInfoModel.enrol_version.toString().split('.');
-    const fileName = 'draftrepdo-' + version[0] + '-' + version[1];
+    const fileName = 'draftrepdom-' + version[0] + '-' + version[1];
     this.fileServices.saveJsonToFile(result, fileName, null);
   }
 
@@ -141,9 +141,9 @@ export class DossierBaseComponent implements OnInit {
   private _buildfileName() {
     const version: Array<any> = this.genInfoModel.enrol_version.split('.');
     if (this.isInternalSite) {
-      return 'hcrepdo-' + this.genInfoModel.dossier_id + '-' + version[0] + '-' + version[1];
+      return 'hcrepdom-' + this.genInfoModel.dossier_id + '-' + version[0] + '-' + version[1];
     } else {
-      return 'draftrepdo-' + version[0] + '-' + version[1];
+      return 'draftrepdom-' + version[0] + '-' + version[1];
     }
   }
 }

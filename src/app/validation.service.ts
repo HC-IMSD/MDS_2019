@@ -25,7 +25,9 @@ export class ValidationService {
       'error.mgs.regu.contact.id': 'error.mgs.regu.contact.id',
       'error.mgs.dossier.id': 'error.mgs.dossier.id',
       'error.mgs.licence.number': 'error.mgs.licence.number',
-      'error.mgs.application.number': 'error.mgs.application.number'
+      'error.mgs.application.number': 'error.mgs.application.number',
+      'error.mgs.din': 'error.mgs.din',
+      'error.mgs.npn': 'error.mgs.npn'
     };
 
     return config[validatorName];
@@ -111,7 +113,7 @@ export class ValidationService {
     if (!control.value) {
       return null;
     }
-    if (control.value.match(/^[A-Za-z0-9]{6}$/)) {
+    if (control.value.match(/^[0-9]{5}$/)) {
       return null;
     } else {
       return {'error.mgs.company.id': true};
@@ -122,7 +124,7 @@ export class ValidationService {
     if (!control.value) {
       return null;
     }
-    if (control.value.match(/^[A-Za-z0-9]{6}$/)) {
+    if (control.value.match(/^[0-9]{5}$/)) {
       return null;
     } else {
       return {'error.mgs.company.id': true};
@@ -133,7 +135,7 @@ export class ValidationService {
     if (!control.value) {
       return null;
     }
-    if (control.value.match(/^[A-Za-z0-9]{7}$/)) {
+    if (control.value.match(/^[a-zA-Z]{1}[0-9]{6}$/)) {
       return null;
     } else {
       return {'error.mgs.dossier.id': true};
@@ -144,7 +146,7 @@ export class ValidationService {
     if (!control.value) {
       return null;
     }
-    if (control.value.match(/^[A-Za-z0-9]{5}$/)) {
+    if (control.value.match(/^[0-9]{5}$/)) {
       return null;
     } else {
       return {'error.mgs.contact.id': true};
@@ -155,7 +157,7 @@ export class ValidationService {
     if (!control.value) {
       return null;
     }
-    if (control.value.match(/^[A-Za-z0-9]{5}$/)) {
+    if (control.value.match(/^[0-9]{5}$/)) {
       return null;
     } else {
       return {'error.mgs.regu.contact.id': true};
@@ -166,7 +168,7 @@ export class ValidationService {
     if (!control.value) {
       return null;
     }
-    if (control.value.match(/^[0-9]{10}$/)) {
+    if (control.value.match(/^[0-9]{6}$/)) {
       return null;
     } else {
       return {'error.mgs.licence.number': true};
@@ -181,6 +183,28 @@ export class ValidationService {
       return null;
     } else {
       return {'error.mgs.application.number': true};
+    }
+  }
+
+  static dinValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]{8}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.din': true};
+    }
+  }
+
+  static npnValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]{8}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.npn': true};
     }
   }
 }

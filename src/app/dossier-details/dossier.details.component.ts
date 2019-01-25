@@ -173,9 +173,13 @@ export class DossierDetailsComponent implements OnInit, OnChanges, AfterViewInit
     return false;
   }
 
-  isQmsc() {
+  // isQmsc() {
+  //   const iscert = this.dossierFormLocalModel.controls.hasQMSC.value;
+  //   return (iscert && iscert === GlobalsService.YES);
+  // }
+  isQmscNo() {
     const iscert = this.dossierFormLocalModel.controls.hasQMSC.value;
-    return (iscert && iscert === GlobalsService.YES);
+    return (iscert && iscert === GlobalsService.NO);
   }
 }
 

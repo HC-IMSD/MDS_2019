@@ -1,46 +1,53 @@
 <div id="{{componentId}}" *ngIf="hiddenSummary">
   <section class="alert alert-danger" tabindex="-1" [ngSwitch]="hdingLevel">
     <h1 *ngSwitchCase="'h1'">
-      <span i18n>For the </span><span>{{headingPreamble |translate}}:</span>
-      <span i18n>&nbsp;{{errorList.length}}&nbsp;</span>
+      <span i18n>For</span><span> {{headingPreamble |translate}}</span>
+      <span i18n>{{'error.found.because'|translate}}</span>
+      <span i18n>{{errorList.length}}</span>
       <span i18n *ngIf="errorList?.length>1">{{'error.found.plural'|translate}}</span>
       <span i18n *ngIf="errorList?.length<2">{{'error.found.singular'|translate}}</span>
     </h1>
     <h2 *ngSwitchCase="'h2'">
-      <span i18n>For the </span><span>{{headingPreamble |translate}}:</span>
-      <span i18n>&nbsp;{{errorList.length}}&nbsp;</span>
+      <span i18n>For</span><span> {{headingPreamble |translate}}</span>
+      <span i18n>{{'error.found.because'|translate}}</span>
+      <span i18n>{{errorList.length}}</span>
       <span i18n *ngIf="errorList?.length>1">{{'error.found.plural'|translate}}</span>
       <span i18n *ngIf="errorList?.length<2">{{'error.found.singular'|translate}}</span>
     </h2>
     <h3 *ngSwitchCase="'h3'">
-      <span i18n>For the </span><span>{{headingPreamble |translate}}:</span>
-      <span i18n>&nbsp;{{errorList.length}}&nbsp;</span>
+      <span i18n>For</span><span> {{headingPreamble |translate}}</span>
+      <span i18n>{{'error.found.because'|translate}}</span>
+      <span i18n>{{errorList.length}}</span>
       <span i18n *ngIf="errorList?.length>1">{{'error.found.plural'|translate}}</span>
       <span i18n *ngIf="errorList?.length<2">{{'error.found.singular'|translate}}</span>
     </h3>
     <h4 *ngSwitchCase="'h4'">
-      <span i18n>For the </span><span>{{headingPreamble |translate}}:</span>
-      <span i18n>&nbsp;{{errorList.length}}&nbsp;</span>
+      <span i18n>For</span><span> {{headingPreamble |translate}}</span>
+      <span i18n>{{'error.found.because'|translate}}</span>
+      <span i18n>{{errorList.length}}</span>
       <span i18n *ngIf="errorList?.length>1">{{'error.found.plural'|translate}}</span>
       <span i18n *ngIf="errorList?.length<2">{{'error.found.singular'|translate}}</span>
     </h4>
     <h5 *ngSwitchCase="'h5'">
-      <span i18n>For the </span><span>{{headingPreamble |translate}}:</span>
-      <span i18n>&nbsp;{{errorList.length}}&nbsp;</span>
-      <span i18n *ngIf="errorList?.length>1">errors were found</span>
-      <span i18n *ngIf="errorList?.length<2">error was found</span>
+      <span i18n>For </span><span> {{headingPreamble |translate}}</span>
+      <span i18n>{{'error.found.because'|translate}}</span>
+      <span i18n>{{errorList.length}}</span>
+      <span i18n *ngIf="errorList?.length>1">{{'error.found.plural'|translate}}</span>
+      <span i18n *ngIf="errorList?.length<2">{{'error.found.singular'|translate}}</span>
     </h5>
     <h6 *ngSwitchCase="'h6'">
-      <span i18n>For the </span><span>{{headingPreamble |translate}}:</span>
-      <span i18n>&nbsp;{{errorList.length}}&nbsp;</span>
+      <span i18n>For </span><span> {{headingPreamble |translate}}</span>
+      <span i18n>{{'error.found.because'|translate}}</span>
+      <span i18n>{{errorList.length}}</span>
       <span i18n *ngIf="errorList?.length>1">{{'error.found.plural'|translate}}</span>
       <span i18n *ngIf="errorList?.length<2">{{'error.found.singular'|translate}}</span>
     </h6>
     <ul *ngFor="let parentError of errors | keys">
       <div *ngFor="let controlError of parentError.value.controls">
-        <li *ngIf="controlError.type=='ErrorSummaryComponent'"><a
-          href="#{{controlError.componentId}}" target="_self" (click)="processEvents(controlError)">{{controlError.label}}
-          has errors</a></li>
+        <li *ngIf="controlError.type=='ErrorSummaryComponent'">
+          <a href="#{{controlError.componentId}}" target="_self" (click)="processEvents(controlError)">{{controlError.label}}
+          has errors</a>
+        </li>
         <li *ngIf="controlError.type!='ErrorSummaryComponent'">
           <a href="#{{controlError.controlId}}" target="_self" (click)="processEvents(controlError)">{{controlError.compRef.label|translate}}&nbsp;&#8208;&nbsp;{{controlError.compRef.currentError|translate}}</a>
         </li>

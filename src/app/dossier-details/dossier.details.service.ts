@@ -128,7 +128,7 @@ export class DossierDetailsService {
 
   public static mapFormModelToDataModel(formRecord: FormGroup, dossierModel, registrarList) {
     dossierModel.dossier_type = formRecord.controls.dossierType.value;
-    dossierModel.company_id = formRecord.controls.companyId.value;
+    dossierModel.company_id = 'k' + formRecord.controls.companyId.value;
     dossierModel.contact_id = formRecord.controls.contactId.value;
     dossierModel.device_class = formRecord.controls.deviceClass.value;
     dossierModel.device_name = formRecord.controls.deviceName.value;
@@ -161,8 +161,12 @@ export class DossierDetailsService {
   }
 
   public static mapDataModelToFormModel(dossierModel, formRecord: FormGroup, registrarList) {
+    if ( dossierModel.company_id.length > 0 ) {
+      let comIDs = dossierModel.company_id.split('k');
+      // console.log("company_id" + comIDs[1]);
+      formRecord.controls.companyId.setValue(comIDs[1]);
+    }
     formRecord.controls.dossierType.setValue(dossierModel.dossier_type);
-    formRecord.controls.companyId.setValue(dossierModel.company_id);
     formRecord.controls.contactId.setValue(dossierModel.contact_id);
     formRecord.controls.deviceClass.setValue(dossierModel.device_class);
     formRecord.controls.deviceName.setValue(dossierModel.device_name);

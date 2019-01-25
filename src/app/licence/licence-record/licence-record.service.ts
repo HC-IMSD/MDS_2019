@@ -33,8 +33,8 @@ export class LicenceRecordService {
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, licenceRecordModel) {
-    console.log(licenceRecordModel);
-    console.log(formRecord);
+    // console.log(licenceRecordModel);
+    // console.log(formRecord);
     licenceRecordModel.id = formRecord.controls.id.value;
     // licenceRecordModel.company = formRecord.controls.companyName.value;
     LicenceDetailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls.licenceDetails), licenceRecordModel);

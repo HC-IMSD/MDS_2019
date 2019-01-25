@@ -117,8 +117,12 @@ export class CompanyAdminChangesComponent implements OnInit, OnChanges, AfterVie
         this.adminChangesFormLocalModel = this.adminChangesService.getReactiveModel(this._fb);
         this.adminChangesFormLocalModel.markAsPristine();
       }
-      if (dataModel.licences) {
-        this.licenceModel = dataModel.licences;
+      if (dataModel.licence) {
+        if (isArray(dataModel.licence)) {
+          this.licenceModel = dataModel.licence;
+        } else {
+          this.licenceModel = [dataModel.licence];
+        }
       }
       CompanyAdminChangesService.mapDataModelToFormModel(dataModel, (<FormGroup>this.adminChangesFormLocalModel));
     }
@@ -144,6 +148,11 @@ export class CompanyAdminChangesComponent implements OnInit, OnChanges, AfterVie
   processLicenceErrors(errorList) {
     this.licenceErrorList.emit(errorList);
 
+  }
+
+  processLicenceUpdate(licences) {
+    this.licenceModel = licences;
+    this.onblur();
   }
 
   isReguChange() {

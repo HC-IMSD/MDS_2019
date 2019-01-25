@@ -40,7 +40,7 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
   public validRec = true;
   public columnDefinitions = [
     {
-      label: 'Name of Cmpatible Device',
+      label: 'Name of Compatible Device',
       binding: 'device_name',
       width: '65'
     },

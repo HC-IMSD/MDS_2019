@@ -2,35 +2,36 @@
   <div [formGroup]="appInfoFormLocalModel">
     <div class="row">
       <div class="form-group col-xs-6" >
-        <label for="companyId" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'company.id'|translate}}</span>
+        <label for="companyId" class="required" aria-required="true">
+          <span class="field-name" i18n>{{'company.id'|translate}} {{'minNumber5'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="appInfoFormLocalModel.controls.companyId.invalid"
                             [showError]="showFieldErrors"
                             [control]="appInfoFormLocalModel.controls.companyId"
                             controlId="companyId" label="company.id" parentId="appInfoDetails"
-                            parentLabel="Application Information"></control-messages>
-          <input id="companyId" class="form-control full-width" (blur)="onblur()"
-                 formControlName="companyId" maxlength="6"/>
+                            parentLabel="Application Information">
+          </control-messages>
+          <input id="companyId" class="form-control" (blur)="onblur()"
+                 formControlName="companyId" maxlength="5"/>
         </label>
       </div>
       <div class="form-group col-xs-6" >
-        <label for="dossierId" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'dossier.id'|translate}}</span>
+        <label for="dossierId" class="required" aria-required="true">
+          <span class="field-name" i18n>{{'dossier.id'|translate}}  {{'minAlphanum7'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="appInfoFormLocalModel.controls.dossierId.invalid"
                             [showError]="showFieldErrors"
                             [control]="appInfoFormLocalModel.controls.dossierId"
                             controlId="dossierId" label="dossier.id" parentId="appInfoDetails"
-                            parentLabel="Application Information"></control-messages>
-          <input id="dossierId" class="form-control full-width"  (blur)="onblur()"
-                 formControlName="dossierId" maxlength="7"/>
+                            parentLabel="Application Information">
+          </control-messages>
+          <input id="dossierId" class="form-control"  (blur)="onblur()" formControlName="dossierId" maxlength="7"/>
         </label>
       </div>
     </div>
     <div class="row">
       <div class="form-group col-xs-6" >
-        <label for="qmscNum" class="required full-width" aria-required="true">
+        <label for="qmscNum" class="required" aria-required="true">
           <span class="field-name" i18n>{{'qmsc.number'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="appInfoFormLocalModel.controls.qmscNum.invalid"
@@ -38,12 +39,11 @@
                             [control]="appInfoFormLocalModel.controls.qmscNum"
                             controlId="qmscNum" label="qmsc.number" parentId="appInfoDetails"
                             parentLabel="Application Information"></control-messages>
-          <input id="qmscNum" class="form-control full-width"  (blur)="onblur()"
-                 formControlName="qmscNum" maxlength="30"/>
+          <input id="qmscNum" class="form-control full-width"  (blur)="onblur()"  formControlName="qmscNum" maxlength="30"/>
         </label>
       </div>
       <div class="form-group col-xs-6" >
-        <label for="licenceAppType" class="required full-width">
+        <label for="licenceAppType" class="required">
           <span class="field-name" i18n>{{'licence.app.type' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="appInfoFormLocalModel.controls.licenceAppType.invalid"
@@ -163,26 +163,28 @@
             </div>
             <div  *ngIf="hasDin()" class="form-group col-xs-6" >
               <label for="din" class="required full-width" aria-required="true">
-                <span class="field-name" i18n>{{'din'|translate}}</span>
+                <span class="field-name" i18n>{{'din'|translate}} {{'minNumber8' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.din.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.din"
                                   controlId="din" label="din" parentId="appInfoDetails"
-                                  parentLabel="Application Information"></control-messages>
+                                  parentLabel="Application Information">
+                </control-messages>
                 <input id="din" class="form-control full-width"  (blur)="onblur()"
                        formControlName="din" maxlength="8"/>
               </label>
             </div>
             <div  *ngIf="hasNpn()" class="form-group col-xs-6" >
               <label for="npn" class="required full-width" aria-required="true">
-                <span class="field-name" i18n>{{'npn'|translate}}</span>
+                <span class="field-name" i18n>{{'npn'|translate}} {{'minNumber8' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.npn.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.npn"
                                   controlId="npn" label="npn" parentId="appInfoDetails"
-                                  parentLabel="Application Information"></control-messages>
+                                  parentLabel="Application Information">
+                </control-messages>
                 <input id="npn" class="form-control full-width"  (blur)="onblur()"
                        formControlName="npn" maxlength="8"/>
               </label>
@@ -225,16 +227,14 @@
             </div>
             <div class="row">
               <fieldset id="compliance" class="form-group col-xs-12">
-                <label>
+                <legend class="legend-rep">
                   <span class="field-name">{{'compliance' | translate}}</span>
-                </label>
+                </legend>
                 <div class="row">
                   <div class="col-sm-4">
                     <div class="checkbox">
                       <label for="chk-compliance-usp">
-                        <input type="checkbox" (blur)="onblur()"
-                               formControlName="complianceUsp"
-                               id="chk-compliance-usp"/>
+                        <input type="checkbox" (blur)="onblur()" formControlName="complianceUsp" id="chk-compliance-usp"/>
                         <span>{{'compliance.usp'|translate}}</span>
                       </label>
                     </div>

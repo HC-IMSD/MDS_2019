@@ -22,7 +22,7 @@ export class CompanyBaseService {
     }
     return fb.group({
       status: '',
-      enrolVersion: 0.0,
+      enrolVersion: 1.0,
       lastSavedDate: '',
       companyId: ['', [Validators.required, Validators.min(5)]]
     });
@@ -57,7 +57,7 @@ export class CompanyBaseService {
     return (
       {
         status: '',
-        enrol_version: '0.0',
+        enrol_version: '1.0',
         last_saved_date: '',
         company_id: '',
         amend_reasons: {

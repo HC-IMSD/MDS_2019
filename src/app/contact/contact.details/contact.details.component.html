@@ -17,30 +17,30 @@
         <label for="status" class="required full-width">
           <span class="field-name">{{'status' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <select id="status" required class="form-control full-width" formControlName="status">
-            <option *ngFor="let stat of statuses" [ngValue]="stat.id"> {{stat.label_en}}</option>
-
-          </select>
           <control-messages *ngIf="contactFormLocalModel.controls.status.invalid"
                             [showError]="showFieldErrors"
                             [control]="contactFormLocalModel.controls.status"
                             controlId="status" label="status" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
+          <select id="status" required class="form-control full-width" formControlName="status">
+            <option *ngFor="let stat of statuses" [ngValue]="stat.id"> {{stat.label_en}}</option>
+
+          </select>
         </label>
       </div>
       <div class="form-group col-sm-3" *ngIf="isInternal">
         <label for="hcStatus" class="required full-width">
           <span class="field-name">{{'hcStatus' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <select id="hcStatus" required class="form-control full-width" formControlName="hcStatus">
-            <option *ngFor="let hcstat of hcStatuses" [ngValue]="hcstat.id"> {{hcstat.label_en}}</option>
-
-          </select>
           <control-messages *ngIf="contactFormLocalModel.controls.hcStatus.invalid"
                             [showError]="showFieldErrors"
                             [control]="contactFormLocalModel.controls.hcStatus"
                             controlId="hcStatus" label="hcStatus" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
+          <select id="hcStatus" required class="form-control full-width" formControlName="hcStatus">
+            <option *ngFor="let hcstat of hcStatuses" [ngValue]="hcstat.id"> {{hcstat.label_en}}</option>
+
+          </select>
         </label>
       </div>
     </div>
@@ -49,15 +49,15 @@
         <label for="salutation" class="required full-width">
           <span class="field-name" i18n>{{'salutation' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <select id="salutation" required class="form-control" formControlName="salutation">
-            <option *ngFor="let sal of salutations" [ngValue]="sal.id"> {{sal.label_en}}</option>
-
-          </select>
           <control-messages *ngIf="contactFormLocalModel.controls.salutation.invalid"
                             [showError]="showFieldErrors"
                             [control]="contactFormLocalModel.controls.salutation"
                             controlId="salutation" label="salutation" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
+          <select id="salutation" required class="form-control" formControlName="salutation">
+            <option *ngFor="let sal of salutations" [ngValue]="sal.id"> {{sal.label_en}}</option>
+
+          </select>
         </label>
       </div>
     </div>
@@ -66,12 +66,12 @@
         <label for="firstName" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'first.name'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="firstName" class="form-control full-width" maxlength="20" formControlName="firstName"/>
           <control-messages *ngIf="contactFormLocalModel.controls.firstName.invalid"
                             [showError]="showFieldErrors"
                             [control]="contactFormLocalModel.controls.firstName"
                             controlId="firstName" label="first.name" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
+          <input id="firstName" class="form-control full-width" maxlength="20" formControlName="firstName"/>
         </label>
       </div>
       <div class="form-group col-sm-2" >
@@ -84,12 +84,12 @@
         <label for="lastName" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'last.name'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="lastName" class="form-control full-width" maxlength="20" formControlName="lastName"/>
           <control-messages *ngIf="contactFormLocalModel.controls.lastName.invalid"
                             [showError]="showFieldErrors"
                             [control]="contactFormLocalModel.controls.lastName"
                             controlId="lastName" label="last.name" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
+          <input id="lastName" class="form-control full-width" maxlength="20" formControlName="lastName"/>
         </label>
       </div>
     </div>
@@ -98,27 +98,27 @@
         <label for="language" class="required full-width">
           <span class="field-name">{{'lang.correspond' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <select id="language" required class="form-control" formControlName="language">
-            <option *ngFor="let lang of languages" [ngValue]="lang.id"> {{lang.label_en}}</option>
-
-          </select>
           <control-messages *ngIf="contactFormLocalModel.controls.language.invalid"
                             [showError]="showFieldErrors"
                             [control]="contactFormLocalModel.controls.language"
                             controlId="language" label="lang.correspond" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
+          <select id="language" required class="form-control" formControlName="language">
+            <option *ngFor="let lang of languages" [ngValue]="lang.id"> {{lang.label_en}}</option>
+
+          </select>
         </label>
       </div>
       <div class="form-group col-sm-4">
         <label for="jobTitle" class="required full-width">
           <span class="field-name">{{'job.title'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="jobTitle" class="form-control full-width" maxlength="40" formControlName="jobTitle"/>
           <control-messages *ngIf="contactFormLocalModel.controls.jobTitle.invalid"
                             [showError]="showFieldErrors"
                             [control]="contactFormLocalModel.controls.jobTitle"
                             controlId="jobTitle" label="job.title" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
+          <input id="jobTitle" class="form-control full-width" maxlength="40" formControlName="jobTitle"/>
         </label>
       </div>
       <div class="form-group col-sm-4 ">
@@ -133,12 +133,12 @@
         <label for="phoneNumber" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'phone.number'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="phoneNumber" class="form-control full-width" formControlName="phoneNumber" maxlength="16"/>
           <control-messages *ngIf="contactFormLocalModel.controls.phoneNumber.invalid"
                             [showError]="showFieldErrors"
                             [control]="contactFormLocalModel.controls.phoneNumber"
                             controlId="phoneNumber" label="phone.number" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
+          <input id="phoneNumber" class="form-control full-width" formControlName="phoneNumber" maxlength="16"/>
         </label>
       </div>
       <div class="form-group col-sm-3">
@@ -151,12 +151,12 @@
         <label for="email" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'contact.email'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="email" class="form-control full-width" maxlength="50" formControlName="email"/>
           <control-messages *ngIf="contactFormLocalModel.controls.email.invalid"
                             [showError]="showFieldErrors"
                             [control]="contactFormLocalModel.controls.email"
                             controlId="email" label="contact.email" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
+          <input id="email" class="form-control full-width" maxlength="50" formControlName="email"/>
         </label>
       </div>
     </div>

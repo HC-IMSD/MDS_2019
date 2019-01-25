@@ -35,7 +35,7 @@ export class CompanyAdminChangesService {
       {
         all_licence_number: '',
         all_dossier_id: '',
-        licences: [],
+        licence: [],
         is_regulatory_change: '',
         new_company_id: '',
         new_contact_id: '',
@@ -75,16 +75,18 @@ export class CompanyAdminChangesService {
     } else {
       adminChangesModel.all_dossier_id = '';
     }
-    adminChangesModel.licences = licenceModel;
+    adminChangesModel.licence = licenceModel;
     adminChangesModel.is_regulatory_change = formRecord.controls.isReguChange.value;
-    adminChangesModel.new_company_id = formRecord.controls.newCompanyId.value;
+    adminChangesModel.new_company_id = 'k' + formRecord.controls.newCompanyId.value;
     adminChangesModel.new_contact_id = formRecord.controls.newContactId.value;
     adminChangesModel.new_contact_name = formRecord.controls.newContactName.value;
   }
 
   public static mapDataModelToFormModel(adminChangesModel, formRecord: FormGroup) {
     formRecord.controls.isReguChange.setValue(adminChangesModel.is_regulatory_change);
-    formRecord.controls.newCompanyId.setValue(adminChangesModel.new_company_id);
+    if (adminChangesModel.new_company_id) {
+      formRecord.controls.newCompanyId.setValue(adminChangesModel.new_company_id.slice(1));
+    }
     formRecord.controls.newContactId.setValue(adminChangesModel.new_contact_id);
     formRecord.controls.newContactName.setValue(adminChangesModel.new_contact_name);
   }

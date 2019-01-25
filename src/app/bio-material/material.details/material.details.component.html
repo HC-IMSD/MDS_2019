@@ -5,12 +5,13 @@
         <label for="materialName" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'material.name'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="materialName" class="form-control full-width" formControlName="materialName" maxlength="60"/>
           <control-messages *ngIf="materialFormLocalModel.controls.materialName.invalid"
                             [showError]="showFieldErrors"
                             [control]="materialFormLocalModel.controls.materialName"
                             controlId="materialName" label="material.name" parentId="materialDetails"
-                            parentLabel="Biological Material"></control-messages>
+                            parentLabel="Biological Material">
+          </control-messages>
+          <input id="materialName" class="form-control full-width" formControlName="materialName" maxlength="60"/>
         </label>
       </div>
     </div>
@@ -19,12 +20,13 @@
         <label for="deviceName" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'device.name'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="deviceName" class="form-control full-width" formControlName="deviceName" maxlength="150"/>
           <control-messages *ngIf="materialFormLocalModel.controls.deviceName.invalid"
                             [showError]="showFieldErrors"
                             [control]="materialFormLocalModel.controls.deviceName"
                             controlId="deviceName" label="device.name" parentId="materialDetails"
-                            parentLabel="Biological Material"></control-messages>
+                            parentLabel="Biological Material">
+          </control-messages>
+          <input id="deviceName" class="form-control full-width" formControlName="deviceName" maxlength="150"/>
         </label>
       </div>
     </div>
@@ -44,17 +46,18 @@
         <label for="specFamily" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'species.family'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="materialFormLocalModel.controls.specFamily.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="materialFormLocalModel.controls.specFamily"
+                            controlId="specFamily" label="species.family" parentId="materialDetails"
+                            parentLabel="Biological Material">
+          </control-messages>
           <div class="margin-top-small">
             <ng-select id="specFamily" formControlName="specFamily" class="required"
                        [allowClear]="false"
                        [items]="speciesFamilyList">
             </ng-select>
           </div>
-          <control-messages *ngIf="materialFormLocalModel.controls.specFamily.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="materialFormLocalModel.controls.specFamily"
-                            controlId="specFamily" label="species.family" parentId="materialDetails"
-                            parentLabel="Biological Material"></control-messages>
         </label>
       </div>
     </div>

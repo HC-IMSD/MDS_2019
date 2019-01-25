@@ -25,7 +25,7 @@ export class CompanyInfoService {
     if (!fb) {return null; }
     return fb.group({
       formStatus: GlobalsService.NEW,
-      enrolVersion: '0.0',
+      enrolVersion: '1.0',
       lastSavedDate: '',
       companyId: ['', [Validators.required, ValidationService.companyIdValidator]],
       amendReason: [null, Validators.required],
@@ -61,7 +61,7 @@ export class CompanyInfoService {
     return (
       {
         status: '',
-        enrol_version: '0.0',
+        enrol_version: '1.0',
         last_saved_date: '',
         company_id: '',
         amend_reasons: {
@@ -80,7 +80,7 @@ export class CompanyInfoService {
     generalInfoModel.status = formRecord.controls.formStatus.value;
     generalInfoModel.enrol_version = formRecord.controls.enrolVersion.value;
     generalInfoModel.last_saved_date = formRecord.controls.lastSavedDate.value;
-    generalInfoModel.company_id = formRecord.controls.companyId.value;
+    generalInfoModel.company_id = 'k' + formRecord.controls.companyId.value;
     generalInfoModel.amend_reasons.manufacturer_name_change = formRecord.controls.nameChange.value ? GlobalsService.YES : GlobalsService.NO;
     generalInfoModel.amend_reasons.manufacturer_address_change =
       formRecord.controls.addressChange.value ? GlobalsService.YES : GlobalsService.NO;
@@ -94,7 +94,9 @@ export class CompanyInfoService {
     formRecord.controls.formStatus.setValue(generalInfoModel.status);
     formRecord.controls.enrolVersion.setValue(generalInfoModel.enrol_version);
     formRecord.controls.lastSavedDate.setValue(generalInfoModel.last_saved_date);
-    formRecord.controls.companyId.setValue(generalInfoModel.company_id);
+    if (generalInfoModel.company_id) {
+      formRecord.controls.companyId.setValue(generalInfoModel.company_id.slice(1));
+    }
     const namec = generalInfoModel.amend_reasons.manufacturer_name_change === GlobalsService.YES ? true : false;
     formRecord.controls.nameChange.setValue(namec);
     const addc = generalInfoModel.amend_reasons.manufacturer_address_change === GlobalsService.YES ? true : false;

@@ -5,13 +5,13 @@
         <label for="companyName" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'company.name.full'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="companyName" class="form-control full-width" (blur)="onblur()"
-                 formControlName="companyName" maxlength="80"/>
           <control-messages *ngIf="addressFormLocalModel.controls.companyName.invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls.companyName"
                             controlId="companyName" label="company.name.full" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
+          <input id="companyName" class="form-control full-width" (blur)="onblur()"
+                 formControlName="companyName" maxlength="80"/>
         </label>
       </div>
     </div>
@@ -20,13 +20,13 @@
         <label for="address" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'addressDetails.street'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="address" class="form-control full-width" (blur)="onblur()"
-            formControlName="address" maxlength="120"/>
           <control-messages *ngIf="addressFormLocalModel.controls.address.invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls.address"
                             controlId="address" label="addressDetails.street" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
+          <input id="address" class="form-control full-width" (blur)="onblur()"
+            formControlName="address" maxlength="120"/>
         </label>
       </div>
     </div>
@@ -35,19 +35,24 @@
         <label for="city" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'addressDetails.city'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="city" class="form-control full-width"  (blur)="onblur()"
-                 formControlName="city" maxlength="35"/>
           <control-messages *ngIf="addressFormLocalModel.controls.city.invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls.city"
                             controlId="city" label="addressDetails.city" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
+          <input id="city" class="form-control full-width"  (blur)="onblur()"
+                 formControlName="city" maxlength="35"/>
         </label>
       </div>
       <div class="form-group col-sm-5 col-xs-12" >
         <label for="country" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'addressDetails.country'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="addressFormLocalModel.controls.country.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="addressFormLocalModel.controls.country"
+                            controlId="country" label="addressDetails.country" parentId="addressDetails"
+                            parentLabel="REP Address"></control-messages>
           <div class="margin-top-small">
             <ng-select id="country" formControlName="country" class="required"
                        [allowClear]="false"
@@ -59,11 +64,6 @@
                        (removed)="removed($event)">
             </ng-select>
           </div>
-          <control-messages *ngIf="addressFormLocalModel.controls.country.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="addressFormLocalModel.controls.country"
-                            controlId="country" label="addressDetails.country" parentId="addressDetails"
-                            parentLabel="REP Address"></control-messages>
         </label>
       </div>
     </div>
@@ -72,16 +72,16 @@
         <label for="provState" class="required full-width">
           <span class="field-name">{{provinceLabel |translate}}</span>
           <strong *ngIf="!showProvText" class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <select id="provState" required class="form-control full-width" (blur)="onblur()"
-                  formControlName="provList">
-            <option *ngFor="let prov of provStateList" [ngValue]="prov.id"> {{prov.text}}</option>
-
-          </select>
           <control-messages *ngIf="addressFormLocalModel.controls.provList.invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls.provList"
                             controlId="provState" label="{{provinceLabel}}" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
+          <select id="provState" required class="form-control full-width" (blur)="onblur()"
+                  formControlName="provList">
+            <option *ngFor="let prov of provStateList" [ngValue]="prov.id"> {{prov.text}}</option>
+
+          </select>
         </label>
       </div>
       <div *ngIf="showProvText" class="form-group col-xs-12 col-sm-6">
@@ -100,13 +100,13 @@
         <label for="postal" [ngClass]="{'required':!showProvText}" aria-required="true">
           <span class="field-name" i18n>{{postalLabel |translate}}</span>
           <strong *ngIf="!showProvText" class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <input id="postal" class="form-control" formControlName="postal"  (blur)="onblur()"
-                 maxlength="10" />
           <control-messages *ngIf="addressFormLocalModel.controls.postal.invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls.postal"
                             controlId="postal" label="{{postalLabel}}" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
+          <input id="postal" class="form-control" formControlName="postal"  (blur)="onblur()"
+                 maxlength="10" />
         </label>
     </div>
     <!-- <pre>{{addressFormLocalModel.value |json}}</pre>-->
