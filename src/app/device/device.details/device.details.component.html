@@ -12,7 +12,13 @@
     <div class="row">
       <div class="form-group col-sm-12 ">
         <label for="licenceNum">
-          <span class="field-name" i18n>{{'licence.number' |translate}}</span>
+          <span class="field-name" i18n>{{'licence.number' |translate}} {{'minNumber6' |translate}}</span>
+          <control-messages *ngIf="deviceFormLocalModel.controls.licenceNum.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="deviceFormLocalModel.controls.licenceNum"
+                            controlId="licenceNum" label="licence.number" parentId="deviceDetails"
+                            parentLabel="Interdependent Device">
+          </control-messages>
           <input id="licenceNum" class="form-control" only-digits maxlength="6" formControlName="licenceNum"/>
         </label>
       </div>

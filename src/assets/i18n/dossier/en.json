@@ -28,7 +28,7 @@
   "device.name": "Name of device, as it appears on the label",
   "has.qmsc": "Quality Management System Certificate (QMSC) is available",
   "qmsc.registrar": "Quality Management System Certificate (QMSC) registrar",
-  "qmsc.no":"Must be issued by CMDCAS recognized/certified",
+  "qmsc.no":"Quality Management System Certificate (QMSC) must be issued by CMDCAS recognized/certified",
   "licence.app.type": "Licence Application Type",
   "add.field": "Additional field for context",
   "commmon.required.bracket": "(required)",

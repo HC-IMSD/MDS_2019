@@ -19,7 +19,7 @@ export class DeviceDetailsService {
     if (!fb) {return null; }
     return fb.group({
       deviceName: '',
-      licenceNum: ''
+      licenceNum: [null, [ValidationService.licenceNumValidator]]
     });
   }
 

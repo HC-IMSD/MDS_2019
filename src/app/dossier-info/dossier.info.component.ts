@@ -107,6 +107,11 @@ export class DossierInfoComponent implements OnInit, OnChanges, AfterViewInit {
       DossierGenInfoService.mapDataModelToFormModel(dataModel,
         (<FormGroup>this.generalInfoFormLocalModel));
     }
+    if (changes['isInternal']) {
+      if (!changes['isInternal'].currentValue) {
+        this.setAsComplete = (this.genInfoModel.status === GlobalsService.FINAL && !changes['isInternal'].currentValue);
+      } // && this.isInternal;
+    }
 
   }
 
