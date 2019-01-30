@@ -31,10 +31,11 @@
           <div class="panel-body">
             <transaction-details [showErrors]="showErrors" [lang]="lang" [userList]="userList"
                               [detailsChanged]="updateChild" [transactionModel]="transactionModel"
+                              (isSolicitedFlag)="processIsSolicitedFlag($event)"
                               (detailErrorList)="processDetailErrors($event)"></transaction-details>
 
           </div>
-          <section class="panel  panel-default">
+          <section class="panel  panel-default" *ngIf="isSolicitedFlag">
             <header class="panel-heading clearfix">
               <div class="btn-group pull-right">
               </div>

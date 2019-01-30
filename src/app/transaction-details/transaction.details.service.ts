@@ -33,6 +33,7 @@ export class TransactionDetailsService {
       amendReason: [null, Validators.required],
       classChange: [false, []],
       licenceChange: [false, []],
+      deviceChange: [false, []],
       processChange: [false, []],
       qualityChange: [false, []],
       designChange: [false, []],
@@ -43,10 +44,14 @@ export class TransactionDetailsService {
       addChange: [false, []],
       licenceNum: [null, [Validators.required, ValidationService.licenceNumValidator]],
       appNum: [null, [Validators.required, ValidationService.appNumValidator]],
+      appNumOpt: [null, [ValidationService.appNumValidator]],
+      meetingId: '',
       deviceName: [null, Validators.required],
+      licenceName: [null, Validators.required],
       requestDate: [null, Validators.required],
       briefDesc: [null, Validators.required],
       hasDdt: [false, []],
+      hasDdtMan: [false, Validators.required],
       hasAppInfo: [false, []],
       isSolicitedInfo: [null, Validators.required]
     });
@@ -73,6 +78,7 @@ export class TransactionDetailsService {
         amend_reasons: {
           classification_change: '',
           licence_change: '',
+          device_change: '',
           process_change: '',
           quality_change: '',
           design_change: '',
@@ -84,7 +90,9 @@ export class TransactionDetailsService {
         },
         licence_number: '',
         application_number: '',
+        meeting_id: '',
         device_name: '',
+        licence_name: '',
         request_date: '',
         brief_description: '',
         has_ddt: '',
@@ -220,9 +228,9 @@ export class TransactionDetailsService {
 
   public static mapFormModelToDataModel(formRecord: FormGroup, transactionModel) {
     transactionModel.dossier_id = formRecord.controls.dossierId.value;
-    transactionModel.manufacturing_company_id = formRecord.controls.manuCompanyId.value;
+    transactionModel.manufacturing_company_id = 'k' + formRecord.controls.manuCompanyId.value;
     transactionModel.manufacturing_contact_id = formRecord.controls.manuContactId.value;
-    transactionModel.regulatory_company_id = formRecord.controls.reguCompanyId.value;
+    transactionModel.regulatory_company_id = 'k' + formRecord.controls.reguCompanyId.value;
     transactionModel.regulatory_contact_id = formRecord.controls.reguContactId.value;
     transactionModel.activity_lead = formRecord.controls.activityLead.value;
     transactionModel.activity_type = formRecord.controls.activityType.value;
@@ -242,6 +250,7 @@ export class TransactionDetailsService {
     transactionModel.device_class = formRecord.controls.deviceClass.value;
     transactionModel.amend_reasons.classification_change = formRecord.controls.classChange.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.amend_reasons.licence_change = formRecord.controls.licenceChange.value ? GlobalsService.YES : GlobalsService.NO;
+    transactionModel.amend_reasons.device_change = formRecord.controls.deviceChange.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.amend_reasons.process_change = formRecord.controls.processChange.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.amend_reasons.quality_change = formRecord.controls.qualityChange.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.amend_reasons.design_change = formRecord.controls.designChange.value ? GlobalsService.YES : GlobalsService.NO;
@@ -251,8 +260,17 @@ export class TransactionDetailsService {
     transactionModel.amend_reasons.purpose_change = formRecord.controls.purposeChange.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.amend_reasons.add_delete_change = formRecord.controls.addChange.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.licence_number = formRecord.controls.licenceNum.value;
-    transactionModel.application_number = formRecord.controls.appNum.value;
+    if (formRecord.controls.transDescription.value !== 'INITIAL' &&
+      (formRecord.controls.transDescription.value !== 'MM' ||
+        formRecord.controls.transDescription.value !== 'UD')) {
+      transactionModel.application_number = formRecord.controls.appNum.value;
+    } else if (formRecord.controls.transDescription.value === 'MM' ||
+            formRecord.controls.transDescription.value === 'UD') {
+      transactionModel.application_number = formRecord.controls.appNumOpt.value;
+    }
+    transactionModel.meeting_id = formRecord.controls.meetingId.value;
     transactionModel.device_name = formRecord.controls.deviceName.value;
+    transactionModel.licence_name = formRecord.controls.licenceName.value;
     transactionModel.request_date = formRecord.controls.requestDate.value;
     transactionModel.brief_description = formRecord.controls.briefDesc.value;
     transactionModel.has_ddt = formRecord.controls.hasDdt.value ? GlobalsService.YES : GlobalsService.NO;
@@ -262,9 +280,13 @@ export class TransactionDetailsService {
 
   public static mapDataModelToFormModel(transactionModel, formRecord: FormGroup, lang) {
     formRecord.controls.dossierId.setValue(transactionModel.dossier_id);
-    formRecord.controls.manuCompanyId.setValue(transactionModel.manufacturing_company_id);
+    if (transactionModel.manufacturing_company_id) {
+      formRecord.controls.manuCompanyId.setValue(transactionModel.manufacturing_company_id.slice(1));
+    }
     formRecord.controls.manuContactId.setValue(transactionModel.manufacturing_contact_id);
-    formRecord.controls.reguCompanyId.setValue(transactionModel.regulatory_company_id);
+    if (transactionModel.regulatory_company_id) {
+      formRecord.controls.reguCompanyId.setValue(transactionModel.regulatory_company_id.slice(1));
+    }
     formRecord.controls.reguContactId.setValue(transactionModel.regulatory_contact_id);
     formRecord.controls.activityLead.setValue(transactionModel.activity_lead);
     formRecord.controls.activityType.setValue(transactionModel.activity_type);
@@ -287,6 +309,8 @@ export class TransactionDetailsService {
     formRecord.controls.classChange.setValue(clsc);
     const licc = transactionModel.amend_reasons.licence_change === GlobalsService.YES ? true : false;
     formRecord.controls.licenceChange.setValue(licc);
+    const decc = transactionModel.amend_reasons.device_change === GlobalsService.YES ? true : false;
+    formRecord.controls.deviceChange.setValue(decc);
     const proc = transactionModel.amend_reasons.process_change === GlobalsService.YES ? true : false;
     formRecord.controls.processChange.setValue(proc);
     const quac = transactionModel.amend_reasons.quality_change === GlobalsService.YES ? true : false;
@@ -304,8 +328,16 @@ export class TransactionDetailsService {
     const addc = transactionModel.amend_reasons.add_delete_change === GlobalsService.YES ? true : false;
     formRecord.controls.addChange.setValue(addc);
     formRecord.controls.licenceNum.setValue(transactionModel.licence_number);
-    formRecord.controls.appNum.setValue(transactionModel.application_number);
+    if (transactionModel.transaction_description.id  &&
+      (transactionModel.transaction_description.id === 'MM' ||
+        transactionModel.transaction_description.id === 'UD')) {
+      formRecord.controls.appNumOpt.setValue(transactionModel.application_number);
+    } else  {
+      formRecord.controls.appNum.setValue(transactionModel.application_number);
+    }
+    formRecord.controls.meetingId.setValue(transactionModel.meeting_id);
     formRecord.controls.deviceName.setValue(transactionModel.device_name);
+    formRecord.controls.licenceName.setValue(transactionModel.licence_name);
     formRecord.controls.requestDate.setValue(transactionModel.request_date);
     formRecord.controls.briefDesc.setValue(transactionModel.brief_description);
     const hasddt = transactionModel.has_ddt === GlobalsService.YES ? true : false;

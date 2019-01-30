@@ -52,7 +52,8 @@ import {DataLoaderModule} from '../app/data-loader/data-loader.module';
   providers: [
     ValidationService,
     GlobalsService,
-    CompanyDataLoaderService
+    CompanyDataLoaderService,
+    AppInfoDataLoaderService
   ],
   exports: [
     TranslateModule

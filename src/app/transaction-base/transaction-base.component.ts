@@ -32,6 +32,7 @@ export class TransactionBaseComponent implements OnInit {
   public rootTagText = 'DEVICE_TRANSACTION_ENROL';
   public userList = [];
   public showErrors: boolean;
+  public isSolicitedFlag: boolean;
   public title = '';
   public headingLevel = 'h2';
   public transactionModel = TransactionBaseService.getEmptyTransactionDetailsModel();
@@ -47,6 +48,7 @@ export class TransactionBaseComponent implements OnInit {
     dataLoader = new TransactionDataLoaderService(this.http);
     this.userList = [];
     this.showErrors = false;
+    this.isSolicitedFlag = false;
     this.fileServices = new FileConversionService();
   }
 
@@ -82,6 +84,10 @@ export class TransactionBaseComponent implements OnInit {
     this.processErrors();
   }
 
+  processIsSolicitedFlag(isSolicited) {
+    this.isSolicitedFlag = isSolicited;
+  }
+
   public hideErrorSummary() {
     return (this.showErrors && this.errorList && this.errorList.length > 0);
   }
@@ -100,7 +106,7 @@ export class TransactionBaseComponent implements OnInit {
           'transFees': this.transFeesModel
         }
       };
-      const fileName = 'hcreprt-' + this.transactionModel.last_saved_date;
+      const fileName = 'hcreprtm-' + this.transactionModel.last_saved_date;
       this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
     }
   }
@@ -114,7 +120,7 @@ export class TransactionBaseComponent implements OnInit {
       },
       'transFees': this.transFeesModel
     }};
-    const fileName = 'hcreprt-' + this.transactionModel.last_saved_date;
+    const fileName = 'hcreprtm-' + this.transactionModel.last_saved_date;
     this.fileServices.saveJsonToFile(result, fileName, null);
   }
 

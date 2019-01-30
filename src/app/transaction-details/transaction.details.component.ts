@@ -31,6 +31,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   @Input() transactionModel;
   @Input() lang;
   @Output() detailErrorList = new EventEmitter(true);
+  @Output() isSolicitedFlag = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   // For the searchable select box, only accepts/saves id and text.
@@ -47,10 +48,9 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   public showBriefDesc: boolean;
   private detailsService: TransactionDetailsService;
 
-  constructor(private _fb: FormBuilder, // todo: private dataLoader: DossierDataLoaderService,
+  constructor(private _fb: FormBuilder,
               private http: HttpClient, private translate: TranslateService,
               private cdr: ChangeDetectorRef) {
-    // todo: dataLoader = new DossierDataLoaderService(this.http);
     this.showFieldErrors = false;
     this.showErrors = false;
     this.showDate = false;
@@ -58,8 +58,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.actLeadList = [];
     this.actTypeList = [];
     this.transDescList = [];
-    this.reasonArray = [false, false, false, false, false, false, false, false, false, false];
-    this.reasonResults = [false, false, false, false, false, false, false, false, false, false];
+    this.reasonArray = [false, false, false, false, false, false, false, false, false, false, false];
+    this.reasonResults = [false, false, false, false, false, false, false, false, false, false, false];
     this.detailsService = new TransactionDetailsService();
     this.yesNoList = this.detailsService.getYesNoList();
   }
@@ -208,21 +208,21 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
       if (this.transDetailsFormLocalModel.controls.activityType.value === 'Licence Amendment') {
         switch (this.transDetailsFormLocalModel.controls.deviceClass.value) {
           case 'DC2':
-            this.reasonArray = [true, true, false, false, false, false, false, false, true, true];
+            this.reasonArray = [true, true, true, false, false, false, false, false, false, true, true];
             break;
           case 'DC3':
-            this.reasonArray = [true, true, true, true, true, true, true, true, false, true];
+            this.reasonArray = [true, true, true, true, true, true, true, true, true, false, true];
             break;
           case 'DC4':
-            this.reasonArray = [true, true, true, true, true, true, true, true, false, true];
+            this.reasonArray = [true, true, true, true, true, true, true, true, true, false, true];
             break;
         }
 
       } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'Fax-back') {
-            this.reasonArray = [false, true, false, false, false, false, false, false, false, true];
+            this.reasonArray = [false, true, true, false, false, false, false, false, false, false, true];
       }
     } else {
-      this.reasonArray = [false, false, false, false, false, false, false, false, false, false];
+      this.reasonArray = [false, false, false, false, false, false, false, false, false, false, false];
     }
     this._setDescFieldFlags(descValue);
     this._resetReasonValues();
@@ -235,13 +235,15 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   private _resetReasonValues() {
-    this.reasonResults = [false, false, false, false, false, false, false, false, false, false];
+    this.reasonResults = [false, false, false, false, false, false, false, false, false, false, false];
     this.transDetailsFormLocalModel.controls.amendReason.setValue(null);
     this.transDetailsFormLocalModel.controls.amendReason.markAsUntouched();
     this.transDetailsFormLocalModel.controls.classChange.setValue(false);
     this.transDetailsFormLocalModel.controls.classChange.markAsUntouched();
     this.transDetailsFormLocalModel.controls.licenceChange.setValue(false);
     this.transDetailsFormLocalModel.controls.licenceChange.markAsUntouched();
+    this.transDetailsFormLocalModel.controls.deviceChange.setValue(false);
+    this.transDetailsFormLocalModel.controls.deviceChange.markAsUntouched();
     this.transDetailsFormLocalModel.controls.processChange.setValue(false);
     this.transDetailsFormLocalModel.controls.processChange.markAsUntouched();
     this.transDetailsFormLocalModel.controls.qualityChange.setValue(false);
@@ -280,27 +282,30 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
         itemValue = this.transDetailsFormLocalModel.controls.licenceChange.value;
         break;
       case 2:
-        itemValue = this.transDetailsFormLocalModel.controls.processChange.value;
+        itemValue = this.transDetailsFormLocalModel.controls.deviceChange.value;
         break;
       case 3:
-        itemValue = this.transDetailsFormLocalModel.controls.qualityChange.value;
+        itemValue = this.transDetailsFormLocalModel.controls.processChange.value;
         break;
       case 4:
-        itemValue = this.transDetailsFormLocalModel.controls.designChange.value;
+        itemValue = this.transDetailsFormLocalModel.controls.qualityChange.value;
         break;
       case 5:
-        itemValue = this.transDetailsFormLocalModel.controls.materialsChange.value;
+        itemValue = this.transDetailsFormLocalModel.controls.designChange.value;
         break;
       case 6:
-        itemValue = this.transDetailsFormLocalModel.controls.labellingChange.value;
+        itemValue = this.transDetailsFormLocalModel.controls.materialsChange.value;
         break;
       case 7:
-        itemValue = this.transDetailsFormLocalModel.controls.safetyChange.value;
+        itemValue = this.transDetailsFormLocalModel.controls.labellingChange.value;
         break;
       case 8:
-        itemValue = this.transDetailsFormLocalModel.controls.purposeChange.value;
+        itemValue = this.transDetailsFormLocalModel.controls.safetyChange.value;
         break;
       case 9:
+        itemValue = this.transDetailsFormLocalModel.controls.purposeChange.value;
+        break;
+      case 10:
         itemValue = this.transDetailsFormLocalModel.controls.addChange.value;
         break;
     }
@@ -340,19 +345,29 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     return (this.transDetailsFormLocalModel.controls.transDescription.value && !this.isInitial());
   }
 
-  isInitialNotLicence() {
-    if (this.isInitial() && this.transDetailsFormLocalModel.controls.activityType.value && !this.isLicence()) {
-        return true;
+  isDescInitial() {
+    if (this.isInitial()) {
+      return true;
     } else {
       this.transDetailsFormLocalModel.controls.deviceClass.setValue(null);
       this.transDetailsFormLocalModel.controls.deviceClass.markAsUntouched();
       this.transDetailsFormLocalModel.controls.amendReason.setValue(null);
       this.transDetailsFormLocalModel.controls.amendReason.markAsUntouched();
-      this.transDetailsFormLocalModel.controls.licenceNum.setValue(null);
-      this.transDetailsFormLocalModel.controls.licenceNum.markAsUntouched();
     }
     return false;
   }
+
+  // isInitialNotLicence() {
+  //   if (this.isInitial() && this.transDetailsFormLocalModel.controls.activityType.value && !this.isLicence()) {
+  //       return true;
+  //   } else {
+  //     this.transDetailsFormLocalModel.controls.deviceClass.setValue(null);
+  //     this.transDetailsFormLocalModel.controls.deviceClass.markAsUntouched();
+  //     this.transDetailsFormLocalModel.controls.amendReason.setValue(null);
+  //     this.transDetailsFormLocalModel.controls.amendReason.markAsUntouched();
+  //   }
+  //   return false;
+  // }
 
   isInitialNotLicenceDCSet() {
     if (this.isInitial() && !this.isLicence() && this.isClassSet()) {
@@ -362,8 +377,60 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
       this.transDetailsFormLocalModel.controls.deviceClass.markAsUntouched();
       this.transDetailsFormLocalModel.controls.amendReason.setValue(null);
       this.transDetailsFormLocalModel.controls.amendReason.markAsUntouched();
-      this.transDetailsFormLocalModel.controls.licenceNum.setValue(null);
-      this.transDetailsFormLocalModel.controls.licenceNum.markAsUntouched();
+    }
+    return false;
+  }
+
+  isInitialAndLicence() {
+    if (this.isInitial() && this.isLicence()) {
+      return true;
+    } else {
+      this.transDetailsFormLocalModel.controls.deviceName.setValue(null);
+      this.transDetailsFormLocalModel.controls.deviceName.markAsUntouched();
+    }
+    return false;
+  }
+
+  isUnsolicited() {
+    if (this.transDetailsFormLocalModel.controls.transDescription.value === 'UD') {
+      return true;
+    } else {
+      this.transDetailsFormLocalModel.controls.isSolicitedInfo.setValue(null);
+      this.transDetailsFormLocalModel.controls.isSolicitedInfo.markAsUntouched();
+    }
+    return false;
+  }
+
+  isNotInitialMmUd() {
+    if (this.isNotInitial() && (this.transDetailsFormLocalModel.controls.transDescription.value !== 'MM' ||
+          this.transDetailsFormLocalModel.controls.transDescription.value !== 'UD')) {
+      return true;
+    } else {
+      this.transDetailsFormLocalModel.controls.appNum.setValue(null);
+      this.transDetailsFormLocalModel.controls.appNum.markAsUntouched();
+    }
+    return false;
+  }
+
+  isMmUd() {
+    if (this.transDetailsFormLocalModel.controls.transDescription.value === 'MM' ||
+        this.transDetailsFormLocalModel.controls.transDescription.value === 'UD') {
+      return true;
+    } else {
+      this.transDetailsFormLocalModel.controls.appNumOpt.setValue(null);
+      this.transDetailsFormLocalModel.controls.appNumOpt.markAsUntouched();
+    }
+    return false;
+  }
+
+  isHasDdtMandatory() {
+    if (this.isInitialAndLicence() || this.transDetailsFormLocalModel.controls.deviceChange.value) {
+      this.transDetailsFormLocalModel.controls.hasDdt.setValue(null);
+      this.transDetailsFormLocalModel.controls.hasDdt.markAsUntouched();
+      return true;
+    } else {
+      this.transDetailsFormLocalModel.controls.hasDdtMan.setValue(null);
+      this.transDetailsFormLocalModel.controls.hasDdtMan.markAsUntouched();
     }
     return false;
   }
