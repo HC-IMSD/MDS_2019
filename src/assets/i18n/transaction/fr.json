@@ -18,7 +18,7 @@
   "amend.reason": "fr_Reason for filing this Amendment",
   "licence.number": "fr_Licence Number",
   "application.number": "fr_Application Number",
-  "application.number": "fr_Meeting ID",
+  "meeting.id": "fr_Meeting ID",
   "device.name": "fr_Name of Device, as it appears on the label",
   "licence.name": "fr_Proposed licence name",
   "include.ddt": "fr_Include device details table in transaction specifying the proposed device names compared to the original device namesr",

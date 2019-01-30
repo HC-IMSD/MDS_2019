@@ -142,7 +142,7 @@ export class MaterialRecordComponent implements OnInit, AfterViewInit {
 
     this.errorList = new Array();
     this.errorList = this.parentErrorList.concat(this.childErrorList);
-    console.log(this.errorList);
+    // console.log(this.errorList);
   }
 
   /**

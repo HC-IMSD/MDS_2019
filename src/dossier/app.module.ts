@@ -10,6 +10,7 @@ import {MainPipeModule} from '../app/main-pipe/main-pipe.module';
 import {GlobalsService} from '../app/globals/globals.service';
 import {DossierInfoComponent} from '../app/dossier-info/dossier.info.component';
 import {DossierDetailsComponent} from '../app/dossier-details/dossier.details.component';
+import {DossierHelpEnComponent} from '../app/dossier-help-en/dossier-help-en.component';
 import {FileIoModule} from '../app/filereader/file-io/file-io.module';
 
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
@@ -25,7 +26,8 @@ import {DossierDataLoaderService} from '../app/data-loader/dossier-data-loader.s
     AppComponent,
     DossierInfoComponent,
     DossierDetailsComponent,
-    DossierBaseComponent
+    DossierBaseComponent,
+    DossierHelpEnComponent
   ],
   imports: [
     BrowserModule,

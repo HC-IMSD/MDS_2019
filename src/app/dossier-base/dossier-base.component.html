@@ -4,12 +4,20 @@
     <div>
       <h1>{{'dossier.form.title'|translate}}</h1>
 
+      <aside class="wb-fnote" role="note">
+        <h2>{{'instruction.help'|translate}}</h2>
+        <section><dossier-help-en></dossier-help-en></section>
+      </aside>
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
             <div class="btn-group pull-right">
             </div>
-            <h2 class="panel-title">{{'dossier.load.file'|translate}}</h2>
+            <h2 class="panel-title">{{'dossier.load.file'|translate}}
+              <sup id="do1-rf">
+                <a class="fn-lnk" href="#do1"><span class="wb-inv">{{'instruction'|translate}}</span>1</a>
+              </sup>
+            </h2>
           </header>
           <div class="panel-body">
             <div class="row">
@@ -42,7 +50,8 @@
                                    [detailsChanged]="updateChild" [lang]="lang"
                                    [dossierModel]="dossierModel"
                                    (hasQmsc)="disableSaveXmlButton($event)"
-                                   (errorList)="processAddressErrors($event)"></dossier-details>
+                                   (errorList)="processAddressErrors($event)">
+                  </dossier-details>
             </div>
           </div>
         </section>

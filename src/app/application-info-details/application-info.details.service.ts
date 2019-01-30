@@ -164,7 +164,8 @@ export class ApplicationInfoDetailsService {
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, appInfoModel) {
-    appInfoModel.company_id = formRecord.controls.companyId.value;
+   // appInfoModel.company_id = formRecord.controls.companyId.value;
+    appInfoModel.company_id = 'k' + formRecord.controls.companyId.value;
     appInfoModel.dossier_id = formRecord.controls.dossierId.value;
     // appInfoModel.device_class = formRecord.controls.deviceClass.value;
     appInfoModel.qmsc_number = formRecord.controls.qmscNum.value;
@@ -219,7 +220,12 @@ export class ApplicationInfoDetailsService {
   }
 
   public static mapDataModelToFormModel(appInfoModel, formRecord: FormGroup) {
-    formRecord.controls.companyId.setValue(appInfoModel.company_id);
+    if ( appInfoModel.company_id.length > 0 ) {
+      const comIDs = appInfoModel.company_id.split('k');
+      // console.log("company_id" + comIDs[1]);
+      formRecord.controls.companyId.setValue(comIDs[1]);
+    }
+   // formRecord.controls.companyId.setValue(appInfoModel.company_id);
     formRecord.controls.dossierId.setValue(appInfoModel.dossier_id);
     formRecord.controls.qmscNum.setValue(appInfoModel.qmsc_number);
     if (appInfoModel.licence_application_type) {
