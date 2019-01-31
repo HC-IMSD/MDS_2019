@@ -11,6 +11,9 @@
         <label for="companyId" class="required" aria-required="true">
           <span class="field-name" i18n>{{'company.id'|translate}} {{'minNumber5'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <sup id="do3-rf">
+            <a class="fn-lnk" href="#do3"><span class="wb-inv">{{'instruction'|translate}}</span>3</a>
+          </sup>
           <control-messages *ngIf="dossierFormLocalModel.controls.companyId.invalid"
                             [showError]="showFieldErrors"
                             [control]="dossierFormLocalModel.controls.companyId"
@@ -25,6 +28,9 @@
         <label for="contactId" class="required" aria-required="true">
           <span class="field-name" i18n>{{'contact.id'|translate}} {{'minNumber5'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <sup id="do4-rf">
+            <a class="fn-lnk" href="#do4"><span class="wb-inv">{{'instruction'|translate}}</span>4</a>
+          </sup>
           <control-messages *ngIf="dossierFormLocalModel.controls.contactId.invalid"
                             [showError]="showFieldErrors"
                             [control]="dossierFormLocalModel.controls.contactId"
@@ -40,6 +46,9 @@
         <label for="deviceClass" class="required">
           <span class="field-name" i18n>{{'device.class' | translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <sup id="do5-rf">
+            <a class="fn-lnk" href="#do5"><span class="wb-inv">{{'instruction'|translate}}</span>5</a>
+          </sup>
           <control-messages *ngIf="dossierFormLocalModel.controls.deviceClass.invalid"
                             [showError]="showFieldErrors"
                             [control]="dossierFormLocalModel.controls.deviceClass"
@@ -56,6 +65,9 @@
         <label for="deviceName" class="required full-width">
           <span class="field-name">{{'device.name'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <sup id="do6-rf">
+            <a class="fn-lnk" href="#do6"><span class="wb-inv">{{'instruction'|translate}}</span>6</a>
+          </sup>
           <control-messages *ngIf="dossierFormLocalModel.controls.deviceName.invalid"
                             [showError]="showFieldErrors"
                             [control]="dossierFormLocalModel.controls.deviceName"
@@ -106,6 +118,9 @@
       <label for="licenceAppType" class="required">
         <span class="field-name" i18n>{{'licence.app.type' |translate}}</span>
         <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+        <sup id="do7-rf">
+          <a class="fn-lnk" href="#do7"><span class="wb-inv">{{'instruction'|translate}}</span>7</a>
+        </sup>
         <control-messages *ngIf="dossierFormLocalModel.controls.licenceAppType.invalid"
                           [showError]="showFieldErrors"
                           [control]="dossierFormLocalModel.controls.licenceAppType"

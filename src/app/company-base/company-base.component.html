@@ -5,12 +5,21 @@
     <div>
       <h1>{{'company.form.title'|translate}}</h1>
 
+      <aside class="wb-fnote" role="note">
+        <h2>{{'instruction.help'|translate}}</h2>
+        <section><company-help-en></company-help-en></section>
+      </aside>
+
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
             <div class="btn-group pull-right">
             </div>
-            <h2 class="panel-title">{{'company.load.file'|translate}}</h2>
+            <h2 class="panel-title">{{'company.load.file'|translate}}
+              <sup id="co1-rf">
+                <a class="fn-lnk" href="#co1"><span class="wb-inv">{{'instruction'|translate}}</span>1</a>
+              </sup>
+            </h2>
           </header>
           <div class="panel-body">
             <div class="row">
@@ -28,7 +37,11 @@
           <header class="panel-heading clearfix">
             <div class="btn-group pull-right">
             </div>
-            <h2 class="panel-title">{{'heading.company'|translate}}</h2>
+            <h2 class="panel-title">{{'heading.company'|translate}}
+              <sup id="co2-rf">
+                <a class="fn-lnk" href="#co2"><span class="wb-inv">{{'instruction'|translate}}</span>2</a>
+              </sup>
+            </h2>
           </header>
           <div class="panel-body">
 

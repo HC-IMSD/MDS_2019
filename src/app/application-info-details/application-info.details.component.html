@@ -46,6 +46,9 @@
         <label for="licenceAppType" class="required">
           <span class="field-name" i18n>{{'licence.app.type' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <sup id="ap3-rf">
+            <a class="fn-lnk" href="#ap3"><span class="wb-inv">{{'instruction'|translate}}</span>3</a>
+          </sup>
           <control-messages *ngIf="appInfoFormLocalModel.controls.licenceAppType.invalid"
                             [showError]="showFieldErrors"
                             [control]="appInfoFormLocalModel.controls.licenceAppType"

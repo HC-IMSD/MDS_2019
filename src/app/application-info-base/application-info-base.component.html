@@ -3,12 +3,21 @@
     <div>
       <h1>{{'application-info.form.title'|translate}}</h1>
 
+      <aside class="wb-fnote" role="note">
+        <h2>{{'instruction.help'|translate}}</h2>
+        <section><application-info-help-en></application-info-help-en></section>
+      </aside>
+
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
             <div class="btn-group pull-right">
             </div>
-            <h2 class="panel-title">{{'application-info.load.file'|translate}}</h2>
+            <h2 class="panel-title">{{'application-info.load.file'|translate}}
+              <sup id="ap1-rf">
+                <a class="fn-lnk" href="#ap1"><span class="wb-inv">{{'instruction'|translate}}</span>1</a>
+              </sup>
+            </h2>
           </header>
           <div class="panel-body">
             <div class="row">
@@ -26,7 +35,11 @@
           <header class="panel-heading clearfix">
             <div class="btn-group pull-right">
             </div>
-            <h2 class="panel-title">{{'heading.app-info'|translate}}</h2>
+            <h2 class="panel-title">{{'heading.app-info'|translate}}
+              <sup id="ap2-rf">
+                <a class="fn-lnk" href="#ap2"><span class="wb-inv">{{'instruction'|translate}}</span>2</a>
+              </sup>
+            </h2>
           </header>
           <div class="panel-body">
             <app-info-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
