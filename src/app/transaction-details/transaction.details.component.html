@@ -346,6 +346,13 @@
                  formControlName="appNumOpt" maxlength="6"/>
         </label>
       </div>
+      <div class="form-group col-xs-6" *ngIf="isMm()">
+        <label for="meetingId" class="full-width">
+          <span class="field-name" i18n>{{'meeting.id' |translate}}</span>
+          <input id="meetingId" class="form-control full-width" (blur)="onblur()"
+                 formControlName="meetingId" maxlength="6"/>
+        </label>
+      </div>
       <div class="form-group col-xs-6" *ngIf="isInitialAndLicence()">
         <label for="deviceName" class="required full-width">
           <span class="field-name" i18n>{{'device.name' |translate}}</span>
@@ -361,8 +368,35 @@
         </label>
       </div>
     </div>
-    <div class="row">
-      <div class="form-group col-xs-6" *ngIf="showDate">
+
+    <div class="row" *ngIf="isLicenceNameChanged()">
+      <div class="form-group col-xs-12">
+        <div class="form-group">
+        </div>
+        <label for="licenceName" class="required full-width">
+          <span class="field-name" i18n>{{'licence.name' |translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="transDetailsFormLocalModel.controls.licenceName.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="transDetailsFormLocalModel.controls.licenceName"
+                            controlId="licenceName" label="licence.name"
+                            parentId="transDetails"
+                            parentLabel="Transaction Information"></control-messages>
+          <input class="form-control full-width" id="licenceName" (blur)="onblur()"
+                    required formControlName="licenceName" maxlength="150"/>
+        </label>
+      </div>
+    </div>
+    <div class="row" *ngIf="isDeviceNameChanged()">
+      <div class="col-xs-12 form-group alert alert-info" role="alert">
+           <span>
+            <p aria-live="polite">{{'include.ddt'|translate}}</p>
+           </span>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="showDate">
+      <div class="form-group col-xs-6">
         <div class="form-group">
         </div>
         <label for="requestDate" class="required full-width">
@@ -379,8 +413,8 @@
         </label>
       </div>
     </div>
-    <div class="row">
-      <div class="form-group col-xs-12" *ngIf="showBriefDesc">
+    <div class="row" *ngIf="showBriefDesc">
+      <div class="form-group col-xs-12">
         <div class="form-group">
         </div>
         <label for="briefDesc" class="required full-width">
@@ -421,7 +455,7 @@
             <control-messages *ngIf="transDetailsFormLocalModel.controls.hasDdtMan.invalid"
                               [showError]="showFieldErrors"
                               [control]="transDetailsFormLocalModel.controls.hasDdtMan"
-                              controlId="hasDdtMan" label="brief.descr"
+                              controlId="hasDdtMan" label="has.ddt"
                               parentId="transDetails"
                               parentLabel="Transaction Information"></control-messages>
           </label>

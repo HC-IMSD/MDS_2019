@@ -20,17 +20,17 @@ export class TransactionDetailsService {
   public getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
-      dossierId: [null, [Validators.required, ValidationService.dossierIdValidator]],
+      dossierId: ['', [Validators.required, ValidationService.dossierIdValidator]],
       dossierType: ['Medical device', []],
-      manuCompanyId: [null, [Validators.required, ValidationService.companyIdValidator]],
-      manuContactId: [null, [Validators.required, ValidationService.dossierContactIdValidator]],
-      reguCompanyId: [null, [Validators.required, ValidationService.regulatoryCompanyIdValidator]],
-      reguContactId: [null, [Validators.required, ValidationService.regulatoryContactIdValidator]],
-      activityLead: [null, Validators.required],
-      activityType: [null, Validators.required],
-      transDescription: [null, Validators.required],
-      deviceClass: [null, Validators.required],
-      amendReason: [null, Validators.required],
+      manuCompanyId: ['', [Validators.required, ValidationService.companyIdValidator]],
+      manuContactId: ['', [Validators.required, ValidationService.dossierContactIdValidator]],
+      reguCompanyId: ['', [Validators.required, ValidationService.regulatoryCompanyIdValidator]],
+      reguContactId: ['', [Validators.required, ValidationService.regulatoryContactIdValidator]],
+      activityLead: ['', Validators.required],
+      activityType: ['', Validators.required],
+      transDescription: ['', Validators.required],
+      deviceClass: ['', Validators.required],
+      amendReason: ['', Validators.required],
       classChange: [false, []],
       licenceChange: [false, []],
       deviceChange: [false, []],
@@ -42,18 +42,18 @@ export class TransactionDetailsService {
       safetyChange: [false, []],
       purposeChange: [false, []],
       addChange: [false, []],
-      licenceNum: [null, [Validators.required, ValidationService.licenceNumValidator]],
-      appNum: [null, [Validators.required, ValidationService.appNumValidator]],
-      appNumOpt: [null, [ValidationService.appNumValidator]],
+      licenceNum: ['', [Validators.required, ValidationService.licenceNumValidator]],
+      appNum: ['', [Validators.required, ValidationService.appNumValidator]],
+      appNumOpt: ['', [ValidationService.appNumValidator]],
       meetingId: '',
-      deviceName: [null, Validators.required],
-      licenceName: [null, Validators.required],
-      requestDate: [null, Validators.required],
-      briefDesc: [null, Validators.required],
+      deviceName: ['', Validators.required],
+      licenceName: ['', Validators.required],
+      requestDate: ['', Validators.required],
+      briefDesc: ['', Validators.required],
       hasDdt: [false, []],
-      hasDdtMan: [false, Validators.required],
+      hasDdtMan: ['', Validators.required],
       hasAppInfo: [false, []],
-      isSolicitedInfo: [null, Validators.required]
+      isSolicitedInfo: ['', Validators.required]
     });
   }
 
@@ -92,7 +92,7 @@ export class TransactionDetailsService {
         application_number: '',
         meeting_id: '',
         device_name: '',
-        licence_name: '',
+        proposed_licence_name: '',
         request_date: '',
         brief_description: '',
         has_ddt: '',
@@ -228,9 +228,13 @@ export class TransactionDetailsService {
 
   public static mapFormModelToDataModel(formRecord: FormGroup, transactionModel) {
     transactionModel.dossier_id = formRecord.controls.dossierId.value;
-    transactionModel.manufacturing_company_id = 'k' + formRecord.controls.manuCompanyId.value;
+    if (formRecord.controls.manuCompanyId.value) {
+      transactionModel.manufacturing_company_id = 'k' + formRecord.controls.manuCompanyId.value;
+    }
     transactionModel.manufacturing_contact_id = formRecord.controls.manuContactId.value;
-    transactionModel.regulatory_company_id = 'k' + formRecord.controls.reguCompanyId.value;
+    if (formRecord.controls.reguCompanyId.value) {
+      transactionModel.regulatory_company_id = 'k' + formRecord.controls.reguCompanyId.value;
+    }
     transactionModel.regulatory_contact_id = formRecord.controls.reguContactId.value;
     transactionModel.activity_lead = formRecord.controls.activityLead.value;
     transactionModel.activity_type = formRecord.controls.activityType.value;
@@ -261,8 +265,8 @@ export class TransactionDetailsService {
     transactionModel.amend_reasons.add_delete_change = formRecord.controls.addChange.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.licence_number = formRecord.controls.licenceNum.value;
     if (formRecord.controls.transDescription.value !== 'INITIAL' &&
-      (formRecord.controls.transDescription.value !== 'MM' ||
-        formRecord.controls.transDescription.value !== 'UD')) {
+      formRecord.controls.transDescription.value !== 'MM' &&
+        formRecord.controls.transDescription.value !== 'UD') {
       transactionModel.application_number = formRecord.controls.appNum.value;
     } else if (formRecord.controls.transDescription.value === 'MM' ||
             formRecord.controls.transDescription.value === 'UD') {
@@ -270,10 +274,15 @@ export class TransactionDetailsService {
     }
     transactionModel.meeting_id = formRecord.controls.meetingId.value;
     transactionModel.device_name = formRecord.controls.deviceName.value;
-    transactionModel.licence_name = formRecord.controls.licenceName.value;
+    transactionModel.proposed_licence_name = formRecord.controls.licenceName.value;
     transactionModel.request_date = formRecord.controls.requestDate.value;
     transactionModel.brief_description = formRecord.controls.briefDesc.value;
-    transactionModel.has_ddt = formRecord.controls.hasDdt.value ? GlobalsService.YES : GlobalsService.NO;
+    if(formRecord.controls.deviceChange.value ||
+        (formRecord.controls.activityType.value === 'Licence' && formRecord.controls.transDescription.value === 'INITIAL')) {
+      transactionModel.has_ddt = formRecord.controls.hasDdtMan.value ? GlobalsService.YES : GlobalsService.NO;
+    } else {
+      transactionModel.has_ddt = formRecord.controls.hasDdt.value ? GlobalsService.YES : GlobalsService.NO;
+    }
     transactionModel.has_app_info = formRecord.controls.hasAppInfo.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.is_solicited_info = formRecord.controls.isSolicitedInfo.value;
   }
@@ -327,21 +336,29 @@ export class TransactionDetailsService {
     formRecord.controls.purposeChange.setValue(purc);
     const addc = transactionModel.amend_reasons.add_delete_change === GlobalsService.YES ? true : false;
     formRecord.controls.addChange.setValue(addc);
+    if (clsc || licc || decc || proc || quac || desc || matc || labc || safc || purc || addc) {
+      formRecord.controls.amendReason.setValue('reasonFilled');
+    }
     formRecord.controls.licenceNum.setValue(transactionModel.licence_number);
-    if (transactionModel.transaction_description.id  &&
-      (transactionModel.transaction_description.id === 'MM' ||
-        transactionModel.transaction_description.id === 'UD')) {
+    if (transactionModel.transaction_description.__text &&
+      (transactionModel.transaction_description.__text === 'MM' ||
+        transactionModel.transaction_description.__text === 'UD')) {
       formRecord.controls.appNumOpt.setValue(transactionModel.application_number);
-    } else  {
+    } else {
       formRecord.controls.appNum.setValue(transactionModel.application_number);
     }
     formRecord.controls.meetingId.setValue(transactionModel.meeting_id);
     formRecord.controls.deviceName.setValue(transactionModel.device_name);
-    formRecord.controls.licenceName.setValue(transactionModel.licence_name);
+    formRecord.controls.licenceName.setValue(transactionModel.proposed_licence_name);
     formRecord.controls.requestDate.setValue(transactionModel.request_date);
     formRecord.controls.briefDesc.setValue(transactionModel.brief_description);
     const hasddt = transactionModel.has_ddt === GlobalsService.YES ? true : false;
-    formRecord.controls.hasDdt.setValue(hasddt);
+    if (formRecord.controls.deviceChange.value ||
+      (transactionModel.activity_type === 'Licence' && transactionModel.transaction_description.__text === 'INITIAL')) {
+      formRecord.controls.hasDdtMan.setValue(hasddt);
+    } else {
+      formRecord.controls.hasDdt.setValue(hasddt);
+    }
     const hasapp = transactionModel.has_app_info === GlobalsService.YES ? true : false;
     formRecord.controls.hasAppInfo.setValue(hasapp);
     formRecord.controls.isSolicitedInfo.setValue(transactionModel.is_solicited_info);

@@ -151,6 +151,10 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'Licence Amendment') {
       this.transDescList = TransactionDetailsService.getLicenceDescriptions(this.lang);
     }
+    // update reasonArray
+    this._updateReasonArray();
+    // update reasonResults
+    this._updateReasonResults();
   }
 
   /**
@@ -192,7 +196,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
       }
       this.transDetailsFormLocalModel.controls.transDescription.setValue(null);
       this.transDetailsFormLocalModel.controls.transDescription.markAsUntouched();
-      this.transDetailsFormLocalModel.controls.deviceClass.setValue(false);
+      this.transDetailsFormLocalModel.controls.deviceClass.setValue(null);
       this.transDetailsFormLocalModel.controls.deviceClass.markAsUntouched();
       this._resetReasonValues();
     } else {
@@ -203,8 +207,17 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
   descrDeviceOnblur() {
     const descValue = this.transDetailsFormLocalModel.controls.transDescription.value;
+    this._updateReasonArray();
+    this._setDescFieldFlags(descValue);
+    this._resetReasonValues();
+    this.onblur();
+  }
+
+  // reasonArray is the flags to display the reason chexk box list
+  private _updateReasonArray() {
+    const descValue = this.transDetailsFormLocalModel.controls.transDescription.value;
     if (this.transDetailsFormLocalModel.controls.activityType.value !== 'Licence' && descValue === 'INITIAL' &&
-             this.transDetailsFormLocalModel.controls.deviceClass.value) {
+      this.transDetailsFormLocalModel.controls.deviceClass.value) {
       if (this.transDetailsFormLocalModel.controls.activityType.value === 'Licence Amendment') {
         switch (this.transDetailsFormLocalModel.controls.deviceClass.value) {
           case 'DC2':
@@ -219,14 +232,11 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
         }
 
       } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'Fax-back') {
-            this.reasonArray = [false, true, true, false, false, false, false, false, false, false, true];
+        this.reasonArray = [false, true, true, false, false, false, false, false, false, false, true];
       }
     } else {
       this.reasonArray = [false, false, false, false, false, false, false, false, false, false, false];
     }
-    this._setDescFieldFlags(descValue);
-    this._resetReasonValues();
-    this.onblur();
   }
 
   private _setDescFieldFlags(descValue) {
@@ -329,6 +339,21 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     }
   }
 
+  // set reason result after load data
+  private _updateReasonResults() {
+    this.reasonResults[0] = this.transDetailsFormLocalModel.controls.classChange.value;
+    this.reasonResults[1] = this.transDetailsFormLocalModel.controls.licenceChange.value;
+    this.reasonResults[2] = this.transDetailsFormLocalModel.controls.deviceChange.value;
+    this.reasonResults[3] = this.transDetailsFormLocalModel.controls.processChange.value;
+    this.reasonResults[4] = this.transDetailsFormLocalModel.controls.qualityChange.value;
+    this.reasonResults[5] = this.transDetailsFormLocalModel.controls.designChange.value;
+    this.reasonResults[6] = this.transDetailsFormLocalModel.controls.materialsChange.value;
+    this.reasonResults[7] = this.transDetailsFormLocalModel.controls.labellingChange.value;
+    this.reasonResults[8] = this.transDetailsFormLocalModel.controls.safetyChange.value;
+    this.reasonResults[9] = this.transDetailsFormLocalModel.controls.purposeChange.value;
+    this.reasonResults[10] = this.transDetailsFormLocalModel.controls.addChange.value;
+  }
+
   isInitial() {
     return (this.transDetailsFormLocalModel.controls.transDescription.value === 'INITIAL');
   }
@@ -373,8 +398,6 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     if (this.isInitial() && !this.isLicence() && this.isClassSet()) {
       return true;
     } else {
-      this.transDetailsFormLocalModel.controls.deviceClass.setValue(null);
-      this.transDetailsFormLocalModel.controls.deviceClass.markAsUntouched();
       this.transDetailsFormLocalModel.controls.amendReason.setValue(null);
       this.transDetailsFormLocalModel.controls.amendReason.markAsUntouched();
     }
@@ -402,8 +425,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   isNotInitialMmUd() {
-    if (this.isNotInitial() && (this.transDetailsFormLocalModel.controls.transDescription.value !== 'MM' ||
-          this.transDetailsFormLocalModel.controls.transDescription.value !== 'UD')) {
+    if (this.isNotInitial() && this.transDetailsFormLocalModel.controls.transDescription.value !== 'MM' &&
+          this.transDetailsFormLocalModel.controls.transDescription.value !== 'UD') {
       return true;
     } else {
       this.transDetailsFormLocalModel.controls.appNum.setValue(null);
@@ -431,6 +454,30 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     } else {
       this.transDetailsFormLocalModel.controls.hasDdtMan.setValue(null);
       this.transDetailsFormLocalModel.controls.hasDdtMan.markAsUntouched();
+    }
+    return false;
+  }
+
+  isLicenceNameChanged() {
+    if (this.transDetailsFormLocalModel.controls.licenceChange.value) {
+      return true;
+    } else {
+      this.transDetailsFormLocalModel.controls.licenceName.setValue(null);
+      this.transDetailsFormLocalModel.controls.licenceName.markAsUntouched();
+    }
+    return false;
+  }
+
+  isDeviceNameChanged() {
+    return (this.transDetailsFormLocalModel.controls.deviceChange.value);
+  }
+
+  isMm() {
+    if (this.transDetailsFormLocalModel.controls.transDescription.value === 'MM') {
+      return true;
+    } else {
+      this.transDetailsFormLocalModel.controls.meetingId.setValue(null);
+      this.transDetailsFormLocalModel.controls.meetingId.markAsUntouched();
     }
     return false;
   }
