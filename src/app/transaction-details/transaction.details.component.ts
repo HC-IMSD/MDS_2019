@@ -213,6 +213,11 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.onblur();
   }
 
+  isSolicitedOnblur() {
+    this.isSolicitedFlag.emit(this.transDetailsFormLocalModel.controls.isSolicitedInfo.value === GlobalsService.YES);
+    this.onblur();
+  }
+
   // reasonArray is the flags to display the reason chexk box list
   private _updateReasonArray() {
     const descValue = this.transDetailsFormLocalModel.controls.transDescription.value;
@@ -414,12 +419,13 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     return false;
   }
 
-  isUnsolicited() {
-    if (this.transDetailsFormLocalModel.controls.transDescription.value === 'UD') {
+  isNotUnsolicited() {
+    if (this.transDetailsFormLocalModel.controls.transDescription.value !== 'UD') {
       return true;
     } else {
       this.transDetailsFormLocalModel.controls.isSolicitedInfo.setValue(null);
       this.transDetailsFormLocalModel.controls.isSolicitedInfo.markAsUntouched();
+      this.isSolicitedFlag.emit(false);
     }
     return false;
   }

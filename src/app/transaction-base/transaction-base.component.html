@@ -3,12 +3,21 @@
     <div>
       <h1>{{'transaction.form.title'|translate}}</h1>
 
+      <aside class="wb-fnote" role="note">
+        <h2>{{'instruction.help'|translate}}</h2>
+        <section><transaction-help-en></transaction-help-en></section>
+      </aside>
+
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
             <div class="btn-group pull-right">
             </div>
-            <h2 class="panel-title">{{'transaction.load.file'|translate}}</h2>
+            <h2 class="panel-title">{{'transaction.load.file'|translate}}
+              <sup id="tr1-rf">
+                <a class="fn-lnk" href="#tr1"><span class="wb-inv">{{'instruction'|translate}}</span>1</a>
+              </sup>
+            </h2>
           </header>
           <div class="panel-body">
             <div class="row">
@@ -26,7 +35,11 @@
           <header class="panel-heading clearfix">
             <div class="btn-group pull-right">
             </div>
-            <h2 class="panel-title">{{'heading.transaction'|translate}}</h2>
+            <h2 class="panel-title">{{'heading.transaction'|translate}}
+              <sup id="tr2-rf">
+                <a class="fn-lnk" href="#tr2"><span class="wb-inv">{{'instruction'|translate}}</span>2</a>
+              </sup>
+            </h2>
           </header>
           <div class="panel-body">
             <transaction-details [showErrors]="showErrors" [lang]="lang" [userList]="userList"

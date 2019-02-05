@@ -80,7 +80,9 @@ export class CompanyInfoService {
     generalInfoModel.status = formRecord.controls.formStatus.value;
     generalInfoModel.enrol_version = formRecord.controls.enrolVersion.value;
     generalInfoModel.last_saved_date = formRecord.controls.lastSavedDate.value;
-    generalInfoModel.company_id = 'k' + formRecord.controls.companyId.value;
+    if (formRecord.controls.companyId.value) {
+      generalInfoModel.company_id = 'k' + formRecord.controls.companyId.value;
+    }
     generalInfoModel.amend_reasons.manufacturer_name_change = formRecord.controls.nameChange.value ? GlobalsService.YES : GlobalsService.NO;
     generalInfoModel.amend_reasons.manufacturer_address_change =
       formRecord.controls.addressChange.value ? GlobalsService.YES : GlobalsService.NO;

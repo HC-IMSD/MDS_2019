@@ -149,10 +149,10 @@ export class LicenceListComponent extends ListOperations implements OnInit, OnCh
       this.validRec = false;
       return false;
     } else if (this.licenceChild && this.licenceChild.licenceFormRecord) {
-      this.validRec = this.licenceListForm.valid && !this.licenceChild.licenceFormRecord.dirty;
+      // this.validRec = this.licenceListForm.valid && !this.licenceChild.licenceFormRecord.dirty;
       return (this.licenceListForm.valid && !this.licenceChild.licenceFormRecord.dirty);
     }
-    this.validRec = this.licenceListForm.valid;
+    // this.validRec = this.licenceListForm.valid;
     return (this.licenceListForm.valid);
   }
 

@@ -77,7 +77,9 @@ export class CompanyAdminChangesService {
     }
     adminChangesModel.licence = licenceModel;
     adminChangesModel.is_regulatory_change = formRecord.controls.isReguChange.value;
-    adminChangesModel.new_company_id = 'k' + formRecord.controls.newCompanyId.value;
+    if (formRecord.controls.newCompanyId.value) {
+      adminChangesModel.new_company_id = 'k' + formRecord.controls.newCompanyId.value;
+    }
     adminChangesModel.new_contact_id = formRecord.controls.newContactId.value;
     adminChangesModel.new_contact_name = formRecord.controls.newContactName.value;
   }

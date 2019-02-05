@@ -165,7 +165,9 @@ export class ApplicationInfoDetailsService {
 
   public static mapFormModelToDataModel(formRecord: FormGroup, appInfoModel) {
    // appInfoModel.company_id = formRecord.controls.companyId.value;
-    appInfoModel.company_id = 'k' + formRecord.controls.companyId.value;
+    if (formRecord.controls.companyId.value) {
+      appInfoModel.company_id = 'k' + formRecord.controls.companyId.value;
+    }
     appInfoModel.dossier_id = formRecord.controls.dossierId.value;
     // appInfoModel.device_class = formRecord.controls.deviceClass.value;
     appInfoModel.qmsc_number = formRecord.controls.qmscNum.value;

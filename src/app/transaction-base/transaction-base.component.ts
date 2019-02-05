@@ -85,6 +85,9 @@ export class TransactionBaseComponent implements OnInit {
   }
 
   processIsSolicitedFlag(isSolicited) {
+    if (!isSolicited) {
+      this.requesterModel = [];
+    }
     this.isSolicitedFlag = isSolicited;
   }
 

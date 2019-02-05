@@ -51,7 +51,7 @@ export class TransactionDetailsService {
       requestDate: ['', Validators.required],
       briefDesc: ['', Validators.required],
       hasDdt: [false, []],
-      hasDdtMan: ['', Validators.required],
+      hasDdtMan: ['', ValidationService.checkboxRequiredValidator],
       hasAppInfo: [false, []],
       isSolicitedInfo: ['', Validators.required]
     });

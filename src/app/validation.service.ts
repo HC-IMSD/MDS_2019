@@ -207,4 +207,12 @@ export class ValidationService {
       return {'error.mgs.npn': true};
     }
   }
+
+  static checkboxRequiredValidator(control) {
+    if (control.value) {
+      return null;
+    } else {
+      return {'required': true};
+    }
+  }
 }

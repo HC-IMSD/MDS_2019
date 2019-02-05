@@ -128,7 +128,9 @@ export class DossierDetailsService {
 
   public static mapFormModelToDataModel(formRecord: FormGroup, dossierModel, registrarList) {
     dossierModel.dossier_type = formRecord.controls.dossierType.value;
-    dossierModel.company_id = 'k' + formRecord.controls.companyId.value;
+    if (formRecord.controls.companyId.value) {
+      dossierModel.company_id = 'k' + formRecord.controls.companyId.value;
+    }
     dossierModel.contact_id = formRecord.controls.contactId.value;
     dossierModel.device_class = formRecord.controls.deviceClass.value;
     dossierModel.device_name = formRecord.controls.deviceName.value;
