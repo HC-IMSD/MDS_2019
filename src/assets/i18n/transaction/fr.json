@@ -21,7 +21,7 @@
   "meeting.id": "fr_Meeting ID",
   "device.name": "fr_Name of Device, as it appears on the label",
   "licence.name": "fr_Proposed licence name",
-  "include.ddt": "fr_Include device details table in transaction specifying the proposed device names compared to the original device namesr",
+  "include.ddt": "fr_Include device details table in transaction specifying the proposed device names compared to the original device names",
   "request.date": "fr_Date of Request (MM/DD/YYYY)",
   "brief.descr": "fr_Brief Description",
   "has.ddt": "fr_Device details table included?",
