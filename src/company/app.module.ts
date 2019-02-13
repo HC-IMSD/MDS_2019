@@ -1,4 +1,4 @@
-import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule, Title} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -60,7 +60,8 @@ import {CompanyDataLoaderService} from '../app/data-loader/company-data-loader.s
   providers: [
     ValidationService,
     GlobalsService,
-    CompanyDataLoaderService
+    CompanyDataLoaderService,
+    Title
   ],
   exports: [
     TranslateModule

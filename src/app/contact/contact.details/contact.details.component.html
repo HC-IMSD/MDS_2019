@@ -23,8 +23,8 @@
                             controlId="status" label="status" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
           <select id="status" required class="form-control full-width" formControlName="status">
+            <option label=" " value=""></option>
             <option *ngFor="let stat of statuses" [ngValue]="stat.id"> {{stat.label_en}}</option>
-
           </select>
         </label>
       </div>
@@ -38,8 +38,8 @@
                             controlId="hcStatus" label="hcStatus" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
           <select id="hcStatus" required class="form-control full-width" formControlName="hcStatus">
+            <option label=" " value=""></option>
             <option *ngFor="let hcstat of hcStatuses" [ngValue]="hcstat.id"> {{hcstat.label_en}}</option>
-
           </select>
         </label>
       </div>
@@ -55,8 +55,8 @@
                             controlId="salutation" label="salutation" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
           <select id="salutation" required class="form-control" formControlName="salutation">
+            <option label=" " value=""></option>
             <option *ngFor="let sal of salutations" [ngValue]="sal.id"> {{sal.label_en}}</option>
-
           </select>
         </label>
       </div>
@@ -104,8 +104,8 @@
                             controlId="language" label="lang.correspond" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
           <select id="language" required class="form-control" formControlName="language">
+            <option label=" " value=""></option>
             <option *ngFor="let lang of languages" [ngValue]="lang.id"> {{lang.label_en}}</option>
-
           </select>
         </label>
       </div>

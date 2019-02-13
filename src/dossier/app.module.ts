@@ -1,4 +1,4 @@
-import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule,Title} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -51,7 +51,8 @@ import {DossierDataLoaderService} from '../app/data-loader/dossier-data-loader.s
   providers: [
     ValidationService,
     GlobalsService,
-    DossierDataLoaderService
+    DossierDataLoaderService,
+    Title
   ],
   exports: [
     TranslateModule

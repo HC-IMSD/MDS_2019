@@ -3,18 +3,17 @@
   <!-- todo: [formGroup]="companyForm" need initial ????-->
     <!-- we will place our fields here -->
     <div>
-      <h1>{{'company.form.title'|translate}}</h1>
-
+     <!--<h1>{{'company.form.title'|translate}}</h1>
+      <p class="pagetag">
+        <strong>From <a href="http://www.healthycanadians.gc.ca/department-ministere/hc-sc-eng.php?_ga=1.203751760.1566644155.1449063473">Health Canada</a></strong>
+      </p> -->
       <aside class="wb-fnote" role="note">
         <h2>{{'instruction.help'|translate}}</h2>
         <section><company-help-en></company-help-en></section>
       </aside>
-
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
-            <div class="btn-group pull-right">
-            </div>
             <h2 class="panel-title">{{'company.load.file'|translate}}
               <sup id="co1-rf">
                 <a class="fn-lnk" href="#co1"><span class="wb-inv">{{'instruction'|translate}}</span>1</a>
@@ -35,8 +34,6 @@
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
-            <div class="btn-group pull-right">
-            </div>
             <h2 class="panel-title">{{'heading.company'|translate}}
               <sup id="co2-rf">
                 <a class="fn-lnk" href="#co2"><span class="wb-inv">{{'instruction'|translate}}</span>2</a>
@@ -55,13 +52,6 @@
             <div>
               <section class="panel  panel-default">
                 <header class="panel-heading clearfix">
-                  <div class="btn-group pull-right">
-                    <!-- <button title="{{::'ADDRESS_INSTRUCT'|translate}}"
-                             class="btn-xs rep-help-button-primary"
-                             id="address-instructions-toggle" ng-click="main.addInstruct(3)"><span
-                       class="fa fa-question-circle fa-2x"></span><span class="wb-inv">"{{::'ADDRESS_INSTRUCT'|translate}}"</span>
-                     </button>-->
-                  </div>
                   <h3 class="panel-title">{{'heading.addressInfo'|translate}}</h3>
                 </header>
                 <div class="panel-body">

@@ -1,9 +1,7 @@
 <div class="container-fluid">
   <form [formGroup]="appInfoForm" novalidate>
     <div>
-      <h1>{{'application-info.form.title'|translate}}</h1>
-
-      <aside class="wb-fnote" role="note">
+        <aside class="wb-fnote" role="note">
         <h2>{{'instruction.help'|translate}}</h2>
         <section><application-info-help-en></application-info-help-en></section>
       </aside>
@@ -11,8 +9,6 @@
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
-            <div class="btn-group pull-right">
-            </div>
             <h2 class="panel-title">{{'application-info.load.file'|translate}}
               <sup id="ap1-rf">
                 <a class="fn-lnk" href="#ap1"><span class="wb-inv">{{'instruction'|translate}}</span>1</a>
@@ -33,8 +29,6 @@
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
-            <div class="btn-group pull-right">
-            </div>
             <h2 class="panel-title">{{'heading.app-info'|translate}}
               <sup id="ap2-rf">
                 <a class="fn-lnk" href="#ap2"><span class="wb-inv">{{'instruction'|translate}}</span>2</a>
@@ -49,7 +43,7 @@
                               (deviceErrorList)="processDeviceErrors($event)"
                               (materialErrorList)="processMaterialtErrors($event)">
             </app-info-details>
-            </div>
+          </div>
         </section>
       </div>
     </div>

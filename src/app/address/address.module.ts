@@ -31,7 +31,7 @@ import {TranslateModule} from '@ngx-translate/core';
     AddressListComponent
 
   ],
-  exports:[
+  exports: [
     CompanyAddressRecordComponent,
     AddressDetailsComponent,
     AddressListComponent

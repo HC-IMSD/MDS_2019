@@ -55,8 +55,8 @@
                             controlId="deviceClass" label="device.class" parentId="dossierDetails"
                             parentLabel="Dossier Information">
           </control-messages>
-          <select id="deviceClass" required class="form-control" (blur)="onblur()"
-                  formControlName="deviceClass">
+          <select id="deviceClass" required class="form-control" (blur)="onblur()" formControlName="deviceClass">
+            <option label=" " value=""></option>
             <option *ngFor="let class of deviceClassList" [ngValue]="class"> {{class|translate}}</option>
           </select>
         </label>
@@ -88,8 +88,8 @@
                             controlId="hasQMSC" label="has.qmsc" parentId="dossierDetails"
                             parentLabel="Dossier Information">
           </control-messages>
-          <select id="hasQMSC" required class="form-control" (blur)="onblur()"
-                  formControlName="hasQMSC">
+          <select id="hasQMSC" required class="form-control" (blur)="onblur()" formControlName="hasQMSC">
+            <option label=" " value=""></option>
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
           </select>
         </label>
@@ -104,15 +104,14 @@
                             controlId="qMSCRegistrar" label="qmsc.registrar" parentId="dossierDetails"
                             parentLabel="Dossier Information">
           </control-messages>
-          <select id="qMSCRegistrar" required class="form-control full-width" (blur)="onblur()"
-                  formControlName="qMSCRegistrar">
+          <select id="qMSCRegistrar" required class="form-control full-width" (blur)="onblur()" formControlName="qMSCRegistrar">
+            <option label=" " value=""></option>
             <option *ngFor="let registrar of registrarList" [ngValue]="registrar.id"> {{registrar.text}}</option>
           </select>
         </label>
       </div>
     <div *ngIf="isQmscNo()" class="row col-xs-12 alert alert-info mrgn-tp-0" >
-      <p><span i18n>{{'qmsc.no' |translate}}</span>
-        <!--<sup id="fn1-rf"><a class="fn-lnk" href="#fn1"><span class="wb-inv">Footnote </span>1</a></sup></p>-->
+      <p><span i18n>{{'qmsc.no' |translate}}</span></p>
     </div>
     <div class="row form-group col-xs-12" >
       <label for="licenceAppType" class="required">
@@ -128,8 +127,8 @@
                           parentId="dossierDetails"
                           parentLabel="Dossier Information">
         </control-messages>
-        <select id="licenceAppType" required class="form-control full-width" (blur)="onblur()"
-                formControlName="licenceAppType">
+        <select id="licenceAppType" required class="form-control full-width" (blur)="onblur()" formControlName="licenceAppType">
+          <option label=" " value=""></option>
           <option *ngFor="let lat of licenceAppTypeList" [ngValue]="lat.id"> {{lat.text}}</option>
         </select>
       </label>

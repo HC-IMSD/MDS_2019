@@ -77,10 +77,9 @@
                             [control]="addressFormLocalModel.controls.provList"
                             controlId="provState" label="{{provinceLabel}}" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
-          <select id="provState" required class="form-control full-width" (blur)="onblur()"
-                  formControlName="provList">
+          <select id="provState" required class="form-control full-width" (blur)="onblur()" formControlName="provList">
+            <option label=" " value=""></option>
             <option *ngFor="let prov of provStateList" [ngValue]="prov.id"> {{prov.text}}</option>
-
           </select>
         </label>
       </div>

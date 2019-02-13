@@ -46,7 +46,7 @@
     <div class="row" *ngIf="isAmend">
 
       <fieldset id="amendReasons" class="form-group col-xs-12">
-        <label>
+        <legend>
           <span class="field-name">{{'amend.reason' | translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="generalInfoFormLocalModel.controls.amendReason.invalid"
@@ -57,7 +57,7 @@
                             parentLabel="Regulatory Company Enrolment"></control-messages>
           <input id="amendReason" type="hidden" class="form-control full-width"
                  formControlName="amendReason"/>
-        </label>
+        </legend>
         <div class="row">
           <div class="col-sm-12">
             <div class="checkbox">
@@ -130,6 +130,7 @@
                             parentLabel="Regulatory Company Enrolment"></control-messages>
           <select id="areLicensesTransfered" required class="form-control full-width" (blur)="amendReasonOnblur()"
                   (selected)="amendReasonOnblur()" formControlName="areLicensesTransfered">
+            <option label=" " value=""></option>
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
           </select>
         </label>

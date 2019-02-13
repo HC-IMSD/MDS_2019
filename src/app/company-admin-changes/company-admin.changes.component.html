@@ -26,8 +26,6 @@
     <div>
       <section class="panel  panel-default">
         <header class="panel-heading clearfix">
-          <div class="btn-group pull-right">
-          </div>
           <h3 class="panel-title">{{'impacted.licence'|translate}}</h3>
         </header>
         <div class="panel-body">
@@ -47,8 +45,8 @@
                             [control]="adminChangesFormLocalModel.controls.isReguChange"
                             controlId="isReguChange" label="is.change" parentId="adminChangesDetails"
                             parentLabel="Admin Changes"></control-messages>
-          <select id="isReguChange" required class="form-control" (blur)="onblur()"
-                  formControlName="isReguChange">
+          <select id="isReguChange" required class="form-control" (blur)="onblur()" formControlName="isReguChange">
+            <option label=" " value=""></option>
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
           </select>
         </label>

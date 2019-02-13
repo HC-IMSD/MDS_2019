@@ -2,11 +2,12 @@
   <h3>{{'heading.interdependent.device'| translate}}&nbsp;{{deviceRecordModel.controls.id.value + 1}}</h3>
   <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="heading.device.record"
-                 [headingLevel]="headingLevel" label="Device Record" compId="deviceRec"></error-summary>
+                 [headingLevel]="headingLevel" label="Device Record" compId="deviceRec">
+  </error-summary>
   <device-details [showErrors]="showErrors"
                    [detailsChanged]="updateChild" [group]="deviceRecordModel.controls.deviceDetails"
-                   (errorList)="updateErrorList($event)"></device-details>
-
+                   (errorList)="updateErrorList($event)">
+  </device-details>
   <div class="row">
     <div class="btn-group-sm col-xs-12 text-left">
       <button class="btn btn-primary" (click)="saveDeviceRecord()" i18n>{{'save.device'|translate}}</button>

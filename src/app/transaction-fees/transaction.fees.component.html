@@ -10,8 +10,8 @@
                             [control]="transFeesFormLocalModel.controls.hasFees"
                             controlId="hasFees" label="are.fees" parentId="transFees"
                             parentLabel="Transaction Fees"></control-messages>
-          <select id="hasFees" required class="form-control" (blur)="onblur()"
-                  formControlName="hasFees">
+          <select id="hasFees" required class="form-control" (blur)="onblur()" formControlName="hasFees">
+            <option label="{{'Select' |translate}}"> </option>
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
           </select>
         </label>
@@ -57,10 +57,9 @@
                               controlId="appNature" label="app.nature"
                               parentId="transFees"
                               parentLabel="Transaction Fees"></control-messages>
-            <select id="appNature" required class="form-control full-width" (blur)="appNatureOnblur()"
-                    (selected)="appNatureOnblur()" formControlName="appNature">
+            <select id="appNature" required class="form-control full-width" (blur)="appNatureOnblur()" (selected)="appNatureOnblur()" formControlName="appNature">
+              <option label="{{'Select' |translate}}"> </option>
               <option *ngFor="let nat of appNatureFeesList" [ngValue]="nat.id"> {{nat.text}}</option>
-
             </select>
           </label>
         </div>
@@ -80,6 +79,7 @@
             <span class="field-name" i18n>{{'is.deferral' |translate}}</span>
             <select id="deferralRequest" class="form-control" (blur)="onblur()"
                     formControlName="deferralRequest">
+              <option label=" " value=""></option>
               <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
             </select>
           </label>
@@ -95,8 +95,8 @@
                               [control]="transFeesFormLocalModel.controls.feeRemission"
                               controlId="feeRemission" label="is.remission" parentId="transFees"
                               parentLabel="Transaction Fees"></control-messages>
-            <select id="feeRemission" required class="form-control" (blur)="onblur()"
-                    formControlName="feeRemission">
+            <select id="feeRemission" required class="form-control" (blur)="onblur()" formControlName="feeRemission">
+              <option label=" " value=""></option>
               <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
             </select>
           </label>
@@ -106,8 +106,6 @@
       <div *ngIf="transFeesFormLocalModel.controls.feeRemission.value">
         <section class="panel  panel-default">
           <header class="panel-heading clearfix">
-            <div class="btn-group pull-right">
-            </div>
             <h2 class="panel-title">{{'remission.eligibility'|translate}}</h2>
           </header>
           <div class="panel-body">

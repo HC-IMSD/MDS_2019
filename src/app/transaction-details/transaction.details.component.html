@@ -97,8 +97,8 @@
                             parentLabel="Transaction Information"></control-messages>
           <select id="activityLead" required class="form-control full-width" (blur)="activityLeadOnblur()"
                   (selected)="activityLeadOnblur()" formControlName="activityLead">
+            <option label=" " value=""></option>
             <option *ngFor="let lead of actLeadList" [ngValue]="lead"> {{lead|translate}}</option>
-
           </select>
         </label>
       </div>
@@ -115,8 +115,8 @@
           <select id="activityType" required class="form-control full-width" (blur)="activityTypeOnblur()"
                   (click)="activityTypeOnblur()"
                   (selected)="activityTypeOnblur()" formControlName="activityType">
+            <option label=" " value=""></option>
             <option *ngFor="let type of actTypeList" [ngValue]="type"> {{type|translate}}</option>
-
           </select>
         </label>
       </div>
@@ -135,6 +135,7 @@
           <select id="transDescription" required class="form-control full-width" (blur)="descrDeviceOnblur()"
                   (click)="descrDeviceOnblur()"
                   (selected)="descrDeviceOnblur()" formControlName="transDescription">
+            <option label=" " value=""></option>
             <option *ngFor="let desc of transDescList" [ngValue]="desc.id"> {{desc.text|translate}}</option>
 
           </select>
@@ -156,15 +157,15 @@
           <select id="deviceClass" required class="form-control full-width" (blur)="descrDeviceOnblur()"
                   (selected)="descrDeviceOnblur()" (click)="descrDeviceOnblur()"
                   formControlName="deviceClass">
+            <option label=" " value=""></option>
             <option *ngFor="let class of devClassList" [ngValue]="class"> {{class|translate}}</option>
-
           </select>
         </label>
       </div>
     </div>
     <div class="row" *ngIf="isInitialNotLicenceDCSet()">
         <fieldset id="amendReasons" class="form-group col-xs-12">
-          <label>
+          <legend>
             <span class="field-name">{{'amend.reason' | translate}}</span>
             <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="transDetailsFormLocalModel.controls.amendReason.invalid"
@@ -175,7 +176,7 @@
                   parentLabel="Transaction Information"></control-messages>
             <input id="amendReason" type="hidden" class="form-control full-width"
                    formControlName="amendReason"/>
-          </label>
+          </legend>
           <div class="row" *ngIf="reasonArray[0]">
             <div class="col-sm-12">
               <div class="checkbox">
@@ -509,10 +510,9 @@
                             controlId="isSolicitedInfo" label="is.solicited"
                             parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
-          <select id="isSolicitedInfo" required class="form-control full-width" (blur)="isSolicitedOnblur()"
-                  (selected)="isSolicitedOnblur()" formControlName="isSolicitedInfo">
+          <select id="isSolicitedInfo" required class="form-control full-width" (blur)="onblur()" (selected)="onblur()" formControlName="isSolicitedInfo">
+            <option label=" " value=""></option>
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
-
           </select>
         </label>
       </div>

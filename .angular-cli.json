@@ -39,6 +39,7 @@
         "assets/data",
         "assets/i18n/company",
         "assets/lib",
+        "assets/js",
         "GCWeb",
         "wet-boew",
         "favicon.ico"
@@ -71,6 +72,7 @@
         "assets/data",
         "assets/i18n/company",
         "assets/lib",
+        "assets/js",
         "GCWeb",
         "wet-boew",
         "favicon.ico"
@@ -103,6 +105,7 @@
         "assets/data",
         "assets/i18n/dossier",
         "assets/lib",
+        "assets/js",
         "GCWeb",
         "wet-boew",
         "favicon.ico"
@@ -135,6 +138,7 @@
         "assets/data",
         "assets/i18n/dossier",
         "assets/lib",
+        "assets/js",
         "GCWeb",
         "wet-boew",
         "favicon.ico"
@@ -167,6 +171,7 @@
         "assets/data",
         "assets/i18n/transaction",
         "assets/lib",
+        "assets/js",
         "GCWeb",
         "wet-boew",
         "favicon.ico"
@@ -199,6 +204,7 @@
         "assets/data",
         "assets/i18n/applicationInfo",
         "assets/lib",
+        "assets/js",
         "GCWeb",
         "wet-boew",
         "favicon.ico"
