@@ -74,7 +74,7 @@
                             controlId="deviceName" label="device.name" parentId="dossierDetails"
                             parentLabel="Dossier Information">
           </control-messages>
-          <textarea type="text" class="form-control full-width" id="deviceName" (blur)="onblur()"
+          <textarea type="text" class="form-control full-width mrgn-tp-sm" id="deviceName" (blur)="onblur()"
                     required formControlName="deviceName" maxlength="150"></textarea>
         </label>
       </div>
@@ -82,6 +82,9 @@
         <label for="hasQMSC" class="required">
           <span class="field-name" i18n>{{'has.qmsc' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <sup id="do7-rf">
+            <a class="fn-lnk" href="#do7"><span class="wb-inv">{{'instruction'|translate}}</span>7</a>
+          </sup>
           <control-messages *ngIf="dossierFormLocalModel.controls.hasQMSC.invalid"
                             [showError]="showFieldErrors"
                             [control]="dossierFormLocalModel.controls.hasQMSC"
@@ -117,8 +120,8 @@
       <label for="licenceAppType" class="required">
         <span class="field-name" i18n>{{'licence.app.type' |translate}}</span>
         <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-        <sup id="do7-rf">
-          <a class="fn-lnk" href="#do7"><span class="wb-inv">{{'instruction'|translate}}</span>7</a>
+        <sup id="do8-rf">
+          <a class="fn-lnk" href="#do8"><span class="wb-inv">{{'instruction'|translate}}</span>8</a>
         </sup>
         <control-messages *ngIf="dossierFormLocalModel.controls.licenceAppType.invalid"
                           [showError]="showFieldErrors"

@@ -21,7 +21,7 @@
 
   <!-- Web Experience Toolkit (WET) / Boîte à outils deloca l'expérience Web (BOEW)
          wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-  <title>{{this.titleService.getTitle()}}</title>
+  <!--<title></title>-->
   <meta content="width=device-width,initial-scale=1" name="viewport" />
   <!-- Additional analytics, if required. -->
   <!--/*/ <th:block th:replace="analytics/analytics-header"></th:block> /*/-->
@@ -32,7 +32,7 @@
   <script src="./assets/js/rep.js"></script>
   <noscript>
     <!-- Write closure fall-back static file -->
-    <!--# include virtual="/cdts/static/repTop.html"-->
+    <!--# include virtual="/rep-dev/cdts/static/refTop.html"-->
   </noscript>
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   <!--<link rel="stylesheet" href="./app/styles/rep.css ">-->
@@ -52,7 +52,7 @@
   <div id="def-top">
     <!-- Write closure fall-back static file -->
     <!-- ./web-boew/cdts/static/top-en.html-->
-    <!--# include virtual="/cdts/static/top-en.html"-->
+    <!--# include virtual="/rep-dev/cdts/static/top-en.html"-->
   </div>
   <!-- Write closure template -->
   <script type="text/javascript">
@@ -90,7 +90,7 @@
     <div id="def-preFooter">
       <!-- Write closure fall-back static file -->
       <!-- ./web-boew/cdts/static/preFooter-en.html-->
-      <!--# include virtual="/cdts/static/preFooter-en.html"-->
+      <!--# include virtual="/rep-dev/cdts/static/preFooter-en.html"-->
     </div>
 
     <!-- Write closure template -->
@@ -98,7 +98,7 @@
       var defPreFooter = document.getElementById("def-preFooter");
       defPreFooter.outerHTML = wet.builder.preFooter({
         cdnEnv: "prod",
-        dateModified: currentDate(),
+        dateModified: 'Feb 15, 2019',
         showPostContent: true,
         showFeedback:true,
         showShare:true
@@ -108,7 +108,7 @@
   <div id="def-footer">
     <!-- Write closure fall-back static file -->
     <!-- ./web-boew/cdts/static/footer-en.html-->
-    <!--# include virtual="/cdts/static/footer-en.html"-->
+    <!--# include virtual="/rep-dev/cdts/static/footer-en.html"-->
   </div>
   <!-- Write closure template -->
   <script type="text/javascript">

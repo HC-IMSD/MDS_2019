@@ -16,9 +16,8 @@
     <ul>
       <li>The “Enrolment Status”, “Enrolment Version”, and “Date Last Saved” fields are automatically filled by the form upon selecting “Save Working Copy” or “Save Draft XML” in the bottom of the template.</li>
       <li>The “Dossier ID” field will be filled by Health Canada when generating final xml file.</li>
-      <li>The “Company IDs” must be obtained from the final company XML file, issued by Health Canada.</li>
-      <li>If you already have a dossier ID and you are continuing to file in the same format,
-        you do not need to enrol your dossier or send a draft dossier XML file.
+      <li>If you already have a dossier ID,
+        you do not need to send a draft dossier XML file.
         You can proceed with your transaction by completing the RT XML template.
         The Dossier ID should be known from previously issued acknowledgment letter and the format should be HC6-024-x######.
         If you are unsure what your dossier ID is contact Health Canada at hc.ereview.sc@canada.ca</li>
@@ -58,11 +57,19 @@
   </dd>
   <dt>7</dt>
   <dd id="do7">
-    <p>{{'licence.app.type' |translate}}</p>
-    <p>Refer to the <a href="https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/guidance-interpretation-sections-28-31-licence-application-type.html">
-    Guidance for the Interpretation of Sections 28 to 31: Licence Application Type</a>
+    <p>{{'has.qmsc' |translate}}</p>
+    <p>Placeholder for MDSAP Guidance
     </p>
     <p class="fn-rtn"><a href="#do7-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>7
+      <span class="wb-inv"> referrer</span></a></p>
+  </dd>
+  <dt>8</dt>
+  <dd id="do8">
+    <p>{{'licence.app.type' |translate}}</p>
+    <p>Refer to the <a href="https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/guidance-interpretation-sections-28-31-licence-application-type.html">
+      Guidance for the Interpretation of Sections 28 to 31: Licence Application Type</a>
+    </p>
+    <p class="fn-rtn"><a href="#do8-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>8
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
 </dl>
