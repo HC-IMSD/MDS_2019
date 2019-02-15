@@ -10,6 +10,7 @@
     "prod-build": "npm run prod-build-en & npm run prod-build-fr",
     "prod-build-en": "ng build -prod --output-path dist/en/ --env=prod-en",
     "prod-build-fr": "ng build -prod --output-path dist/fr/ --env=prod-fr",
+    "prod-build-allForms-en": "npm run prod-company-build-external-en & npm run prod-company-build-internal-en & npm run prod-dossier-build-external-en & npm run prod-dossier-build-internal-en & npm run prod-transaction-build-en & npm run prod-applicationInfo-build-en",
     "prod-company-build": "npm run prod-company-build-external & npm run prod-company-build-internal",
     "prod-company-build-external": "npm run prod-company-build-external-en & npm run prod-company-build-external-fr",
     "prod-company-build-external-en": "ng build -prod --output-path dist/prod/company/external/en/ --env=prod-en --app company",
