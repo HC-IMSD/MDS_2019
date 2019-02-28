@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<hpfb:schema xmlns:hpfb="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified">
+	<hpfb:include schemaLocation="./data_types.xsd"/>
+	<!-- ****************************** -->
+	<!-- Company Enrolment version 1.0 -->
+	<!-- ****************************** -->
+	<hpfb:element name="salutation" type="salutation_content"/>
+	<hpfb:element name="given_name" type="char_1_40_content"/>
+	<hpfb:element name="initials" type="char_0_3_content" />
+	<hpfb:element name="surname" type="char_1_40_content"/>
+	<hpfb:element name="job_title" type="char_1_40_content"/>
+	<hpfb:element name="language_correspondance" type="language"/>
+	<hpfb:element name="phone_num" type="char_1_25_content"/>
+	<hpfb:element name="phone_ext" type="char_0_10_content"/>
+	<hpfb:element name="fax_num" type="char_0_20_content"/>
+	<hpfb:element name="email" type="char_1_50_content"/>
+
+	<!-- main xml structure-->
+	<hpfb:complexType name="contact_content">
+		<hpfb:all>
+			<hpfb:element ref="salutation"/>
+			<hpfb:element ref="given_name"/>
+			<hpfb:element ref="initials"/>
+			<hpfb:element ref="surname"/>
+			<hpfb:element ref="job_title"/>
+			<hpfb:element ref="language_correspondance"/>
+			<hpfb:element ref="phone_num"/>
+			<hpfb:element ref="phone_ext"/>
+			<hpfb:element ref="fax_num"/>
+			<hpfb:element ref="email"/>
+		</hpfb:all>
+	</hpfb:complexType>
+
+	<hpfb:simpleType name="salutation_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:enumeration value="SALUT_MR"/>
+			<hpfb:enumeration value="SALUT_MRS"/>
+			<hpfb:enumeration value="SALUT_MS"/>
+			<hpfb:enumeration value="SALUT_DR"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+</hpfb:schema>

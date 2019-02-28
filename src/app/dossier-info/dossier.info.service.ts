@@ -25,7 +25,7 @@ export class DossierGenInfoService {
     if (!fb) {return null; }
     return fb.group({
       formStatus: GlobalsService.NEW,
-      enrolVersion: '1.0',
+      enrolVersion: '0.0',
       lastSavedDate: '',
       dossierId: ['', [Validators.required, ValidationService.dossierIdValidator]]
     });
@@ -39,7 +39,7 @@ export class DossierGenInfoService {
     return (
       {
         status: '',
-        enrol_version: '1.0',
+        enrol_version: '0.0',
         last_saved_date: '',
         dossier_id: ''
       }

@@ -1,5 +1,5 @@
 <div [formGroup]="licenceListForm">
-  <div formArrayName="licences">
+  <div formArrayName="licences" id="licenceListTable">
     <expander-component [group]="dataModel"
                         [isValid]="validRec" [addRecord]="addRecordMsg"
                         [columnDefinitions]="columnDefinitions"

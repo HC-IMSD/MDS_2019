@@ -103,12 +103,16 @@ export class CompanyBaseComponent implements OnInit {
   }
 
   processLicenceErrors(errorList) {
-    this._licenceErrors = errorList;
+    if (this.adminChangesModel.all_licence_number) {
+      this._licenceErrors = errorList;
+    } else {
+      this._licenceErrors = [];
+    }
     this.processErrors();
   }
 
   processAdminChangesErrors(errorList) {
-    this._adminChangesErrors = errorList;
+    this._adminChangesErrors = this.showAdminChanges ? errorList : [];
     this.processErrors();
   }
 
@@ -119,6 +123,11 @@ export class CompanyBaseComponent implements OnInit {
     } else {
       this.showAdminChanges = false;
     }
+    if (!this.showAdminChanges) {
+      // reset adminchanges model to empty and update its error list to empty if showAdminChanges is false
+      this.adminChangesModel = CompanyBaseService.getEmptyAdminChangesModel();
+      this.processAdminChangesErrors([]);
+    }
   }
 
   public hideErrorSummary() {
@@ -127,6 +136,10 @@ export class CompanyBaseComponent implements OnInit {
     //   return false;
     // }
     // return this.errorList.length === 0;
+  }
+
+  public isExternalAndFinal() {
+    return (!this.isInternalSite && this.genInfoModel.status === GlobalsService.FINAL);
   }
 
   public saveXmlFile() {
@@ -190,6 +203,10 @@ export class CompanyBaseComponent implements OnInit {
     this.addressModel = fileData.data.DEVICE_COMPANY_ENROL.address;
     const cont = fileData.data.DEVICE_COMPANY_ENROL.contacts.contact;
     this.contactModel = (cont instanceof Array) ? cont : [cont];
+    if (this.isInternalSite) {
+      // once load data files on internal site, lower components should update error list and push them up
+      this.showErrors = true;
+    }
   }
 
   private _updatedAutoFields() {

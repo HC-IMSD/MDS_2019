@@ -77,7 +77,6 @@ export class CompanyAdminChangesComponent implements OnInit, OnChanges, AfterVie
       );
     }
     this.adminChangesErrorList.emit(temp);
-
   }
 
   ngOnChanges(changes: SimpleChanges) {

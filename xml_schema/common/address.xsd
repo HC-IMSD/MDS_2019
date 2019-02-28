@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+	<!-- ****************************** -->
+	<!-- address version 1.0 -->
+	<!-- ****************************** -->
+<hpfb:schema xmlns:hpfb="http://www.w3.org/2001/XMLSchema" 	
+			elementFormDefault="qualified" >
+	 <hpfb:include schemaLocation="./data_types.xsd"/>
+	 <hpfb:include schemaLocation="./country_province.xsd"/>
+	<!-- ****************************** -->
+	<!-- ELEMENT DECLARATIONS -->
+	<!-- ****************************** -->
+	<hpfb:element name="street_address" type="char_1_100_content"/>
+	<hpfb:element name="city" type="char_1_60_content"/>
+	<hpfb:element name="province_lov" type="prov_state_list" nillable="true"/>
+	<hpfb:element name="province_text" type="char_0_40_content"/>
+	<hpfb:element name="country">
+	<hpfb:complexType>
+			<hpfb:simpleContent>
+				<hpfb:extension base="hpfb:string">
+					<hpfb:attribute name="label_en" type="hpfb:string"/>
+					<hpfb:attribute name="label_fr" type="hpfb:string"/>
+				</hpfb:extension>
+			</hpfb:simpleContent>
+		</hpfb:complexType>
+	</hpfb:element>
+	<hpfb:element name="postal_code"  type="char_0_20_content"/>
+
+	<!-- ****************************** -->
+	<!-- ELEMENT TYPE DECLARATIONS -->
+	<!-- ****************************** -->
+		<!-- main xml structure-->
+	<hpfb:complexType name="international_address_content">
+		<hpfb:sequence>
+			<hpfb:element ref="street_address"/>
+			<hpfb:element ref="city"/>
+			<hpfb:element ref="province_lov"/>
+			<hpfb:element ref="province_text"/>
+			<hpfb:element ref="country"/>
+			<hpfb:element ref="postal_code"/>
+		</hpfb:sequence>
+	</hpfb:complexType>
+</hpfb:schema>

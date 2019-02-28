@@ -25,7 +25,7 @@ export class CompanyInfoService {
     if (!fb) {return null; }
     return fb.group({
       formStatus: GlobalsService.NEW,
-      enrolVersion: '1.0',
+      enrolVersion: '0.0',
       lastSavedDate: '',
       companyId: ['', [Validators.required, ValidationService.companyIdValidator]],
       amendReason: [null, Validators.required],
@@ -61,7 +61,7 @@ export class CompanyInfoService {
     return (
       {
         status: '',
-        enrol_version: '1.0',
+        enrol_version: '0.0',
         last_saved_date: '',
         company_id: '',
         amend_reasons: {
@@ -106,8 +106,8 @@ export class CompanyInfoService {
     const facc = generalInfoModel.amend_reasons.facility_change === GlobalsService.YES ? true : false;
     formRecord.controls.facilityChange.setValue(facc);
     const othc = generalInfoModel.amend_reasons.other_change === GlobalsService.YES ? true : false;
+    formRecord.controls.otherChange.setValue(othc);
     formRecord.controls.amendReason.setValue((namec || addc || facc || othc) ? 'reasonFilled' : null);
-    formRecord.controls.amendReason.setValue(othc);
     formRecord.controls.otherDetails.setValue(generalInfoModel.amend_reasons.other_details);
     formRecord.controls.areLicensesTransfered.setValue(generalInfoModel.are_licenses_transfered);
   }

@@ -24,6 +24,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Input() detailsChanged: number;
   @Input() countries: Array<any>;
   @Input() isInternal: boolean;
+  @Input() showErrors: boolean;
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
@@ -41,7 +42,6 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   private childErrorList: Array<any> = [];
   private parentErrorList: Array<any> = [];
   public showErrSummary: boolean;
-  public showErrors: boolean;
   public errorSummaryChild: ErrorSummaryComponent = null;
   public headingLevel = 'h4';
 
@@ -55,7 +55,6 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       this.contactRecordModel = this._initContact();
     }
     this.detailsChanged = 0;
-
   }
   ngAfterViewInit() {
 
@@ -75,6 +74,10 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       console.warn('Contact List found >1 Error Summary ' + list.length);
     }
     this.errorSummaryChild = list.first;
+    if (this.errorSummaryChild) {
+      this.errorSummaryChild.tableId = 'contactListTable';
+    }
+    // set table id to point to
     this._emitErrors();
   }
   /***
@@ -105,6 +108,13 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       }
       this.updateChild++;
     }
+    if (this.isInternal) {
+      if (changes['showErrors']) {
+        this.showErrSummary = changes['showErrors'].currentValue;
+        this._emitErrors();
+      }
+      this.cdr.detectChanges(); // doing our own change detection
+    }
   }
 
   /***
@@ -134,12 +144,14 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
           this.parentErrorList.push(error);
         }
       );
-      this.cdr.detectChanges(); // doing our own change detection
+      // this.cdr.detectChanges(); // doing our own change detection
     }
 
     this.errorList = new Array();
     this.errorList = this.parentErrorList.concat(this.childErrorList);
     console.log(this.errorList);
+
+    this.cdr.detectChanges(); // doing our own change detection
   }
 
   /**

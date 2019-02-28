@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<hpfb:schema xmlns:hpfb="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+	<hpfb:simpleType name="ingred_role_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:enumeration value="ACTIVE"/>
+			<hpfb:enumeration value="NMI"/>
+			<hpfb:enumeration value="MAN"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="dosage_form_list">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:enumeration value="AEROSOL"/>
+			<hpfb:enumeration value="BOLUS"/>
+			<hpfb:enumeration value="CAPSULE"/>
+			<hpfb:enumeration value="CAPSULE_DELAYED_RELEASE"/>
+			<hpfb:enumeration value="CAPSULE_EXTENDED_RELEASE"/>
+			<hpfb:enumeration value="CREAM"/>
+			<hpfb:enumeration value="EMULSION"/>
+			<hpfb:enumeration value="GAS"/>
+			<hpfb:enumeration value="GEL"/>
+			<hpfb:enumeration value="IMPLANT"/>
+			<hpfb:enumeration value="LOTION"/>
+			<hpfb:enumeration value="LOZENGE"/>
+			<hpfb:enumeration value="OINTMENT"/>
+			<hpfb:enumeration value="PATCH"/>
+			<hpfb:enumeration value="PATCH_EXTENDED_RELEASE"/>
+			<hpfb:enumeration value="POWDER"/>
+			<hpfb:enumeration value="POWDER_FOR_SOLUTION"/>
+			<hpfb:enumeration value="POWDER_FOR_SUSPENSION"/>
+			<hpfb:enumeration value="SHAMPOO"/>
+			<hpfb:enumeration value="SOLUTION"/>
+			<hpfb:enumeration value="SPRAY"/>
+			<hpfb:enumeration value="SPRAY_BAG_ON_VALVE"/>
+			<hpfb:enumeration value="SPRAY_METERED_DOSE"/>
+			<hpfb:enumeration value="STICK"/>
+			<hpfb:enumeration value="STRIP"/>
+			<hpfb:enumeration value="SUPPOSITORY"/>
+			<hpfb:enumeration value="SUSPENSION"/>
+			<hpfb:enumeration value="SYRUP"/>
+			<hpfb:enumeration value="TABLET"/>
+			<hpfb:enumeration value="TABLET_CHEWABLE"/>
+			<hpfb:enumeration value="TABLET_DELAYED_RELEASE"/>
+			<hpfb:enumeration value="TABLET_EXTENDED_RELEASE"/>
+			<hpfb:enumeration value="TABLET_ORALLY_DISINTEGRATING"/>
+			<hpfb:enumeration value="WIPE"/>
+			<hpfb:enumeration value="OTHER"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+
+	<hpfb:simpleType name="roa_list">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:enumeration value="BLOCK_INFILTRATION"/>
+			<hpfb:enumeration value="BUCCAL"/>
+			<hpfb:enumeration value="DENTAL"/>
+			<hpfb:enumeration value="DIALYSIS"/>
+			<hpfb:enumeration value="EPIDURAL"/>
+			<hpfb:enumeration value="INHALATION"/>
+			<hpfb:enumeration value="INTRA-ARTERIAL"/>
+			<hpfb:enumeration value="INTRA-ARTICULAR"/>
+			<hpfb:enumeration value="INTRABURSAL"/>
+			<hpfb:enumeration value="INTRADERMAL"/>
+			<hpfb:enumeration value="INTRAMAMMARY"/>
+			<hpfb:enumeration value="INTRAOCULAR"/>
+			<hpfb:enumeration value="INTRAPERITONEAL"/>
+			<hpfb:enumeration value="INTRATHECAL"/>
+			<hpfb:enumeration value="INTRATRACHEAL"/>
+			<hpfb:enumeration value="INTRAVASCULAR"/>
+			<hpfb:enumeration value="INTRAVENOUS"/>
+			<hpfb:enumeration value="INTRAVITREAL"/>
+			<hpfb:enumeration value="IRRIGATION"/>
+			<hpfb:enumeration value="NASAL"/>
+			<hpfb:enumeration value="OPHTHALMIC"/>
+			<hpfb:enumeration value="ORAL"/>
+			<hpfb:enumeration value="OTIC"/>
+			<hpfb:enumeration value="RECTAL"/>
+			<hpfb:enumeration value="SUBCUTANEOUS"/>
+			<hpfb:enumeration value="SUBLINGUAL"/>
+			<hpfb:enumeration value="TOPICAL"/>
+			<hpfb:enumeration value="TRANSDERMAL"/>
+			<hpfb:enumeration value="URETHRAL"/>
+			<hpfb:enumeration value="VAGINAL"/>
+			<hpfb:enumeration value="OTHER"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="nano_list">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:enumeration value="NOTNANO"/>
+			<hpfb:enumeration value="NANOPARTICLE"/>
+			<hpfb:enumeration value="DENDRIMER"/>
+			<hpfb:enumeration value="LIPOSOMES"/>
+			<hpfb:enumeration value="MICELLES"/>
+			<hpfb:enumeration value="NANOEMULSIONS"/>
+			<hpfb:enumeration value="NANOCRYSTAL"/>
+			<hpfb:enumeration value="METALCOLLOIDS"/>
+			<hpfb:enumeration value="OTHER"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="drug_use_list">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:enumeration value="HUMAN"/>
+			<hpfb:enumeration value="RADIO"/>
+			<hpfb:enumeration value="DISINFECT"/>
+			<hpfb:enumeration value="VET"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+</hpfb:schema>

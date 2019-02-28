@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<hpfb:schema xmlns:hpfb="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<!-- ****************************** -->
+	<!-- data types version 1.0 -->
+	<!-- ****************************** -->
+	<hpfb:simpleType name="yyyymmdd_date_content">
+		<hpfb:restriction base="hpfb:date">
+			<hpfb:pattern value="[0-9]{4}-[0-9]{2}-[0-9]{2}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+		<hpfb:simpleType name="optional_yyyymmdd_date_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value="[0-9]{0,4}[\-]{0,1}[0-9]{0,2}[\-]{0,1}[0-9]{0,2}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="cas_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value="[0-9]{2,7}-[0-9]{2}-[0-9]{1}|.{0}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="integer_1_999_content">
+		<hpfb:restriction base="hpfb:integer">
+			<hpfb:minInclusive value="1"/>
+			<hpfb:maxInclusive value="999"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="integer_0_999_content">
+		<hpfb:restriction base="hpfb:integer">
+			<hpfb:minInclusive value="0"/>
+			<hpfb:maxInclusive value="999"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="integer_0_9999_content">
+		<hpfb:restriction base="hpfb:integer">
+			<hpfb:minInclusive value="0"/>
+			<hpfb:maxInclusive value="9999"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+<hpfb:simpleType name="optional_integer_0_9999_content">	
+    <hpfb:union>
+      <hpfb:simpleType>
+        <hpfb:restriction base='hpfb:string'>
+          <hpfb:length value="0"/>
+        </hpfb:restriction>
+      </hpfb:simpleType>
+      <hpfb:simpleType>
+        <hpfb:restriction base='hpfb:integer' >
+		<hpfb:minInclusive value="0"/>
+			<hpfb:maxInclusive value="9999"/>
+			</hpfb:restriction>
+      </hpfb:simpleType>
+    </hpfb:union>
+  </hpfb:simpleType>
+
+  <hpfb:simpleType name="optional_integer_0_99_content">	
+    <hpfb:union>
+      <hpfb:simpleType>
+        <hpfb:restriction base='hpfb:string'>
+          <hpfb:length value="0"/>
+        </hpfb:restriction>
+      </hpfb:simpleType>
+      <hpfb:simpleType>
+        <hpfb:restriction base='hpfb:integer' >
+		<hpfb:minInclusive value="0"/>
+			<hpfb:maxInclusive value="99"/>
+			</hpfb:restriction>
+      </hpfb:simpleType>
+    </hpfb:union>
+  </hpfb:simpleType>
+
+	<hpfb:simpleType name="optional_integer_0_999999_content">	
+    <hpfb:union>
+      <hpfb:simpleType>
+        <hpfb:restriction base='hpfb:string'>
+          <hpfb:length value="0"/>
+        </hpfb:restriction>
+      </hpfb:simpleType>
+      <hpfb:simpleType>
+        <hpfb:restriction base='hpfb:integer' >
+		<hpfb:minInclusive value="0"/>
+			<hpfb:maxInclusive value="999999"/>
+			</hpfb:restriction>
+      </hpfb:simpleType>
+    </hpfb:union>
+  </hpfb:simpleType>
+
+
+
+	<hpfb:simpleType name="temp_integer_content">	
+    <hpfb:union>
+      <hpfb:simpleType>
+        <hpfb:restriction base='hpfb:string'>
+          <hpfb:length value="0"/>
+        </hpfb:restriction>
+      </hpfb:simpleType>
+      <hpfb:simpleType>
+        <hpfb:restriction base='hpfb:integer' >
+		<hpfb:minInclusive value="-274"/>
+			<hpfb:maxInclusive value="999"/>
+			</hpfb:restriction>
+      </hpfb:simpleType>
+    </hpfb:union>
+  </hpfb:simpleType>
+
+
+	<hpfb:simpleType name="integer_0_99_content">
+		<hpfb:restriction base="hpfb:integer">
+			<hpfb:minInclusive value="0"/>
+			<hpfb:maxInclusive value="99"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="char_0_3_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{0,3}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="char_1_6_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{1,6}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+	<hpfb:simpleType name="char_0_6_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{0,6}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+	<hpfb:simpleType name="char_0_7_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{0,7}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+	<hpfb:simpleType name="char_0_10_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{0,10}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+		<hpfb:simpleType name="char_7_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{7,7}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+
+	<hpfb:simpleType name="char_1_10_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{1,10}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="char_1_15_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{1,15}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+
+	<hpfb:simpleType name="char_0_20_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{0,20}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="char_1_20_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{1,20}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+
+	<hpfb:simpleType name="char_0_25_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{0,25}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+	<hpfb:simpleType name="char_1_25_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{1,25}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="char_0_40_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{0,40}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="char_1_40_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{1,40}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="char_1_50_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{1,50}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="char_0_50_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{0,50}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="char_1_60_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{1,60}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="char_0_80_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{0,80}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="char_1_80_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{1,80}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="char_0_100_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{0,100}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="char_1_100_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{1,100}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="char_1_200_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{1,200}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+	<hpfb:simpleType name="char_0_200_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{0,200}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+
+		<hpfb:simpleType name="char_0_256_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{0,256}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+
+	<hpfb:simpleType name="char_1_256_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{1,256}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="char_1_2000_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{1,2000}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="char_1_1024_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value=".{1,1024}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="rep_contact_role_list">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:enumeration value=""/>
+			<hpfb:enumeration value="PRIMARY"/>
+			<hpfb:enumeration value="SECONDARY"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="language">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:enumeration value="en"/>
+			<hpfb:enumeration value="fr"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="rep_type">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:enumeration value="NEW"/>
+			<hpfb:enumeration value="AMEND"/>
+			<hpfb:enumeration value="APPROVED"/>
+			<hpfb:enumeration value="FINAL"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+
+	<hpfb:simpleType name="form_types_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:enumeration value="PHARMACEUTICAL"/>
+			<hpfb:enumeration value="DRUG_MASTER_FILE"/>
+			<hpfb:enumeration value="MEDICAL_DEVICE"/>
+			<hpfb:enumeration value="BIOLOGIC"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+	
+	<hpfb:simpleType name="required_yes_no_unknown_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:enumeration value="Y"/>
+			<hpfb:enumeration value="N"/>
+			<hpfb:enumeration value="UNKNOWN"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+
+	
+
+	<hpfb:simpleType name="required_yes_no_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value="[y|Y]{1}|[n|N]{1}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+	<hpfb:simpleType name="yes_no_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value="[y|Y]{0,1}|[n|N]{0,1}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="sequence_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value="[0-9]{0,4}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="control_number_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value="[0-9]{6}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<hpfb:simpleType name="number_0_5_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value="[0-9]{0,3}|[0-9.0-9]{0,5}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+	<hpfb:simpleType name="din_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value="[0-9]{8}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+	<hpfb:simpleType name="number_7_content">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:pattern value="[0-9]{7}"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+</hpfb:schema>

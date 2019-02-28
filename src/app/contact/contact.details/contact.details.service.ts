@@ -14,11 +14,10 @@ export class ContactDetailsService {
     {id: 'AMEND', label_en: 'Amend', label_fr: 'fr_Amend'},
     {id: 'DELETE', label_en: 'Delete', label_fr: 'fr_Delete'}
   ];
-  public statusListInternal: Array<any> = [
-    {id: 'ACTIVE', label_en: 'Active', label_fr: 'fr_Active'},
-    {id: 'INACTIVE', label_en: 'Inactive', label_fr: 'fr_Inactive'}
+  public statusListAdd: Array<any> = [
+    {id: 'ACTIVE', label_en: 'Active', label_fr: 'fr_Active'}
   ];
-  // public statusListInternal: Array<any> = this.statusListExternal.concat(this.statusListAdd);
+  public statusListInternal: Array<any> = this.statusListAdd.concat(this.statusListExternal);
 
   public salutationList: Array<any> = [
     {id: 'DR', label_en: 'Dr.', label_fr: 'fr_Dr.'},
@@ -42,9 +41,9 @@ export class ContactDetailsService {
   public static getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
-      contactId: '',
+      contactId: [null, Validators.required],
       status: '',
-      hcStatus: '',
+      // hcStatus: [null, Validators.required],
       salutation: [null, Validators.required],
       firstName: [null, Validators.required],
       initials: '',
@@ -68,7 +67,7 @@ export class ContactDetailsService {
       {
         contact_id: '',
         status: '',
-        hc_status: '',
+        // hc_status: '',
         salutation: '',
         first_name: '',
         initials: '',
@@ -87,7 +86,7 @@ export class ContactDetailsService {
   public static mapFormModelToDataModel(formRecord: FormGroup, contactModel) {
     contactModel.contact_id = formRecord.controls.contactId.value;
     contactModel.status = formRecord.controls.status.value;
-    contactModel.hc_status = formRecord.controls.hcStatus.value;
+    // contactModel.hc_status = formRecord.controls.hcStatus.value;
     contactModel.salutation = formRecord.controls.salutation.value;
     contactModel.first_name = formRecord.controls.firstName.value;
     contactModel.initials = formRecord.controls.initials.value;
@@ -103,7 +102,7 @@ export class ContactDetailsService {
   public static mapDataModelToFormModel(contactModel, formRecord: FormGroup) {
     formRecord.controls.contactId.setValue(contactModel.contact_id);
     formRecord.controls.status.setValue(contactModel.status);
-    formRecord.controls.hcStatus.setValue(contactModel.hc_status);
+    // formRecord.controls.hcStatus.setValue(contactModel.hc_status);
     formRecord.controls.salutation.setValue(contactModel.salutation);
     formRecord.controls.firstName.setValue(contactModel.first_name);
     formRecord.controls.initials.setValue(contactModel.initials);

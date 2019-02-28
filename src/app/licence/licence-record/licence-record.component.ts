@@ -73,6 +73,9 @@ export class LicenceRecordComponent implements OnInit, AfterViewInit {
       console.warn('Licence List found >1 Error Summary ' + list.length);
     }
     this.errorSummaryChild = list.first;
+    if (this.errorSummaryChild) {
+      this.errorSummaryChild.tableId = 'licenceListTable';
+    }
     this._emitErrors();
   }
   /***
@@ -103,6 +106,13 @@ export class LicenceRecordComponent implements OnInit, AfterViewInit {
       }
       this.updateChild++;
     }
+    if (this.isInternal) {
+      if (changes['showErrors']) {
+        this.showErrSummary = changes['showErrors'].currentValue;
+        this._emitErrors();
+      }
+      this.cdr.detectChanges(); // doing our own change detection
+    }
   }
 
   /***
@@ -132,12 +142,12 @@ export class LicenceRecordComponent implements OnInit, AfterViewInit {
           this.parentErrorList.push(error);
         }
       );
-      this.cdr.detectChanges(); // doing our own change detection
     }
 
     this.errorList = new Array();
     this.errorList = this.parentErrorList.concat(this.childErrorList);
     // console.log(this.errorList);
+    this.cdr.detectChanges(); // doing our own change detection
   }
 
   /**

@@ -21,6 +21,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
 
   public errors = {};
   public componentId = '';
+  public tableId = '';
   public hdingLevel = 'h1';
   public index: number;
   public expander: ExpanderComponent ;
@@ -60,9 +61,9 @@ export class ErrorSummaryComponent implements AfterViewInit {
     if (!errorList) {
       return;
     }
-    //console.log(errorList);
+    // console.log(errorList);
     for (let err of errorList) {
-      if (!err) continue;
+      if (!err) { continue; }
       let controlError = this.getEmptyError();
       controlError.index = 1;
       controlError.label = err.label;
@@ -71,23 +72,26 @@ export class ErrorSummaryComponent implements AfterViewInit {
       controlError.type = err.type;
       controlError.tabSet = err.tabSet;
       controlError.tabId = err.tabId;
-      controlError.componentId = err.componentId; //error summary only uses this
-      controlError.expander = err.expander; //error summary only uses
+      controlError.componentId = err.componentId; // error summary only uses this
+      controlError.expander = err.expander; // error summary only uses
       controlError.compRef = err;
-      //Case 1: an error summary Component
+      // Case 1: an error summary Component
       if (err.hasOwnProperty('type') && err.type === GlobalsService.errorSummClassName) {
+        if (err.tableId) { // replace componentId with table ID
+          err.componentId = err.tableId;
+        }
         let parentError = {parentLabel: '', index: -1, controls: []};
         parentError.parentLabel = err.componentId;
         parentError.index = err.index;
         parentError.controls.push(controlError); //TODO needed for eerror summary
         this.errors[err.componentId] = parentError;
       } else {
-        //Case 2 Not an error summary. If has a parentId gourp the errors
+        // Case 2 Not an error summary. If has a parentId gourp the errors
         if (this.errors.hasOwnProperty(err.parentId)) {
           let id = err.parentId;
           this.errors[id].controls.push(controlError);
         } else {
-          //create a parent tag and put errors under the controls list
+          // create a parent tag and put errors under the controls list
           let parentError = {parentLabel: '', controls: []};
           parentError.parentLabel = err.parentLabel;
           parentError.controls.push(controlError);

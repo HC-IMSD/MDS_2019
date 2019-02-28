@@ -1,19 +1,20 @@
 <div>
   <div [formGroup]="contactFormLocalModel">
     <div class="row">
-      <div class="form-group col-sm-4" >
-        <label for="contactId" class="full-width">
+      <div class="form-group col-sm-6" >
+        <label for="contactId" [ngClass]="{'required':isInternal}" class="full-width">
           <span class="field-name" i18n>{{'contact.id'|translate}}</span>
-          <input id="contactId" class="form-control full-width"
-                 [readonly]="!isInternal" formControlName="contactId" maxlength="5"/>
-          <!--control-messages *ngIf="contactFormLocalModel.controls.contactId.invalid"
+          <strong *ngIf="isInternal" class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="isInternal && contactFormLocalModel.controls.contactId.invalid"
                             [showError]="showFieldErrors"
                             [control]="contactFormLocalModel.controls.contactId"
                             controlId="contactId" label="contact.id" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages-->
+                            parentLabel="REP Contact"></control-messages>
+          <input id="contactId" class="form-control full-width"
+                 [readonly]="!isInternal" formControlName="contactId" maxlength="5"/>
         </label>
       </div>
-      <div class="form-group col-sm-3" >
+      <div class="form-group col-sm-6" >
         <label for="status" class="required full-width">
           <span class="field-name">{{'status' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
@@ -28,21 +29,21 @@
           </select>
         </label>
       </div>
-      <div class="form-group col-sm-3" *ngIf="isInternal">
-        <label for="hcStatus" class="required full-width">
-          <span class="field-name">{{'hcStatus' |translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="contactFormLocalModel.controls.hcStatus.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="contactFormLocalModel.controls.hcStatus"
-                            controlId="hcStatus" label="hcStatus" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
-          <select id="hcStatus" required class="form-control full-width" formControlName="hcStatus">
-            <option label=" " value=""></option>
-            <option *ngFor="let hcstat of hcStatuses" [ngValue]="hcstat.id"> {{hcstat.label_en}}</option>
-          </select>
-        </label>
-      </div>
+      <!--<div class="form-group col-sm-3" *ngIf="isInternal">-->
+        <!--<label for="hcStatus" class="required full-width">-->
+          <!--<span class="field-name">{{'hcStatus' |translate}}</span>-->
+          <!--<strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>-->
+          <!--<control-messages *ngIf="contactFormLocalModel.controls.hcStatus.invalid"-->
+                            <!--[showError]="showFieldErrors"-->
+                            <!--[control]="contactFormLocalModel.controls.hcStatus"-->
+                            <!--controlId="hcStatus" label="hcStatus" parentId="contactDetails"-->
+                            <!--parentLabel="REP Contact"></control-messages>-->
+          <!--<select id="hcStatus" required class="form-control full-width" formControlName="hcStatus">-->
+            <!--<option label=" " value=""></option>-->
+            <!--<option *ngFor="let hcstat of hcStatuses" [ngValue]="hcstat.id"> {{hcstat.label_en}}</option>-->
+          <!--</select>-->
+        <!--</label>-->
+      <!--</div>-->
     </div>
     <div class="row">
       <div class="form-group col-sm-6" >

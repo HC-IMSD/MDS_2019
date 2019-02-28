@@ -1,8 +1,8 @@
 <div class="container-fluid" [formGroup]="licenceRecordModel">
-  <h3>{{'licence.details'| translate}}&nbsp;{{licenceRecordModel.controls.id.value + 1}}</h3>
+  <h3>{{'licence.details'| translate}}&nbsp;{{sequenceNum}}</h3>
   <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="licence.record"
-                 [headingLevel]="headingLevel" label="Licence Record" compId="licenceRec"></error-summary>
+                 [headingLevel]="headingLevel" label="Licence Record(s)" compId="licenceRec"></error-summary>
   <licence-details [showErrors]="showErrors" [isInternal]="isInternal"
                    [detailsChanged]="updateChild" [group]="licenceRecordModel.controls.licenceDetails"
                    (errorList)="updateErrorList($event)"></licence-details>

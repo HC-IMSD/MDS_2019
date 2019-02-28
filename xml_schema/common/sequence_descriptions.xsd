@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<hpfb:schema xmlns:hpfb="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+	<!-- USA and Canada states or provinces-->
+	<hpfb:simpleType name="sequence_description_list">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:enumeration value="ADMINISTRATIVE"/> 
+			<hpfb:enumeration value="BENEFIT_RISK_ASSESS"/>
+			<hpfb:enumeration value="CANCEL_LETTER"/>
+			<hpfb:enumeration value="CHANGE_TO_DIN"/>
+			<hpfb:enumeration value="COMMENTS_NOC"/>
+			<hpfb:enumeration value="COMMENTS_SUMMARY_BASIS"/>
+			<hpfb:enumeration value="DIN_DISCONTINUED"/>
+			<hpfb:enumeration value="DRUG_NOTIF_FORM"/>
+			<hpfb:enumeration value="FOR_PERIOD"/>
+			<hpfb:enumeration value="INITIAL"/>
+			<hpfb:enumeration value="MEETING_MINUTES"/>
+			<hpfb:enumeration value="NOTIFICATION_CHANGE"/>
+			<hpfb:enumeration value="PANDEMIC_APPL"/>
+			<hpfb:enumeration value="POST_CLEARANCE_DATA"/>
+			<hpfb:enumeration value="POST_MARKET_SURV"/>
+			<hpfb:enumeration value="POST_NOC_CHANGE"/>
+			<hpfb:enumeration value="POST_AUTH_DIV1_CHANGE"/>
+			<hpfb:enumeration value="PRESUB_MEETING_PKG"/>
+			<hpfb:enumeration value="PRIORITY_REVIEW_RQ"/>
+			<hpfb:enumeration value="PRISTINE_PM"/>
+			<hpfb:enumeration value="PRISTINE_PM_2LANG"/>
+			<hpfb:enumeration value="ADVISEMENT_LETTER_RESPONSE"/>
+			<hpfb:enumeration value="CLIN_CLARIF_RESPONSE"/>
+			<hpfb:enumeration value="EMAIL_RQ_RESPONSE"/>
+			<hpfb:enumeration value="LABEL_CLARIF_RESPONSE"/>
+			<hpfb:enumeration value="MHPG_RQ_RESPONSE"/>
+			<hpfb:enumeration value="NOC_RESPONSE"/>
+			<hpfb:enumeration value="NOD_RESPONSE"/>
+			<hpfb:enumeration value="NON_RESPONSE"/>
+			<hpfb:enumeration value="PROCESSING_CLARIF_RESPONSE"/>
+			<hpfb:enumeration value="QUAL_CLIN_CLARIF_RESPONSE"/>
+			<hpfb:enumeration value="QUAL_CLARIF_RESPONSE"/>
+			<hpfb:enumeration value="SCREENING_ACCEPT_RESPONSE"/>
+			<hpfb:enumeration value="SCREENING_CLARIF_RESPONSE"/>
+			<hpfb:enumeration value="SDN_RESPONSE"/>
+			<hpfb:enumeration value="PHONE_RQ_RESPONSE"/>
+			<hpfb:enumeration value="RISK_COMMUN_DOC"/>
+			<hpfb:enumeration value="RMP_VERSION_DATE"/>
+			<hpfb:enumeration value="SIGNAL_WORK_UP"/>
+			<hpfb:enumeration value="UNSOLICITED_DATA"/>
+			<hpfb:enumeration value="YEAR_LIST_OF_CHANGE"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>
+
+	<!--<hpfb:simpleType name="reg_activity_type_list">
+		<hpfb:restriction base="hpfb:string">
+			<hpfb:enumeration value="PRESUB_MEETING"/>
+			<hpfb:enumeration value="ANDS"/>
+			<hpfb:enumeration value="DINA"/>
+			<hpfb:enumeration value="DINB"/>
+			<hpfb:enumeration value="EUNDS"/>
+			<hpfb:enumeration value="EUSNDS"/>
+			<hpfb:enumeration value="LEVEL_3"/>
+			<hpfb:enumeration value="NC"/>
+			<hpfb:enumeration value="NDS"/>
+			<hpfb:enumeration value="PDC"/>
+			<hpfb:enumeration value="PDC_B"/>
+			<hpfb:enumeration value="PSUR_C"/>
+			<hpfb:enumeration value="PSUR_PV"/>
+			<hpfb:enumeration value="RMP_PV"/>
+			<hpfb:enumeration value="SANDS"/>
+			<hpfb:enumeration value="SNDS"/>
+			<hpfb:enumeration value="SNDS_C"/>
+			<hpfb:enumeration value="UD_PV"/>
+			<hpfb:enumeration value="UDRA"/>
+			<hpfb:enumeration value="CONSULTATION"/>
+			<hpfb:enumeration value="YBPR"/>
+		</hpfb:restriction>
+	</hpfb:simpleType>-->
+</hpfb:schema>

@@ -156,7 +156,7 @@ export class ExpanderComponent implements OnChanges {
     this.expandedRow.emit(this.tableRowIndexCurrExpanded);
   }
   public getExpandedRow() {
-    return this.tableRowIndexCurrExpanded
+    return this.tableRowIndexCurrExpanded;
   }
 
   /**
@@ -164,10 +164,10 @@ export class ExpanderComponent implements OnChanges {
    * @param {number} index
    */
   public selectTableRow(index: number) {
-    if (!this._expanderValid) {
-       console.warn('select table row did not meet conditions');
-      return;
-    }
+    // if (!this._expanderValid) {
+    //    console.warn('select table row did not meet conditions');
+    //   return;
+    // }
     this.selectTableRowNoCheck(index);
   }
 

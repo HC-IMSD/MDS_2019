@@ -1,8 +1,8 @@
 <div class="container-fluid" [formGroup]="contactRecordModel">
-  <h4>{{'heading.contactDetails'| translate}}&nbsp;{{contactRecordModel.controls.id.value + 1}}</h4>
+  <h4>{{'heading.contactDetails'| translate}}&nbsp;{{sequenceNum}}</h4>
   <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="heading.contactRecord"
-                 [headingLevel]="headingLevel" label="Company Contact Record" compId="contactRec"></error-summary>
+                 [headingLevel]="headingLevel" label="Company Contact Record(s)" compId="contactRec"></error-summary>
   <contact-details [showErrors]="showErrors" [isInternal]="isInternal"
                    [detailsChanged]="updateChild" [group]="contactRecordModel.controls.contactDetails"
                    (errorList)="updateErrorList($event)"></contact-details>

@@ -29,7 +29,6 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
   public statuses: Array<any> = [];
-  public hcStatuses: Array<any> = [];
   public salutations: Array<any> = [];
   public languages: Array<any>;
   public showFieldErrors: boolean = false;
@@ -40,7 +39,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
     this.showErrors = false;
     this.detailsService = new ContactDetailsService();
     this.statuses = this.detailsService.statusListExternal;
-    this.hcStatuses = this.detailsService.statusListInternal;
+    // this.statuses = this.isInternal ? this.detailsService.statusListInternal : this.detailsService.statusListExternal;
     this.salutations = this.detailsService.salutationList;
     this.languages = this.detailsService.languageList;
   }
@@ -85,7 +84,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   ngOnChanges(changes: SimpleChanges) {
     if (changes['isInternal'] && changes['isInternal'].currentValue) {
       // console.log('this.isInterannnnnl in ContactListComponent: ' + this.isInternal);
-      // this.statuses = this.detailsService.statusListInternal;
+      this.statuses = this.detailsService.statusListInternal;
     }
 
     // since we can't detect changes on objects, using a separate flag

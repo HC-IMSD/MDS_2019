@@ -263,11 +263,12 @@ export class LicenceListComponent extends ListOperations implements OnInit, OnCh
    * @param id
    */
   public deleteLicence(id): void {
-    let licenceList = this.getFormLicenceList();
-    this.deleteRecord(id, licenceList, this.service);
+    let formLicenceList = this.getFormLicenceList();
+    this.deleteRecord(id, formLicenceList, this.service);
     this.validRec = true;
     this.deleteRecordMsg++;
-    this.licenceModelUpdate.emit(licenceList);
+    this.dataModel = this.service.getModelRecordList();
+    this.licenceModelUpdate.emit(this.dataModel);
   }
 
   /**
