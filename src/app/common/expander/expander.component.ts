@@ -37,7 +37,7 @@ export class ExpanderComponent implements OnChanges {
   @Input() expandOnAdd:boolean=false;
   @Input() deleteRecord: number;
   @Input() collapseAll:number;
-
+  @Input() loadFileIndicator: boolean;
 
   @Output() expandedRow = new EventEmitter();
 
@@ -90,17 +90,19 @@ export class ExpanderComponent implements OnChanges {
       this.dataItems = changes['itemsList'].currentValue;
       if (!Array.isArray(this.dataItems)) {
         this.dataItems = [];
+      } else if (this.dataItems.length > 0 && this.loadFileIndicator) {
+        this.tableRowIndexCurrExpanded = 0;
       }
     }
-    if(changes['isValid']){
+    if(changes['isValid']) {
 
-      this._expanderValid=changes['isValid'].currentValue;
+      this._expanderValid = changes['isValid'].currentValue;
     }
     if (changes['addRecord']) {
       this.collapseTableRows();
       this.updateDataRows(this.itemsList);
-      if(this._expandAdd) {
-        //expands the table on the additon of a new record
+      if (this._expandAdd) {
+        // expands the table on the additon of a new record
         this.selectTableRowNoCheck(this._expanderTable.length - 1);
       }
     }

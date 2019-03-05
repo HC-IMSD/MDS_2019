@@ -174,6 +174,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   processCountry(event) {
     // console.log(event);
+    this.addressFormLocalModel.controls.country.setValue([event]);
     this._setCountryState(event, this.addressFormLocalModel);
     AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
       this.addressModel, this.countryList);

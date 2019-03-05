@@ -52,10 +52,10 @@ export class ContactListService extends ListService implements IMasterDetails {
     return CompanyContactRecordService.getEmptyModel();
   }
 
-  getContactFormRecord(fb: FormBuilder) {
-
-    return CompanyContactRecordService.getReactiveModel(fb);
-  }
+  // getContactFormRecord(fb: FormBuilder, isInternal) {
+  //
+  //   return CompanyContactRecordService.getReactiveModel(fb, isInternal);
+  // }
 
 
   public contactFormToData(record: FormGroup, contactModel) {
@@ -64,9 +64,9 @@ export class ContactListService extends ListService implements IMasterDetails {
 
   }
 
-  public createFormDataList(modelDataList, fb: FormBuilder, theList) {
+  public createFormDataList(modelDataList, fb: FormBuilder, theList, isInternal) {
     for (let i = 0; i < modelDataList.length; i++) {
-      const formRecord = CompanyContactRecordService.getReactiveModel(fb);
+      const formRecord = CompanyContactRecordService.getReactiveModel(fb, isInternal);
       this.contactDataToForm(modelDataList[i], formRecord);
       theList.push(formRecord);
     }

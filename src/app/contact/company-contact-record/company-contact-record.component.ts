@@ -94,7 +94,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
 
 
   private _initContact() {
-    return CompanyContactRecordService.getReactiveModel(this._fb);
+    return CompanyContactRecordService.getReactiveModel(this._fb, this.isInternal);
   }
 
   ngOnChanges (changes: SimpleChanges) {
@@ -172,6 +172,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   }
 
   public saveContactRecord(): void {
+    console.log(this.errorList);
     if (this.contactRecordModel.valid) {
       this.saveRecord.emit((this.contactRecordModel));
       this.showErrSummary = false;

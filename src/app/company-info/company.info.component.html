@@ -109,7 +109,7 @@
         <div class="row">
           <div *ngIf="isOther()" class="col-xs-12 form-group">
             <label for="otherDetails"  class="full-width">{{'other.details'|translate}}
-            <textarea type="text" class="form-control full-width" id="otherDetails"
+            <textarea type="text" class="form-control full-width" id="otherDetails" (blur)="amendReasonOnblur()"
                       formControlName="otherDetails" maxlength="500"></textarea>
             </label>
           </div>

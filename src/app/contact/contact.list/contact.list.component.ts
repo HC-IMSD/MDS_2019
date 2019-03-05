@@ -23,7 +23,8 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   @Input() public contactModel = [];
   @Input() public saveContact;
   @Input() public showErrors: boolean;
-  @Input() isInternal: boolean;
+  @Input() public loadFileIndicator: boolean;
+  @Input() public isInternal: boolean;
   @Output() public errors = new EventEmitter();
 
   @ViewChild(CompanyContactRecordComponent) companyContactChild: CompanyContactRecordComponent;
@@ -196,40 +197,40 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
    * @param {SimpleChanges} changes
    */
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['isInternal'] && changes['isInternal'].currentValue) {
-      this.columnDefinitions = [
-        {
-          label: 'Contact ID',
-          binding: 'contact_id',
-          width: '10'
-        },
-        {
-          label: 'First Name',
-          binding: 'first_name',
-          width: '20'
-        },
-        {
-          label: 'Last Name',
-          binding: 'last_name',
-          width: '20'
-        },
-        {
-          label: 'Job Title',
-          binding: 'job_title',
-          width: '20'
-        },
-        {
-          label: 'Status',
-          binding: 'status',
-          width: '15'
-        },
-        {
-          label: 'HC Status',
-          binding: 'hc_status',
-          width: '15'
-        }
-      ];
-    }
+    // if (changes['isInternal'] && changes['isInternal'].currentValue) {
+    //   this.columnDefinitions = [
+    //     {
+    //       label: 'Contact ID',
+    //       binding: 'contact_id',
+    //       width: '10'
+    //     },
+    //     {
+    //       label: 'First Name',
+    //       binding: 'first_name',
+    //       width: '20'
+    //     },
+    //     {
+    //       label: 'Last Name',
+    //       binding: 'last_name',
+    //       width: '20'
+    //     },
+    //     {
+    //       label: 'Job Title',
+    //       binding: 'job_title',
+    //       width: '20'
+    //     },
+    //     {
+    //       label: 'Status',
+    //       binding: 'status',
+    //       width: '15'
+    //     },
+    //     {
+    //       label: 'HC Status',
+    //       binding: 'hc_status',
+    //       width: '15'
+    //     }
+    //   ];
+    // }
     if (changes['saveContact']) {
       this.saveContactRecord(changes['saveContact'].currentValue);
     }
@@ -238,7 +239,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
       this.service.initIndex(changes['contactModel'].currentValue);
       this.dataModel = this.service.getModelRecordList();
       // this.contactListForm.controls['contacts'] = this._fb.array([]);
-      this.service.createFormDataList(this.dataModel, this._fb, this.contactListForm.controls['contacts']);
+      this.service.createFormDataList(this.dataModel, this._fb, this.contactListForm.controls['contacts'], this.isInternal);
       this.validRec = true;
     }
 
@@ -285,7 +286,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     let contactFormList = <FormArray>this.contactListForm.controls['contacts'];
     console.log(contactFormList);
     // 2. Get a blank Form Model for the new record
-    let formContact = CompanyContactRecordService.getReactiveModel(this._fb);
+    let formContact = CompanyContactRecordService.getReactiveModel(this._fb, this.isInternal);
     // 3. set record id
     this.service.setRecordId(formContact, this.service.getNextIndex());
     // 4. Add the form record using the super class. New form is addded at the end

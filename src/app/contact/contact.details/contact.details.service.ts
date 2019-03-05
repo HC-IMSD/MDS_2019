@@ -38,10 +38,11 @@ export class ContactDetailsService {
    * @param {FormBuilder} fb
    * @returns {any}
    */
-  public static getReactiveModel(fb: FormBuilder) {
+  public static getReactiveModel(fb: FormBuilder, isInternal) {
     if (!fb) {return null; }
+    const contactIdValidators = isInternal ? [Validators.required] : [];
     return fb.group({
-      contactId: [null, Validators.required],
+      contactId: [null, contactIdValidators],
       status: '',
       // hcStatus: [null, Validators.required],
       salutation: [null, Validators.required],

@@ -69,7 +69,11 @@ export class AddressDetailsService {
           '_label_fr': country_record.fr
         };
       } else {
-        addressModel.country = null;
+        addressModel.country = {
+          '__text': formRecord.controls.country.value.id,
+          '_label_en': formRecord.controls.country.value.text,
+          '_label_fr': formRecord.controls.country.value.text
+        };
       }
     } else {
       addressModel.country = null;

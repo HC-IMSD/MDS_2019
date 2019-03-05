@@ -8,7 +8,7 @@ export class CompanyContactRecordService {
   constructor() {
   }
 
-  public static getReactiveModel(fb: FormBuilder): FormGroup {
+  public static getReactiveModel(fb: FormBuilder, isInternal): FormGroup {
     if (!fb) {
       return null;
     }
@@ -17,7 +17,7 @@ export class CompanyContactRecordService {
         seqNumber: -1,
         detailsDirty: [false, Validators.required],
         isNew: true,
-        contactDetails: ContactDetailsService.getReactiveModel(fb)
+        contactDetails: ContactDetailsService.getReactiveModel(fb, isInternal)
       }
     );
   }

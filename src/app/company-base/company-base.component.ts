@@ -35,6 +35,7 @@ export class CompanyBaseComponent implements OnInit {
   public errorList = [];
   public rootTagText = 'DEVICE_COMPANY_ENROL';
   public isInternalSite = false;
+  public loadFileIndicator = false;
   public countryList = [];
   public provinceList = [];
   public stateList = [];
@@ -103,10 +104,10 @@ export class CompanyBaseComponent implements OnInit {
   }
 
   processLicenceErrors(errorList) {
-    if (this.adminChangesModel.all_licence_number) {
-      this._licenceErrors = errorList;
-    } else {
+    if (!this.adminChangesModel.all_licence_number || !this.showAdminChanges) {
       this._licenceErrors = [];
+    } else {
+      this._licenceErrors = errorList;
     }
     this.processErrors();
   }
@@ -154,12 +155,12 @@ export class CompanyBaseComponent implements OnInit {
         'DEVICE_COMPANY_ENROL': {
           'general_information': this.genInfoModel,
           'address': this.addressModel,
-          'contacts': {
-            'contact': this.contactModel
-          },
+          'contacts': {},
           'administrative_changes': this.adminChangesModel
         }
       };
+      result.DEVICE_COMPANY_ENROL.contacts =
+        (this.contactModel && (this.contactModel).length > 0) ? {contact: this.contactModel} : {};
       const fileName = this._buildfileName();
       this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
     }
@@ -167,20 +168,21 @@ export class CompanyBaseComponent implements OnInit {
 
   public saveWorkingCopyFile() {
     this._updatedSavedDate();
-    const result = {'DEVICE_COMPANY_ENROL': {
+    let result = {'DEVICE_COMPANY_ENROL': {
       'general_information': this.genInfoModel,
       'address': this.addressModel,
-      'contacts': {
-        'contact': this.contactModel
-      },
+      'contacts': {},
       'administrative_changes': this.adminChangesModel
     }};
+    result.DEVICE_COMPANY_ENROL.contacts =
+      (this.contactModel && (this.contactModel).length > 0) ? {contact: this.contactModel} : {};
     const version: Array<any> = this.genInfoModel.enrol_version.toString().split('.');
     const fileName = 'draftrepcom-' + version[0] + '-' + version[1];
     this.fileServices.saveJsonToFile(result, fileName, null);
   }
 
   public processFile(fileData: ConvertResults) {
+    this.loadFileIndicator = true;
      console.log('processing file.....');
      console.log(fileData);
     this.genInfoModel = fileData.data.DEVICE_COMPANY_ENROL.general_information;

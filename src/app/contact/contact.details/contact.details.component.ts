@@ -46,7 +46,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   ngOnInit() {
     if (!this.contactFormLocalModel) {
-      this.contactFormLocalModel = ContactDetailsService.getReactiveModel(this._fb);
+      this.contactFormLocalModel = ContactDetailsService.getReactiveModel(this._fb, this.isInternal);
     }
     this.detailsChanged = 0;
 
@@ -94,7 +94,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
         this.setToLocalModel();
 
       } else {
-        this.contactFormLocalModel = ContactDetailsService.getReactiveModel(this._fb);
+        this.contactFormLocalModel = ContactDetailsService.getReactiveModel(this._fb, this.isInternal);
         this.contactFormLocalModel.markAsPristine();
       }
 
