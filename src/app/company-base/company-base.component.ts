@@ -204,7 +204,11 @@ export class CompanyBaseComponent implements OnInit {
     }
     this.addressModel = fileData.data.DEVICE_COMPANY_ENROL.address;
     const cont = fileData.data.DEVICE_COMPANY_ENROL.contacts.contact;
-    this.contactModel = (cont instanceof Array) ? cont : [cont];
+    if (cont) {
+      this.contactModel = (cont instanceof Array) ? cont : [cont];
+    } else {
+      this.contactModel = [];
+    }
     if (this.isInternalSite) {
       // once load data files on internal site, lower components should update error list and push them up
       this.showErrors = true;
