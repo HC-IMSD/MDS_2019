@@ -51,7 +51,7 @@ export class CompanyBaseComponent implements OnInit {
   public foo = '';
   public fileServices: FileConversionService;
   public saveXmlLabel = 'save.draft';
-  public xslName = 'REP_MDS_CO_1_0.xsl';
+  public xslName = GlobalsService.STYLESHEETS_1_0_PREFIX + 'REP_MDS_CO_1_0.xsl';
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private dataLoader: CompanyDataLoaderService,
               private http: HttpClient, private translate: TranslateService) {

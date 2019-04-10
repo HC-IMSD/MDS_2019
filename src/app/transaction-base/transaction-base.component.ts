@@ -39,7 +39,7 @@ export class TransactionBaseComponent implements OnInit {
   public requesterModel = [];
   public transFeesModel = [];
   public fileServices: FileConversionService;
-  public xslName = 'REP_MDS_RT_1_0.xsl';
+  public xslName = GlobalsService.STYLESHEETS_1_0_PREFIX + 'REP_MDS_RT_1_0.xsl';
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private dataLoader: TransactionDataLoaderService,

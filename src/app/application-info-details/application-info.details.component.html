@@ -3,7 +3,7 @@
     <div class="row">
       <div class="form-group col-xs-6" >
         <label for="companyId" class="required" aria-required="true">
-          <span class="field-name" i18n>{{'company.id'|translate}} {{'minNumber5'|translate}}</span>
+          <span class="field-name" i18n>{{'company.id'|translate}} {{'minNumber6'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="appInfoFormLocalModel.controls.companyId.invalid"
                             [showError]="showFieldErrors"
@@ -12,7 +12,7 @@
                             parentLabel="Application Information">
           </control-messages>
           <input id="companyId" class="form-control" (blur)="onblur()"
-                 formControlName="companyId" maxlength="5"/>
+                 formControlName="companyId" maxlength="6"/>
         </label>
       </div>
       <div class="form-group col-xs-6" >
@@ -152,12 +152,12 @@
                 </select>
               </label>
             </div>
-            <div *ngIf="hasDrug()" class="form-group col-xs-12 col-sm-6" >
+            <div *ngIf="hasDrug()" class="form-group col-xs-12" >
               <label for="hasDinNpn" class="full-width">
                 <span class="field-name" i18n>{{'have.din.npn' |translate}}</span>
-                <select id="hasDinNpn" class="form-control full-width" (blur)="onblur()" formControlName="hasDinNpn">
+                <select id="hasDinNpn" class="form-control" (blur)="onblur()" formControlName="hasDinNpn">
                   <option label=" " value=""></option>
-                  <option *ngFor="let drugType of drugTypeList" [ngValue]="drugType"> {{drugType | translate}}</option>
+                  <option *ngFor="let drugType of drugTypeList" [ngValue]="drugType.id"> {{drugType.text}}</option>
                 </select>
               </label>
             </div>
@@ -200,8 +200,15 @@
             </div>
             <div class="row">
               <div class="form-group col-xs-12">
-                <label for="drugName" class="full-width">
+                <label for="drugName" class="required full-width">
                   <span class="field-name">{{'drug.name'|translate}}</span>
+                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                  <control-messages *ngIf="appInfoFormLocalModel.controls.drugName.invalid"
+                                    [showError]="showFieldErrors"
+                                    [control]="appInfoFormLocalModel.controls.drugName"
+                                    controlId="drugName" label="drug.name" parentId="appInfoDetails"
+                                    parentLabel="Application Information">
+                  </control-messages>
                   <textarea type="text" class="form-control full-width" id="drugName" (blur)="onblur()"
                             formControlName="drugName" maxlength="256"></textarea>
                 </label>
@@ -209,8 +216,15 @@
             </div>
             <div class="row">
               <div class="form-group col-xs-12">
-                <label for="activeIngredients" class="full-width">
+                <label for="activeIngredients" class="required full-width">
                   <span class="field-name">{{'active.ingredient'|translate}}</span>
+                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                  <control-messages *ngIf="appInfoFormLocalModel.controls.activeIngredients.invalid"
+                                    [showError]="showFieldErrors"
+                                    [control]="appInfoFormLocalModel.controls.activeIngredients"
+                                    controlId="activeIngredients" label="active.ingredient" parentId="appInfoDetails"
+                                    parentLabel="Application Information">
+                  </control-messages>
                   <textarea type="text" class="form-control full-width" id="activeIngredients" (blur)="onblur()"
                             formControlName="activeIngredients" maxlength="256"></textarea>
                 </label>
@@ -218,23 +232,39 @@
             </div>
             <div class="row">
               <div class="form-group col-xs-12" >
-                <label for="manufacturer" class="full-width">
+                <label for="manufacturer" class="required full-width">
                   <span class="field-name" i18n>{{'manufacturer'|translate}}</span>
+                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                  <control-messages *ngIf="appInfoFormLocalModel.controls.manufacturer.invalid"
+                                    [showError]="showFieldErrors"
+                                    [control]="appInfoFormLocalModel.controls.manufacturer"
+                                    controlId="manufacturer" label="manufacturer" parentId="appInfoDetails"
+                                    parentLabel="Application Information">
+                  </control-messages>
                   <input id="manufacturer" class="form-control full-width" (blur)="onblur()"
                          formControlName="manufacturer" maxlength="80"/>
                 </label>
               </div>
             </div>
             <div class="row">
-              <fieldset id="compliance" class="form-group col-xs-12">
+              <fieldset id="hasCompliance" class="form-group col-xs-12">
                 <legend class="legend-rep">
                   <span class="field-name">{{'compliance' | translate}}</span>
+                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                  <control-messages *ngIf="appInfoFormLocalModel.controls.hasCompliance.invalid"
+                                    [showError]="showFieldErrors"
+                                    [control]="appInfoFormLocalModel.controls.hasCompliance"
+                                    controlId="hasCompliance" label="compliance"
+                                    parentId="hasCompliance"
+                                    parentLabel="Application Information"></control-messages>
+                  <input id="hasCompliance" type="hidden" class="form-control full-width"
+                         formControlName="hasCompliance"/>
                 </legend>
                 <div class="row">
                   <div class="col-sm-4">
                     <div class="checkbox">
                       <label for="chk-compliance-usp">
-                        <input type="checkbox" (blur)="onblur()" formControlName="complianceUsp" id="chk-compliance-usp"/>
+                        <input type="checkbox" (blur)="complianceOnblur()" formControlName="complianceUsp" id="chk-compliance-usp"/>
                         <span>{{'compliance.usp'|translate}}</span>
                       </label>
                     </div>
@@ -242,7 +272,7 @@
                   <div class="col-sm-4">
                     <div class="checkbox">
                       <label for="chk-compliance-gmp">
-                        <input type="checkbox" (blur)="onblur()"
+                        <input type="checkbox" (blur)="complianceOnblur()"
                                formControlName="complianceGmp"
                                id="chk-compliance-gmp"/>
                         <span>{{'compliance.gmp'|translate}}</span>
@@ -252,7 +282,7 @@
                   <div class="col-sm-4">
                     <div class="checkbox">
                       <label for="chk-compliance-other">
-                        <input type="checkbox" (blur)="onblur()"
+                        <input type="checkbox" (blur)="complianceOnblur()"
                                formControlName="complianceOther"
                                id="chk-compliance-other"/>
                         <span>{{'compliance.other'|translate}}</span>
@@ -262,8 +292,15 @@
                 </div>
                 <div *ngIf="isOtherPharmacopeia()" class="row">
                   <div class="form-group col-xs-12" >
-                    <label for="otherPharmacopeia" class="full-width">
+                    <label for="otherPharmacopeia" class="required full-width">
                       <span class="field-name" i18n>{{'other.pharmacopeia'|translate}}</span>
+                      <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                      <control-messages *ngIf="appInfoFormLocalModel.controls.otherPharmacopeia.invalid"
+                                        [showError]="showFieldErrors"
+                                        [control]="appInfoFormLocalModel.controls.otherPharmacopeia"
+                                        controlId="otherPharmacopeia" label="other.pharmacopeia" parentId="appInfoDetails"
+                                        parentLabel="Application Information">
+                      </control-messages>
                       <input id="otherPharmacopeia" class="form-control full-width" (blur)="onblur()"
                              formControlName="otherPharmacopeia" maxlength="20"/>
                     </label>
@@ -286,7 +323,7 @@
         <div class="panel-body">
           <div class="row form-group col-xs-12">
             <fieldset id="device-history">
-              <legend><span class="field-name">{{'provision.mdr' | translate}}</span></legend>
+              <legend class="legend-rep"><span class="field-name">{{'provision.mdr' | translate}}</span></legend>
               <div class="row">
                 <div class="col-sm-4">
                   <div class="checkbox">
@@ -311,19 +348,25 @@
               </div>
               <div *ngIf="isIt()" class="row">
                 <div  class="form-group col-xs-6" >
-                  <label for="authorizationNum" class=" full-width">
-                    <span class="field-name" i18n>{{'authorization.number'|translate}}</span>
-                    <input id="authorizationNum" class="form-control full-width"  (blur)="onblur()"
-                           formControlName="authorizationNum" maxlength="30"/>
+                  <label for="applicationNum" class=" full-width">
+                    <span class="field-name" i18n>{{'application.number'|translate}}</span>
+                    <control-messages *ngIf="appInfoFormLocalModel.controls.applicationNum.invalid"
+                                      [showError]="showFieldErrors"
+                                      [control]="appInfoFormLocalModel.controls.applicationNum"
+                                      controlId="applicationNum" label="application.number" parentId="appInfoDetails"
+                                      parentLabel="Application Information">
+                    </control-messages>
+                    <input id="applicationNum" class="form-control full-width"  (blur)="onblur()"
+                           formControlName="applicationNum" only-digits maxlength="6"/>
                   </label>
                 </div>
               </div>
               <div *ngIf="isSa()" class="row">
                 <div  class="form-group col-xs-6">
-                  <label for="deviceId" class=" full-width">
-                    <span class="field-name" i18n>{{'device.id'|translate}}</span>
-                    <input id="deviceId" class="form-control full-width"  (blur)="onblur()"
-                           formControlName="deviceId" maxlength="30"/>
+                  <label for="sapReqNum" class=" full-width">
+                    <span class="field-name" i18n>{{'sap.req.number'|translate}}</span>
+                    <input id="sapReqNum" class="form-control full-width"  (blur)="onblur()"
+                           formControlName="sapReqNum" maxlength="30"/>
                   </label>
                 </div>
               </div>
@@ -442,8 +485,8 @@
                 <h3 class="panel-title">{{'heading.material.table'|translate}}</h3>
               </header>
               <div class="panel-body">
-                <material-list  (errors)="processMaterialErrors($event)" [countryList]="countryList"
-                                [materialModel]="materialModel"></material-list>
+                <material-list  (errors)="processMaterialErrors($event)" [countryList]="countryList" [lang]="lang"
+                                [materialModel]="materialModel" [resetMaterialModel]="resetMaterialModel"></material-list>
               </div>
             </section>
           </div>

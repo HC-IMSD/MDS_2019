@@ -8,6 +8,8 @@ import {ListService} from '../list-service';
 export class ApplicationInfoDetailsService {
 
   private static licenceAppTypeList: Array<any> = ApplicationInfoDetailsService.getRawLicenceAppTypeList();
+  private static drugTypeList: Array<any> = ApplicationInfoDetailsService.getRawDrugTypeList();
+  private static lang = GlobalsService.ENGLISH;
 
   constructor() {
   }
@@ -34,17 +36,18 @@ export class ApplicationInfoDetailsService {
       npn: ['', []], **/
       din: [null, [Validators.required, ValidationService.dinValidator]],
       npn: [null, [Validators.required, ValidationService.npnValidator]],
-      drugName: ['', []],
-      activeIngredients: ['', []],
-      manufacturer: ['', []],
+      drugName: [null, Validators.required],
+      activeIngredients: [null, Validators.required],
+      manufacturer: [null, Validators.required],
+      hasCompliance: [null, Validators.required],
       complianceUsp: [false, []],
       complianceGmp: [false, []],
       complianceOther: [false, []],
-      otherPharmacopeia: ['', []],
+      otherPharmacopeia: [null, Validators.required],
       provisionMdrIT: [false, []],
       provisionMdrSA: [false, []],
-      authorizationNum: ['', []],
-      deviceId: ['', []],
+      applicationNum: ['', [ValidationService.appNumValidator]],
+      sapReqNum: ['', []],
       declarationConformity : [null, Validators.required],
       hasRecombinant: [null, Validators.required],
       isAnimalHumanSourced : [null, Validators.required],
@@ -81,8 +84,8 @@ export class ApplicationInfoDetailsService {
         other_pharmacopeia: '',
         provision_mdr_it: '',
         provision_mdr_sa: '',
-        authorization_number: '',
-        device_id: '',
+        application_number: '',
+        sap_request_number: '',
         declaration_conformity : '',
         has_recombinant: '',
         is_animal_human_sourced : '',
@@ -92,11 +95,45 @@ export class ApplicationInfoDetailsService {
   }
 
   /**
+   * Sets language variable
+   *
+   */
+  public static setLang(lang) {
+    ApplicationInfoDetailsService.lang = lang;
+  }
+
+
+    /**
    * Gets an data array
    *
    */
-  public static getDrugTypes() {
-    return ['din', 'npn', 'nodinnpn'];
+  public static getRawDrugTypeList() {
+    return [
+      {
+        id: 'din',
+        en: 'Drug Identification Number (DIN)',
+        fr: 'fr_DIN'
+      },
+      {
+        id: 'npn',
+        en: 'Natural Product Number (NPN)',
+        fr: 'fr_NPN'
+      },
+      {
+        id: 'nodinnpn',
+        en: 'No DIN/NPN',
+        fr: 'fr_No DIN/NPN'
+      }
+    ];
+  }
+
+  /**
+   * Gets an data array
+   *
+   */
+  public static getDrugTypes(lang) {
+    const rawList = ApplicationInfoDetailsService.getRawDrugTypeList();
+    return this._convertListText(rawList, lang);
   }
 
   /**
@@ -185,12 +222,14 @@ export class ApplicationInfoDetailsService {
     //   appInfoModel.registrar = null;
     // }
     if (formRecord.controls.licenceAppType.value) {
-      const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, formRecord.controls.licenceAppType.value, 'id');
+      const latList = ApplicationInfoDetailsService.getLicenceAppTypeList(ApplicationInfoDetailsService.lang);
+      const recordIndex2 = ListService.getRecord(latList, formRecord.controls.licenceAppType.value, 'id');
       if (recordIndex2 > -1) {
         appInfoModel.licence_application_type = {
-          '__text': this.licenceAppTypeList[recordIndex2].id,
-          '_label_en': this.licenceAppTypeList[recordIndex2].en,
-          '_label_fr': this.licenceAppTypeList[recordIndex2].fr
+          '__text': latList[recordIndex2].text,
+          '_id': latList[recordIndex2].id,
+          '_label_en': latList[recordIndex2].en,
+          '_label_fr': latList[recordIndex2].fr
         };
       }
     } else {
@@ -201,7 +240,21 @@ export class ApplicationInfoDetailsService {
     appInfoModel.is_care_point_use = formRecord.controls.isCarePoint.value;
     appInfoModel.is_emit_radiation = formRecord.controls.isEmitRadiation.value;
     appInfoModel.has_drug = formRecord.controls.hasDrug.value;
-    appInfoModel.has_din_npn = formRecord.controls.hasDinNpn.value;
+    if (formRecord.controls.hasDinNpn.value) {
+      const dtList = ApplicationInfoDetailsService.getDrugTypes(ApplicationInfoDetailsService.lang);
+      const recordIndex3 = ListService.getRecord(dtList, formRecord.controls.hasDinNpn.value, 'id');
+      if (recordIndex3 > -1) {
+        appInfoModel.has_din_npn = {
+          '__text': dtList[recordIndex3].text,
+          '_id': dtList[recordIndex3].id,
+          '_label_en': dtList[recordIndex3].en,
+          '_label_fr': dtList[recordIndex3].fr
+        };
+      }
+    } else {
+      appInfoModel.has_din_npn = null;
+    }
+    // appInfoModel.has_din_npn = formRecord.controls.hasDinNpn.value;
     appInfoModel.din = formRecord.controls.din.value;
     appInfoModel.npn = formRecord.controls.npn.value;
     appInfoModel.drug_name = formRecord.controls.drugName.value;
@@ -213,8 +266,8 @@ export class ApplicationInfoDetailsService {
     appInfoModel.other_pharmacopeia = formRecord.controls.otherPharmacopeia.value;
     appInfoModel.provision_mdr_it = formRecord.controls.provisionMdrIT.value ? GlobalsService.YES : GlobalsService.NO;
     appInfoModel.provision_mdr_sa = formRecord.controls.provisionMdrSA.value ? GlobalsService.YES : GlobalsService.NO;
-    appInfoModel.authorization_number = formRecord.controls.authorizationNum.value;
-    appInfoModel.device_id = formRecord.controls.deviceId.value;
+    appInfoModel.application_number = formRecord.controls.applicationNum.value;
+    appInfoModel.sap_request_number = formRecord.controls.sapReqNum.value;
     appInfoModel.declaration_conformity = formRecord.controls.declarationConformity.value;
     appInfoModel.has_recombinant = formRecord.controls.hasRecombinant.value;
     appInfoModel.is_animal_human_sourced = formRecord.controls.isAnimalHumanSourced.value;
@@ -231,7 +284,7 @@ export class ApplicationInfoDetailsService {
     formRecord.controls.dossierId.setValue(appInfoModel.dossier_id);
     formRecord.controls.qmscNum.setValue(appInfoModel.qmsc_number);
     if (appInfoModel.licence_application_type) {
-      const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, appInfoModel.licence_application_type.__text, 'id');
+      const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, appInfoModel.licence_application_type._id, 'id');
       if (recordIndex2 > -1) {
         formRecord.controls.licenceAppType.setValue(this.licenceAppTypeList[recordIndex2].id);
       } else {
@@ -245,7 +298,17 @@ export class ApplicationInfoDetailsService {
     formRecord.controls.isCarePoint.setValue(appInfoModel.is_care_point_use);
     formRecord.controls.isEmitRadiation.setValue(appInfoModel.is_emit_radiation);
     formRecord.controls.hasDrug.setValue(appInfoModel.has_drug);
-    formRecord.controls.hasDinNpn.setValue(appInfoModel.has_din_npn);
+    if (appInfoModel.has_din_npn) {
+      const recordIndex3 = ListService.getRecord(this.drugTypeList, appInfoModel.has_din_npn._id, 'id');
+      if (recordIndex3 > -1) {
+        formRecord.controls.hasDinNpn.setValue(this.drugTypeList[recordIndex3].id);
+      } else {
+        formRecord.controls.hasDinNpn.setValue(null);
+      }
+    } else {
+      formRecord.controls.hasDinNpn.setValue(null);
+    }
+    // formRecord.controls.hasDinNpn.setValue(appInfoModel.has_din_npn);
     formRecord.controls.din.setValue(appInfoModel.din);
     formRecord.controls.npn.setValue(appInfoModel.npn);
     formRecord.controls.drugName.setValue(appInfoModel.drug_name);
@@ -262,8 +325,8 @@ export class ApplicationInfoDetailsService {
     formRecord.controls.provisionMdrIT.setValue(mdtit);
     const mdrsa = appInfoModel.provision_mdr_sa === GlobalsService.YES ? true : false;
     formRecord.controls.provisionMdrSA.setValue(mdrsa);
-    formRecord.controls.authorizationNum.setValue(appInfoModel.authorization_number);
-    formRecord.controls.deviceId.setValue(appInfoModel.device_id);
+    formRecord.controls.applicationNum.setValue(appInfoModel.application_number);
+    formRecord.controls.sapReqNum.setValue(appInfoModel.sap_request_number);
     formRecord.controls.declarationConformity.setValue(appInfoModel.declaration_conformity);
     formRecord.controls.hasRecombinant.setValue(appInfoModel.has_recombinant);
     formRecord.controls.isAnimalHumanSourced.setValue(appInfoModel.is_animal_human_sourced);

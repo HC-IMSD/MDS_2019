@@ -24,6 +24,7 @@ import {IMasterDetails} from '../../master-details';
 export class MaterialListComponent extends ListOperations implements OnInit, OnChanges, AfterViewInit, DoCheck {
   @Input() public materialModel = [];
   @Input() public saveMaterial;
+  @Input() public resetMaterialModel;
   @Input() public showErrors: boolean;
   @Input() countryList;
   @Output() public errors = new EventEmitter();
@@ -166,6 +167,17 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
     if (changes['saveMaterial']) {
       this.saveMaterialRecord(changes['saveMaterial'].currentValue);
     }
+    // if (changes['resetMaterialModel']) {
+    //   const materialList = this.getFormMaterialList();
+    //   if (changes['resetMaterialModel'].currentValue &&
+    //         changes['resetMaterialModel'].previousValue &&
+    //         materialList && materialList.length > 0) {
+    //     for (let i = 0; i < materialList.length; i++) {
+    //       this.deleteMaterial(materialList[i].controls.id.vslue);
+    //     }
+    //   }
+    // }
+    // todo: need to reset materialModel to empty if it is hidden ?
     if (changes['materialModel']) {
       this.service.setModelRecordList(changes['materialModel'].currentValue);
       this.service.initIndex(changes['materialModel'].currentValue);
@@ -239,6 +251,7 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
   public saveMaterialRecord(record: FormGroup) {
     this.saveRecord(record, this.service);
     this.dataModel = this.service.getModelRecordList();
+    this.materialModel = this.dataModel;
     this.addRecordMsg++;
     this.validRec = true;
   }

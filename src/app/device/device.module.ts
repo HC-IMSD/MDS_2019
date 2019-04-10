@@ -11,7 +11,6 @@ import {DeviceListComponent} from './device.list/device.list.component';
 import {DeviceListService} from './device.list/device-list.service';
 import {CommonFeatureModule} from '../common/common-feature.module';
 import {TranslateModule} from '@ngx-translate/core';
-import {NumbersOnlyDirective} from '../number-only/number.only.directive';
 
 @NgModule({
   imports: [
@@ -29,8 +28,7 @@ import {NumbersOnlyDirective} from '../number-only/number.only.directive';
   declarations: [
     DeviceRecordComponent,
     DeviceDetailsComponent,
-    DeviceListComponent,
-    NumbersOnlyDirective
+    DeviceListComponent
 
   ],
   exports: [
