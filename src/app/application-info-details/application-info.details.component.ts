@@ -46,7 +46,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   public yesNoList: Array<any> = [];
   public licenceAppTypeList: Array<any> = [];
   public showFieldErrors = false;
-  public resetMaterialModel = false;
   private detailsService: ApplicationInfoDetailsService;
 
   constructor(private _fb: FormBuilder, // todo: private dataLoader: DossierDataLoaderService,
@@ -123,7 +122,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       this.deviceClassList = changes['deviceClassList'].currentValue;
     }
     if (changes['appInfoFormLocalModel']) {
-      console.log('**********the DOSSIER details changed');
+      console.log('**********the app info details changed');
       this.appInfoFormRecord = this.appInfoFormLocalModel;
     }
     if (changes['appInfoModel']) {
@@ -133,6 +132,8 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
         this.appInfoFormLocalModel.markAsPristine();
       }
       ApplicationInfoDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.appInfoFormLocalModel));
+      this._hasReasonChecked();
+      this._hasMaterialRecord();
     }
   }
 
@@ -161,12 +162,35 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     this.onblur();
   }
 
+  hasRecombinantOnblur() {
+    if (!this.appInfoFormLocalModel.controls.hasRecombinant.value ||
+        this.appInfoFormLocalModel.controls.hasRecombinant.value === GlobalsService.NO) {
+      this.materialModel = [];
+    }
+    this.onblur();
+  }
+
+  isAnimalHumanSourcedOnblur() {
+    if (!this.appInfoFormLocalModel.controls.isAnimalHumanSourced.value ||
+      this.appInfoFormLocalModel.controls.isAnimalHumanSourced.value === GlobalsService.NO) {
+      this.materialModel = [];
+    }
+    this.onblur();
+  }
+
   private _hasReasonChecked() {
     this.appInfoFormLocalModel.controls.hasCompliance.setValue(null);
     if (this.appInfoFormLocalModel.controls.complianceUsp.value ||
       this.appInfoFormLocalModel.controls.complianceGmp.value ||
       this.appInfoFormLocalModel.controls.complianceOther.value) {
       this.appInfoFormLocalModel.controls.hasCompliance.setValue('filled');
+    }
+  }
+
+  private _hasMaterialRecord() {
+    this.appInfoFormLocalModel.controls.hasMaterial.setValue(null);
+    if (this.materialModel && this.materialModel.length > 0) {
+      this.appInfoFormLocalModel.controls.hasMaterial.setValue('hasRecord');
     }
   }
 
@@ -182,6 +206,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   processMaterialErrors(errorList) {
     this.materialErrorList.emit(errorList);
+    this._hasMaterialRecord();
   }
 
   isIVDD() {
@@ -342,14 +367,13 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   isRecombinant() {
     if (this.appInfoFormLocalModel.controls.hasRecombinant.value &&
           this.appInfoFormLocalModel.controls.hasRecombinant.value === GlobalsService.YES) {
-      // this.resetMaterialModel = true;
-      return true;
+        return true;
     } else {
-      this.appInfoFormLocalModel.controls.isAnimalHumanSourced.setValue(null);
-      this.appInfoFormLocalModel.controls.isAnimalHumanSourced.markAsUntouched();
-      this.appInfoFormLocalModel.controls.isListedIddTable.setValue(null);
-      this.appInfoFormLocalModel.controls.isListedIddTable.markAsUntouched();
-      // this.resetMaterialModel = false;
+        this.appInfoFormLocalModel.controls.isAnimalHumanSourced.setValue(null);
+        this.appInfoFormLocalModel.controls.isAnimalHumanSourced.markAsUntouched();
+        this.appInfoFormLocalModel.controls.isListedIddTable.setValue(null);
+        this.appInfoFormLocalModel.controls.isListedIddTable.markAsUntouched();
+        // this.materialModel = [];
     }
     return false;
   }
@@ -357,12 +381,11 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   isAnimalHumanSourced() {
     if (this.appInfoFormLocalModel.controls.isAnimalHumanSourced.value &&
           this.appInfoFormLocalModel.controls.isAnimalHumanSourced.value === GlobalsService.YES) {
-      // this.resetMaterialModel = true;
-      return true;
+        return true;
     } else {
-      this.appInfoFormLocalModel.controls.isListedIddTable.setValue(null);
-      this.appInfoFormLocalModel.controls.isListedIddTable.markAsUntouched();
-     // this.resetMaterialModel = false;
+        this.appInfoFormLocalModel.controls.isListedIddTable.setValue(null);
+        this.appInfoFormLocalModel.controls.isListedIddTable.markAsUntouched();
+        // this.materialModel = [];
     }
     return false;
   }

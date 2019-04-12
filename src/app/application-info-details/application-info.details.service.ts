@@ -51,6 +51,7 @@ export class ApplicationInfoDetailsService {
       declarationConformity : [null, Validators.required],
       hasRecombinant: [null, Validators.required],
       isAnimalHumanSourced : [null, Validators.required],
+      hasMaterial: [null, Validators.required],
       isListedIddTable: [null, Validators.required]
     });
   }

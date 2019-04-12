@@ -247,15 +247,15 @@
               </div>
             </div>
             <div class="row">
-              <fieldset id="hasCompliance" class="form-group col-xs-12">
+              <fieldset id="hasCompliances" class="form-group col-xs-12">
                 <legend class="legend-rep">
                   <span class="field-name">{{'compliance' | translate}}</span>
                   <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
                   <control-messages *ngIf="appInfoFormLocalModel.controls.hasCompliance.invalid"
                                     [showError]="showFieldErrors"
                                     [control]="appInfoFormLocalModel.controls.hasCompliance"
-                                    controlId="hasCompliance" label="compliance"
-                                    parentId="hasCompliance"
+                                    controlId="hasCompliances" label="compliance"
+                                    parentId="hasCompliances"
                                     parentLabel="Application Information"></control-messages>
                   <input id="hasCompliance" type="hidden" class="form-control full-width"
                          formControlName="hasCompliance"/>
@@ -438,7 +438,7 @@
                                   [control]="appInfoFormLocalModel.controls.hasRecombinant"
                                   controlId="hasRecombinant" label="consist.recombinant" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
-                <select id="hasRecombinant" required class="form-control" (blur)="onblur()" formControlName="hasRecombinant">
+                <select id="hasRecombinant" required class="form-control" (blur)="hasRecombinantOnblur()" formControlName="hasRecombinant">
                   <option label=" " value=""></option>
                   <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
                 </select>
@@ -455,7 +455,7 @@
                                   [control]="appInfoFormLocalModel.controls.isAnimalHumanSourced"
                                   controlId="isAnimalHumanSourced" label="contain.material" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
-                <select id="isAnimalHumanSourced" required class="form-control" (blur)="onblur()" formControlName="isAnimalHumanSourced">
+                <select id="isAnimalHumanSourced" required class="form-control" (blur)="isAnimalHumanSourcedOnblur()" formControlName="isAnimalHumanSourced">
                   <option label=" " value=""></option>
                   <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
                 </select>
@@ -480,13 +480,23 @@
             </div>
           </div>
           <div *ngIf="isAnimalHumanSourced()">
-            <section class="panel  panel-default">
+            <section id="materialList" class="panel  panel-default">
               <header class="panel-heading clearfix">
-                <h3 class="panel-title">{{'heading.material.table'|translate}}</h3>
+                <h3 class="panel-title">{{'heading.material.table'|translate}}
+                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                </h3>
+                <control-messages *ngIf="appInfoFormLocalModel.controls.hasMaterial.invalid"
+                                  [showError]="showFieldErrors"
+                                  [control]="appInfoFormLocalModel.controls.hasMaterial"
+                                  controlId="materialList" label="heading.material"
+                                  parentId="materialList"
+                                  parentLabel="Application Information"></control-messages>
+                <input id="hasMaterial" type="hidden" class="form-control full-width"
+                       formControlName="hasMaterial"/>
               </header>
               <div class="panel-body">
                 <material-list  (errors)="processMaterialErrors($event)" [countryList]="countryList" [lang]="lang"
-                                [materialModel]="materialModel" [resetMaterialModel]="resetMaterialModel"></material-list>
+                                [materialModel]="materialModel"></material-list>
               </div>
             </section>
           </div>

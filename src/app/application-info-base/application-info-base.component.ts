@@ -88,11 +88,19 @@ export class ApplicationInfoBaseComponent implements OnInit {
     // return this.errorList.length === 0;
   }
 
+  private _checkMaterialModel() {
+    if (this.appInfoModel.has_recombinant !== GlobalsService.YES ||
+          this.appInfoModel.is_animal_human_sourced !== GlobalsService.YES) {
+      this.materialModel = [];
+    }
+  }
+
   public saveXmlFile() {
     this._updatedAutoFields();
     if (this.errorList && this.errorList.length > 0) {
       this.showErrors = true;
     } else {
+      this._checkMaterialModel();
       const result = {
         'DEVICE_APPLICATION_INFO': {
           'application_info': this.appInfoModel,
@@ -111,6 +119,7 @@ export class ApplicationInfoBaseComponent implements OnInit {
 
   public saveWorkingCopyFile() {
     this._updatedSavedDate();
+    this._checkMaterialModel();
     const result = {'DEVICE_APPLICATION_INFO': {
       'application_info': this.appInfoModel,
       'devices': {
