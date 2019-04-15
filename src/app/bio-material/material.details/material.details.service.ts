@@ -139,14 +139,14 @@ export class MaterialDetailsService {
 
 
     if (materialModel.origin_country) {
-      const recordIndex = ListService.getRecord(countryList, materialModel.origin_country.__text, 'id');
+      const recordIndex = ListService.getRecord(countryList, materialModel.origin_country._id, 'id');
       let labelText = '';
       if (recordIndex > -1) {
         labelText = countryList[recordIndex].text;
       }
       formRecord.controls.originCountry.setValue([
         {
-          'id': materialModel.origin_country.__text,
+          'id': countryList[recordIndex].id,
           'text': labelText
         }
       ]);
@@ -156,14 +156,14 @@ export class MaterialDetailsService {
 
 
     if (materialModel.family_of_species) {
-      const sfRecordIndex = ListService.getRecord(speciesFamilyList, materialModel.family_of_species.__text, 'id');
+      const sfRecordIndex = ListService.getRecord(speciesFamilyList, materialModel.family_of_species._id, 'id');
       let sfLabelText = '';
       if (sfRecordIndex > -1) {
         sfLabelText = speciesFamilyList[sfRecordIndex].text;
       }
       formRecord.controls.specFamily.setValue([
         {
-          'id': materialModel.family_of_species.__text,
+          'id': speciesFamilyList[sfRecordIndex].id,
           'text': sfLabelText
         }
       ]);
@@ -173,14 +173,14 @@ export class MaterialDetailsService {
 
 
     if (materialModel.tissue_substance_type) {
-      const ttRecordIndex = ListService.getRecord(tissueTypeList, materialModel.tissue_substance_type.__text, 'id');
+      const ttRecordIndex = ListService.getRecord(tissueTypeList, materialModel.tissue_substance_type._id, 'id');
       let ttLabelText = '';
       if (ttRecordIndex > -1) {
         ttLabelText = tissueTypeList[ttRecordIndex].text;
       }
       formRecord.controls.tissueType.setValue([
         {
-          'id': materialModel.tissue_substance_type.__text,
+          'id': tissueTypeList[ttRecordIndex].id,
           'text': ttLabelText
         }
       ]);
@@ -191,14 +191,14 @@ export class MaterialDetailsService {
 
 
     if (materialModel.derivative) {
-      const deRecordIndex = ListService.getRecord(derivativeList, materialModel.derivative.__text, 'id');
+      const deRecordIndex = ListService.getRecord(derivativeList, materialModel.derivative._id, 'id');
       let deLabelText = '';
       if (deRecordIndex > -1) {
         deLabelText = derivativeList[deRecordIndex].text;
       }
       formRecord.controls.derivative.setValue([
         {
-          'id': materialModel.derivative.__text,
+          'id': derivativeList[deRecordIndex].id,
           'text': deLabelText
         }
       ]);
