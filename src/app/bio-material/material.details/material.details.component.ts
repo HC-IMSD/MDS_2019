@@ -117,14 +117,24 @@ export class MaterialDetailsComponent implements OnInit, OnChanges, AfterViewIni
 
   isOtherType() {
     if (this.materialFormLocalModel.controls.tissueType.value && this.materialFormLocalModel.controls.tissueType.value.length > 0) {
-      return (this.materialFormLocalModel.controls.tissueType.value[0].id === 'other');
+      if (this.materialFormLocalModel.controls.tissueType.value[0].id === 'other') {
+        return true;
+      } else {
+        this.materialFormLocalModel.controls.tissueTypeOtherDetails.setValue(null);
+        this.materialFormLocalModel.controls.tissueTypeOtherDetails.markAsUntouched();
+      }
     }
     return false;
   }
 
   isOtherDerivative() {
     if (this.materialFormLocalModel.controls.derivative.value && this.materialFormLocalModel.controls.derivative.value.length > 0) {
-      return (this.materialFormLocalModel.controls.derivative.value[0].id === 'other');
+      if (this.materialFormLocalModel.controls.derivative.value[0].id === 'other') {
+        return true;
+      } else {
+        this.materialFormLocalModel.controls.derivativeOtherDetails.setValue(null);
+        this.materialFormLocalModel.controls.derivativeOtherDetails.markAsUntouched();
+      }
     }
     return false;
   }
