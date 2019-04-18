@@ -21,6 +21,8 @@ export class ValidationService {
       'error.mgs.zip': 'error.mgs.zip',
       'error.mgs.company.id': 'error.mgs.company.id',
       'error.mgs.contact.id': 'error.mgs.contact.id',
+      'error.mgs.primary.company.id': 'error.mgs.primary.company.id',
+      'error.mgs.primary.contact.id': 'error.mgs.primary.contact.id',
       'error.mgs.regu.company.id': 'error.mgs.regu.company.id',
       'error.mgs.regu.contact.id': 'error.mgs.regu.contact.id',
       'error.mgs.dossier.id': 'error.mgs.dossier.id',
@@ -135,7 +137,7 @@ export class ValidationService {
     if (!control.value) {
       return null;
     }
-    if (control.value.match(/^[a-zA-Z]{1}[0-9]{6}$/)) {
+    if (control.value.match(/^[m]{1}[0-9]{6}$/)) {
       return null;
     } else {
       return {'error.mgs.dossier.id': true};
@@ -213,6 +215,28 @@ export class ValidationService {
       return null;
     } else {
       return {'required': true};
+    }
+  }
+
+  static primaryContactIdValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]{5}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.primary.contact.id': true};
+    }
+  }
+
+  static primaryCompanyIdValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]{6}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.primary.company.id': true};
     }
   }
 }

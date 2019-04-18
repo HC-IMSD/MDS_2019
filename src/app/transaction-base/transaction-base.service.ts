@@ -31,7 +31,7 @@ export class TransactionBaseService {
       reguContactId: [null, [Validators.required, ValidationService.dossierContactIdValidator]],
       activityLead: [null, Validators.required],
       activityType: [null, Validators.required],
-      transDescription: [null, Validators.required],
+      descriptionType: [null, Validators.required],
       deviceClass: [null, Validators.required],
       amendReason: [null, Validators.required],
       classChange: [false, []],
@@ -48,6 +48,7 @@ export class TransactionBaseService {
       appNum: [null, [Validators.required, ValidationService.appNumValidator]],
       deviceName: [null, Validators.required],
       requestDate: [null, Validators.required],
+      transDescription: [null, []],
       hasDdt: [false, []],
       hasAppInfo: [false, []],
       isSolicitedInfo: [null, Validators.required]
@@ -72,7 +73,7 @@ export class TransactionBaseService {
         regulatory_contact_id: '',
         activity_lead: '',
         activity_type: '',
-        transaction_description: '',
+        description_type: '',
         device_class: '',
         amend_reasons: {
           classification_change: '',
@@ -90,6 +91,7 @@ export class TransactionBaseService {
         application_number: '',
         device_name: '',
         request_date: '',
+        transaction_description: '',
         has_ddt: '',
         has_app_info: '',
         is_solicited_info: ''

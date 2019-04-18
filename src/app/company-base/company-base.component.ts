@@ -30,7 +30,7 @@ export class CompanyBaseComponent implements OnInit {
   private _addressErrors = [];
   private _contactErrors = [];
   private _adminChangesErrors = [];
-  private _licenceErrors = [];
+  private _primContactErrors = [];
   public companyForm: FormGroup;
   public errorList = [];
   public rootTagText = 'DEVICE_COMPANY_ENROL';
@@ -48,6 +48,7 @@ export class CompanyBaseComponent implements OnInit {
   public genInfoModel = CompanyBaseService.getEmptyGenInfoModel();
   public contactModel = [];
   public adminChangesModel = CompanyBaseService.getEmptyAdminChangesModel();
+  public primContactModel = [];
   public foo = '';
   public fileServices: FileConversionService;
   public saveXmlLabel = 'save.draft';
@@ -84,7 +85,7 @@ export class CompanyBaseComponent implements OnInit {
     // concat the error arrays
     this.errorList = this._genInfoErrors.concat(
       this._addressErrors.concat(this._contactErrors.concat(
-        this._licenceErrors.concat(this._adminChangesErrors))));
+        this._primContactErrors.concat(this._adminChangesErrors))));
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -103,12 +104,8 @@ export class CompanyBaseComponent implements OnInit {
     this.processErrors();
   }
 
-  processLicenceErrors(errorList) {
-    if (!this.adminChangesModel.all_licence_number || !this.showAdminChanges) {
-      this._licenceErrors = [];
-    } else {
-      this._licenceErrors = errorList;
-    }
+  processPrimContactErrors(errorList) {
+    this._primContactErrors = errorList;
     this.processErrors();
   }
 
@@ -195,13 +192,14 @@ export class CompanyBaseComponent implements OnInit {
         other_change: '',
         other_details: ''
       };
-      this.genInfoModel.are_licenses_transfered = '';
-    } else {
-      this._updateAdminChanges();
-      if (fileData.data.DEVICE_COMPANY_ENROL.administrative_changes) {
-        this.adminChangesModel = fileData.data.DEVICE_COMPANY_ENROL.administrative_changes;
-      }
+      // this.genInfoModel.are_licenses_transfered = '';
     }
+
+    this._updateAdminChanges();
+    if (fileData.data.DEVICE_COMPANY_ENROL.administrative_changes) {
+      this.adminChangesModel = fileData.data.DEVICE_COMPANY_ENROL.administrative_changes;
+    }
+
     this.addressModel = fileData.data.DEVICE_COMPANY_ENROL.address;
     const cont = fileData.data.DEVICE_COMPANY_ENROL.contacts.contact;
     if (cont) {

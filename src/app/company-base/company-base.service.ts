@@ -80,12 +80,27 @@ export class CompanyBaseService {
 
     return (
       {
-        all_licence_number: '',
-        all_dossier_id: '',
+        all_licence_numbers: '',
         is_regulatory_change: '',
         new_company_id: '',
         new_contact_id: '',
         new_contact_name: ''
+      }
+    );
+  }
+
+  /**
+   * Gets an empty Admin Changes Model
+   *
+   */
+  public static getEmptyPrimarycontactModel() {
+
+    return (
+      {
+        is_third_party: '',
+        rep_contact_company_id: '',
+        rep_contact_id: '',
+        rep_contact_name: ''
       }
     );
   }

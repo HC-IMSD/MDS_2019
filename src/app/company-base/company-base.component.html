@@ -73,7 +73,11 @@
                       class="fa fa-question-circle fa-2x"></span><span class="wb-inv">"{{::'ADDRESS_INSTRUCT'|translate}}"</span>
                     </button>-->
                   </div>
-                  <h3 class="panel-title">{{'heading.contactInfo'|translate}}</h3>
+                  <h3 class="panel-title">{{'heading.contactInfo'|translate}}
+                    <sup id="co3-rf">
+                      <a class="fn-lnk" href="#co3"><span class="wb-inv">{{'instruction'|translate}}</span>3</a>
+                    </sup>
+                  </h3>
                 </header>
                 <div class="panel-body">
                   <contact-list  (errors)="processContactErrors($event)" [isInternal]="isInternalSite"
@@ -98,12 +102,26 @@
               <comp-admin-changes [showErrors]="showErrors" [showAdminChanges]="adminChanges" [lang]="lang"
                                   [detailsChanged]="updateChild" [isInternal]="isInternalSite"
                                   [adminChangesModel]="adminChangesModel"
-                                  (adminChangesErrorList)="processAdminChangesErrors($event)"
-                                  (licenceErrorList)="processLicenceErrors($event)"></comp-admin-changes>
+                                  (adminChangesErrorList)="processAdminChangesErrors($event)"></comp-admin-changes>
             </div>
           </div>
         </section>
       </div>
+
+      <div>
+        <section class="panel  panel-default">
+          <header class="panel-heading clearfix">
+            <h3 class="panel-title">{{'primary.contact'|translate}}</h3>
+          </header>
+          <div class="panel-body">
+            <primary-contact [showErrors]="showErrors" [lang]="lang"
+                             [detailsChanged]="updateChild"
+                             [primContactModel]="primContactModel"
+                             (primContactErrorList)="processPrimContactErrors($event)"></primary-contact>
+          </div>
+        </section>
+      </div>
+
     </div>
     <div class="row btn-group-sm">
       <div class="form-group col-md-4">

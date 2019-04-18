@@ -154,6 +154,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   public setAmendState () {
     this.isAmend = true;
     this.genInfoModel.status = CompanyInfoService.setAmendStatus();
+    this.genInfoModel.are_licenses_transfered = '';
     CompanyInfoService.mapDataModelToFormModel(this.genInfoModel,
       (<FormGroup>this.generalInfoFormLocalModel));
   }

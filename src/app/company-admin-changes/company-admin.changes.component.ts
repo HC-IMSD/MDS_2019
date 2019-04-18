@@ -31,7 +31,7 @@ export class CompanyAdminChangesComponent implements OnInit, OnChanges, AfterVie
   @Input() adminChangesModel;
   @Input() lang;
   @Output() adminChangesErrorList = new EventEmitter(true);
-  @Output() licenceErrorList = new EventEmitter(true);
+  // @Output() licenceErrorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   // For the searchable select box, only accepts/saves id and text.
@@ -39,7 +39,7 @@ export class CompanyAdminChangesComponent implements OnInit, OnChanges, AfterVie
   public showAmendInfo: Array<boolean> = [false, false, false, false];
   public yesNoList: Array<any> = [];
   public showFieldErrors = false;
-  public licenceModel = [];
+  public licenceModel = [];  // todo: clean up licence model code to remove it
   private adminChangesService: CompanyAdminChangesService;
 
   constructor(private _fb: FormBuilder, // todo: private dataLoader: DossierDataLoaderService,
@@ -116,13 +116,13 @@ export class CompanyAdminChangesComponent implements OnInit, OnChanges, AfterVie
         this.adminChangesFormLocalModel = this.adminChangesService.getReactiveModel(this._fb);
         this.adminChangesFormLocalModel.markAsPristine();
       }
-      if (dataModel.licence) {
-        if (isArray(dataModel.licence)) {
-          this.licenceModel = dataModel.licence;
-        } else {
-          this.licenceModel = [dataModel.licence];
-        }
-      }
+      // if (dataModel.licence) {
+      //   if (isArray(dataModel.licence)) {
+      //     this.licenceModel = dataModel.licence;
+      //   } else {
+      //     this.licenceModel = [dataModel.licence];
+      //   }
+      // }
       CompanyAdminChangesService.mapDataModelToFormModel(dataModel, (<FormGroup>this.adminChangesFormLocalModel));
     }
   }
@@ -144,15 +144,15 @@ export class CompanyAdminChangesComponent implements OnInit, OnChanges, AfterVie
       this.adminChangesModel, this.licenceModel);
   }
 
-  processLicenceErrors(errorList) {
-    this.licenceErrorList.emit(errorList);
+  // processLicenceErrors(errorList) {
+  //   this.licenceErrorList.emit(errorList);
+  //
+  // }
 
-  }
-
-  processLicenceUpdate(licences) {
-    this.licenceModel = licences;
-    this.onblur();
-  }
+  // processLicenceUpdate(licences) {
+  //   this.licenceModel = licences;
+  //   this.onblur();
+  // }
 
   isReguChange() {
     if (this.adminChangesFormLocalModel.controls.isReguChange.value) {

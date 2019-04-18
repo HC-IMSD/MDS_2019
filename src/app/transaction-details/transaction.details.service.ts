@@ -28,7 +28,7 @@ export class TransactionDetailsService {
       reguContactId: ['', [Validators.required, ValidationService.regulatoryContactIdValidator]],
       activityLead: ['', Validators.required],
       activityType: ['', Validators.required],
-      transDescription: ['', Validators.required],
+      descriptionType: ['', Validators.required],
       deviceClass: ['', Validators.required],
       amendReason: ['', Validators.required],
       classChange: [false, []],
@@ -50,6 +50,7 @@ export class TransactionDetailsService {
       licenceName: ['', Validators.required],
       requestDate: ['', Validators.required],
       briefDesc: ['', Validators.required],
+      transDescription: [null, []],
       hasDdt: [false, []],
       hasDdtMan: ['', ValidationService.checkboxRequiredValidator],
       hasAppInfo: [false, []],
@@ -73,7 +74,7 @@ export class TransactionDetailsService {
         regulatory_contact_id: '',
         activity_lead: '',
         activity_type: '',
-        transaction_description: '',
+        description_type: '',
         device_class: '',
         amend_reasons: {
           classification_change: '',
@@ -95,6 +96,7 @@ export class TransactionDetailsService {
         proposed_licence_name: '',
         request_date: '',
         brief_description: '',
+        transaction_description: '',
         has_ddt: '',
         has_app_info: '',
         is_solicited_info: ''
@@ -239,17 +241,17 @@ export class TransactionDetailsService {
     transactionModel.activity_lead = formRecord.controls.activityLead.value;
     transactionModel.activity_type = formRecord.controls.activityType.value;
     const descArray = TransactionDetailsService.getRawTransDescList();
-    if (formRecord.controls.transDescription.value) {
-      const recordIndex1 = ListService.getRecord(descArray, formRecord.controls.transDescription.value, 'id');
+    if (formRecord.controls.descriptionType.value) {
+      const recordIndex1 = ListService.getRecord(descArray, formRecord.controls.descriptionType.value, 'id');
       if (recordIndex1 > -1) {
-        transactionModel.transaction_description = {
+        transactionModel.description_type = {
           '__text': descArray[recordIndex1].id,
           '_label_en': descArray[recordIndex1].en,
           '_label_fr': descArray[recordIndex1].fr
         };
       }
     } else {
-      transactionModel.transaction_description = null;
+      transactionModel.description_type = null;
     }
     transactionModel.device_class = formRecord.controls.deviceClass.value;
     transactionModel.amend_reasons.classification_change = formRecord.controls.classChange.value ? GlobalsService.YES : GlobalsService.NO;
@@ -264,12 +266,12 @@ export class TransactionDetailsService {
     transactionModel.amend_reasons.purpose_change = formRecord.controls.purposeChange.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.amend_reasons.add_delete_change = formRecord.controls.addChange.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.licence_number = formRecord.controls.licenceNum.value;
-    if (formRecord.controls.transDescription.value !== 'INITIAL' &&
-      formRecord.controls.transDescription.value !== 'MM' &&
-        formRecord.controls.transDescription.value !== 'UD') {
+    if (formRecord.controls.descriptionType.value !== 'INITIAL' &&
+      formRecord.controls.descriptionType.value !== 'MM' &&
+        formRecord.controls.descriptionType.value !== 'UD') {
       transactionModel.application_number = formRecord.controls.appNum.value;
-    } else if (formRecord.controls.transDescription.value === 'MM' ||
-            formRecord.controls.transDescription.value === 'UD') {
+    } else if (formRecord.controls.descriptionType.value === 'MM' ||
+            formRecord.controls.descriptionType.value === 'UD') {
       transactionModel.application_number = formRecord.controls.appNumOpt.value;
     }
     transactionModel.meeting_id = formRecord.controls.meetingId.value;
@@ -277,8 +279,9 @@ export class TransactionDetailsService {
     transactionModel.proposed_licence_name = formRecord.controls.licenceName.value;
     transactionModel.request_date = formRecord.controls.requestDate.value;
     transactionModel.brief_description = formRecord.controls.briefDesc.value;
+    transactionModel.transaction_description = formRecord.controls.transDescription.value;
     if(formRecord.controls.deviceChange.value ||
-        (formRecord.controls.activityType.value === 'Licence' && formRecord.controls.transDescription.value === 'INITIAL')) {
+        (formRecord.controls.activityType.value === 'Licence' && formRecord.controls.descriptionType.value === 'INITIAL')) {
       transactionModel.has_ddt = formRecord.controls.hasDdtMan.value ? GlobalsService.YES : GlobalsService.NO;
     } else {
       transactionModel.has_ddt = formRecord.controls.hasDdt.value ? GlobalsService.YES : GlobalsService.NO;
@@ -301,16 +304,16 @@ export class TransactionDetailsService {
     formRecord.controls.activityType.setValue(transactionModel.activity_type);
 
     const descriptions = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-    if (transactionModel.transaction_description) {
-      const recordIndex = ListService.getRecord(descriptions, transactionModel.transaction_description.__text, 'id');
+    if (transactionModel.description_type) {
+      const recordIndex = ListService.getRecord(descriptions, transactionModel.description_type.__text, 'id');
       if (recordIndex > -1) {
         // const labelText = descriptions[recordIndex].text;
-        formRecord.controls.transDescription.setValue(descriptions[recordIndex].id);
+        formRecord.controls.descriptionType.setValue(descriptions[recordIndex].id);
       } else {
-        formRecord.controls.transDescription.setValue(null);
+        formRecord.controls.descriptionType.setValue(null);
       }
     } else {
-      formRecord.controls.transDescription.setValue(null);
+      formRecord.controls.descriptionType.setValue(null);
     }
 
     formRecord.controls.deviceClass.setValue(transactionModel.device_class);
@@ -340,9 +343,9 @@ export class TransactionDetailsService {
       formRecord.controls.amendReason.setValue('reasonFilled');
     }
     formRecord.controls.licenceNum.setValue(transactionModel.licence_number);
-    if (transactionModel.transaction_description.__text &&
-      (transactionModel.transaction_description.__text === 'MM' ||
-        transactionModel.transaction_description.__text === 'UD')) {
+    if (transactionModel.description_type.__text &&
+      (transactionModel.description_type.__text === 'MM' ||
+        transactionModel.description_type.__text === 'UD')) {
       formRecord.controls.appNumOpt.setValue(transactionModel.application_number);
     } else {
       formRecord.controls.appNum.setValue(transactionModel.application_number);
@@ -352,9 +355,10 @@ export class TransactionDetailsService {
     formRecord.controls.licenceName.setValue(transactionModel.proposed_licence_name);
     formRecord.controls.requestDate.setValue(transactionModel.request_date);
     formRecord.controls.briefDesc.setValue(transactionModel.brief_description);
+    formRecord.controls.transDescription.setValue(transactionModel.transaction_description);
     const hasddt = transactionModel.has_ddt === GlobalsService.YES ? true : false;
     if (formRecord.controls.deviceChange.value ||
-      (transactionModel.activity_type === 'Licence' && transactionModel.transaction_description.__text === 'INITIAL')) {
+      (transactionModel.activity_type === 'Licence' && transactionModel.description_type.__text === 'INITIAL')) {
       formRecord.controls.hasDdtMan.setValue(hasddt);
     } else {
       formRecord.controls.hasDdt.setValue(hasddt);

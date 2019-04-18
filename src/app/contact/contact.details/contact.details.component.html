@@ -16,7 +16,11 @@
       </div>
       <div class="form-group col-sm-6" >
         <label for="status" class="required full-width">
-          <span class="field-name">{{'status' |translate}}</span>
+          <span class="field-name">{{'status' |translate}}
+              <sup id="co4-rf">
+                <a class="fn-lnk" href="#co4"><span class="wb-inv">{{'instruction'|translate}}</span>3.1</a>
+              </sup>
+          </span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="contactFormLocalModel.controls.status.invalid"
                             [showError]="showFieldErrors"
@@ -47,15 +51,9 @@
     </div>
     <div class="row">
       <div class="form-group col-sm-6" >
-        <label for="salutation" class="required full-width">
+        <label for="salutation" class="full-width">
           <span class="field-name" i18n>{{'salutation' |translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="contactFormLocalModel.controls.salutation.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="contactFormLocalModel.controls.salutation"
-                            controlId="salutation" label="salutation" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
-          <select id="salutation" required class="form-control" formControlName="salutation">
+          <select id="salutation" class="form-control" formControlName="salutation">
             <option label=" " value=""></option>
             <option *ngFor="let sal of salutations" [ngValue]="sal.id"> {{sal.label_en}}</option>
           </select>
@@ -111,21 +109,15 @@
         </label>
       </div>
       <div class="form-group col-sm-4">
-        <label for="jobTitle" class="required full-width">
+        <label for="jobTitle" class="full-width">
           <span class="field-name">{{'job.title'|translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="contactFormLocalModel.controls.jobTitle.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="contactFormLocalModel.controls.jobTitle"
-                            controlId="jobTitle" label="job.title" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
           <input id="jobTitle" class="form-control full-width" maxlength="40" formControlName="jobTitle"/>
         </label>
       </div>
       <div class="form-group col-sm-4 ">
         <label for="faxNumber">
           <span class="field-name" i18n>{{'fax.number' |translate}}</span>
-          <input id="faxNumber" class="form-control" maxlength="16" formControlName="faxNumber"/>
+          <input id="faxNumber" class="form-control" only-digits maxlength="16" formControlName="faxNumber"/>
         </label>
       </div>
     </div>
@@ -139,7 +131,7 @@
                             [control]="contactFormLocalModel.controls.phoneNumber"
                             controlId="phoneNumber" label="phone.number" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input id="phoneNumber" class="form-control full-width" formControlName="phoneNumber" maxlength="16"/>
+          <input id="phoneNumber" class="form-control only-digits full-width" formControlName="phoneNumber" maxlength="16"/>
         </label>
       </div>
       <div class="form-group col-sm-3">

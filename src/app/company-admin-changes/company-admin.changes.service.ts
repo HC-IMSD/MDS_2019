@@ -18,6 +18,7 @@ export class CompanyAdminChangesService {
   public getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
+      licenceNumbers: [null, Validators.required],
       isReguChange: [null, Validators.required],
       newCompanyId: [null, [Validators.required, ValidationService.companyIdValidator]],
       newContactId: ['', []],
@@ -33,9 +34,7 @@ export class CompanyAdminChangesService {
 
     return (
       {
-        all_licence_number: '',
-        all_dossier_id: '',
-        licence: [],
+        all_licence_numbers: '',
         is_regulatory_change: '',
         new_company_id: '',
         new_contact_id: '',
@@ -57,25 +56,26 @@ export class CompanyAdminChangesService {
 
   public static mapFormModelToDataModel(formRecord: FormGroup, adminChangesModel, licenceModel) {
     // add licence number and dossier id to all fields
-    let aln = '';
-    licenceModel.forEach(record => {
-      aln += record.licence_number + ', ';
-    });
-    if (aln.length > 1) {
-      adminChangesModel.all_licence_number = aln.substring(0, (aln.length - 2));
-    } else {
-      adminChangesModel.all_licence_number = '';
-    }
-    let adi = '';
-    licenceModel.forEach(record => {
-      adi += record.dossier_id + ', ';
-    });
-    if (adi.length > 1) {
-      adminChangesModel.all_dossier_id = adi.substring(0, (adi.length - 2));
-    } else {
-      adminChangesModel.all_dossier_id = '';
-    }
-    adminChangesModel.licence = licenceModel;
+    // let aln = '';
+    // licenceModel.forEach(record => {
+    //   aln += record.licence_number + ', ';
+    // });
+    // if (aln.length > 1) {
+    //   adminChangesModel.all_licence_number = aln.substring(0, (aln.length - 2));
+    // } else {
+    //   adminChangesModel.all_licence_number = '';
+    // }
+    // let adi = '';
+    // licenceModel.forEach(record => {
+    //   adi += record.dossier_id + ', ';
+    // });
+    // if (adi.length > 1) {
+    //   adminChangesModel.all_dossier_id = adi.substring(0, (adi.length - 2));
+    // } else {
+    //   adminChangesModel.all_dossier_id = '';
+    // }
+    // adminChangesModel.licence = licenceModel;
+    adminChangesModel.all_licence_numbers = formRecord.controls.licenceNumbers.value;
     adminChangesModel.is_regulatory_change = formRecord.controls.isReguChange.value;
     if (formRecord.controls.newCompanyId.value) {
       adminChangesModel.new_company_id = 'k' + formRecord.controls.newCompanyId.value;
@@ -85,6 +85,7 @@ export class CompanyAdminChangesService {
   }
 
   public static mapDataModelToFormModel(adminChangesModel, formRecord: FormGroup) {
+    formRecord.controls.licenceNumbers.setValue(adminChangesModel.all_licence_numbers);
     formRecord.controls.isReguChange.setValue(adminChangesModel.is_regulatory_change);
     if (adminChangesModel.new_company_id) {
       formRecord.controls.newCompanyId.setValue(adminChangesModel.new_company_id.slice(1));

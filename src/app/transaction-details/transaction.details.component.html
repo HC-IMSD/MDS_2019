@@ -123,18 +123,18 @@
     </div>
     <div class="row">
       <div class="form-group col-xs-6" >
-        <label for="transDescription" class="required full-width">
+        <label for="descriptionType" class="required full-width">
           <span class="field-name" i18n>{{'trans.description' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="transDetailsFormLocalModel.controls.transDescription.invalid"
+          <control-messages *ngIf="transDetailsFormLocalModel.controls.descriptionType.invalid"
                             [showError]="showFieldErrors"
-                            [control]="transDetailsFormLocalModel.controls.transDescription"
-                            controlId="transDescription" label="trans.description"
+                            [control]="transDetailsFormLocalModel.controls.descriptionType"
+                            controlId="descriptionType" label="trans.description"
                             parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
-          <select id="transDescription" required class="form-control full-width" (blur)="descrDeviceOnblur()"
+          <select id="descriptionType" required class="form-control full-width" (blur)="descrDeviceOnblur()"
                   (click)="descrDeviceOnblur()"
-                  (selected)="descrDeviceOnblur()" formControlName="transDescription">
+                  (selected)="descrDeviceOnblur()" formControlName="descriptionType">
             <option label=" " value=""></option>
             <option *ngFor="let desc of transDescList" [ngValue]="desc.id"> {{desc.text|translate}}</option>
 

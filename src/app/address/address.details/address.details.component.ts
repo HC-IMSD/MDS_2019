@@ -7,8 +7,6 @@ import {ControlMessagesComponent} from '../../error-msg/control-messages.compone
 import {AddressDetailsService} from './address.details.service';
 import {isArray} from 'util';
 import {noUndefined} from '@angular/compiler/src/util';
-import {NumbersOnlyDirective} from '../../number-only/number.only.directive';
-
 
 @Component({
   selector: 'address-details',
