@@ -54,15 +54,14 @@ export class PrimaryContactService {
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, primContactModel) {
-    primContactModel.is_third_party = formRecord.controls.isThirdParty.value ? GlobalsService.YES : GlobalsService.NO;
+    primContactModel.is_third_party = formRecord.controls.isThirdParty.value;
     primContactModel.rep_contact_company_id = formRecord.controls.repContactCompanyId.value;
     primContactModel.rep_contact_id = formRecord.controls.repContactId.value;
     primContactModel.rep_contact_name = formRecord.controls.repContactName.value;
   }
 
   public static mapDataModelToFormModel(primContactModel, formRecord: FormGroup) {
-    const itp = primContactModel.is_third_party === GlobalsService.YES ? true : false;
-    formRecord.controls.isThirdParty.setValue(itp);
+    formRecord.controls.isThirdParty.setValue(primContactModel.is_third_party);
     formRecord.controls.repContactCompanyId.setValue(primContactModel.rep_contact_company_id);
     formRecord.controls.repContactId.setValue(primContactModel.rep_contact_id);
     formRecord.controls.repContactName.setValue(primContactModel.rep_contact_name);

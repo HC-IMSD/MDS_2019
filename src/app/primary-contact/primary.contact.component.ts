@@ -5,6 +5,7 @@ import {
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
 import {PrimaryContactService} from './primary.contact.service';
+import {GlobalsService} from '../globals/globals.service';
 import {isArray} from 'util';
 import {noUndefined} from '@angular/compiler/src/util';
 
@@ -122,6 +123,30 @@ export class PrimaryContactComponent implements OnInit, OnChanges, AfterViewInit
     // console.log('input is typed');
     PrimaryContactService.mapFormModelToDataModel((<FormGroup>this.primContactFormLocalModel),
       this.primContactModel);
+  }
+
+  by3rdParty() {
+    if (this.primContactFormLocalModel.controls.isThirdParty.value &&
+      this.primContactFormLocalModel.controls.isThirdParty.value === GlobalsService.YES) {
+      return true;
+    } else {
+      this.primContactFormLocalModel.controls.repContactCompanyId.setValue(null);
+      this.primContactFormLocalModel.controls.repContactCompanyId.markAsUntouched();
+      this.primContactFormLocalModel.controls.repContactId.setValue(null);
+      this.primContactFormLocalModel.controls.repContactId.markAsUntouched();
+    }
+    return false;
+  }
+
+  notBy3rdParty() {
+    if (this.primContactFormLocalModel.controls.isThirdParty.value &&
+      this.primContactFormLocalModel.controls.isThirdParty.value === GlobalsService.NO) {
+      return true;
+    } else {
+      this.primContactFormLocalModel.controls.repContactName.setValue(null);
+      this.primContactFormLocalModel.controls.repContactName.markAsUntouched();
+    }
+    return false;
   }
 }
 

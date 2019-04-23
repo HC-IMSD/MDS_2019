@@ -90,6 +90,24 @@
         </section>
       </div>
 
+      <div>
+        <section class="panel  panel-default">
+          <header class="panel-heading clearfix">
+            <h3 class="panel-title">{{'primary.contact'|translate}}
+              <sup id="co5-rf">
+                <a class="fn-lnk" href="#co5"><span class="wb-inv">{{'instruction'|translate}}</span>4</a>
+              </sup>
+            </h3>
+          </header>
+          <div class="panel-body">
+            <primary-contact [showErrors]="showErrors" [lang]="lang"
+                             [detailsChanged]="updateChild"
+                             [primContactModel]="primContactModel"
+                             (primContactErrorList)="processPrimContactErrors($event)"></primary-contact>
+          </div>
+        </section>
+      </div>
+
       <div *ngIf="showAdminChanges">
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
@@ -104,20 +122,6 @@
                                   [adminChangesModel]="adminChangesModel"
                                   (adminChangesErrorList)="processAdminChangesErrors($event)"></comp-admin-changes>
             </div>
-          </div>
-        </section>
-      </div>
-
-      <div>
-        <section class="panel  panel-default">
-          <header class="panel-heading clearfix">
-            <h3 class="panel-title">{{'primary.contact'|translate}}</h3>
-          </header>
-          <div class="panel-body">
-            <primary-contact [showErrors]="showErrors" [lang]="lang"
-                             [detailsChanged]="updateChild"
-                             [primContactModel]="primContactModel"
-                             (primContactErrorList)="processPrimContactErrors($event)"></primary-contact>
           </div>
         </section>
       </div>

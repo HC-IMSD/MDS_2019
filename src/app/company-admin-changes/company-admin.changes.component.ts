@@ -155,17 +155,16 @@ export class CompanyAdminChangesComponent implements OnInit, OnChanges, AfterVie
   // }
 
   isReguChange() {
-    if (this.adminChangesFormLocalModel.controls.isReguChange.value) {
-      if (this.adminChangesFormLocalModel.controls.isReguChange.value === GlobalsService.YES) {
-        return true;
-      } else {
-        this.adminChangesFormLocalModel.controls.newCompanyId.setValue(null);
-        this.adminChangesFormLocalModel.controls.newCompanyId.markAsUntouched();
-        this.adminChangesFormLocalModel.controls.newContactId.setValue(null);
-        this.adminChangesFormLocalModel.controls.newContactId.markAsUntouched();
-        this.adminChangesFormLocalModel.controls.newContactName.setValue(null);
-        this.adminChangesFormLocalModel.controls.newContactName.markAsUntouched();
-      }
+    if (this.adminChangesFormLocalModel.controls.isReguChange.value &&
+          this.adminChangesFormLocalModel.controls.isReguChange.value === GlobalsService.YES) {
+      return true;
+    } else {
+      this.adminChangesFormLocalModel.controls.newCompanyId.setValue(null);
+      this.adminChangesFormLocalModel.controls.newCompanyId.markAsUntouched();
+      this.adminChangesFormLocalModel.controls.newContactId.setValue(null);
+      this.adminChangesFormLocalModel.controls.newContactId.markAsUntouched();
+      this.adminChangesFormLocalModel.controls.newContactName.setValue(null);
+      this.adminChangesFormLocalModel.controls.newContactName.markAsUntouched();
     }
     return false;
   }

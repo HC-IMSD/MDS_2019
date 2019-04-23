@@ -48,7 +48,7 @@ export class CompanyBaseComponent implements OnInit {
   public genInfoModel = CompanyBaseService.getEmptyGenInfoModel();
   public contactModel = [];
   public adminChangesModel = CompanyBaseService.getEmptyAdminChangesModel();
-  public primContactModel = [];
+  public primContactModel = CompanyBaseService.getEmptyPrimarycontactModel();
   public foo = '';
   public fileServices: FileConversionService;
   public saveXmlLabel = 'save.draft';
@@ -153,6 +153,7 @@ export class CompanyBaseComponent implements OnInit {
           'general_information': this.genInfoModel,
           'address': this.addressModel,
           'contacts': {},
+          'primary_contact': this.primContactModel,
           'administrative_changes': this.adminChangesModel
         }
       };
@@ -169,6 +170,7 @@ export class CompanyBaseComponent implements OnInit {
       'general_information': this.genInfoModel,
       'address': this.addressModel,
       'contacts': {},
+      'primary_contact': this.primContactModel,
       'administrative_changes': this.adminChangesModel
     }};
     result.DEVICE_COMPANY_ENROL.contacts =
@@ -201,6 +203,7 @@ export class CompanyBaseComponent implements OnInit {
     }
 
     this.addressModel = fileData.data.DEVICE_COMPANY_ENROL.address;
+    this.primContactModel = fileData.data.DEVICE_COMPANY_ENROL.primary_contact;
     const cont = fileData.data.DEVICE_COMPANY_ENROL.contacts.contact;
     if (cont) {
       this.contactModel = (cont instanceof Array) ? cont : [cont];
@@ -239,6 +242,8 @@ export class CompanyBaseComponent implements OnInit {
     const version: Array<any> = this.genInfoModel.enrol_version.split('.');
     if (this.isInternalSite) {
       return 'hcrepcom-' + this.genInfoModel.company_id + '-' + version[0] + '-' + version[1];
+    } else if (this.genInfoModel.status === GlobalsService.AMEND) {
+      return 'draftrepcom-' + this.genInfoModel.company_id + '-' + version[0] + '-' + version[1];
     } else {
       return 'draftrepcom-' + version[0] + '-' + version[1];
     }

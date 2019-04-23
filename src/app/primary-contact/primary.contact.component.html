@@ -3,15 +3,19 @@
     <div class="row">
       <div class="form-group col-xs-12" >
         <label for="isThirdParty" class="full-width">
-          <span class="field-name">{{'is.3rd.party' |translate}}</span>
-          <select id="isThirdParty" required class="form-control full-width" (blur)="onblur()" formControlName="isThirdParty">
+          <span class="field-name">{{'is.3rd.party' |translate}}
+              <sup id="co6-rf">
+                <a class="fn-lnk" href="#co6"><span class="wb-inv">{{'instruction'|translate}}</span>5</a>
+              </sup>
+          </span>
+          <select id="isThirdParty" required class="form-control" (blur)="onblur()" formControlName="isThirdParty">
             <option label=" " value=""></option>
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
           </select>
         </label>
       </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="by3rdParty()">
       <div class="form-group col-xs-6" >
         <label for="repContactCompanyId" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'company.id.contact'|translate}}</span>
@@ -39,10 +43,14 @@
         </label>
       </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="notBy3rdParty()">
       <div class="form-group col-xs-12" >
         <label for="repContactName" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'contact.name'|translate}}</span>
+          <span class="field-name" i18n>{{'contact.name'|translate}}
+              <sup id="co7-rf">
+                <a class="fn-lnk" href="#co7"><span class="wb-inv">{{'instruction'|translate}}</span>5.1</a>
+              </sup>
+          </span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="primContactFormLocalModel.controls.repContactName.invalid"
                             [showError]="showFieldErrors"

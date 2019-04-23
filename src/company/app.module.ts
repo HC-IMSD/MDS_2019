@@ -17,6 +17,7 @@ import {ContactModule} from '../app/contact/contact.module';
 import {CompanyInfoComponent} from '../app/company-info/company.info.component';
 import {CompanyAdminChangesComponent} from '../app/company-admin-changes/company-admin.changes.component';
 import {FileIoModule} from '../app/filereader/file-io/file-io.module';
+import {PrimaryContactComponent} from '../app/primary-contact/primary.contact.component';
 
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
@@ -34,6 +35,7 @@ import {CompanyDataLoaderService} from '../app/data-loader/company-data-loader.s
     CompanyAdminChangesComponent,
     CompanyBaseComponent,
     CompanyHelpEnComponent,
+    PrimaryContactComponent,
     NumbersOnlyDirective
   ],
   imports: [

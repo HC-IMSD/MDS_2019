@@ -103,7 +103,7 @@
   "minNumber6": "(6 numbers)",
   "minNumber5": "(5 numbers)",
   "minAlphanum5": "(5 characters)",
-  "minAlphanum7": "(1 letter and 6 numbers)",
+  "minAlphanum7": "(\"m\" and 6 numbers)",
   "instruction": "instruction",
   "instruction.help": "Instructions for completing sections on form",
   "return.instruction": "Return to instruction"
