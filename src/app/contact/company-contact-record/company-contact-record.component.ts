@@ -25,6 +25,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Input() countries: Array<any>;
   @Input() isInternal: boolean;
   @Input() showErrors: boolean;
+  @Input() lang;
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();

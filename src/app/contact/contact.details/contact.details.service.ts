@@ -8,29 +8,39 @@ import {ListService} from '../../list-service';
 @Injectable()
 export class ContactDetailsService {
 
+  private static lang = GlobalsService.ENGLISH;
+
   // todo: move statice data to data loader serivce
-  public statusListExternal: Array<any> = [
+  public static statusListExternal: Array<any> = [
     {id: 'NEW', label_en: 'New', label_fr: 'fr_New'},
     {id: 'AMEND', label_en: 'Amend', label_fr: 'fr_Amend'},
     {id: 'DELETE', label_en: 'Delete', label_fr: 'fr_Delete'}
   ];
-  public statusListAdd: Array<any> = [
+  public static statusListAdd: Array<any> = [
     {id: 'ACTIVE', label_en: 'Active', label_fr: 'fr_Active'}
   ];
-  public statusListInternal: Array<any> = this.statusListAdd.concat(this.statusListExternal);
+  public static statusListInternal: Array<any> = ContactDetailsService.statusListAdd.concat(ContactDetailsService.statusListExternal);
 
-  public salutationList: Array<any> = [
+  public static salutationList: Array<any> = [
     {id: 'DR', label_en: 'Dr.', label_fr: 'fr_Dr.'},
     {id: 'MR', label_en: 'Mr.', label_fr: 'fr_Mr.'},
     {id: 'MRS', label_en: 'Mrs.', label_fr: 'fr_Mrs.'},
     {id: 'MS', label_en: 'Ms.', label_fr: 'fr_Ms.'}
   ];
-  public languageList: Array<any> = [
+  public static languageList: Array<any> = [
     {'id': 'EN', 'label_en': 'English', 'label_fr': 'Anglais'},
     {'id': 'FR', 'label_en': 'French', 'label_fr': 'Français'}
   ];
 
   constructor() {
+  }
+
+  /**
+   * Sets language variable
+   *
+   */
+  public static setLang(lang) {
+    ContactDetailsService.lang = lang;
   }
 
   /**
@@ -86,13 +96,40 @@ export class ContactDetailsService {
 
   public static mapFormModelToDataModel(formRecord: FormGroup, contactModel) {
     contactModel.contact_id = formRecord.controls.contactId.value;
-    contactModel.status = formRecord.controls.status.value;
+    const status_record = this.findRecordByTerm(
+          this._convertListText(this.statusListInternal, this.lang), formRecord.controls.status.value, 'id');
+    if (status_record && status_record.id) {
+      contactModel.status = {
+        '__text': status_record.text,
+        '_id': status_record.id,
+        '_label_en': status_record.en,
+        '_label_fr': status_record.fr
+      };
+    }
     // contactModel.hc_status = formRecord.controls.hcStatus.value;
-    contactModel.salutation = formRecord.controls.salutation.value;
+    const salutation_record = this.findRecordByTerm(
+      this._convertListText(this.salutationList, this.lang), formRecord.controls.salutation.value, 'id');
+    if (salutation_record && salutation_record.id) {
+      contactModel.status = {
+        '__text': salutation_record.text,
+        '_id': salutation_record.id,
+        '_label_en': salutation_record.en,
+        '_label_fr': salutation_record.fr
+      };
+    }
     contactModel.first_name = formRecord.controls.firstName.value;
     contactModel.initials = formRecord.controls.initials.value;
     contactModel.last_name = formRecord.controls.lastName.value;
-    contactModel.language = formRecord.controls.language.value;
+    const language_record = this.findRecordByTerm(
+      this._convertListText(this.languageList, this.lang), formRecord.controls.language.value, 'id');
+    if (language_record && language_record.id) {
+      contactModel.status = {
+        '__text': language_record.text,
+        '_id': language_record.id,
+        '_label_en': language_record.en,
+        '_label_fr': language_record.fr
+      };
+    }
     contactModel.job_title = formRecord.controls.jobTitle.value;
     contactModel.fax_number = formRecord.controls.faxNumber.value;
     contactModel.phone_number = formRecord.controls.phoneNumber.value;
@@ -102,13 +139,28 @@ export class ContactDetailsService {
 
   public static mapDataModelToFormModel(contactModel, formRecord: FormGroup) {
     formRecord.controls.contactId.setValue(contactModel.contact_id);
-    formRecord.controls.status.setValue(contactModel.status);
+    if (contactModel.status) {
+      const status_record = this.findRecordByTerm(this.statusListInternal, contactModel.status._id, 'id');
+      if (status_record && status_record.id) {
+        formRecord.controls.status.setValue(status_record.id);
+      }
+    }
     // formRecord.controls.hcStatus.setValue(contactModel.hc_status);
-    formRecord.controls.salutation.setValue(contactModel.salutation);
+    if (contactModel.salutation) {
+      const salutation_record = this.findRecordByTerm(this.statusListInternal, contactModel.salutation._id, 'id');
+      if (salutation_record && salutation_record.id) {
+        formRecord.controls.salutation.setValue(salutation_record.id);
+      }
+    }
     formRecord.controls.firstName.setValue(contactModel.first_name);
     formRecord.controls.initials.setValue(contactModel.initials);
     formRecord.controls.lastName.setValue(contactModel.last_name);
-    formRecord.controls.language.setValue(contactModel.language);
+    if (contactModel.language) {
+      const language_record = this.findRecordByTerm(this.statusListInternal, contactModel.language._id, 'id');
+      if (language_record && language_record.id) {
+        formRecord.controls.language.setValue(language_record.id);
+      }
+    }
     formRecord.controls.jobTitle.setValue(contactModel.job_title);
     formRecord.controls.faxNumber.setValue(contactModel.fax_number);
     formRecord.controls.phoneNumber.setValue(contactModel.phone_number);
@@ -141,6 +193,31 @@ export class ContactDetailsService {
       return result[0];
     }
     return null;
+  }
+
+  /***
+   * Converts the list iteems of id, label_en, and label_Fr
+   * @param rawList
+   * @param lang
+   * @private
+   */
+  private static _convertListText(rawList, lang) {
+    const result = [];
+    if (lang === GlobalsService.FRENCH) {
+      rawList.forEach(item => {
+        item.text = item.fr;
+        result.push(item);
+        //  console.log(item);
+      });
+    } else {
+      rawList.forEach(item => {
+        item.text = item.en;
+        // console.log("adding country"+item.text);
+        result.push(item);
+        // console.log(item);
+      });
+    }
+    return result;
   }
 
 }

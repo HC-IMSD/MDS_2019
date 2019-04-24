@@ -11,7 +11,7 @@ import {MainPipeModule} from '../app/main-pipe/main-pipe.module';
 import {GlobalsService} from '../app/globals/globals.service';
 import {AddressModule} from '../app/address/address.module';
 import {LicenceModule} from '../app/licence/licence.module';
-import {NumbersOnlyDirective} from '../app/number-only/number.only.directive';
+import {NumbersOnlyModule} from '../app/number-only/number-only.module';
 // import {AddressDetailsComponent} from '../app/address/address.details/address.details.component';
 import {ContactModule} from '../app/contact/contact.module';
 import {CompanyInfoComponent} from '../app/company-info/company.info.component';
@@ -35,8 +35,7 @@ import {CompanyDataLoaderService} from '../app/data-loader/company-data-loader.s
     CompanyAdminChangesComponent,
     CompanyBaseComponent,
     CompanyHelpEnComponent,
-    PrimaryContactComponent,
-    NumbersOnlyDirective
+    PrimaryContactComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +51,7 @@ import {CompanyDataLoaderService} from '../app/data-loader/company-data-loader.s
     CommonFeatureModule,
     TherapeuticModule,
     DataLoaderModule,
+    NumbersOnlyModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

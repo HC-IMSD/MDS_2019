@@ -25,6 +25,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   @Input() public showErrors: boolean;
   @Input() public loadFileIndicator: boolean;
   @Input() public isInternal: boolean;
+  @Input() lang;
   @Output() public errors = new EventEmitter();
 
   @ViewChild(CompanyContactRecordComponent) companyContactChild: CompanyContactRecordComponent;

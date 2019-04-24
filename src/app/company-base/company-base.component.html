@@ -81,7 +81,7 @@
                 </header>
                 <div class="panel-body">
                   <contact-list  (errors)="processContactErrors($event)" [isInternal]="isInternalSite"
-                                 [loadFileIndicator]="loadFileIndicator"
+                                 [loadFileIndicator]="loadFileIndicator" [lang]="lang"
                                  [showErrors]="showErrors" [contactModel]="contactModel"></contact-list>
                 </div>
               </section>

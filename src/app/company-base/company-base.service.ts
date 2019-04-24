@@ -36,14 +36,22 @@ export class CompanyBaseService {
 
     return (
       {
+        company_name: '',
         address: '',
-        prov_text: '',
         city: '',
         country: {
-            '__text': '',
-            '_label_en': '',
-            '_label_fr': ''
-          },
+          '__text': '',
+          '_id': '',
+          '_label_en': '',
+          '_label_fr': ''
+        },
+        prov_lov: {
+          '__text': '',
+          '_id': '',
+          '_label_en': '',
+          '_label_fr': ''
+        },
+        prov_text: '',
         postal: ''
       }
     );

@@ -23,7 +23,7 @@ export class AddressDetailsService {
    * @returns {any}
    */
   public static getReactiveModel(fb: FormBuilder) {
-    if (!fb) return null;
+    if (!fb) {return null; }
     return fb.group({
       companyName: [null, Validators.required],
       address: [null, Validators.required],
@@ -45,26 +45,26 @@ export class AddressDetailsService {
       {
         company_name: '',
         address: '',
-        prov_lov: '',
-        prov_text: '',
         city: '',
         country: '',
+        prov_lov: '',
+        prov_text: '',
         postal: ''
       }
     );
   }
 
 
-  public static mapFormModelToDataModel(formRecord: FormGroup, addressModel, countryList) {
+  public static mapFormModelToDataModel(formRecord: FormGroup, addressModel, countryList, provStatList) {
     addressModel.company_name = formRecord.controls.companyName.value;
     addressModel.address = formRecord.controls.address.value;
     addressModel.city = formRecord.controls.city.value;
     if (formRecord.controls.country.value && formRecord.controls.country.value.length > 0) {
       const country_record = AddressDetailsService.findRecordByTerm(countryList, formRecord.controls.country.value[0], 'id');
-      // this removes the 'text' property that the control needs
       if (country_record && country_record.id) {
         addressModel.country = {
-          '__text': country_record.id,
+          '__text': country_record.text,
+          '_id': country_record.id,
           '_label_en': country_record.en,
           '_label_fr': country_record.fr
         };
@@ -78,17 +78,28 @@ export class AddressDetailsService {
     } else {
       addressModel.country = null;
     }
-    addressModel.postal = formRecord.controls.postal.value;
-    addressModel.prov_lov = formRecord.controls.provList.value;
+
+    if (formRecord.controls.provList.value) {
+      const province_record = AddressDetailsService.findRecordByTerm(provStatList, formRecord.controls.provList.value, 'id');
+      if (province_record && province_record.id) {
+        addressModel.prov_lov = {
+          '__text': province_record.text,
+          '_id': province_record.id,
+          '_label_en': province_record.en,
+          '_label_fr': province_record.fr
+        };
+      }
+    }
     addressModel.prov_text = formRecord.controls.provText.value;
+    addressModel.postal = formRecord.controls.postal.value;
   }
 
-  public static mapDataModelToFormModel(addressModel, formRecord: FormGroup, countryList) {
+  public static mapDataModelToFormModel(addressModel, formRecord: FormGroup, countryList, provStatList) {
     formRecord.controls.companyName.setValue(addressModel.company_name);
     formRecord.controls.address.setValue(addressModel.address);
     formRecord.controls.city.setValue(addressModel.city);
     formRecord.controls.postal.setValue(addressModel.postal);
-    const recordIndex = ListService.getRecord(countryList, addressModel.country.__text, 'id');
+    const recordIndex = ListService.getRecord(countryList, addressModel.country._id, 'id');
     let labelText = '';
     if (recordIndex > -1) {
       labelText = countryList[recordIndex].text;
@@ -96,14 +107,17 @@ export class AddressDetailsService {
     if (addressModel.country) {
       formRecord.controls.country.setValue([
         {
-          'id': addressModel.country.__text,
+          'id': addressModel.country._id,
           'text': labelText
         }
       ]);
 
       if (AddressDetailsService.isCanada(addressModel.country.__text) ||
           AddressDetailsService.isUsa(addressModel.country.__text)) {
-        formRecord.controls.provList.setValue(addressModel.prov_lov);
+        const recordIndex2 = ListService.getRecord(provStatList, addressModel.prov_lov._id, 'id');
+        if (recordIndex2 > -1) {
+          formRecord.controls.provList.setValue(provStatList[recordIndex2].id);
+        }
       } else {
         formRecord.controls.provText.setValue(addressModel.prov_text);
       }
@@ -117,7 +131,7 @@ export class AddressDetailsService {
   }
 
   public static setRecordId(record: FormGroup, value: number): void {
-    if (!record) return;
+    if (!record) {return; }
     record.controls.id.setValue(value);
   }
 

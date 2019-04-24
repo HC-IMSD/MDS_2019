@@ -134,7 +134,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     if (changes['addressModel']) {
       const dataModel = changes['addressModel'].currentValue;
       AddressDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.addressFormLocalModel),
-        this.countryList);
+        this.countryList, this.provStateList);
       if (this.addressFormLocalModel.controls.country &&
           this.addressFormLocalModel.controls.country.value) {
         this._setCountryState(this.addressFormLocalModel.controls.country.value, this.addressFormLocalModel);
@@ -175,7 +175,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     this.addressFormLocalModel.controls.country.setValue([event]);
     this._setCountryState(event, this.addressFormLocalModel);
     AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
-      this.addressModel, this.countryList);
+      this.addressModel, this.countryList, this.provStateList);
   }
 
 
@@ -208,14 +208,14 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     if (content && this.existsInList(content)) {
       this.addressFormLocalModel.controls.country.setValue([content]);
       AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
-        this.addressModel, this.countryList);
+        this.addressModel, this.countryList, this.provStateList);
     }
   }
 
   onblur() {
     // console.log('input is typed');
     AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
-      this.addressModel, this.countryList);
+      this.addressModel, this.countryList, this.provStateList);
   }
 
   existsInList(rec) {

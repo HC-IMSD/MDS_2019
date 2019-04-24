@@ -23,6 +23,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() isInternal: boolean;
+  @Input() lang;
   @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
@@ -38,10 +39,10 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
     this.showFieldErrors = false;
     this.showErrors = false;
     this.detailsService = new ContactDetailsService();
-    this.statuses = this.detailsService.statusListExternal;
+    this.statuses = ContactDetailsService.statusListExternal;
     // this.statuses = this.isInternal ? this.detailsService.statusListInternal : this.detailsService.statusListExternal;
-    this.salutations = this.detailsService.salutationList;
-    this.languages = this.detailsService.languageList;
+    this.salutations = ContactDetailsService.salutationList;
+    this.languages = ContactDetailsService.languageList;
   }
 
   ngOnInit() {
@@ -49,7 +50,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
       this.contactFormLocalModel = ContactDetailsService.getReactiveModel(this._fb, this.isInternal);
     }
     this.detailsChanged = 0;
-
+    ContactDetailsService.setLang(this.lang);
   }
 
   ngAfterViewInit() {
@@ -84,7 +85,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   ngOnChanges(changes: SimpleChanges) {
     if (changes['isInternal'] && changes['isInternal'].currentValue) {
       // console.log('this.isInterannnnnl in ContactListComponent: ' + this.isInternal);
-      this.statuses = this.detailsService.statusListInternal;
+      this.statuses = ContactDetailsService.statusListInternal;
     }
 
     // since we can't detect changes on objects, using a separate flag
