@@ -50,17 +50,17 @@ export class ContactDetailsService {
    */
   public static getReactiveModel(fb: FormBuilder, isInternal) {
     if (!fb) {return null; }
-    const contactIdValidators = isInternal ? [Validators.required] : [];
+    const contactIdValidators = isInternal ? [Validators.required, ValidationService.dossierContactIdValidator] : [];
     return fb.group({
       contactId: [null, contactIdValidators],
-      status: '',
+      status: [null, Validators.required],
       // hcStatus: [null, Validators.required],
       salutation: [null, Validators.required],
       firstName: [null, Validators.required],
       initials: '',
       lastName: [null, Validators.required],
       language: '',
-      jobTitle: [null, Validators.required],
+      jobTitle: '',
       faxNumber: ['', [Validators.minLength(10), Validators.pattern('^[0-9]*$')]],
       phoneNumber: ['', [Validators.required, Validators.minLength(10), ValidationService.phoneNumberValidator]],
       phoneExtension: '',
@@ -78,6 +78,7 @@ export class ContactDetailsService {
       {
         contact_id: '',
         status: '',
+        status_text: '',
         // hc_status: '',
         salutation: '',
         first_name: '',
@@ -96,39 +97,52 @@ export class ContactDetailsService {
 
   public static mapFormModelToDataModel(formRecord: FormGroup, contactModel) {
     contactModel.contact_id = formRecord.controls.contactId.value;
-    const status_record = this.findRecordByTerm(
-          this._convertListText(this.statusListInternal, this.lang), formRecord.controls.status.value, 'id');
-    if (status_record && status_record.id) {
-      contactModel.status = {
-        '__text': status_record.text,
-        '_id': status_record.id,
-        '_label_en': status_record.en,
-        '_label_fr': status_record.fr
-      };
+    if (formRecord.controls.status.value) {
+      const statList = this._convertListText(this.statusListInternal, this.lang);
+      const recordIndex = ListService.getRecord(statList, formRecord.controls.status.value, 'id');
+      if (recordIndex > -1) {
+        contactModel.status = {
+          '__text': statList[recordIndex].text,
+          '_id': statList[recordIndex].id,
+          '_label_en': statList[recordIndex].label_en,
+          '_label_fr': statList[recordIndex].label_fr
+        };
+        contactModel.status_text = statList[recordIndex].text;
+      }
+    } else {
+      contactModel.status = null;
     }
     // contactModel.hc_status = formRecord.controls.hcStatus.value;
-    const salutation_record = this.findRecordByTerm(
-      this._convertListText(this.salutationList, this.lang), formRecord.controls.salutation.value, 'id');
-    if (salutation_record && salutation_record.id) {
-      contactModel.status = {
-        '__text': salutation_record.text,
-        '_id': salutation_record.id,
-        '_label_en': salutation_record.en,
-        '_label_fr': salutation_record.fr
-      };
+    if (formRecord.controls.salutation.value) {
+      const salutList = this._convertListText(this.salutationList, this.lang);
+      const recordIndex2 = ListService.getRecord(salutList, formRecord.controls.salutation.value, 'id');
+      if (recordIndex2 > -1) {
+        contactModel.salutation = {
+          '__text': salutList[recordIndex2].text,
+          '_id': salutList[recordIndex2].id,
+          '_label_en': salutList[recordIndex2].label_en,
+          '_label_fr': salutList[recordIndex2].label_fr
+        };
+      }
+    } else {
+      contactModel.salutation = null;
     }
     contactModel.first_name = formRecord.controls.firstName.value;
     contactModel.initials = formRecord.controls.initials.value;
     contactModel.last_name = formRecord.controls.lastName.value;
-    const language_record = this.findRecordByTerm(
-      this._convertListText(this.languageList, this.lang), formRecord.controls.language.value, 'id');
-    if (language_record && language_record.id) {
-      contactModel.status = {
-        '__text': language_record.text,
-        '_id': language_record.id,
-        '_label_en': language_record.en,
-        '_label_fr': language_record.fr
-      };
+    if (formRecord.controls.language.value) {
+      const langList = this._convertListText(this.languageList, this.lang);
+      const recordIndex3 = ListService.getRecord(langList, formRecord.controls.language.value, 'id');
+      if (recordIndex3 > -1) {
+        contactModel.language = {
+          '__text': langList[recordIndex3].text,
+          '_id': langList[recordIndex3].id,
+          '_label_en': langList[recordIndex3].label_en,
+          '_label_fr': langList[recordIndex3].label_fr
+        };
+      }
+    } else {
+      contactModel.language = null;
     }
     contactModel.job_title = formRecord.controls.jobTitle.value;
     contactModel.fax_number = formRecord.controls.faxNumber.value;
@@ -140,26 +154,33 @@ export class ContactDetailsService {
   public static mapDataModelToFormModel(contactModel, formRecord: FormGroup) {
     formRecord.controls.contactId.setValue(contactModel.contact_id);
     if (contactModel.status) {
-      const status_record = this.findRecordByTerm(this.statusListInternal, contactModel.status._id, 'id');
-      if (status_record && status_record.id) {
-        formRecord.controls.status.setValue(status_record.id);
+      const recordIndex = ListService.getRecord(this.statusListInternal, contactModel.status._id, 'id');
+      if (recordIndex > -1) {
+        formRecord.controls.status.setValue(this.statusListInternal[recordIndex].id);
       }
+    } else {
+      formRecord.controls.status.setValue(null);
     }
     // formRecord.controls.hcStatus.setValue(contactModel.hc_status);
     if (contactModel.salutation) {
-      const salutation_record = this.findRecordByTerm(this.statusListInternal, contactModel.salutation._id, 'id');
-      if (salutation_record && salutation_record.id) {
-        formRecord.controls.salutation.setValue(salutation_record.id);
+      const recordIndex2 = ListService.getRecord(this.salutationList, contactModel.salutation._id, 'id');
+      if (recordIndex2 > -1) {
+        formRecord.controls.salutation.setValue(this.salutationList[recordIndex2].id);
       }
+    } else {
+      formRecord.controls.salutation.setValue(null);
     }
+
     formRecord.controls.firstName.setValue(contactModel.first_name);
     formRecord.controls.initials.setValue(contactModel.initials);
     formRecord.controls.lastName.setValue(contactModel.last_name);
     if (contactModel.language) {
-      const language_record = this.findRecordByTerm(this.statusListInternal, contactModel.language._id, 'id');
-      if (language_record && language_record.id) {
-        formRecord.controls.language.setValue(language_record.id);
+      const recordIndex3 = ListService.getRecord(this.languageList, contactModel.language._id, 'id');
+      if (recordIndex3 > -1) {
+        formRecord.controls.language.setValue(this.languageList[recordIndex3].id);
       }
+    } else {
+      formRecord.controls.language.setValue(null);
     }
     formRecord.controls.jobTitle.setValue(contactModel.job_title);
     formRecord.controls.faxNumber.setValue(contactModel.fax_number);
@@ -179,22 +200,6 @@ export class ContactDetailsService {
     record.controls.id.setValue(value);
   }
 
-  /**
-   * Find a record by its unique id,. If a dup, returns first instance
-   * @param list
-   * @param criteria
-   * @returns {any}
-   */
-  public static findRecordByTerm(list, criteria, searchTerm) {
-
-    let result = list.filter(
-      item => item[searchTerm] === criteria[searchTerm]);
-    if (result && result.length > 0) {
-      return result[0];
-    }
-    return null;
-  }
-
   /***
    * Converts the list iteems of id, label_en, and label_Fr
    * @param rawList
@@ -205,13 +210,13 @@ export class ContactDetailsService {
     const result = [];
     if (lang === GlobalsService.FRENCH) {
       rawList.forEach(item => {
-        item.text = item.fr;
+        item.text = item.label_fr;
         result.push(item);
         //  console.log(item);
       });
     } else {
       rawList.forEach(item => {
-        item.text = item.en;
+        item.text = item.label_en;
         // console.log("adding country"+item.text);
         result.push(item);
         // console.log(item);

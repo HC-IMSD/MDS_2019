@@ -80,14 +80,16 @@ export class AddressDetailsService {
     }
 
     if (formRecord.controls.provList.value) {
-      const province_record = AddressDetailsService.findRecordByTerm(provStatList, formRecord.controls.provList.value, 'id');
-      if (province_record && province_record.id) {
+      const recordIndex = ListService.getRecord(provStatList, formRecord.controls.provList.value, 'id');
+      if (recordIndex > -1) {
         addressModel.prov_lov = {
-          '__text': province_record.text,
-          '_id': province_record.id,
-          '_label_en': province_record.en,
-          '_label_fr': province_record.fr
+          '__text': provStatList[recordIndex].text,
+          '_id': provStatList[recordIndex].id,
+          '_label_en': provStatList[recordIndex].en,
+          '_label_fr': provStatList[recordIndex].fr
         };
+      } else {
+        addressModel.prov_lov = null;
       }
     }
     addressModel.prov_text = formRecord.controls.provText.value;
@@ -112,8 +114,8 @@ export class AddressDetailsService {
         }
       ]);
 
-      if (AddressDetailsService.isCanada(addressModel.country.__text) ||
-          AddressDetailsService.isUsa(addressModel.country.__text)) {
+      if (AddressDetailsService.isCanada(addressModel.country._id) ||
+          AddressDetailsService.isUsa(addressModel.country._id)) {
         const recordIndex2 = ListService.getRecord(provStatList, addressModel.prov_lov._id, 'id');
         if (recordIndex2 > -1) {
           formRecord.controls.provList.setValue(provStatList[recordIndex2].id);

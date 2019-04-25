@@ -10,7 +10,7 @@
                             [control]="contactFormLocalModel.controls.contactId"
                             controlId="contactId" label="contact.id" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input id="contactId" class="form-control full-width"
+          <input id="contactId" class="form-control"
                  [readonly]="!isInternal" formControlName="contactId" maxlength="5"/>
         </label>
       </div>
@@ -27,7 +27,7 @@
                             [control]="contactFormLocalModel.controls.status"
                             controlId="status" label="status" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <select id="status" required class="form-control full-width" formControlName="status">
+          <select id="status" required class="form-control" formControlName="status">
             <option label=" " value=""></option>
             <option *ngFor="let stat of statuses" [ngValue]="stat.id"> {{stat.label_en}}</option>
           </select>

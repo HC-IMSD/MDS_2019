@@ -65,7 +65,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     },
     {
       label: 'Status',
-      binding: 'status',
+      binding: 'status_text',
       width: '15'
     }
   ];
