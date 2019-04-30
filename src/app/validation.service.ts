@@ -15,6 +15,7 @@ export class ValidationService {
       'required': 'required',
       'error.msg.number': 'error.msg.number',
       'error.msg.phone': 'error.msg.phone',
+      'error.msg.fax': 'error.msg.fax',
       'error.msg.email': 'error.msg.email',
       'minlength': `Minimum length ${validatorValue.requiredLength}`,
       'error.msg.postal': 'error.msg.postal',
@@ -97,6 +98,17 @@ export class ValidationService {
       return null;
     } else {
       return {'error.msg.phone': true};
+    }
+  }
+
+  static faxNumberValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]*$/)) {
+      return null;
+    } else {
+      return {'error.msg.fax': true};
     }
   }
 

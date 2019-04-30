@@ -11,6 +11,7 @@ import {ContactListComponent} from './contact.list/contact.list.component';
 import {ContactListService} from './contact.list/contact-list.service';
 import {CommonFeatureModule} from '../common/common-feature.module';
 import {TranslateModule} from '@ngx-translate/core';
+import {NumbersOnlyModule} from '../number-only/number-only.module';
 
 @NgModule({
   imports: [
@@ -21,9 +22,9 @@ import {TranslateModule} from '@ngx-translate/core';
     SelectModule,
     FileIoModule,
     ErrorModule,
+    NumbersOnlyModule,
     CommonFeatureModule,
     TranslateModule
-
   ],
   declarations: [
     CompanyContactRecordComponent,
@@ -32,6 +33,7 @@ import {TranslateModule} from '@ngx-translate/core';
 
   ],
   exports: [
+    NumbersOnlyModule,
     CompanyContactRecordComponent,
     ContactDetailsComponent,
     ContactListComponent

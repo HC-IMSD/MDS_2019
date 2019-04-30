@@ -61,7 +61,7 @@ export class ContactDetailsService {
       lastName: [null, Validators.required],
       language: '',
       jobTitle: '',
-      faxNumber: ['', [Validators.minLength(10), Validators.pattern('^[0-9]*$')]],
+      faxNumber: ['', [Validators.minLength(10), ValidationService.faxNumberValidator]],
       phoneNumber: ['', [Validators.required, Validators.minLength(10), ValidationService.phoneNumberValidator]],
       phoneExtension: '',
       email: [null, [Validators.required, ValidationService.emailValidator]]

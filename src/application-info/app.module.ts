@@ -22,7 +22,6 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {CommonFeatureModule} from '../app/common/common-feature.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DataLoaderModule} from '../app/data-loader/data-loader.module';
-import {NumbersOnlyModule} from '../app/number-only/number-only.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +37,6 @@ import {NumbersOnlyModule} from '../app/number-only/number-only.module';
     FormsModule,
     ReactiveFormsModule,
     ErrorModule,
-    NumbersOnlyModule,
     MainPipeModule,
     FileIoModule,
     HttpClientModule,
