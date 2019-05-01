@@ -19,7 +19,8 @@ export class DeviceDetailsService {
     if (!fb) {return null; }
     return fb.group({
       deviceName: '',
-      licenceNum: [null, [ValidationService.licenceNumValidator]]
+      licenceNum: [null, [Validators.required, ValidationService.licenceNumValidator ]]
+     // licenceNum: [null, [ValidationService.licenceNumValidator]]
     });
   }
 

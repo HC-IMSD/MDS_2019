@@ -39,6 +39,7 @@ export class ApplicationInfoBaseComponent implements OnInit {
   public materialModel = [];
   public fileServices: FileConversionService;
   public xslName = GlobalsService.STYLESHEETS_1_0_PREFIX + 'REP_MDS_AI_1_0.xsl';
+  public disableSaveXml = true;
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private dataLoader: CompanyDataLoaderService,
@@ -93,6 +94,11 @@ export class ApplicationInfoBaseComponent implements OnInit {
           this.appInfoModel.is_animal_human_sourced !== GlobalsService.YES) {
       this.materialModel = [];
     }
+  }
+
+  disableSaveXmlButton(declarationConformity) {
+    // console.log('declarationConformity' + declarationConformity);
+    this.disableSaveXml = !(declarationConformity === GlobalsService.YES);
   }
 
   public saveXmlFile() {

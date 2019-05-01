@@ -190,7 +190,7 @@
               </label>
             </div>
           </div>
-          <div *ngIf="isNoDinNpn()">
+          <div *ngIf="hasDrug()">
             <div class="row">
               <div class="col-xs-12 form-group alert alert-info" role="alert">
                      <span>
@@ -399,6 +399,9 @@
               <label for="declarationConformity" class="required full-width">
                 <span class="field-name" i18n>{{'conformity.declaration' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                <sup id="ap5-rf">
+                  <a class="fn-lnk" href="#ap5"><span class="wb-inv">{{'instruction'|translate}}</span>5</a>
+                </sup>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.declarationConformity.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.declarationConformity"
@@ -445,8 +448,9 @@
               </label>
             </div>
           </div>
-          <div *ngIf="isRecombinant()" class="row">
-            <div class="form-group col-xs-12" >
+         <!-- <div *ngIf="isRecombinant()" class="row"> -->
+          <div class="row">
+          <div class="form-group col-xs-12" >
               <label for="isAnimalHumanSourced" class="required full-width">
                 <span class="field-name" i18n>{{'contain.material' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>

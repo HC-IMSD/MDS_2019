@@ -112,5 +112,12 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
       this.deviceFormLocalModel.markAsPristine();
     }
   }
+
+  licenceNumOnblur() {
+    if (this.deviceFormLocalModel.controls.licenceNum.value && !isNaN(this.deviceFormLocalModel.controls.licenceNum.value)) {
+      const lnum = '000000' + this.deviceFormLocalModel.controls.licenceNum.value;
+      this.deviceFormLocalModel.controls.licenceNum.setValue(lnum.substring(lnum.length - 6));
+    }
+  }
 }
 

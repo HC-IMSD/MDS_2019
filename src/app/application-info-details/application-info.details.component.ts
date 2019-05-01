@@ -33,7 +33,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   @Input() deviceModel;
   @Input() materialModel;
   @Input() lang;
-  // @Output() hasQmsc = new EventEmitter();
+  @Output() declarationConformity = new EventEmitter();
   @Output() detailErrorList = new EventEmitter(true);
   @Output() deviceErrorList = new EventEmitter(true);
   @Output() materialErrorList = new EventEmitter(true);
@@ -131,6 +131,10 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
         this.appInfoFormLocalModel = this.detailsService.getReactiveModel(this._fb);
         this.appInfoFormLocalModel.markAsPristine();
       }
+      // emit declarationConformity value
+      if (this.appInfoFormLocalModel.controls.declarationConformity) {
+        this.declarationConformity.emit(this.appInfoFormLocalModel.controls.declarationConformity.value);
+      }
       ApplicationInfoDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.appInfoFormLocalModel));
       this._hasReasonChecked();
       this._hasMaterialRecord();
@@ -152,9 +156,9 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     // console.log('input is typed');
     ApplicationInfoDetailsService.mapFormModelToDataModel((<FormGroup>this.appInfoFormLocalModel),
       this.appInfoModel);
-    // if (this.appInfoFormLocalModel.controls.hasQMSC) {
-    //   this.hasQmsc.emit(this.appInfoFormLocalModel.controls.hasQMSC.value);
-    // }
+     if (this.appInfoFormLocalModel.controls.declarationConformity) {
+       this.declarationConformity.emit(this.appInfoFormLocalModel.controls.declarationConformity.value);
+     }
   }
 
   complianceOnblur() {

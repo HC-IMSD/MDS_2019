@@ -11,15 +11,20 @@
     </div>
     <div class="row">
       <div class="form-group col-sm-12 ">
-        <label for="licenceNum">
-          <span class="field-name" i18n>{{'licence.number' |translate}} {{'minNumber6' |translate}}</span>
+        <label for="licenceNum" class="required" aria-required="true">
+          <span class="field-name" i18n>{{'licence.application.number' |translate}} {{'minNumber6' |translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <sup id="ap4-rf">
+            <a class="fn-lnk" href="#ap4"><span class="wb-inv">{{'instruction'|translate}}</span>4</a>
+          </sup>
           <control-messages *ngIf="deviceFormLocalModel.controls.licenceNum.invalid"
                             [showError]="showFieldErrors"
                             [control]="deviceFormLocalModel.controls.licenceNum"
-                            controlId="licenceNum" label="licence.number" parentId="deviceDetails"
+                            controlId="licenceNum" label="licence.application.number" parentId="deviceDetails"
                             parentLabel="Interdependent Device">
           </control-messages>
-          <input id="licenceNum" class="form-control" only-digits maxlength="6" formControlName="licenceNum"/>
+          <input id="licenceNum" class="form-control" only-digits maxlength="6"
+                 formControlName="licenceNum" (blur)="licenceNumOnblur()"/>
         </label>
       </div>
     </div>

@@ -41,6 +41,7 @@
                               [deviceModel]="deviceModel" [materialModel]="materialModel"
                               (detailErrorList)="processDetailErrors($event)"
                               (deviceErrorList)="processDeviceErrors($event)"
+                              (declarationConformity)="disableSaveXmlButton($event)"
                               (materialErrorList)="processMaterialtErrors($event)">
             </app-info-details>
           </div>
@@ -54,7 +55,7 @@
         </button>
       </div>
       <div class="form-group col-md-4">
-        <button class="btn btn-primary btn-lg active" (click)="saveXmlFile()" i18n>
+        <button class="btn btn-primary btn-lg active" (click)="saveXmlFile()" [disabled]="disableSaveXml" i18n>
           {{'generate.final'|translate}}
         </button>
       </div>
