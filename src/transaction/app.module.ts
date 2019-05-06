@@ -10,7 +10,7 @@ import {MainPipeModule} from '../app/main-pipe/main-pipe.module';
 import {GlobalsService} from '../app/globals/globals.service';
 import {TransactionDetailsComponent} from '../app/transaction-details/transaction.details.component';
 import {TransactionHelpEnComponent} from '../app/transaction-help-en/transaction-help-en.component';
-import {TransactionFeesComponent} from '../app/transaction-fees/transaction.fees.component';
+import {TransactionFeeComponent} from '../app/transaction-fee/transaction.fee.component';
 import {RequesterModule} from '../app/requester/requester.module';
 import {FileIoModule} from '../app/filereader/file-io/file-io.module';
 
@@ -26,7 +26,7 @@ import {TransactionDataLoaderService} from '../app/data-loader/transaction-data-
   declarations: [
     AppComponent,
     TransactionDetailsComponent,
-    TransactionFeesComponent,
+    TransactionFeeComponent,
     TransactionBaseComponent,
     TransactionHelpEnComponent
   ],

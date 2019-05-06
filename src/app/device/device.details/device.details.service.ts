@@ -38,7 +38,6 @@ export class DeviceDetailsService {
     );
   }
 
-
   public static mapFormModelToDataModel(formRecord: FormGroup, deviceModel) {
     deviceModel.device_name = formRecord.controls.deviceName.value;
     deviceModel.licence_number = formRecord.controls.licenceNum.value;

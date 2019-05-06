@@ -8,6 +8,7 @@ import {ListService} from '../list-service';
 export class TransactionDetailsService {
 
   // private static licenceAppTypeList: Array<any> = TransactionDetailsService.getRawLicenceAppTypeList();
+  private static lang = GlobalsService.ENGLISH;
 
   constructor() {
   }
@@ -68,12 +69,12 @@ export class TransactionDetailsService {
       {
         dossier_id: '',
         dossier_type: 'Medical Device',
-        manufacturing_company_id: '',
+        company_id: '',
         manufacturing_contact_id: '',
         regulatory_company_id: '',
         regulatory_contact_id: '',
-        activity_lead: '',
-        activity_type: '',
+        regulatory_activity_lead: '',
+        regulatory_activity_type: '',
         description_type: '',
         device_class: '',
         amend_reasons: {
@@ -108,13 +109,13 @@ export class TransactionDetailsService {
    * Gets an data array
    *
    */
-  public static getActivityLeads() {
-    return ['Medical Device Bureau'];
-  }
+ // public static getActivityLeads() {
+ //   return ['Medical Device Bureau'];
+ // }
 
-  public static getRawActivityTypes() {
-    return ['Fax-back', 'Licence', 'Licence Amendment'];
-  }
+ // public static getRawActivityTypes() {
+ //   return ['Minor Change', 'Licence', 'Licence Amendment', 'S.36/39/40/41', 'MD-PV' ];
+//  }
 
   /**
    * Gets an yesno array
@@ -142,7 +143,7 @@ export class TransactionDetailsService {
   public static getLicenceDescriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
     return [descArray[0], descArray[1], descArray[4], descArray[5],
-      descArray[8], descArray[9], descArray[10], descArray[11], descArray[12]];
+      descArray[8], descArray[9], descArray[10], descArray[11], descArray[12], descArray[14]];
   }
 
   /**
@@ -154,11 +155,105 @@ export class TransactionDetailsService {
     return [descArray[8], descArray[9], descArray[11]];
   }
 
+  public static getS36394041Descriptions(lang) {
+    const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
+    return [descArray[2], descArray[3], descArray[6], descArray[7], descArray[12]];
+  }
+
+  public static getMDPVDescriptions(lang) {
+    const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
+    return [descArray[13]];
+  }
+
   /**
    * Gets an data array
    *
    */
-  private static getRawTransDescList() {
+  public static getDossierType() {
+    return [
+      {
+        id: 'D23',
+        en: 'Medical Device',
+        fr: 'Medical Device'
+      }
+    ];
+  }
+
+  /**
+   {
+       // id: 'B14-20160301-10 ',
+       // en: 'Post-market Vigilance',
+       // fr: 'Post-market Vigilance'
+     }
+   */
+
+  private static getRawActivityLeadList() {
+    return  [
+      {
+        id: 'B14-20160301-08',
+        en: 'Medical Device Bureau',
+        fr: 'Medical Device Bureau'
+      },
+      {
+        id: 'B14-20160301-10',
+        en: 'Post-market Vigilance',
+        fr: 'Post-market Vigilance'
+      }];
+  }
+
+  public static getActivityLeadList(lang) {
+    return TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityLeadList(), lang);
+  }
+
+  private static getRawActivityTypeList() {
+    return [
+      {
+        id: 'B02-20160301-033',
+        en: 'Minor Change',
+        fr: 'Minor Change'
+      },
+      {
+        id: 'B02-20160301-039',
+        en: 'Licence',
+        fr: 'Licence'
+      },
+      {
+        id: 'B02-20160301-040',
+        en: 'Licence Amendment',
+        fr: 'Licence Amendment'
+      },
+      {
+        id: 'B02-20160301-081',
+        en: 'S.36/39/40/41',
+        fr: 'S.36/39/40/41'
+      },
+      {
+        id: 'B02-20160621-01',
+        en: 'MD-PV',
+        fr: 'MD-PV'
+      }
+    ];
+  }
+
+  public static getActivityTypeList(lang) {
+    return TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityTypeList(), lang);
+  }
+
+  public static getActivityTypeMDBList(lang) {
+    const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityTypeList(), lang);
+    return [descArray[0], descArray[1], descArray[2], descArray[3]];
+  }
+
+  public static getActivityTypePVList(lang) {
+    const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityTypeList(), lang);
+    return [descArray[4]];
+  }
+
+  public static getTransDescList(lang) {
+    return TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
+  }
+
+  public static getRawTransDescList() {
     return [
       {
         id: 'ACD',
@@ -187,8 +282,8 @@ export class TransactionDetailsService {
       },
       {
         id: 'RS',
-        en: 'Response to SDL',
-        fr: 'Response to SDL'
+        en: 'Response to Screening Deficiency Letter',
+        fr: 'Response to Screening Deficiency Letter'
       },
       {
         id: 'RS36L',
@@ -222,30 +317,79 @@ export class TransactionDetailsService {
       },
       {
         id: 'UD',
-        en: 'Unsolicited Data',
-        fr: 'Unsolicited Data'
+        en: 'Unsolicited',
+        fr: 'Unsolicited'
+      },
+      {
+        id: 'RMHPDR',
+        en: 'Response to MHPD Request',
+        fr: 'Response to MHPD Request'
+      },
+      {
+        id: 'PRCI',
+        en: 'Public Release of Clinical Information',
+        fr: 'Public Release of Clinical Information'
       }
     ];
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, transactionModel) {
     transactionModel.dossier_id = formRecord.controls.dossierId.value;
+    transactionModel.dossier_type = {
+      '__text': 'Medical Device',
+      '_id': 'D23',
+      '_label_en': 'Medical Device',
+      '_label_fr': 'Medical Device'
+    };
+
     if (formRecord.controls.manuCompanyId.value) {
-      transactionModel.manufacturing_company_id = 'k' + formRecord.controls.manuCompanyId.value;
+      transactionModel.company_id = 'k' + formRecord.controls.manuCompanyId.value;
     }
     transactionModel.manufacturing_contact_id = formRecord.controls.manuContactId.value;
     if (formRecord.controls.reguCompanyId.value) {
       transactionModel.regulatory_company_id = 'k' + formRecord.controls.reguCompanyId.value;
     }
     transactionModel.regulatory_contact_id = formRecord.controls.reguContactId.value;
-    transactionModel.activity_lead = formRecord.controls.activityLead.value;
-    transactionModel.activity_type = formRecord.controls.activityType.value;
-    const descArray = TransactionDetailsService.getRawTransDescList();
+   // transactionModel.regulatory_activity_lead = formRecord.controls.activityLead.value;
+
+    if (formRecord.controls.activityLead.value) {
+      const activityLeadList = TransactionDetailsService.getActivityLeadList(TransactionDetailsService.lang);
+      const recordIndex1 = ListService.getRecord(activityLeadList, formRecord.controls.activityLead.value, 'id');
+      if (recordIndex1 > -1) {
+        transactionModel.regulatory_activity_lead = {
+          '__text': activityLeadList[recordIndex1].text,
+          '_id': activityLeadList[recordIndex1].id,
+          '_label_en': activityLeadList[recordIndex1].en,
+          '_label_fr': activityLeadList[recordIndex1].fr
+        };
+      }
+    } else {
+      transactionModel.regulatory_activity_lead = null;
+    }
+
+    // transactionModel.activity_type = formRecord.controls.activityType.value;
+    if (formRecord.controls.activityType.value) {
+      const activityTypeList = TransactionDetailsService.getActivityTypeList(TransactionDetailsService.lang);
+      const recordIndex1 = ListService.getRecord(activityTypeList, formRecord.controls.activityType.value, 'id');
+      if (recordIndex1 > -1) {
+        transactionModel.regulatory_activity_type = {
+          '__text': activityTypeList[recordIndex1].text,
+          '_id' : activityTypeList[recordIndex1].id,
+          '_label_en': activityTypeList[recordIndex1].en,
+          '_label_fr': activityTypeList[recordIndex1].fr
+        };
+      }
+    } else {
+      transactionModel.regulatory_activity_type = null;
+    }
+
     if (formRecord.controls.descriptionType.value) {
+      const descArray = TransactionDetailsService.getTransDescList(TransactionDetailsService.lang);
       const recordIndex1 = ListService.getRecord(descArray, formRecord.controls.descriptionType.value, 'id');
       if (recordIndex1 > -1) {
         transactionModel.description_type = {
-          '__text': descArray[recordIndex1].id,
+          '__text': descArray[recordIndex1].text,
+          '_id': descArray[recordIndex1].id,
           '_label_en': descArray[recordIndex1].en,
           '_label_fr': descArray[recordIndex1].fr
         };
@@ -280,8 +424,8 @@ export class TransactionDetailsService {
     transactionModel.request_date = formRecord.controls.requestDate.value;
     transactionModel.brief_description = formRecord.controls.briefDesc.value;
     transactionModel.transaction_description = formRecord.controls.transDescription.value;
-    if(formRecord.controls.deviceChange.value ||
-        (formRecord.controls.activityType.value === 'Licence' && formRecord.controls.descriptionType.value === 'INITIAL')) {
+    if (formRecord.controls.deviceChange.value ||
+        (formRecord.controls.activityType.value === 'B02-20160301-039' && formRecord.controls.descriptionType.value === 'INITIAL')) {
       transactionModel.has_ddt = formRecord.controls.hasDdtMan.value ? GlobalsService.YES : GlobalsService.NO;
     } else {
       transactionModel.has_ddt = formRecord.controls.hasDdt.value ? GlobalsService.YES : GlobalsService.NO;
@@ -292,20 +436,48 @@ export class TransactionDetailsService {
 
   public static mapDataModelToFormModel(transactionModel, formRecord: FormGroup, lang) {
     formRecord.controls.dossierId.setValue(transactionModel.dossier_id);
-    if (transactionModel.manufacturing_company_id) {
-      formRecord.controls.manuCompanyId.setValue(transactionModel.manufacturing_company_id.slice(1));
+    if (transactionModel.company_id) {
+      formRecord.controls.manuCompanyId.setValue(transactionModel.company_id.slice(1));
     }
     formRecord.controls.manuContactId.setValue(transactionModel.manufacturing_contact_id);
     if (transactionModel.regulatory_company_id) {
       formRecord.controls.reguCompanyId.setValue(transactionModel.regulatory_company_id.slice(1));
     }
     formRecord.controls.reguContactId.setValue(transactionModel.regulatory_contact_id);
-    formRecord.controls.activityLead.setValue(transactionModel.activity_lead);
-    formRecord.controls.activityType.setValue(transactionModel.activity_type);
+
+    /**
+     formRecord.controls.activityLead.setValue(transactionModel.activity_lead);
+     formRecord.controls.activityType.setValue(transactionModel.activity_type);
+*/
+
+    if (transactionModel.regulatory_activity_lead) {
+      const activityLeads = TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityLeadList(), lang);
+      const recordIndex = ListService.getRecord(activityLeads, transactionModel.regulatory_activity_lead._id, 'id');
+      if (recordIndex > -1) {
+        formRecord.controls.activityLead.setValue(activityLeads[recordIndex].id);
+      } else {
+        formRecord.controls.activityLead.setValue(null);
+      }
+    } else {
+      formRecord.controls.activityLead.setValue(null);
+    }
+
+
+    const activityTypes = TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityTypeList(), lang);
+    if (transactionModel.regulatory_activity_type) {
+      const recordIndex = ListService.getRecord(activityTypes, transactionModel.regulatory_activity_type._id, 'id');
+      if (recordIndex > -1) {
+        formRecord.controls.activityType.setValue(activityTypes[recordIndex].id);
+      } else {
+        formRecord.controls.activityType.setValue(null);
+      }
+    } else {
+      formRecord.controls.activityType.setValue(null);
+    }
 
     const descriptions = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
     if (transactionModel.description_type) {
-      const recordIndex = ListService.getRecord(descriptions, transactionModel.description_type.__text, 'id');
+      const recordIndex = ListService.getRecord(descriptions, transactionModel.description_type._id, 'id');
       if (recordIndex > -1) {
         // const labelText = descriptions[recordIndex].text;
         formRecord.controls.descriptionType.setValue(descriptions[recordIndex].id);
@@ -358,7 +530,7 @@ export class TransactionDetailsService {
     formRecord.controls.transDescription.setValue(transactionModel.transaction_description);
     const hasddt = transactionModel.has_ddt === GlobalsService.YES ? true : false;
     if (formRecord.controls.deviceChange.value ||
-      (transactionModel.activity_type === 'Licence' && transactionModel.description_type.__text === 'INITIAL')) {
+      (transactionModel.regulatory_activity_type._text === 'B02-20160301-039' && transactionModel.description_type.__text === 'INITIAL')) {
       formRecord.controls.hasDdtMan.setValue(hasddt);
     } else {
       formRecord.controls.hasDdt.setValue(hasddt);

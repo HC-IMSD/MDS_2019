@@ -26,7 +26,7 @@ export class TransactionBaseComponent implements OnInit {
 
   private _transactionDetailErrors = [];
   private _requesterErrors = [];
-  private _transFeesErrors = [];
+  private _transFeeErrors = [];
   public transactionForm: FormGroup;  // todo: do we need it? could remove?
   public errorList = [];
   public rootTagText = 'DEVICE_TRANSACTION_ENROL';
@@ -37,7 +37,8 @@ export class TransactionBaseComponent implements OnInit {
   public headingLevel = 'h2';
   public transactionModel = TransactionBaseService.getEmptyTransactionDetailsModel();
   public requesterModel = [];
-  public transFeesModel = [];
+ // public transFeeModel = [];
+  public transFeeModel = TransactionBaseService.getEmptyTransactionFeeModel();
   public fileServices: FileConversionService;
   public xslName = GlobalsService.STYLESHEETS_1_0_PREFIX + 'REP_MDS_RT_1_0.xsl';
 
@@ -64,7 +65,7 @@ export class TransactionBaseComponent implements OnInit {
     // console.log('@@@@@@@@@@@@ Processing errors in ApplicationInfo base compo
     this.errorList = [];
     // concat the two array
-    this.errorList = this._transactionDetailErrors.concat(this._requesterErrors.concat(this._transFeesErrors));
+    this.errorList = this._transactionDetailErrors.concat(this._requesterErrors.concat(this._transFeeErrors));
     // .concat(this._theraErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
@@ -79,8 +80,8 @@ export class TransactionBaseComponent implements OnInit {
     this.processErrors();
   }
 
-  processTransFeesErrors(errorList) {
-    this._transFeesErrors = errorList;
+  processTransFeeErrors(errorList) {
+    this._transFeeErrors = errorList;
     this.processErrors();
   }
 
@@ -103,10 +104,10 @@ export class TransactionBaseComponent implements OnInit {
       const result = {
         'DEVICE_TRANSACTION_ENROL': {
           'application_info': this.transactionModel,
-          'requesters': {
+          'requester_of_solicited_information': {
             'requester': this._deleteText(this.requesterModel)
           },
-          'transFees': this.transFeesModel
+          'transFees': this.transFeeModel
         }
       };
       const fileName = 'hcreprtm-' + this.transactionModel.last_saved_date;
@@ -118,10 +119,10 @@ export class TransactionBaseComponent implements OnInit {
     this._updatedSavedDate();
     const result = {'DEVICE_TRANSACTION_ENROL': {
       'application_info': this.transactionModel,
-      'requesters': {
+      'requester_of_solicited_information': {
         'requester': this._deleteText(this.requesterModel)
       },
-      'transFees': this.transFeesModel
+      'transFees': this.transFeeModel
     }};
     const fileName = 'hcreprtm-' + this.transactionModel.last_saved_date;
     this.fileServices.saveJsonToFile(result, fileName, null);
@@ -131,15 +132,12 @@ export class TransactionBaseComponent implements OnInit {
      console.log('processing file.....');
      console.log(fileData);
     this.transactionModel = fileData.data.DEVICE_TRANSACTION_ENROL.application_info;
-    const req = fileData.data.DEVICE_TRANSACTION_ENROL.requesters.requester;
+    const req = fileData.data.DEVICE_TRANSACTION_ENROL.requester_of_solicited_information.requester;
     if (req) {
       this.requesterModel = (req instanceof Array) ? req : [req];
       this._insertTextfield();
     }
-    const fee = fileData.data.DEVICE_TRANSACTION_ENROL.transFees;
-    if (fee) {
-      this.transFeesModel = (fee instanceof Array) ? fee : [fee];
-    }
+    this.transFeeModel = fileData.data.DEVICE_TRANSACTION_ENROL.transFees;
   }
 
   private _updatedSavedDate() {

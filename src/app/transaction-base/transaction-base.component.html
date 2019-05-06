@@ -43,13 +43,19 @@
           </div>
           <section class="panel  panel-default" *ngIf="isSolicitedFlag">
             <header class="panel-heading clearfix">
-              <div class="btn-group pull-right">
-              </div>
               <h3 class="panel-title">{{'heading.requesters'|translate}}</h3>
             </header>
             <div class="panel-body">
               <requester-list  (errors)="processRequesterErrors($event)"  [userList]="userList"
                                [requesterModel]="requesterModel"></requester-list>
+            </div>
+          </section>
+          <section class="panel panel-default">
+            <header class="panel-heading clearfix">
+              <h3 class="panel-title">{{'fees'|translate}}</h3>
+            </header>
+            <div class="panel-body">
+              <transaction-fee (feesErrorList)="processTransFeeErrors($event)"   [transFeeModel]="transFeeModel"></transaction-fee>
             </div>
           </section>
 

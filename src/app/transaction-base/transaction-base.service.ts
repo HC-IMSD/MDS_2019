@@ -55,6 +55,16 @@ export class TransactionBaseService {
     });
   }
 
+  public static getEmptyTransactionFeeModel() {
+    return (
+      {
+        has_fees: '',
+        billing_company_id: '',
+        billing_contact_id: ''
+      }
+    );
+  }
+
   /**
    * Gets an empty Address Details Model
    *
@@ -67,12 +77,12 @@ export class TransactionBaseService {
         last_saved_date: '',  // todo: to map into form model ???
         dossier_id: '',
         dossier_type: 'Medical Device',
-        manufacturing_company_id: '',
+        company_id: '',
         manufacturing_contact_id: '',
         regulatory_company_id: '',
         regulatory_contact_id: '',
-        activity_lead: '',
-        activity_type: '',
+        regulatory_activity_lead: '',
+        regulatory_activity_type: '',
         description_type: '',
         device_class: '',
         amend_reasons: {

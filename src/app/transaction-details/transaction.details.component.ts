@@ -69,7 +69,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
       this.transDetailsFormLocalModel = this.detailsService.getReactiveModel(this._fb);
     }
     this.detailsChanged = 0;
-    this.actLeadList = TransactionDetailsService.getActivityLeads();
+    this.actLeadList = TransactionDetailsService.getActivityLeadList(this.lang);
     this.devClassList = TransactionDetailsService.getDeviceClassList();
   }
 
@@ -141,15 +141,22 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     }
   }
   private  _updateLists() {
-    if (this.transDetailsFormLocalModel.controls.activityLead.value === 'Medical Device Bureau') {
-      this.actTypeList = TransactionDetailsService.getRawActivityTypes();
+    if (this.transDetailsFormLocalModel.controls.activityLead.value === 'B14-20160301-08') {
+      this.actTypeList = TransactionDetailsService.getActivityTypeMDBList(this.lang);
+    } else if (this.transDetailsFormLocalModel.controls.activityLead.value === 'B14-20160301-10') {
+      this.actTypeList = TransactionDetailsService.getActivityTypePVList(this.lang);
     }
-    if (this.transDetailsFormLocalModel.controls.activityType.value === 'Licence') {
+
+    if (this.transDetailsFormLocalModel.controls.activityType.value === 'B02-20160301-039') {
       this.transDescList = TransactionDetailsService.getLicenceDescriptions(this.lang);
-    } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'Fax-back') {
+    } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'B02-20160301-033') {
       this.transDescList = TransactionDetailsService.getFaxbackDescriptions(this.lang);
-    } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'Licence Amendment') {
+    } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'B02-20160301-040') {
       this.transDescList = TransactionDetailsService.getLicenceDescriptions(this.lang);
+    } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'B02-20160301-081') {
+      this.transDescList = TransactionDetailsService.getS36394041Descriptions(this.lang);
+    } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'B02-20160621-01') {
+      this.transDescList = TransactionDetailsService.getMDPVDescriptions(this.lang);
     }
     // update reasonArray
     this._updateReasonArray();
@@ -175,9 +182,12 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   activityLeadOnblur() {
-    if (this.transDetailsFormLocalModel.controls.activityLead.value &&
-      this.transDetailsFormLocalModel.controls.activityLead.value === 'Medical Device Bureau') {
-      this.actTypeList = TransactionDetailsService.getRawActivityTypes();
+    if (this.transDetailsFormLocalModel.controls.activityLead.value) {
+      if (this.transDetailsFormLocalModel.controls.activityLead.value === 'B14-20160301-08') {
+        this.actTypeList = TransactionDetailsService.getActivityTypeMDBList(this.lang);
+      } else if (this.transDetailsFormLocalModel.controls.activityLead.value === 'B14-20160301-10') {
+        this.actTypeList = TransactionDetailsService.getActivityTypePVList(this.lang);
+      }
     } else {
       this.actTypeList = [];
       this.transDescList = [];
@@ -187,12 +197,16 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
   activityTypeOnblur() {
     if (this.transDetailsFormLocalModel.controls.activityType.value) {
-      if (this.transDetailsFormLocalModel.controls.activityType.value === 'Licence') {
+      if (this.transDetailsFormLocalModel.controls.activityType.value === 'B02-20160301-039') {
         this.transDescList = TransactionDetailsService.getLicenceDescriptions(this.lang);
-      } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'Fax-back') {
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'B02-20160301-033') {
         this.transDescList = TransactionDetailsService.getFaxbackDescriptions(this.lang);
-      } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'Licence Amendment') {
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'B02-20160301-040') {
         this.transDescList = TransactionDetailsService.getLicenceDescriptions(this.lang);
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'B02-20160301-081') {
+        this.transDescList = TransactionDetailsService.getS36394041Descriptions(this.lang);
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'B02-20160621-01') {
+        this.transDescList = TransactionDetailsService.getMDPVDescriptions(this.lang);
       }
       this.transDetailsFormLocalModel.controls.descriptionType.setValue(null);
       this.transDetailsFormLocalModel.controls.descriptionType.markAsUntouched();
@@ -221,9 +235,9 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   // reasonArray is the flags to display the reason chexk box list
   private _updateReasonArray() {
     const descValue = this.transDetailsFormLocalModel.controls.descriptionType.value;
-    if (this.transDetailsFormLocalModel.controls.activityType.value !== 'Licence' && descValue === 'INITIAL' &&
+    if (this.transDetailsFormLocalModel.controls.activityType.value !== 'B02-20160301-039' && descValue === 'INITIAL' &&
       this.transDetailsFormLocalModel.controls.deviceClass.value) {
-      if (this.transDetailsFormLocalModel.controls.activityType.value === 'Licence Amendment') {
+      if (this.transDetailsFormLocalModel.controls.activityType.value === 'B02-20160301-040') {
         switch (this.transDetailsFormLocalModel.controls.deviceClass.value) {
           case 'DC2':
             this.reasonArray = [true, true, true, false, false, false, false, false, false, true, true];
@@ -236,7 +250,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
             break;
         }
 
-      } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'Fax-back') {
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === 'B02-20160301-033') {
         this.reasonArray = [false, true, true, false, false, false, false, false, false, false, true];
       }
     } else {
@@ -246,7 +260,9 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
   private _setDescFieldFlags(descValue) {
     this.showBriefDesc = (descValue === 'UD') ? true : false;
-    this.showDate =  (descValue === 'RAIL' || descValue === 'RS' || descValue === 'MM' || descValue === 'RER') ? true : false;
+    this.showDate =  (descValue === 'RAIL' ||  descValue === 'RS'
+      || descValue === 'MM' || descValue === 'RER' || descValue === 'RMHPDR' ||
+      descValue === 'RS36L' || descValue === 'RS39L' ) ? true : false;
   }
 
   private _resetReasonValues() {
@@ -364,7 +380,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   isLicence() {
-    return (this.transDetailsFormLocalModel.controls.activityType.value === 'Licence');
+    return (this.transDetailsFormLocalModel.controls.activityType.value === 'B02-20160301-039');
   }
 
   isClassSet() {
@@ -432,7 +448,13 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
   isNotInitialMmUd() {
     if (this.isNotInitial() && this.transDetailsFormLocalModel.controls.descriptionType.value !== 'MM' &&
-          this.transDetailsFormLocalModel.controls.descriptionType.value !== 'UD') {
+          this.transDetailsFormLocalModel.controls.descriptionType.value !== 'UD' &&
+      this.transDetailsFormLocalModel.controls.descriptionType.value !== 'LIOH' &&
+      this.transDetailsFormLocalModel.controls.descriptionType.value !== 'OHCD' &&
+      this.transDetailsFormLocalModel.controls.descriptionType.value !== 'RS36L' &&
+      this.transDetailsFormLocalModel.controls.descriptionType.value !== 'RS39L' &&
+      this.transDetailsFormLocalModel.controls.descriptionType.value !== 'RMHPDR' &&
+      this.transDetailsFormLocalModel.controls.descriptionType.value !== 'PRCI') {
       return true;
     } else {
       this.transDetailsFormLocalModel.controls.appNum.setValue(null);
@@ -443,7 +465,11 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
   isMmUd() {
     if (this.transDetailsFormLocalModel.controls.descriptionType.value === 'MM' ||
-        this.transDetailsFormLocalModel.controls.descriptionType.value === 'UD') {
+        this.transDetailsFormLocalModel.controls.descriptionType.value === 'UD' ||
+      this.transDetailsFormLocalModel.controls.descriptionType.value === 'LIOH' ||
+      this.transDetailsFormLocalModel.controls.descriptionType.value === 'OHCD' ||
+      this.transDetailsFormLocalModel.controls.descriptionType.value === 'RS36L' ||
+      this.transDetailsFormLocalModel.controls.descriptionType.value === 'RS39L' ) {
       return true;
     } else {
       this.transDetailsFormLocalModel.controls.appNumOpt.setValue(null);
