@@ -13,6 +13,7 @@ import {TransactionHelpEnComponent} from '../app/transaction-help-en/transaction
 import {TransactionFeeComponent} from '../app/transaction-fee/transaction.fee.component';
 import {RequesterModule} from '../app/requester/requester.module';
 import {FileIoModule} from '../app/filereader/file-io/file-io.module';
+import {NumbersOnlyModule} from '../app/number-only/number-only.module';
 
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
@@ -41,6 +42,7 @@ import {TransactionDataLoaderService} from '../app/data-loader/transaction-data-
     HttpClientModule,
     CommonFeatureModule,
     DataLoaderModule,
+    NumbersOnlyModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -57,6 +59,7 @@ import {TransactionDataLoaderService} from '../app/data-loader/transaction-data-
     Title
   ],
   exports: [
+    NumbersOnlyModule,
     TranslateModule
   ],
   bootstrap: [AppComponent]

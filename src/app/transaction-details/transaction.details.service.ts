@@ -133,7 +133,23 @@ export class TransactionDetailsService {
    *
    */
   public static getDeviceClassList() {
-    return ['DC2', 'DC3', 'DC4'];
+    return [
+      {
+        id: 'DC2',
+        en: 'Class II',
+        fr: 'fr_Class II'
+      },
+      {
+        id: 'DC3',
+        en: 'Class III',
+        fr: 'fr_Class III'
+      },
+      {
+        id: 'DC4',
+        en: 'Class IV',
+        fr: 'fr_Class IV'
+      }
+    ];
   }
 
   /**
@@ -205,7 +221,7 @@ export class TransactionDetailsService {
     return TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityLeadList(), lang);
   }
 
-  private static getRawActivityTypeList() {
+  public static getRawActivityTypeList() {
     return [
       {
         id: 'B02-20160301-033',
@@ -317,8 +333,8 @@ export class TransactionDetailsService {
       },
       {
         id: 'UD',
-        en: 'Unsolicited',
-        fr: 'Unsolicited'
+        en: 'Unsolicited Information',
+        fr: 'Unsolicited Information'
       },
       {
         id: 'RMHPDR',
@@ -334,6 +350,11 @@ export class TransactionDetailsService {
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, transactionModel) {
+    const activityLeadList = TransactionDetailsService.getActivityLeadList(TransactionDetailsService.lang);
+    const activityTypeList = TransactionDetailsService.getActivityTypeList(TransactionDetailsService.lang);
+    const descArray = TransactionDetailsService.getTransDescList(TransactionDetailsService.lang);
+    const dcArray = TransactionDetailsService._convertListText(
+            TransactionDetailsService.getDeviceClassList(), TransactionDetailsService.lang);
     transactionModel.dossier_id = formRecord.controls.dossierId.value;
     transactionModel.dossier_type = {
       '__text': 'Medical Device',
@@ -353,7 +374,6 @@ export class TransactionDetailsService {
    // transactionModel.regulatory_activity_lead = formRecord.controls.activityLead.value;
 
     if (formRecord.controls.activityLead.value) {
-      const activityLeadList = TransactionDetailsService.getActivityLeadList(TransactionDetailsService.lang);
       const recordIndex1 = ListService.getRecord(activityLeadList, formRecord.controls.activityLead.value, 'id');
       if (recordIndex1 > -1) {
         transactionModel.regulatory_activity_lead = {
@@ -369,14 +389,13 @@ export class TransactionDetailsService {
 
     // transactionModel.activity_type = formRecord.controls.activityType.value;
     if (formRecord.controls.activityType.value) {
-      const activityTypeList = TransactionDetailsService.getActivityTypeList(TransactionDetailsService.lang);
-      const recordIndex1 = ListService.getRecord(activityTypeList, formRecord.controls.activityType.value, 'id');
-      if (recordIndex1 > -1) {
+      const recordIndex2 = ListService.getRecord(activityTypeList, formRecord.controls.activityType.value, 'id');
+      if (recordIndex2 > -1) {
         transactionModel.regulatory_activity_type = {
-          '__text': activityTypeList[recordIndex1].text,
-          '_id' : activityTypeList[recordIndex1].id,
-          '_label_en': activityTypeList[recordIndex1].en,
-          '_label_fr': activityTypeList[recordIndex1].fr
+          '__text': activityTypeList[recordIndex2].text,
+          '_id' : activityTypeList[recordIndex2].id,
+          '_label_en': activityTypeList[recordIndex2].en,
+          '_label_fr': activityTypeList[recordIndex2].fr
         };
       }
     } else {
@@ -384,20 +403,32 @@ export class TransactionDetailsService {
     }
 
     if (formRecord.controls.descriptionType.value) {
-      const descArray = TransactionDetailsService.getTransDescList(TransactionDetailsService.lang);
-      const recordIndex1 = ListService.getRecord(descArray, formRecord.controls.descriptionType.value, 'id');
-      if (recordIndex1 > -1) {
+      const recordIndex3 = ListService.getRecord(descArray, formRecord.controls.descriptionType.value, 'id');
+      if (recordIndex3 > -1) {
         transactionModel.description_type = {
-          '__text': descArray[recordIndex1].text,
-          '_id': descArray[recordIndex1].id,
-          '_label_en': descArray[recordIndex1].en,
-          '_label_fr': descArray[recordIndex1].fr
+          '__text': descArray[recordIndex3].text,
+          '_id': descArray[recordIndex3].id,
+          '_label_en': descArray[recordIndex3].en,
+          '_label_fr': descArray[recordIndex3].fr
         };
       }
     } else {
       transactionModel.description_type = null;
     }
-    transactionModel.device_class = formRecord.controls.deviceClass.value;
+    // transactionModel.device_class = formRecord.controls.deviceClass.value;
+    if (formRecord.controls.deviceClass.value) {
+      const recordIndex4 = ListService.getRecord(dcArray, formRecord.controls.deviceClass.value, 'id');
+      if (recordIndex4 > -1) {
+        transactionModel.device_class = {
+          '__text': dcArray[recordIndex4].text,
+          '_id': dcArray[recordIndex4].id,
+          '_label_en': dcArray[recordIndex4].en,
+          '_label_fr': dcArray[recordIndex4].fr
+        };
+      }
+    } else {
+      transactionModel.device_class = null;
+    }
     transactionModel.amend_reasons.classification_change = formRecord.controls.classChange.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.amend_reasons.licence_change = formRecord.controls.licenceChange.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.amend_reasons.device_change = formRecord.controls.deviceChange.value ? GlobalsService.YES : GlobalsService.NO;
@@ -410,12 +441,20 @@ export class TransactionDetailsService {
     transactionModel.amend_reasons.purpose_change = formRecord.controls.purposeChange.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.amend_reasons.add_delete_change = formRecord.controls.addChange.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.licence_number = formRecord.controls.licenceNum.value;
-    if (formRecord.controls.descriptionType.value !== 'INITIAL' &&
-      formRecord.controls.descriptionType.value !== 'MM' &&
-        formRecord.controls.descriptionType.value !== 'UD') {
+    if (formRecord.controls.descriptionType.value !== descArray[9].id &&
+      formRecord.controls.descriptionType.value !== descArray[2].id &&
+      formRecord.controls.descriptionType.value !== descArray[3].id &&
+      formRecord.controls.descriptionType.value !== descArray[6].id &&
+      formRecord.controls.descriptionType.value !== descArray[7].id &&
+      formRecord.controls.descriptionType.value !== descArray[10].id &&
+      formRecord.controls.descriptionType.value !== descArray[12].id) {
       transactionModel.application_number = formRecord.controls.appNum.value;
-    } else if (formRecord.controls.descriptionType.value === 'MM' ||
-            formRecord.controls.descriptionType.value === 'UD') {
+    } else if (formRecord.controls.descriptionType.value === descArray[2].id  ||
+            formRecord.controls.descriptionType.value === descArray[3].id  ||
+            formRecord.controls.descriptionType.value === descArray[6].id  ||
+            formRecord.controls.descriptionType.value === descArray[7].id  ||
+            formRecord.controls.descriptionType.value === descArray[10].id  ||
+            formRecord.controls.descriptionType.value === descArray[12].id ) {
       transactionModel.application_number = formRecord.controls.appNumOpt.value;
     }
     transactionModel.meeting_id = formRecord.controls.meetingId.value;
@@ -423,9 +462,10 @@ export class TransactionDetailsService {
     transactionModel.proposed_licence_name = formRecord.controls.licenceName.value;
     transactionModel.request_date = formRecord.controls.requestDate.value;
     transactionModel.brief_description = formRecord.controls.briefDesc.value;
-    transactionModel.transaction_description = formRecord.controls.transDescription.value;
+    transactionModel.transaction_description = TransactionDetailsService._setConcatDetails(transactionModel);
     if (formRecord.controls.deviceChange.value ||
-        (formRecord.controls.activityType.value === 'B02-20160301-039' && formRecord.controls.descriptionType.value === 'INITIAL')) {
+        (formRecord.controls.activityType.value === activityTypeList[1].id &&
+              formRecord.controls.descriptionType.value === descArray[9].id)) {
       transactionModel.has_ddt = formRecord.controls.hasDdtMan.value ? GlobalsService.YES : GlobalsService.NO;
     } else {
       transactionModel.has_ddt = formRecord.controls.hasDdt.value ? GlobalsService.YES : GlobalsService.NO;
@@ -479,7 +519,6 @@ export class TransactionDetailsService {
     if (transactionModel.description_type) {
       const recordIndex = ListService.getRecord(descriptions, transactionModel.description_type._id, 'id');
       if (recordIndex > -1) {
-        // const labelText = descriptions[recordIndex].text;
         formRecord.controls.descriptionType.setValue(descriptions[recordIndex].id);
       } else {
         formRecord.controls.descriptionType.setValue(null);
@@ -488,7 +527,18 @@ export class TransactionDetailsService {
       formRecord.controls.descriptionType.setValue(null);
     }
 
-    formRecord.controls.deviceClass.setValue(transactionModel.device_class);
+    // formRecord.controls.deviceClass.setValue(transactionModel.device_class);
+    const dcs = TransactionDetailsService._convertListText(TransactionDetailsService.getDeviceClassList(), lang);
+    if (transactionModel.device_class) {
+      const recordIndex = ListService.getRecord(descriptions, transactionModel.device_class._id, 'id');
+      if (recordIndex > -1) {
+        formRecord.controls.deviceClass.setValue(dcs[recordIndex].id);
+      } else {
+        formRecord.controls.deviceClass.setValue(null);
+      }
+    } else {
+      formRecord.controls.deviceClass.setValue(null);
+    }
     const clsc = transactionModel.amend_reasons.classification_change === GlobalsService.YES ? true : false;
     formRecord.controls.classChange.setValue(clsc);
     const licc = transactionModel.amend_reasons.licence_change === GlobalsService.YES ? true : false;
@@ -515,9 +565,13 @@ export class TransactionDetailsService {
       formRecord.controls.amendReason.setValue('reasonFilled');
     }
     formRecord.controls.licenceNum.setValue(transactionModel.licence_number);
-    if (transactionModel.description_type.__text &&
-      (transactionModel.description_type.__text === 'MM' ||
-        transactionModel.description_type.__text === 'UD')) {
+    if (transactionModel.description_type._id &&
+      (transactionModel.description_type._id === descriptions[2].id ||
+        transactionModel.description_type._id === descriptions[3].id ||
+        transactionModel.description_type._id === descriptions[6].id ||
+        transactionModel.description_type._id === descriptions[7].id ||
+        transactionModel.description_type._id === descriptions[10].id ||
+        transactionModel.description_type._id === descriptions[12].id)) {
       formRecord.controls.appNumOpt.setValue(transactionModel.application_number);
     } else {
       formRecord.controls.appNum.setValue(transactionModel.application_number);
@@ -530,7 +584,8 @@ export class TransactionDetailsService {
     formRecord.controls.transDescription.setValue(transactionModel.transaction_description);
     const hasddt = transactionModel.has_ddt === GlobalsService.YES ? true : false;
     if (formRecord.controls.deviceChange.value ||
-      (transactionModel.regulatory_activity_type._text === 'B02-20160301-039' && transactionModel.description_type.__text === 'INITIAL')) {
+      (transactionModel.regulatory_activity_type._id === activityTypes[1].id &&
+            transactionModel.description_type._id === descriptions[9].id)) {
       formRecord.controls.hasDdtMan.setValue(hasddt);
     } else {
       formRecord.controls.hasDdt.setValue(hasddt);
@@ -562,6 +617,49 @@ export class TransactionDetailsService {
         // console.log(item);
       });
     }
+    return result;
+  }
+
+  private static _setConcatDetails(transactionModel) {
+    let rDate = '';
+    let concatText = '';
+    // const dTypeList = TransactionDetailsService.getRawTransDescList();
+    if (transactionModel.description_type) {
+      concatText = transactionModel.description_type._label_en;
+      // if (transactionModel.descriptionType.value.id === dTypeList[9].id) {
+      //   concatText = enDescription;
+      //   if (transactionModel.deviceClass) {
+      //     concatText += ' with device class: ' + transactionModel.deviceClass;
+      //   }
+      //   if (transactionModel.deviceName) {
+      //     concatText += ', and name of device: ' + transactionModel.deviceName;
+      //   }
+      // }
+      if (transactionModel.request_date) {
+        rDate = TransactionDetailsService._convertDate(transactionModel.request_date);
+        concatText += ' dated ' + rDate;
+      }
+      if (transactionModel.application_number) {
+        concatText += ' with application number: ' + transactionModel.application_number;
+      }
+      if (transactionModel.meeting_id) {
+        concatText = 'Meeting ID, ' + transactionModel.meeting_id + ', ' + concatText;
+      }
+      if (transactionModel.brief_description) {
+        concatText += ', and brief description: ' + transactionModel.brief_description;
+      }
+    }
+    return concatText;
+  }
+
+  private static _convertDate(value) {
+
+    if (!value) {return ''; }
+    const date = new Date(value);
+    const m_names = ['Jan', 'Feb', 'Mar',
+      'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+      'Oct', 'Nov', 'Dec'];
+    const result = m_names[date.getMonth()] + '. ' + date.getDate() + ', ' + date.getFullYear();
     return result;
   }
 

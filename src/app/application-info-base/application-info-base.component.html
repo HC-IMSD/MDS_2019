@@ -1,11 +1,13 @@
 <div class="container-fluid">
   <form [formGroup]="appInfoForm" novalidate>
     <div>
-        <aside class="wb-fnote" role="note">
-        <h2>{{'instruction.help'|translate}}</h2>
-        <section><application-info-help-en></application-info-help-en></section>
-      </aside>
-
+      <span id="privacy"></span>
+      <span id="instructions"></span>
+      <aside class="wb-fnote" role="note">
+          <h2>{{'instruction.help'|translate}}</h2>
+          <section><application-info-help-en></application-info-help-en></section>
+        </aside>
+      <span id="main"></span>
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">

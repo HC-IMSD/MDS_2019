@@ -15,6 +15,7 @@ import {MaterialModule} from '../app/bio-material/material.module';
 import {FileIoModule} from '../app/filereader/file-io/file-io.module';
 import {CompanyDataLoaderService} from '../app/data-loader/company-data-loader.service';
 import {AppInfoDataLoaderService} from '../app/data-loader/app-info-data-loader.service';
+import {NumbersOnlyModule} from '../app/number-only/number-only.module';
 
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
@@ -42,6 +43,7 @@ import {DataLoaderModule} from '../app/data-loader/data-loader.module';
     HttpClientModule,
     CommonFeatureModule,
     DataLoaderModule,
+    NumbersOnlyModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -59,6 +61,7 @@ import {DataLoaderModule} from '../app/data-loader/data-loader.module';
     Title
   ],
   exports: [
+    NumbersOnlyModule,
     TranslateModule
   ],
   bootstrap: [AppComponent]

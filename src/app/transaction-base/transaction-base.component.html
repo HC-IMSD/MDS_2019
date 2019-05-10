@@ -1,10 +1,13 @@
 <div class="container-fluid">
   <form [formGroup]="transactionForm" novalidate>
     <div>
+      <span id="privacy"></span>
+      <span id="instructions"></span>
       <aside class="wb-fnote" role="note">
         <h2>{{'instruction.help'|translate}}</h2>
         <section><transaction-help-en></transaction-help-en></section>
       </aside>
+      <span id="main"></span>
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
@@ -41,12 +44,12 @@
                               (detailErrorList)="processDetailErrors($event)"></transaction-details>
 
           </div>
-          <section class="panel  panel-default" *ngIf="isSolicitedFlag">
+          <section class="panel  panel-default" *ngIf="isSolicited()">
             <header class="panel-heading clearfix">
               <h3 class="panel-title">{{'heading.requesters'|translate}}</h3>
             </header>
             <div class="panel-body">
-              <requester-list  (errors)="processRequesterErrors($event)"  [userList]="userList"
+              <requester-list  (errors)="processRequesterErrors($event)"  [userList]="userList" [showErrors]="showErrors"
                                [requesterModel]="requesterModel"></requester-list>
             </div>
           </section>
@@ -55,7 +58,8 @@
               <h3 class="panel-title">{{'fees'|translate}}</h3>
             </header>
             <div class="panel-body">
-              <transaction-fee (feesErrorList)="processTransFeeErrors($event)"   [transFeeModel]="transFeeModel"></transaction-fee>
+              <transaction-fee (feeErrorList)="processTransFeeErrors($event)"
+                               [showErrors]="showErrors" [transFeeModel]="transFeeModel"></transaction-fee>
             </div>
           </section>
 

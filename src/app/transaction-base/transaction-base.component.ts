@@ -140,6 +140,10 @@ export class TransactionBaseComponent implements OnInit {
     this.transFeeModel = fileData.data.DEVICE_TRANSACTION_ENROL.transFees;
   }
 
+  isSolicited() {
+    return (this.isSolicitedFlag || this.transactionModel.is_solicited_info === GlobalsService.YES);
+  }
+
   private _updatedSavedDate() {
     const today = new Date();
     const pipe = new DatePipe('en-US');

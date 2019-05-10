@@ -21,6 +21,8 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
 
   public requesterRecordModel: FormGroup;
   @Input('group') public requesterFormRecord: FormGroup;
+  @Input() public requesterModel;
+  @Input() public showErrors: boolean;
   @Input() detailsChanged: number;
   @Input() userList: Array<any>;
   @Output() saveRecord = new EventEmitter();
@@ -39,12 +41,12 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
   private childErrorList: Array<any> = [];
   private parentErrorList: Array<any> = [];
   public showErrSummary: boolean;
-  public showErrors: boolean;
+  // public showErrors: boolean;
   public errorSummaryChild: ErrorSummaryComponent = null;
   public headingLevel = 'h4';
 
   constructor(private _fb: FormBuilder,  private cdr: ChangeDetectorRef) {
-    this.showErrors = false;
+    // this.showErrors = false;
     this.showErrSummary = false;
   }
 
@@ -103,6 +105,10 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
       }
       this.updateChild++;
     }
+
+    if (changes['showErrors']) {
+      this.showErrSummary = changes['showErrors'].currentValue;
+    }
   }
 
   /***
@@ -132,12 +138,14 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
           this.parentErrorList.push(error);
         }
       );
-      this.cdr.detectChanges(); // doing our own change detection
+      // this.cdr.detectChanges(); // doing our own change detection
     }
 
     this.errorList = new Array();
     this.errorList = this.parentErrorList.concat(this.childErrorList);
-    console.log(this.errorList);
+    console.log('requester record - updateErrorList: ' + this.errorList);
+    this._emitErrors();
+    this.cdr.detectChanges(); // doing our own change detection
   }
 
   /**
@@ -160,9 +168,8 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
   public saveRequesterRecord(record: FormGroup): void {
     if (this.requesterRecordModel.valid) {
       this.saveRecord.emit((this.requesterRecordModel));
-      this.showErrSummary = false;
-      this.showErrors = false;
       this.requesterRecordModel.markAsPristine();
+      this.errors.emit([]);
     } else {
       // id is used for an error to ensure the record gets saved
       let temp = this.requesterRecordModel.value.id;
@@ -172,8 +179,7 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
         this.saveRecord.emit((this.requesterRecordModel));
       } else {
         this.requesterRecordModel.controls.id.setValue(temp);
-        this.showErrSummary = true;
-        this.showErrors = true;
+        RequesterRecordService.mapFormModelToDataModel(this.requesterRecordModel, this.requesterModel, this.userList);
       }
     }
   }

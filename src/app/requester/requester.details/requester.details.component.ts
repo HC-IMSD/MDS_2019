@@ -53,6 +53,7 @@ export class RequesterDetailsComponent implements OnInit, OnChanges, AfterViewIn
       this._updateErrorList(errorObjs);
     });
     this.msgList.notifyOnChanges();
+    this.cdr.detectChanges();
 
   }
 
@@ -113,14 +114,18 @@ export class RequesterDetailsComponent implements OnInit, OnChanges, AfterViewIn
 
   typed(rec) {
     // let content = rec.toString();
-    if (rec) {
-      this.requesterFormLocalModel.controls.requester.setValue([rec]);
-      this.saveRecord.emit((this.requesterFormLocalModel));
+    if (!rec) {
+      this.requesterFormLocalModel.controls.requester.setValue(null);
     }
+    this.saveRecord.emit((this.requesterFormLocalModel));
+    this.cdr.detectChanges();
   }
 
-  onblur() {
+  onblur(rec) {
     // console.log('input is typed');
+    if (rec) {
+      this.requesterFormLocalModel.controls.requester.setValue([rec]);
+    }
     this.saveRecord.emit((this.requesterFormLocalModel));
   }
 }

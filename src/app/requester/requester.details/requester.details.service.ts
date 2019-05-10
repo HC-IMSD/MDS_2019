@@ -18,7 +18,7 @@ export class RequesterDetailsService {
   public static getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
-      requester: ''
+      requester: ['', Validators.required]
     });
   }
 
@@ -44,7 +44,8 @@ export class RequesterDetailsService {
       // this removes the 'text' property that the control needs
       if (requester_record && requester_record.id) {
         requesterModel.requester = {
-          '__text': requester_record.id,
+          '__text': requesterModel.requester_text,
+          '_id': requester_record.id,
           '_label_en': requester_record.en,
           '_label_fr': requester_record.fr
         };
@@ -53,18 +54,19 @@ export class RequesterDetailsService {
       }
     } else {
       requesterModel.requester = null;
+      requesterModel.requester_text = '';
     }
   }
 
   public static mapDataModelToFormModel(requesterModel, formRecord: FormGroup, requesterList) {
-    const recordIndex = ListService.getRecord(requesterList, requesterModel.requester.__text, 'id');
+    const recordIndex = ListService.getRecord(requesterList, requesterModel.requester._id, 'id');
     let labelText = '';
     if (recordIndex > -1) {
       labelText = requesterList[recordIndex].text;
       if (requesterModel.requester) {
         formRecord.controls.requester.setValue([
           {
-            'id': requesterModel.requester.__text,
+            'id': requesterList[recordIndex].id,
             'text': labelText
           }
         ]);
@@ -74,7 +76,7 @@ export class RequesterDetailsService {
     } else {
       formRecord.controls.requester.setValue([
           {
-            'id': requesterModel.requester.__text,
+            'id': requesterModel.requester._id,
             'text': requesterModel.requester.__text
           }
       ]);
