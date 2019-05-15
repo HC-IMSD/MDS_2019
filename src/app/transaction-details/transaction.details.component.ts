@@ -148,7 +148,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     if (this.actLeadList && this.actLeadList.length > 0 ) {
       if (this.transDetailsFormLocalModel.controls.activityLead.value === this.actLeadList[0].id) {
         this.actTypeList = TransactionDetailsService.getActivityTypeMDBList(this.lang);
-      } else if (this.transDetailsFormLocalModel.controls.activityLead.value === this.actLeadList[0].id) {
+      } else if (this.transDetailsFormLocalModel.controls.activityLead.value === this.actLeadList[1].id) {
         this.actTypeList = TransactionDetailsService.getActivityTypePVList(this.lang);
       }
     }
@@ -200,6 +200,14 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
       this.actTypeList = [];
       this.transDescList = [];
     }
+    this.transDetailsFormLocalModel.controls.activityType.setValue(null);
+    this.transDetailsFormLocalModel.controls.activityType.markAsUntouched();
+    this.transDetailsFormLocalModel.controls.descriptionType.setValue(null);
+    this.transDetailsFormLocalModel.controls.descriptionType.markAsUntouched();
+    this.transDetailsFormLocalModel.controls.deviceClass.setValue(null);
+    this.transDetailsFormLocalModel.controls.deviceClass.markAsUntouched();
+    this._resetReasonValues();
+    this._setDescFieldFlags(this.transDetailsFormLocalModel.controls.descriptionType.value);
     this.onblur();
   }
 
@@ -221,6 +229,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
       this.transDetailsFormLocalModel.controls.deviceClass.setValue(null);
       this.transDetailsFormLocalModel.controls.deviceClass.markAsUntouched();
       this._resetReasonValues();
+      this._setDescFieldFlags(this.transDetailsFormLocalModel.controls.descriptionType.value);
     } else {
       this.transDescList = [];
     }

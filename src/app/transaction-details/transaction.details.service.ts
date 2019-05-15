@@ -639,15 +639,15 @@ export class TransactionDetailsService {
         rDate = TransactionDetailsService._convertDate(transactionModel.request_date);
         concatText += ' dated ' + rDate;
       }
-      if (transactionModel.application_number) {
-        concatText += ' with application number: ' + transactionModel.application_number;
-      }
-      if (transactionModel.meeting_id) {
-        concatText = 'Meeting ID, ' + transactionModel.meeting_id + ', ' + concatText;
-      }
-      if (transactionModel.brief_description) {
-        concatText += ', and brief description: ' + transactionModel.brief_description;
-      }
+      // if (transactionModel.application_number) {
+      //   concatText += ' with application number: ' + transactionModel.application_number;
+      // }
+      // if (transactionModel.meeting_id) {
+      //   concatText = 'Meeting ID, ' + transactionModel.meeting_id + ', ' + concatText;
+      // }
+      // if (transactionModel.brief_description) {
+      //   concatText += ', and brief description: ' + transactionModel.brief_description;
+      // }
     }
     return concatText;
   }
@@ -659,7 +659,7 @@ export class TransactionDetailsService {
     const m_names = ['Jan', 'Feb', 'Mar',
       'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
       'Oct', 'Nov', 'Dec'];
-    const result = m_names[date.getMonth()] + '. ' + date.getDate() + ', ' + date.getFullYear();
+    const result = m_names[date.getUTCMonth()] + '. ' + date.getUTCDate() + ', ' + date.getFullYear();
     return result;
   }
 
