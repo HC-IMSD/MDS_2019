@@ -50,8 +50,7 @@ import {DataLoaderModule} from '../app/data-loader/data-loader.module';
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    }),
-    NgbModule.forRoot()
+    })
   ],
   providers: [
     ValidationService,

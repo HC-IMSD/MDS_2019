@@ -30,7 +30,7 @@ export class CompanyAddressRecordComponent implements OnInit, AfterViewInit {
   @Output() createRecord; // TODO don't know if needed
 
 
-  @ViewChild(AddressDetailsComponent) addressDetailsChild;
+  @ViewChild(AddressDetailsComponent, {static: true}) addressDetailsChild;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 

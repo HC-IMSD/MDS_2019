@@ -28,7 +28,7 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
   @Input() countryList;
   @Output() public errors = new EventEmitter();
 
-  @ViewChild(MaterialRecordComponent) materialChild: MaterialRecordComponent;
+  @ViewChild(MaterialRecordComponent, {static: true}) materialChild: MaterialRecordComponent;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
 
   private errorSummaryChild = null;

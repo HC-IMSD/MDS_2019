@@ -26,7 +26,7 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
   @Input() public countries = [];
   @Output() public errors = new EventEmitter();
 
-  @ViewChild(CompanyAddressRecordComponent) companyAddressChild: CompanyAddressRecordComponent;
+  @ViewChild(CompanyAddressRecordComponent, {static: true}) companyAddressChild: CompanyAddressRecordComponent;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
 
   private errorSummaryChild = null;

@@ -45,8 +45,7 @@ import {DossierDataLoaderService} from '../app/data-loader/dossier-data-loader.s
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    }),
-    NgbModule.forRoot()
+    })
   ],
   providers: [
     ValidationService,

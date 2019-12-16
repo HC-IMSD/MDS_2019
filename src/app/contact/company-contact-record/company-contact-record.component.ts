@@ -33,7 +33,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Output() createRecord; // TODO don't know if needed
 
 
-  @ViewChild(ContactDetailsComponent) contactDetailsChild;
+  @ViewChild(ContactDetailsComponent, {static: true}) contactDetailsChild;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 

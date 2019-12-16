@@ -12,7 +12,7 @@ import {TheraListService} from './thera-list.service';
 })
 export class TheraListComponent extends ListOperations implements OnInit, OnChanges, AfterViewInit {
 
-  @ViewChild(TherapeuticClassificationComponent) theraDetailsRecord: TherapeuticClassificationComponent;
+  @ViewChild(TherapeuticClassificationComponent, {static: true}) theraDetailsRecord: TherapeuticClassificationComponent;
   @Output() errors = new EventEmitter();
   @Input() showErrors:boolean;
   @Input ('group') formDataList:FormArray; //TO DO not needed

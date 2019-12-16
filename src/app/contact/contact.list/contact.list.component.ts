@@ -28,7 +28,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   @Input() lang;
   @Output() public errors = new EventEmitter();
 
-  @ViewChild(CompanyContactRecordComponent) companyContactChild: CompanyContactRecordComponent;
+  @ViewChild(CompanyContactRecordComponent, {static: true}) companyContactChild: CompanyContactRecordComponent;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
 
   private errorSummaryChild = null;

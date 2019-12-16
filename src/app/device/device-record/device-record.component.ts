@@ -28,7 +28,7 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
   @Output() errors = new EventEmitter();
 
 
-  @ViewChild(DeviceDetailsComponent) deviceDetailsChild;
+  @ViewChild(DeviceDetailsComponent, {static: true}) deviceDetailsChild;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 

@@ -30,7 +30,7 @@ export class LicenceRecordComponent implements OnInit, AfterViewInit {
   @Output() errors = new EventEmitter();
 
 
-  @ViewChild(LicenceDetailsComponent) licenceDetailsChild;
+  @ViewChild(LicenceDetailsComponent, {static: true}) licenceDetailsChild;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 

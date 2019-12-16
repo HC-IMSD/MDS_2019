@@ -6,7 +6,7 @@ import {AppComponent} from './app.component';
 import {ValidationService} from '../app/validation.service';
 import {ErrorModule} from '../app/error-msg/error-ui.module';
 import {CompanyBaseComponent} from '../app/company-base/company-base.component';
-import {CompanyHelpEnComponent} from '../app/company-help-en//company-help-en.component';
+import {CompanyHelpEnComponent} from '../app/company-help-en/company-help-en.component';
 import {MainPipeModule} from '../app/main-pipe/main-pipe.module';
 import {GlobalsService} from '../app/globals/globals.service';
 import {AddressModule} from '../app/address/address.module';
@@ -56,8 +56,7 @@ import {CompanyDataLoaderService} from '../app/data-loader/company-data-loader.s
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    }),
-    NgbModule.forRoot()
+    })
   ],
   providers: [
     ValidationService,

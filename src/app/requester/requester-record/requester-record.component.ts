@@ -31,7 +31,7 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
   @Output() errors = new EventEmitter();
 
 
-  @ViewChild(RequesterDetailsComponent) requesterDetailsChild;
+  @ViewChild(RequesterDetailsComponent, {static: true}) requesterDetailsChild;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 

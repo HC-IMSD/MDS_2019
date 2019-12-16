@@ -11,7 +11,7 @@ export abstract class ListOperations {
   protected showErrorSummary: boolean;
   public newRecordIndicator: boolean;
 
-  @ViewChild(ExpanderComponent) expander: ExpanderComponent;
+  @ViewChild(ExpanderComponent, {static: true}) expander: ExpanderComponent;
   private errorSummary: ErrorSummaryComponent;
 
   /**
@@ -32,7 +32,7 @@ export abstract class ListOperations {
    * @param {ErrorSummaryComponent} errorSummaryInstance
    */
   public setErrorSummary(errorSummaryInstance: ErrorSummaryComponent) {
-    this.errorSummary = errorSummaryInstance; //TODO dont think this does anything
+    this.errorSummary = errorSummaryInstance; // TODO dont think this does anything
   }
 
   /**

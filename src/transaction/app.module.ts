@@ -49,8 +49,7 @@ import {TransactionDataLoaderService} from '../app/data-loader/transaction-data-
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    }),
-    NgbModule.forRoot()
+    })
   ],
   providers: [
     ValidationService,

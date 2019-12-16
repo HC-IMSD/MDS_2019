@@ -24,7 +24,7 @@ export class CompanyBaseComponent implements OnInit {
   public errors;
   @Input() isInternal;
   @Input() lang;
-  @ViewChild('tabs') private tabs: NgbTabset;
+  @ViewChild('tabs', {static: true}) private tabs: NgbTabset;
 
   private _genInfoErrors = [];
   private _addressErrors = [];

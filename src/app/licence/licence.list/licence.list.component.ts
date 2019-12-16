@@ -26,7 +26,7 @@ export class LicenceListComponent extends ListOperations implements OnInit, OnCh
   @Output() public errors = new EventEmitter();
   @Output() public licenceModelUpdate = new EventEmitter();
 
-  @ViewChild(LicenceRecordComponent) licenceChild: LicenceRecordComponent;
+  @ViewChild(LicenceRecordComponent, {static: true}) licenceChild: LicenceRecordComponent;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
 
   private errorSummaryChild = null;

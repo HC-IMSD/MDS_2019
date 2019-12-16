@@ -34,7 +34,7 @@ export class MaterialRecordComponent implements OnInit, AfterViewInit {
   @Output() createRecord; // TODO don't know if needed
 
 
-  @ViewChild(MaterialDetailsComponent) materialDetailsChild;
+  @ViewChild(MaterialDetailsComponent, {static: true}) materialDetailsChild;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 

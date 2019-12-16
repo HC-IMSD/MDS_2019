@@ -24,7 +24,7 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
   @Input() public showErrors: boolean;
   @Output() public errors = new EventEmitter();
 
-  @ViewChild(DeviceRecordComponent) deviceChild: DeviceRecordComponent;
+  @ViewChild(DeviceRecordComponent, {static: true}) deviceChild: DeviceRecordComponent;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
 
   private errorSummaryChild = null;

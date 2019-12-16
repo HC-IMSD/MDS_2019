@@ -25,7 +25,7 @@ export class RequesterListComponent extends ListOperations implements OnInit, On
   @Input() userList;
   @Output() public errors = new EventEmitter();
 
-  @ViewChild(RequesterRecordComponent) requesterChild: RequesterRecordComponent;
+  @ViewChild(RequesterRecordComponent, {static: true}) requesterChild: RequesterRecordComponent;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
 
   private errorSummaryChild = null;
