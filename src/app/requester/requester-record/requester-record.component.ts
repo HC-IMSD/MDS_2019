@@ -86,6 +86,7 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
     if (this.errorSummaryChild) {
       emitErrors.push(this.errorSummaryChild);
     }
+    // console.log('requester record - emitErrors: ' + emitErrors);
     this.errors.emit(emitErrors);
   }
 
@@ -144,8 +145,8 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
     this.errorList = new Array();
     this.errorList = this.parentErrorList.concat(this.childErrorList);
     console.log('requester record - updateErrorList: ' + this.errorList);
-    this._emitErrors();
-    this.cdr.detectChanges(); // doing our own change detection
+    // this._emitErrors();
+    // this.cdr.detectChanges(); // doing our own change detection
   }
 
   /**
