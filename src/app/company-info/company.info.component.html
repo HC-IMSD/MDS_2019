@@ -1,28 +1,28 @@
 <div>
   <div [formGroup]="generalInfoFormLocalModel">
     <div class="row">
-      <div class="form-group col-xs-3" >
+      <div class="form-group col-xs-3" style="min-width: 160px;" >
         <label for="formStatus">
-          <span class="field-name">{{'appl.status' |translate}}</span>
-          <input id="formStatus" class="form-control full-width" [readonly]="true"
-                 formControlName="formStatus" (blur)="onblur()" />
-        </label>
+          <span class="field-name">{{'appl.status' |translate}}</span></label>
+        <input id="formStatus" class="form-control" [readonly]="true"
+               formControlName="formStatus" />
+
       </div>
-      <div class="form-group col-xs-3" >
+      <div class="form-group col-xs-3" style="min-width: 160px;" >
         <label for="enrolVersion">
           <span class="field-name">{{'enrol.version' |translate}}</span>
           <input id="enrolVersion" class="form-control full-width" [readonly]="disableAmend()"
                  formControlName="enrolVersion" (blur)="onblur()" />
         </label>
       </div>
-      <div class="form-group col-xs-3" >
+      <div class="form-group col-xs-3" style="min-width: 160px;" >
         <label for="lastSavedDate">
           <span class="field-name">{{'date.saved' |translate}}</span>
           <input id="lastSavedDate" class="form-control full-width" [readonly]="disableAmend()"
                  formControlName="lastSavedDate" (blur)="onblur()" />
         </label>
       </div>
-      <div class="form-group col-xs-3">
+      <div class="form-group col-xs-3" style="min-width: 160px;">
         <label for="companyId" [ngClass]="{'required':isInternal}" aria-required="true">
           <span class="field-name" i18n>{{'company.id' |translate}}</span>
           <strong class="required" *ngIf="isInternal" i18n>{{'commmon.required.bracket'|translate}}</strong>
@@ -109,8 +109,8 @@
         <div class="row">
           <div *ngIf="isOther()" class="col-xs-12 form-group">
             <label for="otherDetails"  class="full-width">{{'other.details'|translate}}
-            <textarea type="text" class="form-control full-width" id="otherDetails" (blur)="amendReasonOnblur()"
-                      formControlName="otherDetails" maxlength="500"></textarea>
+              <textarea type="text" class="form-control full-width" id="otherDetails" (blur)="amendReasonOnblur()"
+                        formControlName="otherDetails" maxlength="500"></textarea>
             </label>
           </div>
         </div>
@@ -136,12 +136,12 @@
         </label>
       </div>
     </div>
-      <!--<div class="col-xs-7">-->
-        <!--<div *ngIf="showAmendMsg()" class="alert alert-info" role="alert"-->
-             <!--aria-live="polite">-->
-          <!--<span>{{'amend.msg'|translate}}</span>-->
-        <!--</div>-->
-      <!--</div>-->
+    <!--<div class="col-xs-7">-->
+    <!--<div *ngIf="showAmendMsg()" class="alert alert-info" role="alert"-->
+    <!--aria-live="polite">-->
+    <!--<span>{{'amend.msg'|translate}}</span>-->
+    <!--</div>-->
+    <!--</div>-->
     <!--pre>{{generalInfoFormLocalModel.value |json}}</pre>
       <pre>companyId.invalid={{generalInfoFormLocalModel.controls.companyId.invalid}}</pre-->
   </div>

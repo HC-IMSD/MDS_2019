@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, Input} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, Input, HostListener} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 // import {TranslateService} from '@ngx-translate/core';
@@ -257,6 +257,10 @@ export class CompanyBaseComponent implements OnInit {
     this.adminChanges[3] = this.genInfoModel.amend_reasons.facility_change === GlobalsService.YES;
     this.adminChanges[0] = this.genInfoModel.are_licenses_transfered  === GlobalsService.YES ||
         this.adminChanges[1] || this.adminChanges[2] || this.adminChanges[3];
+  }
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    $event.returnValue = true;
   }
 
 }
