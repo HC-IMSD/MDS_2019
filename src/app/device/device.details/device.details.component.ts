@@ -6,6 +6,7 @@ import {FormGroup, FormBuilder} from '@angular/forms';
 import {ControlMessagesComponent} from '../../error-msg/control-messages.component/control-messages.component';
 import {DeviceDetailsService} from './device.details.service';
 import {isArray} from 'util';
+import {GlobalsService} from '../../globals/globals.service';
 
 
 @Component({
@@ -30,10 +31,13 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
   public showFieldErrors: boolean = false;
   private detailsService: DeviceDetailsService;
 
+  public yesNoList: Array<any> = [];
+
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef) {
     this.showFieldErrors = false;
     this.showErrors = false;
     this.detailsService = new DeviceDetailsService();
+    this.yesNoList = this.detailsService.getYesNoList();
   }
 
   ngOnInit() {
@@ -118,6 +122,30 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
       const lnum = '000000' + this.deviceFormLocalModel.controls.licenceNum.value;
       this.deviceFormLocalModel.controls.licenceNum.setValue(lnum.substring(lnum.length - 6));
     }
+  }
+
+  isDeviceAuthorized() {
+    if (this.deviceFormLocalModel.controls.deviceAuthorized.value &&
+      this.deviceFormLocalModel.controls.deviceAuthorized.value === GlobalsService.YES) {
+      return true;
+    }
+    return false;
+  }
+
+  isDeviceApplicationSubmitted() {
+    if (this.deviceFormLocalModel.controls.deviceApplicationSubmitted.value &&
+      this.deviceFormLocalModel.controls.deviceApplicationSubmitted.value === GlobalsService.YES) {
+      return true;
+    }
+    return false;
+  }
+
+  isDeviceApplicationNotSubmitted() {
+    if (this.deviceFormLocalModel.controls.deviceApplicationSubmitted.value &&
+      this.deviceFormLocalModel.controls.deviceApplicationSubmitted.value === GlobalsService.NO) {
+      return true;
+    }
+    return false;
   }
 }
 

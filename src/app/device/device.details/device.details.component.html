@@ -2,20 +2,40 @@
   <div [formGroup]="deviceFormLocalModel">
 
     <div class="row">
-      <div class="form-group col-sm-12" >
-        <label for="deviceName" class="full-width">
+      <div class="form-group col-sm-12">
+        <label for="deviceName" >
           <span class="field-name" i18n>{{'device.name'|translate}}</span>
-          <input id="deviceName" class="form-control full-width" formControlName="deviceName"/>
         </label>
+          <input id="deviceName" class="form-control full-width" formControlName="deviceName" maxlength="150"/>
       </div>
     </div>
+
     <div class="row">
-      <div class="form-group col-sm-12 ">
+      <div class="form-group col-sm-12">
+        <label for="deviceAuthorized" class="required full-width">
+          <span class="field-name" i18n>{{'device.authorized' |translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="deviceFormLocalModel.controls.deviceAuthorized.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="deviceFormLocalModel.controls.deviceAuthorized"
+                            controlId="deviceAuthorized" label="device.authorized" parentId="deviceDetails"
+                            parentLabel="Interdependent Device"></control-messages>
+
+          <select id="deviceAuthorized" required class="form-control"
+                  formControlName="deviceAuthorized">
+
+            <option label=" " value=""></option>
+            <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+          </select>
+        </label>
+      </div>
+
+      <div *ngIf="isDeviceAuthorized()" class="form-group col-sm-12 ">
         <label for="licenceNum" class="required" aria-required="true">
           <span class="field-name" i18n>{{'licence.application.number' |translate}} {{'minNumber6' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <sup id="ap4-rf">
-            <a class="fn-lnk" href="#ap4"><span class="wb-inv">{{'instruction'|translate}}</span>4</a>
+          <sup id="ap5-rf">
+            <a class="fn-lnk" href="#ap5"><span class="wb-inv">{{'instruction'|translate}}</span>5</a>
           </sup>
           <control-messages *ngIf="deviceFormLocalModel.controls.licenceNum.invalid"
                             [showError]="showFieldErrors"
@@ -27,6 +47,51 @@
                  formControlName="licenceNum" (blur)="licenceNumOnblur()"/>
         </label>
       </div>
+
+      <div *ngIf="isDeviceAuthorized()" class="form-group col-sm-12">
+        <label for="deviceApplicationSubmitted" class="required full-width">
+          <span class="field-name" i18n>{{'device.application.submitted' |translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="deviceFormLocalModel.controls.deviceApplicationSubmitted.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="deviceFormLocalModel.controls.deviceApplicationSubmitted"
+                            controlId="deviceApplicationSubmitted" label="device.application.submitted" parentId="deviceDetails"
+                            parentLabel="Interdependent Device"></control-messages>
+
+          <select id="deviceApplicationSubmitted" required class="form-control"
+                  formControlName="deviceApplicationSubmitted">
+
+            <option label=" " value=""></option>
+            <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+          </select>
+        </label>
+      </div>
+
+      <div *ngIf="isDeviceApplicationSubmitted()" class="form-group col-sm-12 ">
+        <label for="deviceApplicationNumber" class="required" aria-required="true">
+          <span class="field-name" i18n>{{'application.number' |translate}} {{'minNumber6' |translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="deviceFormLocalModel.controls.deviceApplicationNumber.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="deviceFormLocalModel.controls.deviceApplicationNumber"
+                            controlId="deviceApplicationNumber" label="application.number" parentId="deviceDetails"
+                            parentLabel="Interdependent Device">
+          </control-messages>
+          <!--<input id="deviceApplicationNumber" class="form-control" only-digits maxlength="6"-->
+                 <!--formControlName="deviceApplicationNumber" (blur)="licenceNumOnblur()"/>-->
+          <input id="deviceApplicationNumber" class="form-control" only-digits maxlength="6"
+                 formControlName="deviceApplicationNumber"/>
+        </label>
+      </div>
+
+      <div *ngIf="isDeviceApplicationNotSubmitted()" class="form-group col-sm-12">
+        <label for="deviceExplain" class="required" aria-required="true">
+          <span class="field-name" i18n>{{'device.explain'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+        </label>
+          <input id="deviceExplain" class="form-control full-width" formControlName="deviceExplain" maxlength="1000"/>
+      </div>
+
     </div>
     <!-- <pre>{{deviceFormLocalModel.value |json}}</pre>-->
   </div>

@@ -19,8 +19,12 @@ export class DeviceDetailsService {
     if (!fb) {return null; }
     return fb.group({
       deviceName: '',
-      licenceNum: [null, [Validators.required, ValidationService.licenceNumValidator ]]
+      deviceAuthorized: '',
+      licenceNum: [null, [Validators.required, ValidationService.licenceNumValidator ]],
      // licenceNum: [null, [ValidationService.licenceNumValidator]]
+      deviceApplicationSubmitted: '',
+      deviceApplicationNumber: [null, [Validators.required, ValidationService.licenceNumValidator ]],
+      deviceExplain: ''
     });
   }
 
@@ -33,19 +37,31 @@ export class DeviceDetailsService {
     return (
       {
         device_name: '',
-        licence_number: ''
+        device_Authorized: '',
+        licence_number: '',
+        device_application_submitted: '',
+        device_application_number: '',
+        device_explain: ''
       }
     );
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, deviceModel) {
     deviceModel.device_name = formRecord.controls.deviceName.value;
+    deviceModel.device_Authorized = formRecord.controls.deviceAuthorized.value;
     deviceModel.licence_number = formRecord.controls.licenceNum.value;
+    deviceModel.device_application_submitted = formRecord.controls.deviceApplicationSubmitted.value;
+    deviceModel.device_application_number = formRecord.controls.deviceApplicationNumber.value;
+    deviceModel.device_explain = formRecord.controls.deviceExplain.value;
   }
 
   public static mapDataModelToFormModel(deviceModel, formRecord: FormGroup) {
     formRecord.controls.deviceName.setValue(deviceModel.device_name);
+    formRecord.controls.deviceAuthorized.setValue(deviceModel.device_Authorized);
     formRecord.controls.licenceNum.setValue(deviceModel.licence_number);
+    formRecord.controls.deviceApplicationSubmitted.setValue(deviceModel.device_application_submitted);
+    formRecord.controls.deviceApplicationNumber.setValue(deviceModel.device_application_number);
+    formRecord.controls.deviceExplain.setValue(deviceModel.device_explain);
   }
 
   public static getRecordId(record: FormGroup) {
@@ -59,4 +75,15 @@ export class DeviceDetailsService {
     record.controls.id.setValue(value);
   }
 
+
+  /**
+   * Gets an yesno array
+   *
+   */
+  public getYesNoList() {
+    return [
+      GlobalsService.YES,
+      GlobalsService.NO
+    ];
+  }
 }

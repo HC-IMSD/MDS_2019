@@ -63,6 +63,68 @@
         </label>
       </div>
     </div>
+    <div class="row">
+      <div class="form-group col-xs-6">
+        <label for="activityLead" class="required full-width">
+          <span class="field-name" i18n>{{'activity.lead' |translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="appInfoFormLocalModel.controls.activityLead.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="appInfoFormLocalModel.controls.activityLead"
+                            controlId="activityLead" label="activity.lead"
+                            parentId="appInfoDetails"
+                            parentLabel="Application Information"></control-messages>
+          <select id="activityLead" required class="form-control full-width" (blur)="activityLeadOnblur()"
+          (selected)="activityLeadOnblur()" formControlName="activityLead">
+            <option label=" " value=""></option>
+            <option *ngFor="let lead of actLeadList" [ngValue]="lead.id"> {{lead.text|translate}}</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="form-group col-xs-6">
+        <label for="activityType" class="required full-width">
+          <span class="field-name" i18n>{{'activity.type' |translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="appInfoFormLocalModel.controls.activityType.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="appInfoFormLocalModel.controls.activityType"
+                            controlId="activityType" label="activity.type"
+                            parentId="appInfoDetails"
+                            parentLabel="Application Information"></control-messages>
+          <!--<select id="activityType" required class="form-control full-width" (blur)="activityTypeOnblur()"-->
+          <!--(click)="activityTypeOnblur()"-->
+          <!--(selected)="activityTypeOnblur()" formControlName="activityType">-->
+          <select id="activityType" required class="form-control full-width"  formControlName="activityType">
+            <option label=" " value=""></option>
+            <option *ngFor="let type of actTypeList" [ngValue]="type.id"> {{type.text|translate}}</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <div class="row">
+    <div class="form-group col-xs-6">
+      <label for="deviceClass" class="required full-width">
+        <span class="field-name" i18n>{{'device.class' |translate}}</span>
+        <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+        <sup id="ap4-rf">
+          <a class="fn-lnk" href="#ap4"><span class="wb-inv">{{'instruction'|translate}}</span>4</a>
+        </sup>
+        <control-messages *ngIf="appInfoFormLocalModel.controls.deviceClass.invalid"
+                          [showError]="showFieldErrors"
+                          [control]="appInfoFormLocalModel.controls.deviceClass"
+                          controlId="deviceClass" label="device.class"
+                          parentId="appInfoDetails"
+                          parentLabel="Application Information"></control-messages>
+        <select id="deviceClass" required class="form-control full-width"
+                formControlName="deviceClass">
+          <option label=" " value=""></option>
+          <option *ngFor="let class of devClassList" [ngValue]="class.id"> {{class.text}}</option>
+        </select>
+      </label>
+    </div>
+    </div>
 
     <div>
       <section class="panel  panel-default">
@@ -393,40 +455,68 @@
         <header class="panel-heading clearfix">
           <h2 class="panel-title">{{'standards.list'|translate}}</h2>
         </header>
-        <div class="panel-body">
-          <div class="row">
-            <div class="form-group col-xs-12" >
-              <label for="declarationConformity" class="required full-width">
+        <div *ngIf="isLicenced()" class="panel-body">
+          <div *ngIf="isMandatory()" class="row">
+            <div class="form-group col-xs-12">
+              <label  for="declarationConformity" class="required full-width">
                 <span class="field-name" i18n>{{'conformity.declaration' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <sup id="ap5-rf">
-                  <a class="fn-lnk" href="#ap5"><span class="wb-inv">{{'instruction'|translate}}</span>5</a>
+                <sup id="ap6-rf">
+                  <a class="fn-lnk" href="#ap6"><span class="wb-inv">{{'instruction'|translate}}</span>6</a>
                 </sup>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.declarationConformity.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.declarationConformity"
-                                  controlId="declarationConformity" label="conformity.declaration" parentId="appInfoDetails"
+                                  controlId="declarationConformity" label="conformity.declaration"
+                                  parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
-                <select id="declarationConformity" required class="form-control" (blur)="onblur()" formControlName="declarationConformity">
+                <select id="declarationConformity" required class="form-control" (blur)="onblur()"
+                        formControlName="declarationConformity">
+                  <option label=" " value=""></option>
+                  <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                </select>
+              </label>
+            </div>
+
+            <div *ngIf="isNoDeclaration()" class="row">
+              <div class="col-xs-12 form-group alert alert-info" role="alert">
+                     <span>
+                      <p aria-live="polite">{{'declaration.instruct'|translate}}</p>
+                     </span>
+              </div>
+            </div>
+          </div>
+
+          <div  *ngIf="isOptional()" class="row">
+            <div class="form-group col-xs-12">
+              <label for="declarationConformity" class="full-width">
+                <span class="field-name" i18n>{{'conformity.declaration' |translate}}</span>
+                <sup id="ap6-rf">
+                  <a class="fn-lnk" href="#ap6"><span class="wb-inv">{{'instruction'|translate}}</span>6</a>
+                </sup>
+                <!--<control-messages *ngIf="appInfoFormLocalModel.controls.declarationConformity.invalid"-->
+                                  <!--[showError]="showFieldErrors"-->
+                                  <!--[control]="appInfoFormLocalModel.controls.declarationConformity"-->
+                                  <!--controlId="declarationConformity" label="conformity.declaration"-->
+                                  <!--parentId="appInfoDetails"-->
+                                  <!--parentLabel="Application Information"></control-messages>-->
+                <select id="declarationConformity" class="form-control" (blur)="onblur()"
+                        formControlName="declarationConformity">
                   <option label=" " value=""></option>
                   <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
                 </select>
               </label>
             </div>
           </div>
-          <div *ngIf="isNoDeclaration()" class="row">
-            <div class="col-xs-12 form-group alert alert-info" role="alert">
-                     <span>
-                      <p aria-live="polite">{{'declaration.instruct'|translate}}</p>
-                     </span>
-            </div>
-          </div>
+
         </div>
+
       </section>
+
     </div>
 
     <div>
-      <section class="panel  panel-default">
+      <section class="panel  panel-default" *ngIf="isDeviceIV()">
         <header class="panel-heading clearfix">
           <h2 class="panel-title">{{'containing.material'|translate}}</h2>
         </header>
