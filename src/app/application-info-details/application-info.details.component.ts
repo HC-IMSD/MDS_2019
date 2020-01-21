@@ -41,6 +41,9 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
+  public actLeadList;
+  public actTypeList;
+  public devClassList;
   public drugTypeList = [];
   public deviceClassList: Array<any> = [];
   public yesNoList: Array<any> = [];
@@ -54,6 +57,9 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     // todo: dataLoader = new DossierDataLoaderService(this.http);
     this.showFieldErrors = false;
     this.showErrors = false;
+    this.actLeadList = [];
+    this.actTypeList = [];
+    this.devClassList = [];
     this.drugTypeList = [];
     this.detailsService = new ApplicationInfoDetailsService();
     // this.deviceClassList = this.detailsService.getDeviceClassList();
@@ -66,6 +72,9 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     }
     this.detailsChanged = 0;
     ApplicationInfoDetailsService.setLang(this.lang);
+    this.actLeadList = ApplicationInfoDetailsService.getActivityLeadList(this.lang);
+    this.actTypeList = ApplicationInfoDetailsService.getActivityTypeList(this.lang);
+    this.devClassList = ApplicationInfoDetailsService.getDeviceClassList(this.lang);
     this.drugTypeList = ApplicationInfoDetailsService.getDrugTypes(this.lang);
     this.licenceAppTypeList = ApplicationInfoDetailsService.getLicenceAppTypeList(this.lang); // todo: test which lang is working
   }
@@ -136,6 +145,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
         this.declarationConformity.emit(this.appInfoFormLocalModel.controls.declarationConformity.value);
       }
       ApplicationInfoDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.appInfoFormLocalModel));
+      this._updateLists();
       this._hasReasonChecked();
       this._hasMaterialRecord();
     }
@@ -393,5 +403,79 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     }
     return false;
   }
+
+  private _updateLists() {
+    if (this.actLeadList && this.actLeadList.length > 0) {
+      if (this.appInfoFormLocalModel.controls.activityLead.value === this.actLeadList[0].id) {
+        this.actTypeList = ApplicationInfoDetailsService.getActivityTypeMDBList(this.lang);
+      } else if (this.appInfoFormLocalModel.controls.activityLead.value === this.actLeadList[1].id) {
+        this.actTypeList = ApplicationInfoDetailsService.getActivityTypePVList(this.lang);
+      }
+    }
+  }
+
+  activityLeadOnblur() {
+    if (this.appInfoFormLocalModel.controls.activityLead.value) {
+      if (this.appInfoFormLocalModel.controls.activityLead.value === this.actLeadList[0].id) {
+        this.actTypeList = ApplicationInfoDetailsService.getActivityTypeMDBList(this.lang);
+      } else if (this.appInfoFormLocalModel.controls.activityLead.value === this.actLeadList[1].id) {
+        this.actTypeList = ApplicationInfoDetailsService.getActivityTypePVList(this.lang);
+      }
+    } else {
+      this.actTypeList = [];
+    }
+    this.appInfoFormLocalModel.controls.activityType.setValue(null);
+    this.appInfoFormLocalModel.controls.activityType.markAsUntouched();
+    this.appInfoFormLocalModel.controls.deviceClass.setValue(null);
+    this.appInfoFormLocalModel.controls.deviceClass.markAsUntouched();
+    this.onblur();
+  }
+
+  // activityTypeOnblur() {
+  //   if (this.appInfoFormLocalModel.controls.activityType.value) {
+  //     this.appInfoFormLocalModel.controls.deviceClass.setValue(null);
+  //     this.appInfoFormLocalModel.controls.deviceClass.markAsUntouched();
+  //   }
+  //   this.onblur();
+  // }
+
+    isLicenced() {
+
+        if ((this.appInfoFormLocalModel.controls.activityType.value === this.actTypeList[1].id
+             || this.appInfoFormLocalModel.controls.activityType.value === this.actTypeList[2].id)
+          && (this.appInfoFormLocalModel.controls.deviceClass.value === this.devClassList[1].id
+            || this.appInfoFormLocalModel.controls.deviceClass.value === this.devClassList[2].id)) {
+            return true;
+        }
+        return false;
+    }
+
+  isMandatory(){
+
+    if (this.appInfoFormLocalModel.controls.activityType.value === this.actTypeList[1].id
+      && (this.appInfoFormLocalModel.controls.deviceClass.value === this.devClassList[1].id
+        || this.appInfoFormLocalModel.controls.deviceClass.value === this.devClassList[2].id)) {
+      return true;
+    }
+    return false;
+  }
+
+  isOptional() {
+
+    if (this.appInfoFormLocalModel.controls.activityType.value === this.actTypeList[2].id
+      && (this.appInfoFormLocalModel.controls.deviceClass.value === this.devClassList[1].id
+        || this.appInfoFormLocalModel.controls.deviceClass.value === this.devClassList[2].id)) {
+      return true;
+    }
+    return false;
+  }
+
+  isDeviceIV() {
+    if (this.appInfoFormLocalModel.controls.deviceClass.value === this.devClassList[2].id) {
+        return true;
+      }
+      return false;
+    }
+
 }
 

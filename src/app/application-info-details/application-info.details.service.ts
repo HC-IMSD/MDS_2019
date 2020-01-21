@@ -26,6 +26,9 @@ export class ApplicationInfoDetailsService {
       dossierId: [null, [Validators.required, ValidationService.dossierIdValidator]],
       qmscNum: [null, Validators.required],
       licenceAppType: [null, Validators.required],
+      activityLead: [null, Validators.required],
+      activityType: [null, Validators.required],
+      deviceClass: [null, Validators.required],
       isIvdd: [null, Validators.required],
       isHomeUse: [null, Validators.required],
       isCarePoint: [null, Validators.required],
@@ -68,6 +71,9 @@ export class ApplicationInfoDetailsService {
         dossier_id: '',
         qmsc_number: '',
         licence_application_type: '',
+        regulatory_activity_lead: '',
+        regulatory_activity_type: '',
+        device_class: '',
         is_ivdd: '',
         is_home_use: '',
         is_care_point_use: '',
@@ -236,6 +242,9 @@ export class ApplicationInfoDetailsService {
     } else {
       appInfoModel.licence_application_type = null;
     }
+    appInfoModel.regulatory_activity_lead = formRecord.controls.activityLead.value;
+    appInfoModel.regulatory_activity_type = formRecord.controls.activityType.value;
+    appInfoModel.device_class = formRecord.controls.deviceClass.value;
     appInfoModel.is_ivdd = formRecord.controls.isIvdd.value;
     appInfoModel.is_home_use = formRecord.controls.isHomeUse.value;
     appInfoModel.is_care_point_use = formRecord.controls.isCarePoint.value;
@@ -294,6 +303,9 @@ export class ApplicationInfoDetailsService {
     } else {
       formRecord.controls.licenceAppType.setValue(null);
     }
+    formRecord.controls.activityLead.setValue(appInfoModel.regulatory_activity_lead);
+    formRecord.controls.activityType.setValue(appInfoModel.regulatory_activity_type);
+    formRecord.controls.deviceClass.setValue(appInfoModel.device_class);
     formRecord.controls.isIvdd.setValue(appInfoModel.is_ivdd);
     formRecord.controls.isHomeUse.setValue(appInfoModel.is_home_use);
     formRecord.controls.isCarePoint.setValue(appInfoModel.is_care_point_use);
@@ -373,6 +385,128 @@ export class ApplicationInfoDetailsService {
       });
     }
     return result;
+  }
+
+
+  /**
+   * Gets an data array
+   *
+   */
+  public static getDeviceClassList(lang) {
+    const rawList = this.getRawDeviceClassList();
+    return this._convertListText(rawList, lang);
+  }
+
+  /**
+   * Gets an data array
+   *
+   */
+  private static getRawDeviceClassList() {
+    return [
+      {
+        id: 'DC2',
+        en: 'Class II',
+        fr: 'fr_Class II'
+      },
+      {
+        id: 'DC3',
+        en: 'Class III',
+        fr: 'fr_Class III'
+      },
+      {
+        id: 'DC4',
+        en: 'Class IV',
+        fr: 'fr_Class IV'
+      }
+    ];
+  }
+  public static getActivityLeadList(lang) {
+    return ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityLeadList(), lang);
+  }
+  public static getRawActivityTypeList() {
+    return [
+      {
+        id: 'B02-20160301-033',
+        en: 'Minor Change',
+        fr: 'Minor Change'
+      },
+      {
+        id: 'B02-20160301-039',
+        en: 'Licence',
+        fr: 'Licence'
+      },
+      {
+        id: 'B02-20160301-040',
+        en: 'Licence Amendment',
+        fr: 'Licence Amendment'
+      },
+      {
+        id: 'B02-20160301-081',
+        en: 'S.25/39/40/41',
+        fr: 'S.25/39/40/41'
+      },
+      {
+        id: 'B02-20190627-02',
+        en: 'PA-PV',
+        fr: 'PA-PV'
+      },
+      {
+        id: 'B02-20160301-079',
+        en: 'PSUR-PV',
+        fr: 'PSUR-PV'
+      },
+      {
+        id: 'B02-20190627-04',
+        en: 'RC-PV',
+        fr: 'RC-PV'
+      },
+      {
+        id: 'B02-20190627-03',
+        en: 'PSA-PV',
+        fr: 'PSA-PV'
+      },
+      {
+        id: 'B02-20190627-05',
+        en: 'REG-PV',
+        fr: 'REG-PV'
+      }
+    ];
+  }
+
+  public static getActivityTypeList(lang) {
+    return ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);
+  }
+
+  public static getActivityTypeMDBList(lang) {
+    const descArray = ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);
+    return [descArray[0], descArray[1], descArray[2], descArray[3]];
+  }
+
+  public static getActivityTypePVList(lang) {
+    const descArray = ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);
+    return [descArray[4], descArray[5], descArray[6], descArray[7], descArray[8]];
+  }
+
+  /**
+   {
+       // id: 'B14-20160301-10 ',
+       // en: 'Post-market Vigilance',
+       // fr: 'Post-market Vigilance'
+     }
+   */
+
+  private static getRawActivityLeadList() {
+    return  [
+      {
+        id: 'B14-20160301-08',
+        en: 'Medical Device Bureau',
+        fr: 'Medical Device Bureau'
+      },
+      {
+        id: 'B14-20160301-10',
+        en: 'Post-market Vigilance',
+        fr: 'Post-market Vigilance'
+      }];
   }
 
 }
