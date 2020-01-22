@@ -1,4 +1,4 @@
-import {Component, Input, ElementRef} from '@angular/core';
+import {Component, Input, AfterViewInit, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import { environment } from '../environments/environment';
 import { Title } from '@angular/platform-browser';
@@ -8,14 +8,16 @@ import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
 
   public translateInstance: TranslateService;
   @Input() isInternal: boolean;
   public language = 'en';
+  @ViewChild('formHeader', {static: true}) divView: ElementRef;
 
 // we will use form builder to simplify our syntax
   constructor(private translate: TranslateService,
@@ -33,6 +35,10 @@ export class AppComponent {
     this.isInternal = elementRef.nativeElement.getAttribute('isInternal');
     // console.log('isInternal: ' + this.isInternal);
     this.setTitle('Transaction Template: Regulatory Enrolment Process (REP)');
+  }
+  ngAfterViewInit() {
+    const hello = document.querySelector('#wb-cont');
+    // hello.innerHTML = 'Transaction Template: Regulatory Enrolment Process (REP)';
   }
   public setTitle( newTitle: string) {
     this.titleService.setTitle( newTitle );

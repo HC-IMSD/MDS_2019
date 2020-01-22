@@ -9,9 +9,7 @@ import {ApplicationInfoBaseComponent} from '../app/application-info-base/applica
 import {MainPipeModule} from '../app/main-pipe/main-pipe.module';
 import {GlobalsService} from '../app/globals/globals.service';
 import {ApplicationInfoDetailsComponent} from '../app/application-info-details/application-info.details.component';
-import {ApplicationInfoHelpEnComponent} from '../app/application-info-help-en//application-info-help-en.component';
-import {AppPrivacyComponent} from '../app/common/privacy/privacy-statement-en.component';
-import {AppSecurityComponent} from '../app/common/security/security-disclaimer-en.component';
+import {ApplicationInfoHelpEnComponent} from '../app/application-info-help-en/application-info-help-en.component';
 import {DeviceModule} from '../app/device/device.module';
 import {MaterialModule} from '../app/bio-material/material.module';
 import {FileIoModule} from '../app/filereader/file-io/file-io.module';
@@ -31,9 +29,7 @@ import {DataLoaderModule} from '../app/data-loader/data-loader.module';
     AppComponent,
     ApplicationInfoDetailsComponent,
     ApplicationInfoBaseComponent,
-    ApplicationInfoHelpEnComponent,
-    AppPrivacyComponent,
-    AppSecurityComponent
+    ApplicationInfoHelpEnComponent
   ],
   imports: [
     DeviceModule,

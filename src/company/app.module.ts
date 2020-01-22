@@ -7,8 +7,6 @@ import {ValidationService} from '../app/validation.service';
 import {ErrorModule} from '../app/error-msg/error-ui.module';
 import {CompanyBaseComponent} from '../app/company-base/company-base.component';
 import {CompanyHelpEnComponent} from '../app/company-help-en/company-help-en.component';
-import {AppPrivacyComponent} from '../app/common/privacy/privacy-statement-en.component';
-import {AppSecurityComponent} from '../app/common/security/security-disclaimer-en.component';
 import {MainPipeModule} from '../app/main-pipe/main-pipe.module';
 import {GlobalsService} from '../app/globals/globals.service';
 import {AddressModule} from '../app/address/address.module';
@@ -36,9 +34,7 @@ import {CompanyDataLoaderService} from '../app/data-loader/company-data-loader.s
     CompanyAdminChangesComponent,
     CompanyBaseComponent,
     CompanyHelpEnComponent,
-    PrimaryContactComponent,
-    AppPrivacyComponent,
-    AppSecurityComponent
+    PrimaryContactComponent
   ],
   imports: [
     BrowserModule,
