@@ -1,8 +1,10 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'expander-component',
-  templateUrl: './expander.component.html'
+  templateUrl: './expander.component.html',
+  encapsulation: ViewEncapsulation.None
+
 })
 
 /**
