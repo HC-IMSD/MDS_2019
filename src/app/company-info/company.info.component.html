@@ -46,8 +46,8 @@
     <div class="row" *ngIf="isAmend">
 
       <fieldset id="amendReasons" class="form-group col-xs-12">
-        <legend>
-          <span class="field-name">{{'amend.reason' | translate}}</span>
+        <legend class="legend-rep">
+          <span>{{'amend.reason' | translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="generalInfoFormLocalModel.controls.amendReason.invalid"
                             [showError]="showFieldErrors"
