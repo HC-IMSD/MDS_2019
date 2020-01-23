@@ -420,9 +420,25 @@ export class ApplicationInfoDetailsService {
       }
     ];
   }
+
+  private static getRawActivityLeadList() {
+    return  [
+      {
+        id: 'B14-20160301-08',
+        en: 'Medical Device Bureau',
+        fr: 'Medical Device Bureau'
+      },
+      {
+        id: 'B14-20160301-10',
+        en: 'Post-market Vigilance',
+        fr: 'Post-market Vigilance'
+      }];
+  }
+
   public static getActivityLeadList(lang) {
     return ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityLeadList(), lang);
   }
+
   public static getRawActivityTypeList() {
     return [
       {
@@ -473,9 +489,6 @@ export class ApplicationInfoDetailsService {
     ];
   }
 
-  public static getActivityTypeList(lang) {
-    return ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);
-  }
 
   public static getActivityTypeMDBList(lang) {
     const descArray = ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);
@@ -485,28 +498,6 @@ export class ApplicationInfoDetailsService {
   public static getActivityTypePVList(lang) {
     const descArray = ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);
     return [descArray[4], descArray[5], descArray[6], descArray[7], descArray[8]];
-  }
-
-  /**
-   {
-       // id: 'B14-20160301-10 ',
-       // en: 'Post-market Vigilance',
-       // fr: 'Post-market Vigilance'
-     }
-   */
-
-  private static getRawActivityLeadList() {
-    return  [
-      {
-        id: 'B14-20160301-08',
-        en: 'Medical Device Bureau',
-        fr: 'Medical Device Bureau'
-      },
-      {
-        id: 'B14-20160301-10',
-        en: 'Post-market Vigilance',
-        fr: 'Post-market Vigilance'
-      }];
   }
 
 }

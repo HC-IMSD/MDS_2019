@@ -6,7 +6,8 @@
         <label for="deviceName" >
           <span class="field-name" i18n>{{'device.name'|translate}}</span>
         </label>
-          <input id="deviceName" class="form-control full-width" formControlName="deviceName" maxlength="150"/>
+          <input id="deviceName" name="deviceName" class="form-control full-width"
+                 formControlName="deviceName" maxlength="150"/>
       </div>
     </div>
 
@@ -43,7 +44,7 @@
                             controlId="licenceNum" label="licence.application.number" parentId="deviceDetails"
                             parentLabel="Interdependent Device">
           </control-messages>
-          <input id="licenceNum" class="form-control" only-digits maxlength="6"
+          <input id="licenceNum" name="licenceNum" class="form-control" only-digits maxlength="6"
                  formControlName="licenceNum" (blur)="licenceNumOnblur()"/>
         </label>
       </div>
@@ -77,10 +78,8 @@
                             controlId="deviceApplicationNumber" label="application.number" parentId="deviceDetails"
                             parentLabel="Interdependent Device">
           </control-messages>
-          <!--<input id="deviceApplicationNumber" class="form-control" only-digits maxlength="6"-->
-                 <!--formControlName="deviceApplicationNumber" (blur)="licenceNumOnblur()"/>-->
-          <input id="deviceApplicationNumber" class="form-control" only-digits maxlength="6"
-                 formControlName="deviceApplicationNumber"/>
+          <input id="deviceApplicationNumber" name="deviceApplicationNumber" class="form-control"
+                 only-digits maxlength="6" formControlName="deviceApplicationNumber"/>
         </label>
       </div>
 
@@ -89,7 +88,8 @@
           <span class="field-name" i18n>{{'device.explain'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
         </label>
-          <input id="deviceExplain" class="form-control full-width" formControlName="deviceExplain" maxlength="1000"/>
+          <input id="deviceExplain" name="deviceExplain" class="form-control full-width"
+                 formControlName="deviceExplain" maxlength="1000"/>
       </div>
 
     </div>
