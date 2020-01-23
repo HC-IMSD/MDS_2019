@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output, Input, SimpleChanges} from '@angular/core';
+import {Component, OnInit, EventEmitter, Output, Input, SimpleChanges, ViewEncapsulation} from '@angular/core';
 
 import {TranslateService} from '@ngx-translate/core';
 import {ConvertResults} from '../convert-results';
@@ -9,7 +9,8 @@ import {FileIoGlobalsService} from '../file-io-globals.service';
 @Component({
   selector: 'filereader',
   templateUrl: './filereader.component.html',
-  styleUrls: ['./filereader.component.css']
+  styleUrls: ['./filereader.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class FilereaderComponent implements OnInit {
