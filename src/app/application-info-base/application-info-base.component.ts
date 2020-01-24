@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, Input, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, Input, ViewEncapsulation, HostListener} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 // import {TranslateService} from '@ngx-translate/core';
@@ -173,6 +173,10 @@ export class ApplicationInfoBaseComponent implements OnInit {
 
   public updateChild() {
     // console.log("Calling updateChild")
+  }
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    $event.returnValue = true;
   }
 
 }

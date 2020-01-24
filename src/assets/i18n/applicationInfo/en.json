@@ -82,8 +82,8 @@
   "yes": "Yes",
   "no": "No",
   "minlength": "Minimum length 10",
-  "error.mgs.company.id": "Please specify a valid company ID.",
-  "error.mgs.dossier.id": "Please specify a valid dossier ID.",
+  "error.mgs.company.id": "Please specify a valid Company Identifier.",
+  "error.mgs.dossier.id": "Please specify a valid Dossier Identifier.",
   "error.mgs.din": "Please specify a valid Drug Identification Number (DIN).",
   "error.mgs.npn": "Please specify a valid Natural Product Number (NPN).",
   "error.mgs.licence.number": "Please specify a valid Licence Number.",
@@ -111,8 +111,8 @@
   "minNumber5": "(5 numbers)",
   "minAlphanum5": "(5 characters)",
   "minAlphanum7": "(\"m\" and 6 numbers)",
-  "instruction": "instruction",
+  "instruction": "instruction ",
   "instruction.help": "Instructions for completing sections on form",
-  "return.instruction": "Return to instruction"
+  "return.instruction": "Return to instruction "
 
 }
