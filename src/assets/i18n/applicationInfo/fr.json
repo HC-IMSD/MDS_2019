@@ -71,7 +71,7 @@
   "mdr.it": "fr_Investigational Testing",
   "mdr.sa": "fr_Special Access",
   "sap.req.number": "fr_SAP Request Number",
-  "standards.list": "fr_List of Recognized Standards Complied with in the manufacture of the Device",
+  "standards.list": "fr_Recognized Standards Complied with in the manufacture of the Device",
   "conformity.declaration": "fr_Declaration of Conformity form (available on the Health Canada website) confirms that the medical device(s) comply with Recognized Standards or equivalent or better standards",
   "declaration.instruct": "fr_Health Canada can not process your medical Device Licence Application without the Declaration of Conformity",
   "containing.material": "fr_Devices containing Biological Material",
@@ -110,7 +110,7 @@
   "minNumber5": "fr_(5 numbers)",
   "minAlphanum5": "fr_(5 characters)",
   "minAlphanum7": "fr_(\"m\" and 6 numbers)",
-  "instruction": "fr_instruction",
+  "instruction": "fr_instruction ",
   "instruction.help": "fr_Instructions for completing sections on form",
-  "return.instruction": "fr_Return to instruction"
+  "return.instruction": "fr_Return to instruction "
 }

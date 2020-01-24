@@ -572,9 +572,7 @@
           <div *ngIf="isAnimalHumanSourced()">
             <section id="materialList" class="panel  panel-default">
               <header class="panel-heading clearfix">
-                <h3 class="panel-title">{{'heading.material.table'|translate}}
-                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                </h3>
+                <h3 class="panel-title">{{'heading.material.table'|translate}}</h3>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.hasMaterial.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.hasMaterial"
