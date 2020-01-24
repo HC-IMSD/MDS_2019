@@ -1,0 +1,5 @@
+{
+  "files": "./dist/prod/transaction/en/index.html",
+  "from": ["<!--build:mainHeading--><!--endbuild-->","<!--build:langHtml--><!--endbuild-->"],
+  "to": ["Transaction Template: Regulatory Enrolment Process (REP)","../fr/index.html"]
+}

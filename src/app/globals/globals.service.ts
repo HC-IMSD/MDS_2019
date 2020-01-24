@@ -18,7 +18,7 @@ export class GlobalsService {
   public static DEVICE_TYPE_FR:string='fr_Medical Device';
   public static STYLESHEETS_1_0_PREFIX  = '';
   // public static STYLESHEETS_1_0_PREFIX  = 'https://raw.githubusercontent.com/HealthCanada/HPFB/master/Medical-Device-REP/v_1_0/Style-Sheets/';
-
+  public static SOFTWARE_VERSION: string = '2.0';
   constructor() { }
 
 }

@@ -2,12 +2,30 @@
   <form [formGroup]="appInfoForm" novalidate>
     <div>
       <span id="privacy"></span>
+      <div>
+        <h2 class="panel-title mrgn-tp-sm mrgn-bttm-sm">{{'privacy.statement' | translate}}</h2>
+        <section class="module-attention"><app-privacy-component></app-privacy-component></section>
+      </div>
+      <span id="security"></span>
+      <div>
+        <h2 class="panel-title mrgn-tp-sm mrgn-bttm-sm">{{'security.declaimer' | translate}}</h2>
+        <section class="module-attention">
+          <app-security-component></app-security-component>
+        </section>
+      </div>
       <span id="instructions"></span>
       <aside class="wb-fnote" role="note">
           <h2>{{'instruction.help'|translate}}</h2>
           <section><application-info-help-en></application-info-help-en></section>
         </aside>
       <span id="main"></span>
+      <div class="row mrgn-tp-md">
+        <div class="col-md-12">
+          <div class="text-right">
+            <span id="securityInfo" class="fa fa-shield fa-sm"><strong>&nbsp;{{'PROTECTED_B'|translate}}</strong></span>
+          </div>
+        </div>
+      </div>
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">

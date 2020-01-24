@@ -138,5 +138,8 @@
   "instruction": "instruction",
   "instruction.help": "Instructions for completing sections on form",
   "return.instruction": "Return to instruction",
-  "include.page1": "Please include the page 1 of each impacted licence, a valid Quality Management System Certificate (QMSC) that reflects the change in manufacturer name or address, a completed F202 form, signed attestation as applicable."
+  "include.page1": "Please include the page 1 of each impacted licence, a valid Quality Management System Certificate (QMSC) that reflects the change in manufacturer name or address, a completed F202 form, signed attestation as applicable.",
+  "privacy.statement": "Privacy Notice Statement",
+  "security.declaimer": "Security Disclaimer",
+  "PROTECTED_B": "Protected \"B\" when completed"
 }

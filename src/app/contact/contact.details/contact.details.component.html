@@ -17,8 +17,8 @@
       <div class="form-group col-sm-6" >
         <label for="status" class="required full-width">
           <span class="field-name">{{'status' |translate}}
-              <sup id="co4-rf">
-                <a class="fn-lnk" href="#co4"><span class="wb-inv">{{'instruction'|translate}}</span>3.1</a>
+              <sup id="co3.1-rf">
+                <a class="fn-lnk" href="#co3.1"><span class="wb-inv">{{'instruction'|translate}}</span>3.1</a>
               </sup>
           </span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
@@ -93,7 +93,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-sm-4" >
+      <div class="form-group col-sm-6" >
         <label for="language" class="required full-width">
           <span class="field-name">{{'lang.correspond' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
@@ -114,17 +114,6 @@
           <input id="jobTitle" class="form-control full-width" maxlength="40" formControlName="jobTitle"/>
         </label>
       </div>
-      <div class="form-group col-sm-4 ">
-        <label for="faxNumber">
-          <span class="field-name" i18n>{{'fax.number' |translate}}</span>
-          <control-messages *ngIf="contactFormLocalModel.controls.faxNumber.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="contactFormLocalModel.controls.faxNumber"
-                            controlId="faxNumber" label="fax.number" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
-          <input id="faxNumber" class="form-control" only-digits maxlength="16" formControlName="faxNumber"/>
-        </label>
-      </div>
     </div>
     <div class="row">
       <div class="form-group col-sm-4" >
@@ -143,6 +132,17 @@
         <label for="phoneExtension">
           <span class="field-name" i18n>{{'phone.extension' |translate}}</span>
           <input id="phoneExtension" class="form-control" maxlength="10" formControlName="phoneExtension"/>
+        </label>
+      </div>
+      <div class="form-group col-sm-4 ">
+        <label for="faxNumber">
+          <span class="field-name" i18n>{{'fax.number' |translate}}</span>
+          <control-messages *ngIf="contactFormLocalModel.controls.faxNumber.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="contactFormLocalModel.controls.faxNumber"
+                            controlId="faxNumber" label="fax.number" parentId="contactDetails"
+                            parentLabel="REP Contact"></control-messages>
+          <input id="faxNumber" class="form-control" only-digits maxlength="16" formControlName="faxNumber"/>
         </label>
       </div>
       <div class="form-group col-sm-5" >
