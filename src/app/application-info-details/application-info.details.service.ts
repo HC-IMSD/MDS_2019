@@ -242,8 +242,36 @@ export class ApplicationInfoDetailsService {
     } else {
       appInfoModel.licence_application_type = null;
     }
-    appInfoModel.regulatory_activity_lead = formRecord.controls.activityLead.value;
-    appInfoModel.regulatory_activity_type = formRecord.controls.activityType.value;
+  //  appInfoModel.regulatory_activity_lead = formRecord.controls.activityLead.value;
+    if (formRecord.controls.activityLead.value) {
+      const latList = ApplicationInfoDetailsService.getActivityLeadList(ApplicationInfoDetailsService.lang);
+      const recordIndex2 = ListService.getRecord(latList, formRecord.controls.activityLead.value, 'id');
+      if (recordIndex2 > -1) {
+        appInfoModel.regulatory_activity_lead = {
+          '__text': latList[recordIndex2].text,
+          '_id': latList[recordIndex2].id,
+          '_label_en': latList[recordIndex2].en,
+          '_label_fr': latList[recordIndex2].fr
+        };
+      }
+    } else {
+      appInfoModel.regulatory_activity_lead = null;
+    }
+    //appInfoModel.regulatory_activity_type = formRecord.controls.activityType.value;
+    if (formRecord.controls.activityType.value) {
+      const latList = ApplicationInfoDetailsService.getActivityTypeList(ApplicationInfoDetailsService.lang);
+      const recordIndex2 = ListService.getRecord(latList, formRecord.controls.activityType.value, 'id');
+      if (recordIndex2 > -1) {
+        appInfoModel.regulatory_activity_type = {
+          '__text': latList[recordIndex2].text,
+          '_id': latList[recordIndex2].id,
+          '_label_en': latList[recordIndex2].en,
+          '_label_fr': latList[recordIndex2].fr
+        };
+      }
+    } else {
+      appInfoModel.regulatory_activity_type = null;
+    }
     appInfoModel.device_class = formRecord.controls.deviceClass.value;
     appInfoModel.is_ivdd = formRecord.controls.isIvdd.value;
     appInfoModel.is_home_use = formRecord.controls.isHomeUse.value;
@@ -437,6 +465,10 @@ export class ApplicationInfoDetailsService {
 
   public static getActivityLeadList(lang) {
     return ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityLeadList(), lang);
+  }
+
+  public static getActivityTypeList(lang) {
+    return ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);
   }
 
   public static getRawActivityTypeList() {
