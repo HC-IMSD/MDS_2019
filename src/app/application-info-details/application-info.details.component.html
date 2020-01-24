@@ -397,19 +397,7 @@
                     </label>
                   </div>
                 </div>
-                <div class="col-sm-4">
-                  <div class="checkbox">
-                    <label for="chk-mdr-sa">
-                      <input type="checkbox" (blur)="onblur()"
-                             formControlName="provisionMdrSA"
-                             id="chk-mdr-sa"/>
-                      {{'mdr.sa'|translate}}
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div *ngIf="isIt()" class="row">
-                <div  class="form-group col-xs-6" >
+                <div  class="form-group col-xs-7" *ngIf="isIt()">
                   <label for="applicationNum" class=" full-width">
                     <span class="field-name" i18n>{{'application.number'|translate}}</span>
                     <control-messages *ngIf="appInfoFormLocalModel.controls.applicationNum.invalid"
@@ -422,9 +410,17 @@
                            formControlName="applicationNum" only-digits maxlength="6"/>
                   </label>
                 </div>
-              </div>
-              <div *ngIf="isSa()" class="row">
-                <div  class="form-group col-xs-6">
+                <div class="col-sm-4">
+                  <div class="checkbox">
+                    <label for="chk-mdr-sa">
+                      <input type="checkbox" (blur)="onblur()"
+                             formControlName="provisionMdrSA"
+                             id="chk-mdr-sa"/>
+                      {{'mdr.sa'|translate}}
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group col-xs-7" *ngIf="isSa()">
                   <label for="sapReqNum" class=" full-width">
                     <span class="field-name" i18n>{{'sap.req.number'|translate}}</span>
                     <input id="sapReqNum" class="form-control full-width"  (blur)="onblur()"
