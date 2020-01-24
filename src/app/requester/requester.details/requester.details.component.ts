@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
-  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef
+  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {ControlMessagesComponent} from '../../error-msg/control-messages.component/control-messages.component';
@@ -10,7 +10,8 @@ import {isArray} from 'util';
 
 @Component({
   selector: 'requester-details',
-  templateUrl: 'requester.details.component.html'
+  templateUrl: 'requester.details.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 
 /**
@@ -23,6 +24,7 @@ export class RequesterDetailsComponent implements OnInit, OnChanges, AfterViewIn
   @Input() detailsChanged: number;
   @Input() userList: Array<any>;
   @Input() showErrors: boolean;
+  @Input() newRecordIndicator: boolean;
   @Output() saveRecord = new EventEmitter();
   @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
@@ -59,7 +61,7 @@ export class RequesterDetailsComponent implements OnInit, OnChanges, AfterViewIn
 
   private _updateErrorList(errorObjs) {
     let temp = [];
-    if (errorObjs) {
+    if (errorObjs && this.newRecordIndicator) {
       errorObjs.forEach(
         error => {
           temp.push(error);
@@ -123,10 +125,14 @@ export class RequesterDetailsComponent implements OnInit, OnChanges, AfterViewIn
 
   onblur(rec) {
     // console.log('input is typed');
-    if (rec) {
-      this.requesterFormLocalModel.controls.requester.setValue([rec]);
-    }
+    // if (rec) {
+    //   this.requesterFormLocalModel.controls.requester.setValue([rec]);
+    // }
     this.saveRecord.emit((this.requesterFormLocalModel));
+  }
+  showRequesterError() {
+    const hasRequester = document.querySelector('#requester');
+    return hasRequester ? true : false;
   }
 }
 

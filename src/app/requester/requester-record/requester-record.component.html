@@ -1,9 +1,9 @@
 <div class="container-fluid" [formGroup]="requesterRecordModel">
-  <h3>{{'heading.requester.detail'| translate}}&nbsp;{{requesterRecordModel.controls.id.value + 1}}</h3>
+  <h4>{{'heading.requester.detail'| translate}}&nbsp;{{requesterRecordModel.controls.id.value + 1}}</h4>
   <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="heading.requester.record"
                  [headingLevel]="headingLevel" label="Requester Record" compId="requesterRec"></error-summary>
-  <requester-details [showErrors]="showErrors" [userList]="userList"
+  <requester-details [showErrors]="showErrors" [userList]="userList" [newRecordIndicator]="newRecordIndicator"
                    [detailsChanged]="updateChild" [group]="requesterRecordModel.controls.requesterDetails"
                    (errorList)="updateErrorList($event)" (saveRecord)="saveRequesterRecord($event)"></requester-details>
 

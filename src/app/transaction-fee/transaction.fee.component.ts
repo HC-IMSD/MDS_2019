@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
-  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef
+  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
@@ -15,7 +15,9 @@ import {noUndefined} from '@angular/compiler/src/util';
 
 @Component({
   selector: 'transaction-fee',
-  templateUrl: 'transaction.fee.component.html'
+  templateUrl: 'transaction.fee.component.html',
+  encapsulation: ViewEncapsulation.None
+
 })
 
 /**

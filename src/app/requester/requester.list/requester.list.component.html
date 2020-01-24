@@ -8,6 +8,7 @@
         [detailsChanged]="updateRequesterDetails"
         [requesterModel]="requesterModel"
         [userList]="userList"
+        [newRecordIndicator]="false"
         (saveRecord)="saveRequesterRecord($event)"
         (errors)="updateErrorList($event)"
         (revertRecord)="revertRequester($event)" (deleteRecord)="deleteRequester($event)"></requester-record>
@@ -20,6 +21,7 @@
         [showErrors]="showErrors"
         [userList]="userList"
         [group]="newRequesterForm"
+        [newRecordIndicator]="newRecordIndicator"
         (saveRecord)="saveRequesterRecord($event)"
         (errors)="updateErrorList($event)"
         (revertRecord)="revertRequester($event)" (deleteRecord)="deleteRequester($event)"></requester-record>

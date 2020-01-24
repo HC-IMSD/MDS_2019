@@ -10,7 +10,7 @@
                             [control]="transFeeFormLocalModel.controls.hasFees"
                             controlId="hasFees" label="are.fees" parentId="transFees"
                             parentLabel="Transaction Fees"></control-messages>
-          <select id="hasFees" required class="form-control" (blur)="onblur()" formControlName="hasFees">
+          <select id="hasFees" required class="form-control" (blur)="onblur()" data-formControlName="hasFees">
             <option label=" " value=""></option>
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
           </select>
@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="row"  *ngIf="hasFeeYes()">
-      <div class="form-group col-xs-6" >
+      <div class="form-group col-xs-6 minWidth300" >
         <label for="billCompanyId" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'billing.company.id'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
@@ -28,10 +28,10 @@
                             controlId="billCompanyId" label="billing.company.id" parentId="transFees"
                             parentLabel="Transaction Fees"></control-messages>
           <input id="billCompanyId" class="form-control full-width" (blur)="onblur()"
-                 formControlName="billCompanyId" maxlength="6"/>
+                 data-formControlName="billCompanyId" maxlength="6"/>
         </label>
       </div>
-      <div class="form-group col-xs-6" >
+      <div class="form-group col-xs-6 minWidth300" >
         <label for="billContactId" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'billing.contact.id'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
@@ -41,7 +41,7 @@
                             controlId="billContactId" label="billing.contact.id" parentId="transFees"
                             parentLabel="Transaction Fees"></control-messages>
           <input id="billContactId" class="form-control full-width"  (blur)="onblur()"
-                 formControlName="billContactId" maxlength="5"/>
+                 data-formControlName="billContactId" maxlength="5"/>
         </label>
       </div>
       <div class="col-xs-12 form-group alert alert-info" role="alert">

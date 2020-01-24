@@ -50,7 +50,12 @@ export class RequesterDetailsService {
           '_label_fr': requester_record.fr
         };
       } else {
-        requesterModel.requester = formRecord.controls.requester.value[0]; // todo: need to debug to set proper format ???
+        requesterModel.requester = {
+          '__text': formRecord.controls.requester.value,
+          '_id': formRecord.controls.requester.value,
+          '_label_en': formRecord.controls.requester.value,
+          '_label_fr': formRecord.controls.requester.value
+        };
       }
     } else {
       requesterModel.requester = null;
@@ -64,21 +69,31 @@ export class RequesterDetailsService {
     if (recordIndex > -1) {
       labelText = requesterList[recordIndex].text;
       if (requesterModel.requester) {
-        formRecord.controls.requester.setValue([
-          {
-            'id': requesterList[recordIndex].id,
-            'text': labelText
-          }
-        ]);
+        formRecord.controls.requester.setValue(labelText
+          // {
+          //   'id': requesterList[recordIndex].id,
+          //   'text': labelText,
+          //   'requester_text': labelText
+          // }
+        );
       } else {
         formRecord.controls.requester.setValue(null);
       }
-    } else {
+    } else if (requesterModel.requester._id) {
+      formRecord.controls.requester.setValue(requesterModel.requester.__text
+        // {
+        //   'id': requesterModel.requester._id,
+        //   'text': requesterModel.requester.__text,
+        //   'requester_text': requesterModel.requester.__text
+        // }
+      );
+    } else if (requesterModel.requester) {
       formRecord.controls.requester.setValue([
-          {
-            'id': requesterModel.requester._id,
-            'text': requesterModel.requester.__text
-          }
+        {
+          'id': requesterModel.requester,
+          'text': requesterModel.requester,
+          'requester_text': requesterModel.requester
+        }
       ]);
     }
   }

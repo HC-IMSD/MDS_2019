@@ -36,6 +36,8 @@ export class RequesterRecordService {
     console.log(requesterRecordModel);
     console.log(formRecord);
     requesterRecordModel.id = formRecord.controls.id.value;
+    requesterRecordModel.requester_text = requesterRecordModel.requester._id;
+    requesterRecordModel.requester.requester_text = requesterRecordModel.requester._id;
     // requesterRecordModel.company = formRecord.controls.companyName.value;
     RequesterDetailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls.requesterDetails), requesterRecordModel, userList);
 

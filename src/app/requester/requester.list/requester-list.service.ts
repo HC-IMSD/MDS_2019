@@ -83,12 +83,15 @@ export class RequesterListService extends ListService implements IMasterDetails 
       // this.setRecordId(record, this.getNextIndex());
       record.controls.isNew.setValue(false);
       let requesterModel = this.getRequesterModel();
-      this.requesterFormToData(record, requesterModel, this.userList);
+      // this.requesterFormToData(record, requesterModel, this.userList);
+      const value = record.controls.requesterDetails.value.requester;
+      requesterModel = {'id': this.getCurrentIndex(), 'requester': {'_id': value, '_label_en': value, '_label_fr': value,'__text': value}, 'requester_text': value};
       this.requesterList.push(requesterModel);
       return requesterModel.id;
     } else {
-      let modelRecord = this.getModelRecord(record.controls.id.value);
-      let updatedModel = this.requesterFormToData(record, modelRecord, this.userList);
+      const modelRecord = this.getModelRecord(record.controls.id.value);
+      const updatedModel = this.requesterFormToData(record, modelRecord, this.userList);
+      modelRecord.requester_text = updatedModel.value.requesterDetails.requester;
     }
   }
 

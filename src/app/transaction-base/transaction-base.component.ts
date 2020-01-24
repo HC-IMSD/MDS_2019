@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, Input} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, Input, HostListener, ViewEncapsulation } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 // import {TranslateService} from '@ngx-translate/core';
@@ -16,7 +16,8 @@ import {DatePipe} from '@angular/common';
 @Component({
   selector: 'transaction-base',
   templateUrl: './transaction-base.component.html',
-  styleUrls: ['./transaction-base.component.css']
+  styleUrls: ['./transaction-base.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class TransactionBaseComponent implements OnInit {
@@ -40,7 +41,8 @@ export class TransactionBaseComponent implements OnInit {
  // public transFeeModel = [];
   public transFeeModel = TransactionBaseService.getEmptyTransactionFeeModel();
   public fileServices: FileConversionService;
-  public xslName = GlobalsService.STYLESHEETS_1_0_PREFIX + 'REP_MDS_RT_1_0.xsl';
+  public xslName = GlobalsService.STYLESHEETS_1_0_PREFIX + 'REP_MDS_RT_2_0.xsl';
+
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private dataLoader: TransactionDataLoaderService,
@@ -152,9 +154,9 @@ export class TransactionBaseComponent implements OnInit {
 
   private _updatedAutoFields() {
     this._updatedSavedDate();
-    const version: Array<any> = this.transactionModel.enrol_version.split('.');
-    version[0] = (Number(version[0]) + 1).toString();
-    this.transactionModel.enrol_version = version[0] + '.' + version[1];
+    // const version: Array<any> = this.transactionModel.enrol_version.split('.');
+    // version[0] = (Number(version[0]) + 1).toString();
+    this.transactionModel.enrol_version = this.transactionModel.enrol_version; //version[0] + '.' + version[1];
   }
 
   private _deleteText(dataModel) {
@@ -177,6 +179,10 @@ export class TransactionBaseComponent implements OnInit {
 
   public updateChild() {
     // console.log("Calling updateChild")
+  }
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+      $event.returnValue = true;
   }
 
 }
