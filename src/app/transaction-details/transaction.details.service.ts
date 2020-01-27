@@ -59,7 +59,7 @@ export class TransactionDetailsService {
       hasDdt: [false, []],
       hasDdtMan: ['', ValidationService.checkboxRequiredValidator],
       hasAppInfo: [false, []],
-      isSolicitedInfo: ['', Validators.required]
+      isSolicitedInfo: ['', []]
     });
   }
 
@@ -175,7 +175,7 @@ export class TransactionDetailsService {
    */
   public static getFaxbackDescriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-    return [descArray[8], descArray[9], descArray[11]];
+    return [descArray[8], descArray[9], descArray[11], descArray[12]];
   }
 
   public static getS36394041Descriptions(lang) {
@@ -183,13 +183,13 @@ export class TransactionDetailsService {
     return [descArray[2], descArray[3], descArray[6], descArray[7], descArray[12]];
   }
 
-  public static getRAPVDescriptions(lang) {
+  public static getPAPVDescriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
     return [descArray[4], descArray[10], descArray[11], descArray[12], descArray[13], descArray[26]];
   }
   public static getPSURPVDescriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-    return [descArray[25]];
+    return [descArray[23]];
   }
   public static getRCPVDescriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);

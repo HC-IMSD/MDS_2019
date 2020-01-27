@@ -167,15 +167,15 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
         this.transDescList = TransactionDetailsService.getLicenceDescriptions(this.lang);
       } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[3].id) { // 'B02-20160301-081'
         this.transDescList = TransactionDetailsService.getS36394041Descriptions(this.lang);
-      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[4].id) { // 'B02-20160621-01'
-        this.transDescList = TransactionDetailsService.getRAPVDescriptions(this.lang);
-      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[5].id) { // 'B02-20160621-01'
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[4].id) { // 'B02-20190627-02'
+        this.transDescList = TransactionDetailsService.getPAPVDescriptions(this.lang);
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[5].id) { // 'B02-20160301-079'
         this.transDescList = TransactionDetailsService.getPSURPVDescriptions(this.lang);
-      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[6].id) { // 'B02-20160621-01'
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[6].id) { // 'B02-20190627-04'
         this.transDescList = TransactionDetailsService.getRCPVDescriptions(this.lang);
-      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[7].id) { // 'B02-20160621-01'
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[7].id) { // 'B02-20190627-03'
         this.transDescList = TransactionDetailsService.getPSAPVDescriptions(this.lang);
-      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[8].id) { // 'B02-20160621-01'
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[8].id) { // 'B02-20190627-05'
         this.transDescList = TransactionDetailsService.getREGPVDescriptions(this.lang);
       }
     }
@@ -235,7 +235,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
       } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[3].id) { // 'B02-20160301-081'
         this.transDescList = TransactionDetailsService.getS36394041Descriptions(this.lang);
       } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[4].id) { // 'B02-20160621-01'
-        this.transDescList = TransactionDetailsService.getRAPVDescriptions(this.lang);
+        this.transDescList = TransactionDetailsService.getPAPVDescriptions(this.lang);
       } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[5].id) { // 'B02-20160621-01'
         this.transDescList = TransactionDetailsService.getPSURPVDescriptions(this.lang);
       } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[6].id) { // 'B02-20160621-01'
