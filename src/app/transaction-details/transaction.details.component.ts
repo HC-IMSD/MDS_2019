@@ -419,13 +419,14 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.onblur();
   }
   showRationalRequired() {
-    if ((this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls.descriptionType.value) &&
+    if ((this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls.descriptionType.value &&
+      this.transDetailsFormLocalModel.controls.deviceClass.value ) && (this.rawActTypes[0].id === this.transDetailsFormLocalModel.controls.activityType.value ||
       (this.rawActTypes[2].id === this.transDetailsFormLocalModel.controls.activityType.value && (
         this.transDetailsFormLocalModel.controls.classChange.value ||
         this.transDetailsFormLocalModel.controls.licenceChange.value ||
         this.transDetailsFormLocalModel.controls.deviceChange.value ||
         this.transDetailsFormLocalModel.controls.addChange.value
-      ))) {
+      )))) {
       return true;
     } else {
       this.transDetailsFormLocalModel.controls.rational.setValue(null);
