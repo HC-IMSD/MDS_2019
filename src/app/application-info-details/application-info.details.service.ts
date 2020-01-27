@@ -11,6 +11,10 @@ export class ApplicationInfoDetailsService {
   private static drugTypeList: Array<any> = ApplicationInfoDetailsService.getRawDrugTypeList();
   private static lang = GlobalsService.ENGLISH;
 
+  private static activityLeadList: Array<any> = ApplicationInfoDetailsService.getActivityLeadList();
+  private static activityTypeList: Array<any> = ApplicationInfoDetailsService.getActivityTypeList();
+  private static deviceClassList: Array<any> = ApplicationInfoDetailsService.getDeviceClassList();
+
   constructor() {
   }
 
@@ -242,7 +246,7 @@ export class ApplicationInfoDetailsService {
     } else {
       appInfoModel.licence_application_type = null;
     }
-  //  appInfoModel.regulatory_activity_lead = formRecord.controls.activityLead.value;
+
     if (formRecord.controls.activityLead.value) {
       const latList = ApplicationInfoDetailsService.getActivityLeadList(ApplicationInfoDetailsService.lang);
       const recordIndex2 = ListService.getRecord(latList, formRecord.controls.activityLead.value, 'id');
@@ -257,7 +261,7 @@ export class ApplicationInfoDetailsService {
     } else {
       appInfoModel.regulatory_activity_lead = null;
     }
-    //appInfoModel.regulatory_activity_type = formRecord.controls.activityType.value;
+
     if (formRecord.controls.activityType.value) {
       const latList = ApplicationInfoDetailsService.getActivityTypeList(ApplicationInfoDetailsService.lang);
       const recordIndex2 = ListService.getRecord(latList, formRecord.controls.activityType.value, 'id');
@@ -272,7 +276,21 @@ export class ApplicationInfoDetailsService {
     } else {
       appInfoModel.regulatory_activity_type = null;
     }
-    appInfoModel.device_class = formRecord.controls.deviceClass.value;
+
+    if (formRecord.controls.deviceClass.value) {
+      const latList = ApplicationInfoDetailsService.getDeviceClassList(ApplicationInfoDetailsService.lang);
+      const recordIndex2 = ListService.getRecord(latList, formRecord.controls.deviceClass.value, 'id');
+      if (recordIndex2 > -1) {
+        appInfoModel.device_class = {
+          '__text': latList[recordIndex2].text,
+          '_id': latList[recordIndex2].id,
+          '_label_en': latList[recordIndex2].en,
+          '_label_fr': latList[recordIndex2].fr
+        };
+      }
+    } else {
+      appInfoModel.device_class = null;
+    }
     appInfoModel.is_ivdd = formRecord.controls.isIvdd.value;
     appInfoModel.is_home_use = formRecord.controls.isHomeUse.value;
     appInfoModel.is_care_point_use = formRecord.controls.isCarePoint.value;
@@ -331,9 +349,39 @@ export class ApplicationInfoDetailsService {
     } else {
       formRecord.controls.licenceAppType.setValue(null);
     }
-    formRecord.controls.activityLead.setValue(appInfoModel.regulatory_activity_lead);
-    formRecord.controls.activityType.setValue(appInfoModel.regulatory_activity_type);
-    formRecord.controls.deviceClass.setValue(appInfoModel.device_class);
+  //  formRecord.controls.activityLead.setValue(appInfoModel.regulatory_activity_lead);
+    if (appInfoModel.regulatory_activity_lead) {
+      const recordIndex2 = ListService.getRecord(this.activityLeadList, appInfoModel.regulatory_activity_lead._id, 'id');
+      if (recordIndex2 > -1) {
+        formRecord.controls.activityLead.setValue(this.activityLeadList[recordIndex2].id);
+      } else {
+        formRecord.controls.activityLead.setValue(null);
+      }
+    } else {
+      formRecord.controls.activityLead.setValue(null);
+    }
+   //formRecord.controls.activityType.setValue(appInfoModel.regulatory_activity_type);
+    if (appInfoModel.regulatory_activity_type) {
+      const recordIndex2 = ListService.getRecord(this.activityTypeList, appInfoModel.regulatory_activity_type._id, 'id');
+      if (recordIndex2 > -1) {
+        formRecord.controls.activityType.setValue(this.activityTypeList[recordIndex2].id);
+      } else {
+        formRecord.controls.activityType.setValue(null);
+      }
+    } else {
+      formRecord.controls.activityType.setValue(null);
+    }
+   // formRecord.controls.deviceClass.setValue(appInfoModel.device_class);
+    if (appInfoModel.device_class) {
+      const recordIndex2 = ListService.getRecord(this.deviceClassList, appInfoModel.device_class._id, 'id');
+      if (recordIndex2 > -1) {
+        formRecord.controls.deviceClass.setValue(this.deviceClassList[recordIndex2].id);
+      } else {
+        formRecord.controls.deviceClass.setValue(null);
+      }
+    } else {
+      formRecord.controls.deviceClass.setValue(null);
+    }
     formRecord.controls.isIvdd.setValue(appInfoModel.is_ivdd);
     formRecord.controls.isHomeUse.setValue(appInfoModel.is_home_use);
     formRecord.controls.isCarePoint.setValue(appInfoModel.is_care_point_use);
