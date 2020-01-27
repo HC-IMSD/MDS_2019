@@ -54,6 +54,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   private showVersion: boolean;
   public showRationalRequired: boolean;
   public showProposeIndication: boolean;
+  public showPeriod: boolean;
 
   constructor(private _fb: FormBuilder,
               private http: HttpClient, private translate: TranslateService,
@@ -74,6 +75,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     if (!this.transDetailsFormLocalModel) {
       this.transDetailsFormLocalModel = this.detailsService.getReactiveModel(this._fb);
     }
+    this.showPeriod = false;
   }
 
   async ngOnInit() {
@@ -84,7 +86,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
   ngAfterViewInit() {
     this.msgList.changes.subscribe(errorObjs => {
-      let temp = [];
+      const temp = [];
       this._updateErrorList(errorObjs);
     });
     this.msgList.notifyOnChanges();
@@ -92,7 +94,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   private _updateErrorList(errorObjs) {
-    let temp = [];
+    const temp = [];
     if (errorObjs) {
       errorObjs.forEach(
         error => {
@@ -121,7 +123,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     if (changes['showErrors']) {
 
       this.showFieldErrors = changes['showErrors'].currentValue;
-      let temp = [];
+      const temp = [];
       if (this.msgList) {
         this.msgList.forEach(item => {
           temp.push(item);
@@ -302,7 +304,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
       || descValue === this.rawDescTypes[10].id || descValue === this.rawDescTypes[11].id || descValue === this.rawDescTypes[13].id ||
       descValue === this.rawDescTypes[6].id || descValue === this.rawDescTypes[7].id || descValue === this.rawDescTypes[16].id
       || descValue === this.rawDescTypes[19].id || descValue === this.rawDescTypes[20].id || descValue === this.rawDescTypes[21].id
-      || descValue === this.rawDescTypes[22].id || descValue === this.rawDescTypes[23].id || descValue === this.rawDescTypes[24].id
+      || descValue === this.rawDescTypes[22].id || descValue === this.rawDescTypes[24].id
       || descValue === this.rawDescTypes[25].id) ? true : false;
     this.showVersion = (descValue === this.rawDescTypes[19].id || descValue === this.rawDescTypes[20].id) ? true : false;
     this.showRationalRequired = (
@@ -315,6 +317,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
             this.transDetailsFormLocalModel.controls.addChange.value
           ))
         )) ? true : false;
+    this.showPeriod = descValue === this.rawDescTypes[23].id ? true : false;
   }
 
   private _resetReasonValues() {
@@ -426,7 +429,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
   private _resetReasonFlag() {
     this.transDetailsFormLocalModel.controls.amendReason.setValue(null);
-    for (let reason of this.reasonResults){
+    for (const reason of this.reasonResults){
       if (reason) {
         this.transDetailsFormLocalModel.controls.amendReason.setValue('reasonFilled');
         break;

@@ -180,7 +180,7 @@ export class TransactionDetailsService {
 
   public static getS36394041Descriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-    return [descArray[2], descArray[3], descArray[6], descArray[7], descArray[12]];
+    return [descArray[2], descArray[3], descArray[6], descArray[7], descArray[12], descArray[21], descArray[24], descArray[25]];
   }
 
   public static getPAPVDescriptions(lang) {
