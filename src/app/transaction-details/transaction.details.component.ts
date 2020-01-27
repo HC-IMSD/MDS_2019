@@ -52,8 +52,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   public rawActTypes;
   public rawDescTypes;
   private showVersion: boolean;
-  public showRationalRequired: boolean;
-  public showProposeIndication: boolean;
+  // public showRationalRequired: boolean;
+  // public showProposeIndication: boolean;
   public showPeriod: boolean;
 
   constructor(private _fb: FormBuilder,
@@ -307,16 +307,16 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
       || descValue === this.rawDescTypes[22].id || descValue === this.rawDescTypes[24].id
       || descValue === this.rawDescTypes[25].id) ? true : false;
     this.showVersion = (descValue === this.rawDescTypes[19].id || descValue === this.rawDescTypes[20].id) ? true : false;
-    this.showRationalRequired = (
-      (this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls.descriptionType.value) &&
-      (this.rawActTypes[0].id === this.transDetailsFormLocalModel.controls.activityType.value
-        || (this.rawActTypes[2].id === this.transDetailsFormLocalModel.controls.activityType.value && (
-            this.transDetailsFormLocalModel.controls.classChange.value ||
-            this.transDetailsFormLocalModel.controls.licenceChange.value ||
-            this.transDetailsFormLocalModel.controls.deviceChange.value ||
-            this.transDetailsFormLocalModel.controls.addChange.value
-          ))
-        )) ? true : false;
+    // this.showRationalRequired = (
+    //   (this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls.descriptionType.value) &&
+    //   (this.rawActTypes[0].id === this.transDetailsFormLocalModel.controls.activityType.value
+    //     || (this.rawActTypes[2].id === this.transDetailsFormLocalModel.controls.activityType.value && (
+    //         this.transDetailsFormLocalModel.controls.classChange.value ||
+    //         this.transDetailsFormLocalModel.controls.licenceChange.value ||
+    //         this.transDetailsFormLocalModel.controls.deviceChange.value ||
+    //         this.transDetailsFormLocalModel.controls.addChange.value
+    //       ))
+    //     )) ? true : false;
     this.showPeriod = descValue === this.rawDescTypes[23].id ? true : false;
   }
 
@@ -402,21 +402,48 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
       this.reasonResults[int] = false;
       this._resetReasonFlag();
     }
-    this.showRationalRequired = (
-      (this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls.descriptionType.value) &&
+    // this.showRationalRequired = (
+    //   (this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls.descriptionType.value) &&
+    //   (this.rawActTypes[2].id === this.transDetailsFormLocalModel.controls.activityType.value && (
+    //       this.transDetailsFormLocalModel.controls.classChange.value ||
+    //       this.transDetailsFormLocalModel.controls.licenceChange.value ||
+    //       this.transDetailsFormLocalModel.controls.deviceChange.value ||
+    //       this.transDetailsFormLocalModel.controls.addChange.value
+    //     ))
+    //   ) ? true : false;
+    // this.showProposeIndication =  (this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls.descriptionType.value &&
+    //   this.rawActTypes[2].id === this.transDetailsFormLocalModel.controls.activityType.value &&
+    //   this.devClassList[0].id === this.transDetailsFormLocalModel.controls.deviceClass.value &&
+    //   this.transDetailsFormLocalModel.controls.purposeChange.value
+    //   ) ? true : false;
+    this.onblur();
+  }
+  showRationalRequired() {
+    if ((this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls.descriptionType.value) &&
       (this.rawActTypes[2].id === this.transDetailsFormLocalModel.controls.activityType.value && (
-          this.transDetailsFormLocalModel.controls.classChange.value ||
-          this.transDetailsFormLocalModel.controls.licenceChange.value ||
-          this.transDetailsFormLocalModel.controls.deviceChange.value ||
-          this.transDetailsFormLocalModel.controls.addChange.value
-        ))
-      ) ? true : false;
-    this.showProposeIndication =  (this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls.descriptionType.value &&
+        this.transDetailsFormLocalModel.controls.classChange.value ||
+        this.transDetailsFormLocalModel.controls.licenceChange.value ||
+        this.transDetailsFormLocalModel.controls.deviceChange.value ||
+        this.transDetailsFormLocalModel.controls.addChange.value
+      ))) {
+      return true;
+    } else {
+      this.transDetailsFormLocalModel.controls.rational.setValue(null);
+      this.transDetailsFormLocalModel.controls.rational.markAsUntouched();
+    }
+    return false;
+  }
+  showProposeIndication() {
+    if (this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls.descriptionType.value &&
       this.rawActTypes[2].id === this.transDetailsFormLocalModel.controls.activityType.value &&
       this.devClassList[0].id === this.transDetailsFormLocalModel.controls.deviceClass.value &&
-      this.transDetailsFormLocalModel.controls.purposeChange.value
-      ) ? true : false;
-    this.onblur();
+      this.transDetailsFormLocalModel.controls.purposeChange.value) {
+      return true;
+    } else {
+      this.transDetailsFormLocalModel.controls.proposedIndication.setValue(null);
+      this.transDetailsFormLocalModel.controls.proposedIndication.markAsUntouched();
+    }
+    return false;
   }
 
   licenceNumOnblur() {
