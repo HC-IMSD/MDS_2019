@@ -230,8 +230,8 @@ export class TransactionDetailsService {
     return  [
       {
         id: 'B14-20160301-08',
-        en: 'Medical Device Bureau',
-        fr: 'Medical Device Bureau'
+        en: 'Medical Device Directorate',
+        fr: 'Medical Device Directorate'
       },
       {
         id: 'B14-20160301-10',
@@ -638,7 +638,7 @@ export class TransactionDetailsService {
     // formRecord.controls.deviceClass.setValue(transactionModel.device_class);
     const dcs = TransactionDetailsService._convertListText(TransactionDetailsService.getDeviceClassList(), lang);
     if (transactionModel.device_class) {
-      const recordIndex = ListService.getRecord(descriptions, transactionModel.device_class._id, 'id');
+      const recordIndex = ListService.getRecord(dcs, transactionModel.device_class._id, 'id');
       if (recordIndex > -1) {
         formRecord.controls.deviceClass.setValue(dcs[recordIndex].id);
       } else {
