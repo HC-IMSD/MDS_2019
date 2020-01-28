@@ -147,7 +147,10 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
     this.errorList = new Array();
     this.errorList = this.parentErrorList.concat(this.childErrorList);
     console.log('requester record - updateErrorList: ' + this.errorList);
-    // this._emitErrors();
+    if ( this.errorList[0].currentError) {
+      this.showErrSummary = true;
+    }
+    this._emitErrors();
     // this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -183,6 +186,7 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
       } else {
         this.requesterRecordModel.controls.id.setValue(temp);
         RequesterRecordService.mapFormModelToDataModel(this.requesterRecordModel, this.requesterModel, this.userList);
+        this._emitErrors();
       }
     }
   }

@@ -61,7 +61,7 @@ export class RequesterDetailsComponent implements OnInit, OnChanges, AfterViewIn
 
   private _updateErrorList(errorObjs) {
     let temp = [];
-    if (errorObjs && this.newRecordIndicator) {
+    if (errorObjs) {
       errorObjs.forEach(
         error => {
           temp.push(error);
@@ -128,7 +128,18 @@ export class RequesterDetailsComponent implements OnInit, OnChanges, AfterViewIn
     // if (rec) {
     //   this.requesterFormLocalModel.controls.requester.setValue([rec]);
     // }
-    this.saveRecord.emit((this.requesterFormLocalModel));
+    if ( this.requesterFormLocalModel.invalid) {
+      let temp = [];
+      if (this.msgList) {
+        this.msgList.forEach(item => {
+          temp.push(item);
+          // console.log(item);
+        });
+      }
+      this.errorList.emit(temp);
+    } else {
+      this.saveRecord.emit((this.requesterFormLocalModel));
+    }
   }
   showRequesterError() {
     const hasRequester = document.querySelector('#requester');
