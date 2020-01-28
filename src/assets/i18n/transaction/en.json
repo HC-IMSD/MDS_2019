@@ -31,6 +31,7 @@
   "is.solicited": "Is this solicited information",
   "requester.title": "Requester of solicited information",
   "add.requester": "Add requester record",
+  "save.requester": "Save record",
   "delete.requester": "Delete record",
   "fees": "Fees",
   "are.fees": "Are new fees or revised fees associated with this transactions?",
