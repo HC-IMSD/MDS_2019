@@ -54,6 +54,7 @@ export class TransactionDetailsService {
       licenceName: ['', Validators.required],
       requestVersion: ['', Validators.required],
       requestDate: ['', Validators.required],
+      requestTo: ['', Validators.required],
       briefDesc: ['', Validators.required],
       transDescription: [null, []],
       hasDdt: [false, []],
@@ -566,6 +567,7 @@ export class TransactionDetailsService {
     transactionModel.proposed_licence_name = formRecord.controls.licenceName.value;
     transactionModel.request_date = formRecord.controls.requestVersion.value;
     transactionModel.request_date = formRecord.controls.requestDate.value;
+    transactionModel.request_to = formRecord.controls.requestTo.value;
     transactionModel.brief_description = formRecord.controls.briefDesc.value;
     transactionModel.transaction_description = TransactionDetailsService._setConcatDetails(transactionModel);
     if (formRecord.controls.deviceChange.value ||
@@ -689,6 +691,7 @@ export class TransactionDetailsService {
     formRecord.controls.licenceName.setValue(transactionModel.proposed_licence_name);
     formRecord.controls.requestVersion.setValue(transactionModel.request_version);
     formRecord.controls.requestDate.setValue(transactionModel.request_date);
+    formRecord.controls.requestTo.setValue(transactionModel.request_to);
     formRecord.controls.briefDesc.setValue(transactionModel.brief_description);
     formRecord.controls.transDescription.setValue(transactionModel.transaction_description);
     const hasddt = transactionModel.has_ddt === GlobalsService.YES ? true : false;

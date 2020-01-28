@@ -365,7 +365,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.transDetailsFormLocalModel.controls.rational.markAsUntouched();
     this.transDetailsFormLocalModel.controls.proposedIndication.setValue(null);
     this.transDetailsFormLocalModel.controls.proposedIndication.markAsUntouched();
-
+    this.transDetailsFormLocalModel.controls.requestTo.setValue(null);
+    this.transDetailsFormLocalModel.controls.requestTo.markAsUntouched();
   }
 
   reasonOnblur(int) {
