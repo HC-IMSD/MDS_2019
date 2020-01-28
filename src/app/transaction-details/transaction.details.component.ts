@@ -215,15 +215,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
       this.actTypeList = [];
       this.transDescList = [];
     }
-    this.transDetailsFormLocalModel.controls.activityType.setValue(null);
-    this.transDetailsFormLocalModel.controls.activityType.markAsUntouched();
-    this.transDetailsFormLocalModel.controls.descriptionType.setValue(null);
-    this.transDetailsFormLocalModel.controls.descriptionType.markAsUntouched();
-    this.transDetailsFormLocalModel.controls.deviceClass.setValue(null);
-    this.transDetailsFormLocalModel.controls.deviceClass.markAsUntouched();
-    this._resetReasonValues();
-    this._setDescFieldFlags(this.transDetailsFormLocalModel.controls.descriptionType.value);
-    this.onblur();
+    this._cleanActivityType();
   }
 
   activityTypeOnblur() {
@@ -247,15 +239,10 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
       } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[8].id) { // 'B02-20160621-01'
         this.transDescList = TransactionDetailsService.getREGPVDescriptions(this.lang);
       }
-      this.transDetailsFormLocalModel.controls.descriptionType.setValue(null);
-      this.transDetailsFormLocalModel.controls.descriptionType.markAsUntouched();
-      this.transDetailsFormLocalModel.controls.deviceClass.setValue(null);
-      this.transDetailsFormLocalModel.controls.deviceClass.markAsUntouched();
-      this._resetReasonValues();
-      this._setDescFieldFlags(this.transDetailsFormLocalModel.controls.descriptionType.value);
     } else {
       this.transDescList = [];
     }
+    this._cleanActivityDescription();
     this.onblur();
   }
 
@@ -266,7 +253,25 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this._resetReasonValues();
     this.onblur();
   }
-
+  private _cleanActivityType() {
+    this.transDetailsFormLocalModel.controls.activityType.setValue(null);
+    this.transDetailsFormLocalModel.controls.activityType.markAsUntouched();
+    this._cleanActivityDescription();
+  }
+  private _cleanActivityDescription() {
+    this.transDetailsFormLocalModel.controls.descriptionType.setValue(null);
+    this.transDetailsFormLocalModel.controls.descriptionType.markAsUntouched();
+    this._setDescFieldFlags(this.transDetailsFormLocalModel.controls.descriptionType.value);
+    this._cleanDeviceClass();
+    this._cleanOthers();
+  }
+  private _cleanDeviceClass() {
+    this.transDetailsFormLocalModel.controls.deviceClass.setValue(null);
+    this.transDetailsFormLocalModel.controls.deviceClass.markAsUntouched();
+  }
+  private _cleanOthers() {
+    this._resetReasonValues();
+  }
   isSolicitedOnblur() {
     this.isSolicitedFlag.emit(this.transDetailsFormLocalModel.controls.isSolicitedInfo.value === GlobalsService.YES);
     this.onblur();
@@ -356,6 +361,11 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.transDetailsFormLocalModel.controls.requestDate.markAsUntouched();
     this.transDetailsFormLocalModel.controls.briefDesc.setValue(null);
     this.transDetailsFormLocalModel.controls.briefDesc.markAsUntouched();
+    this.transDetailsFormLocalModel.controls.rational.setValue(null);
+    this.transDetailsFormLocalModel.controls.rational.markAsUntouched();
+    this.transDetailsFormLocalModel.controls.proposedIndication.setValue(null);
+    this.transDetailsFormLocalModel.controls.proposedIndication.markAsUntouched();
+
   }
 
   reasonOnblur(int) {

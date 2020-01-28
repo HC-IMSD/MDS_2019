@@ -21,7 +21,7 @@ export class TransactionDetailsService {
   public getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
-      routingId: ['', []],
+      // routingId: ['', []],
       dossierId: ['', [Validators.required, ValidationService.dossierIdValidator]],
       dossierType: ['Medical device', []],
       manuCompanyId: ['', [Validators.required, ValidationService.companyIdValidator]],
@@ -458,7 +458,7 @@ export class TransactionDetailsService {
     const descArray = TransactionDetailsService.getTransDescList(TransactionDetailsService.lang);
     const dcArray = TransactionDetailsService._convertListText(
             TransactionDetailsService.getDeviceClassList(), TransactionDetailsService.lang);
-    transactionModel.routing_id = formRecord.controls.routingId.value;
+    // transactionModel.routing_id = formRecord.controls.routingId.value;
     transactionModel.dossier_id = formRecord.controls.dossierId.value;
     transactionModel.dossier_type = {
       '__text': 'Medical Device',
@@ -582,7 +582,7 @@ export class TransactionDetailsService {
   }
 
   public static mapDataModelToFormModel(transactionModel, formRecord: FormGroup, lang) {
-    formRecord.controls.routingId.setValue(transactionModel.routing_id);
+    // formRecord.controls.routingId.setValue(transactionModel.routing_id);
     formRecord.controls.dossierId.setValue(transactionModel.dossier_id);
     if (transactionModel.company_id) {
       formRecord.controls.manuCompanyId.setValue(transactionModel.company_id.slice(1));
