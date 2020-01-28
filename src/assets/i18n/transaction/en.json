@@ -22,7 +22,7 @@
   "meeting.id": "Meeting Identifier",
   "device.name": "Name of Device, as it appears on the label",
   "licence.name": "Proposed licence name",
-  "include.ddt": "Include device details table in transaction specifying the proposed device names compared to the original device names",
+  "include.ddt": "Include the Device Details spreadsheet with the corresponding ‘device name change’, sheet completed, with this submission.",
   "request.version": "Version",
   "request.date": "Date of Request (YYYY-MM-DD)",
   "brief.descr": "Brief Description",
