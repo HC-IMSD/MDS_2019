@@ -751,7 +751,7 @@ export class TransactionDetailsService {
       //   }
       // }
       if (transactionModel.request_to) {
-        concatText += transactionModel.request_date + ' to ' + transactionModel.request_to;
+        concatText += TransactionDetailsService._convertDate(transactionModel.request_date) + ' to ' + TransactionDetailsService._convertDate(transactionModel.request_to);
       } else if (transactionModel.request_date) {
         rDate = TransactionDetailsService._convertDate(transactionModel.request_date);
         concatText += ' dated ' + rDate;
