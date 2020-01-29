@@ -137,8 +137,8 @@ export class RequesterDetailsComponent implements OnInit, OnChanges, AfterViewIn
         });
       }
       this.errorList.emit(temp);
-    } else {
-      this.saveRecord.emit((this.requesterFormLocalModel));
+    // } else {
+    //   this.saveRecord.emit((this.requesterFormLocalModel));
     }
   }
   showRequesterError() {
