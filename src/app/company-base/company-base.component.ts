@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, Input, HostListener} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, Input, HostListener, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 // import {TranslateService} from '@ngx-translate/core';
@@ -6,6 +6,7 @@ import {CompanyBaseService} from './company-base.service';
 import {FileConversionService} from '../filereader/file-io/file-conversion.service';
 import {ConvertResults} from '../filereader/file-io/convert-results';
 import {GlobalsService} from '../globals/globals.service';
+import {ContactListComponent} from '../contact/contact.list/contact.list.component';
 // import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {NgbTabset} from '@ng-bootstrap/ng-bootstrap';
@@ -17,7 +18,8 @@ import {DatePipe} from '@angular/common';
 @Component({
   selector: 'company-base',
   templateUrl: './company-base.component.html',
-  styleUrls: ['./company-base.component.css']
+  styleUrls: ['./company-base.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class CompanyBaseComponent implements OnInit {
@@ -25,6 +27,7 @@ export class CompanyBaseComponent implements OnInit {
   @Input() isInternal;
   @Input() lang;
   @ViewChild('tabs', {static: true}) private tabs: NgbTabset;
+  @ViewChild(ContactListComponent, {static: true}) companyContacts: ContactListComponent;
 
   private _genInfoErrors = [];
   private _addressErrors = [];
@@ -49,10 +52,11 @@ export class CompanyBaseComponent implements OnInit {
   public contactModel = [];
   public adminChangesModel = CompanyBaseService.getEmptyAdminChangesModel();
   public primContactModel = CompanyBaseService.getEmptyPrimarycontactModel();
+  public helpIndex = CompanyBaseService.getHelpTextIndex();
   public foo = '';
   public fileServices: FileConversionService;
   public saveXmlLabel = 'save.draft';
-  public xslName = GlobalsService.STYLESHEETS_1_0_PREFIX + 'REP_MDS_CO_1_0.xsl';
+  public xslName = 'REP_MDS_CO_2_0.xsl';
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private dataLoader: CompanyDataLoaderService,
               private http: HttpClient, private translate: TranslateService) {
@@ -144,23 +148,32 @@ export class CompanyBaseComponent implements OnInit {
     if (this.errorList && this.errorList.length > 0) {
       this.showErrors = true;
     } else {
-      this._updatedAutoFields();
-      if (this.isInternalSite) {
-        this.genInfoModel.status = CompanyBaseService.setFinalStatus();
-      }
-      const result = {
-        'DEVICE_COMPANY_ENROL': {
-          'general_information': this.genInfoModel,
-          'address': this.addressModel,
-          'contacts': {},
-          'primary_contact': this.primContactModel,
-          'administrative_changes': this.adminChangesModel
+      if (this.companyContacts.contactListForm.pristine) { // .isPristine
+        this._updatedAutoFields();
+        if (this.isInternalSite) {
+          this.genInfoModel.status = CompanyBaseService.setFinalStatus();
         }
-      };
-      result.DEVICE_COMPANY_ENROL.contacts =
-        (this.contactModel && (this.contactModel).length > 0) ? {contact: this.contactModel} : {};
-      const fileName = this._buildfileName();
-      this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
+        const result = {
+          'DEVICE_COMPANY_ENROL': {
+            'general_information': this.genInfoModel,
+            'address': this.addressModel,
+            'contacts': {},
+            'primary_contact': this.primContactModel,
+            'administrative_changes': this.adminChangesModel
+          }
+        };
+        result.DEVICE_COMPANY_ENROL.contacts =
+          (this.contactModel && (this.contactModel).length > 0) ? {contact: this.contactModel} : {};
+        const fileName = this._buildfileName();
+        this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
+      } else {
+        if (this.lang === GlobalsService.ENGLISH) {
+          alert('Please save the unsaved input data before generating XML file.');
+        } else {
+          alert('Veuillez sauvegarder les données d\'entrée non enregistrées avant de générer le fichier XML.');
+        }
+      }
+
     }
   }
 
