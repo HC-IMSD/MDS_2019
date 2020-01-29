@@ -25,6 +25,8 @@
   "include.ddt": "Include the Device Details spreadsheet with the corresponding ‘device name change’, sheet completed, with this submission.",
   "request.version": "Version",
   "request.date": "Date of Request (YYYY-MM-DD)",
+  "request.from": "Start Date (YYYY-MM-DD)",
+  "request.to": "End Date (YYYY-MM-DD)",
   "brief.descr": "Brief Description",
   "has.ddt": "Device details table included?",
   "has.app.info": "Application information XML included in transaction?",

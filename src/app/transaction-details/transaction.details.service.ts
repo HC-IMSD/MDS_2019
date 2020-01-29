@@ -104,6 +104,7 @@ export class TransactionDetailsService {
         proposed_licence_name: '',
         request_version: '',
         request_date: '',
+        request_to: '',
         brief_description: '',
         transaction_description: '',
         has_ddt: '',
@@ -749,7 +750,9 @@ export class TransactionDetailsService {
       //     concatText += ', and name of device: ' + transactionModel.deviceName;
       //   }
       // }
-      if (transactionModel.request_date) {
+      if (transactionModel.request_to) {
+        concatText += transactionModel.request_date + ' to ' + transactionModel.request_to;
+      } else if (transactionModel.request_date) {
         rDate = TransactionDetailsService._convertDate(transactionModel.request_date);
         concatText += ' dated ' + rDate;
       }

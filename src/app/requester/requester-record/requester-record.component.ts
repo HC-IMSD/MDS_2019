@@ -147,7 +147,7 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
     this.errorList = new Array();
     this.errorList = this.parentErrorList.concat(this.childErrorList);
     console.log('requester record - updateErrorList: ' + this.errorList);
-    if ( this.errorList[0].currentError) {
+    if ( this.errorList[0] && this.errorList[0].currentError) {
       this.showErrSummary = true;
     }
     this._emitErrors();
