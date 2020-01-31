@@ -532,18 +532,39 @@
                formControlName="licenceNum" maxlength="6" data-ng-reflect-maxlength="6"/>
       </label>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="!isHasDdtMandatory()">
       <div class="col-sm-12">
-        <div class="checkbox" [ngClass]="{'required' : isHasDdtMandatory() }">
-          <label for="hasDdt1">
+        <div class="checkbox">
+          <label for="hasDdt">
             <input type="checkbox" (blur)="onblur()"
-                   formControlName="hasDdt" [required]="isHasDdtMandatory()"
-                   id="hasDdt1" name="hasDdt1"/>
-            <strong>{{ 'has.ddt'|translate }}</strong>
-            <strong class="required" *ngIf="isHasDdtMandatory()">{{ 'commmon.required.bracket'|translate }}</strong>
+                   formControlName="hasDdt"
+                   id="hasDdt" name="hasDdt"/>
+            <strong>{{'has.ddt'|translate}}</strong>
             <sup id="tr5-rf">
-              <a class="fn-lnk" href="#tr5"><span class="wb-inv">{{ 'instruction'|translate }}</span>5</a>
+              <a class="fn-lnk" href="#tr5"><span class="wb-inv">{{'instruction'|translate}}</span>5</a>
             </sup>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="isHasDdtMandatory()">
+      <div class="col-sm-12">
+        <div class="checkbox">
+          <label for="hasDdtMan">
+            <input type="checkbox" (blur)="onblur()"
+                   formControlName="hasDdtMan"
+                   id="hasDdtMan" name="hasDdtMan"/>
+            <strong>{{'has.ddt'|translate}}</strong>
+            <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+            <sup id="tr5-rf">
+              <a class="fn-lnk" href="#tr5"><span class="wb-inv">{{'instruction'|translate}}</span>5</a>
+            </sup>
+            <control-messages *ngIf="transDetailsFormLocalModel.controls.hasDdtMan.invalid"
+                              [showError]="showFieldErrors"
+                              [control]="transDetailsFormLocalModel.controls.hasDdtMan"
+                              controlId="hasDdtMan" label="has.ddt"
+                              parentId="transDetails"
+                              parentLabel="Transaction Information"></control-messages>
           </label>
         </div>
       </div>
