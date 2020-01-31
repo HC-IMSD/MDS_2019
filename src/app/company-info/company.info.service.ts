@@ -33,7 +33,7 @@ export class CompanyInfoService {
       addressChange: [false, []],
       facilityChange: [false, []],
       otherChange: [false, []],
-      otherDetails: '',
+      otherDetails: ['', [Validators.required]],
       areLicensesTransfered: ['', [Validators.required]]
     });
   }

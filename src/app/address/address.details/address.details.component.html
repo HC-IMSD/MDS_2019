@@ -10,8 +10,20 @@
                             [control]="addressFormLocalModel.controls.companyName"
                             controlId="companyName" label="company.name.full" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
-          <input id="companyName" class="form-control full-width" (blur)="onblur()"
+          <input name="companyName" id="companyName" class="form-control full-width" (blur)="onblur()"
                  formControlName="companyName" maxlength="80"/>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-6" >
+        <label for="businessNum">
+          <span class="field-name">{{'business.num' |translate}}</span>
+          <sup id="co3-rf">
+            <a class="fn-lnk" href="#co3"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.busNumInx}}</a>
+          </sup>
+          <input name="businessNum" id="businessNum" class="form-control full-width"
+                 formControlName="businessNum" (blur)="onblur()"  maxlength="9"/>
         </label>
       </div>
     </div>
@@ -25,7 +37,7 @@
                             [control]="addressFormLocalModel.controls.address"
                             controlId="address" label="addressDetails.street" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
-          <input id="address" class="form-control full-width" (blur)="onblur()"
+          <input name="address" id="address" class="form-control full-width" (blur)="onblur()"
             formControlName="address" maxlength="120"/>
         </label>
       </div>
@@ -40,7 +52,7 @@
                             [control]="addressFormLocalModel.controls.city"
                             controlId="city" label="addressDetails.city" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
-          <input id="city" class="form-control full-width"  (blur)="onblur()"
+          <input name="city" id="city" class="form-control full-width"  (blur)="onblur()"
                  formControlName="city" maxlength="35"/>
         </label>
       </div>
@@ -86,7 +98,7 @@
       <div *ngIf="showProvText" class="form-group col-xs-12 col-sm-6">
         <label for="provText" class="full-width">
           <span class="field-name">{{'addressDetails.provState'|translate}}</span>
-          <input id="provText" class="form-control full-width" (blur)="onblur()"
+          <input name="provText" id="provText" class="form-control full-width" (blur)="onblur()"
                  formControlName="provText" maxlength="40"/>
         <!--  <control-messages *ngIf="addressFormLocalModel.controls.provText.invalid"
                             [showError]="showFieldErrors"
@@ -104,7 +116,7 @@
                             [control]="addressFormLocalModel.controls.postal"
                             controlId="postal" label="{{postalLabel}}" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
-          <input id="postal" class="form-control" formControlName="postal"  (blur)="onblur()"
+          <input name="postal" id="postal" class="form-control" formControlName="postal"  (blur)="onblur()"
                  maxlength="10" />
         </label>
     </div>

@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
-  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef
+  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
@@ -11,7 +11,8 @@ import {isArray} from 'util';
 
 @Component({
   selector: 'com-gen-info',
-  templateUrl: 'company.info.component.html'
+  templateUrl: 'company.info.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 
 /**
@@ -26,6 +27,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() showErrors: boolean;
  // @Input() inComplete: boolean;
   @Input() isInternal: boolean;
+  @Input() helpTextSequences;
   @Output() errorList = new EventEmitter(true);
   @Output() showAdminChanges = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;

@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
-  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef
+  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {ControlMessagesComponent} from '../../error-msg/control-messages.component/control-messages.component';
@@ -10,7 +10,8 @@ import {noUndefined} from '@angular/compiler/src/util';
 
 @Component({
   selector: 'address-details',
-  templateUrl: 'address.details.component.html'
+  templateUrl: 'address.details.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 
 /**
@@ -28,6 +29,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Input() stateList: Array<any>;
   @Input() addressModel;
   @Input() lang;
+  @Input() helpTextSequences;
   @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 

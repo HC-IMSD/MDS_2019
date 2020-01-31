@@ -2,9 +2,10 @@
   <h4>{{'heading.contactDetails'| translate}}&nbsp;{{sequenceNum}}</h4>
   <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="heading.contactRecord"
-                 [headingLevel]="headingLevel" label="Company Contact Record(s)" compId="contactRec"></error-summary>
+                 [headingLevel]="headingLevel" label="Company Representative Record(s)" compId="contactRec"></error-summary>
   <contact-details [showErrors]="showErrors" [isInternal]="isInternal" [lang]="lang"
                    [detailsChanged]="updateChild" [group]="contactRecordModel.controls.contactDetails"
+                   [helpTextSequences]="helpTextSequences"
                    (errorList)="updateErrorList($event)"></contact-details>
 
   <div class="row">
