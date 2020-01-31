@@ -55,7 +55,7 @@ export class RequesterDetailsComponent implements OnInit, OnChanges, AfterViewIn
       this._updateErrorList(errorObjs);
     });
     this.msgList.notifyOnChanges();
-    this.cdr.detectChanges();
+    // this.cdr.detectChanges();
 
   }
 

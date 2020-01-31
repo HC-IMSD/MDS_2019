@@ -50,7 +50,7 @@ export class RequesterRecordService {
 
 
   public static mapDataModelFormModel(requesterRecordModel, formRecord: FormGroup, userList) {
-    formRecord.controls.id.setValue(requesterRecordModel.id);
+    formRecord.controls.id.setValue(Number(requesterRecordModel.id));
     formRecord.controls.isNew.setValue(false);
     // formRecord.controls.companyName.setValue(requesterRecordModel.company);
     RequesterDetailsService.mapDataModelToFormModel(requesterRecordModel, <FormGroup>formRecord.controls.requesterDetails, userList);

@@ -12,7 +12,7 @@ import {TransactionDataLoaderService} from '../data-loader/transaction-data-load
 import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
 import {DatePipe} from '@angular/common';
-import { timeout } from 'rxjs/operators';
+// import { timeout } from 'rxjs/operators';
 import {RequesterListComponent} from '../requester/requester.list/requester.list.component';
 
 @Component({
@@ -105,7 +105,8 @@ export class TransactionBaseComponent implements OnInit {
     if (!this.requesterListChild || this.requesterListChild && this.requesterListChild.requesterListForm.pristine && this.requesterListChild.requesterListForm.valid ) {
       this._updatedAutoFields();
       this.showErrors = true;
-      setTimeout(() => this._saveXML(), 1000);
+      this._saveXML();
+      // setTimeout(() => this._saveXML(), 1000);
     } else {
       if (this.lang === GlobalsService.ENGLISH) {
         alert('Please save the unsaved input data before generating XML file.');
