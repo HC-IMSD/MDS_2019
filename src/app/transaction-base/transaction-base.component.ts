@@ -102,7 +102,7 @@ export class TransactionBaseComponent implements OnInit {
   }
 
   public saveXmlFile() {
-    if (this.requesterListChild.requesterListForm.pristine && this.requesterListChild.requesterListForm.valid ) {
+    if (!this.requesterListChild || this.requesterListChild && this.requesterListChild.requesterListForm.pristine && this.requesterListChild.requesterListForm.valid ) {
       this._updatedAutoFields();
       this.showErrors = true;
       setTimeout(() => this._saveXML(), 1000);
