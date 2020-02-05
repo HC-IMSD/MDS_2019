@@ -137,6 +137,9 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
     if (this.deviceFormLocalModel.controls.deviceApplicationSubmitted.value &&
       this.deviceFormLocalModel.controls.deviceApplicationSubmitted.value === GlobalsService.YES) {
       return true;
+    } else {
+       this.deviceFormLocalModel.controls.deviceApplicationNumber.setValue(null);
+       this.deviceFormLocalModel.controls.deviceApplicationNumber.markAsUntouched();
     }
     return false;
   }
@@ -145,6 +148,9 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
     if (this.deviceFormLocalModel.controls.deviceApplicationSubmitted.value &&
       this.deviceFormLocalModel.controls.deviceApplicationSubmitted.value === GlobalsService.NO) {
       return true;
+    } else {
+        this.deviceFormLocalModel.controls.deviceExplain.setValue(null);
+        this.deviceFormLocalModel.controls.deviceExplain.markAsUntouched();
     }
     return false;
   }

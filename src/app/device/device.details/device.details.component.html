@@ -78,7 +78,7 @@
                             controlId="deviceApplicationNumber" label="application.number" parentId="deviceDetails"
                             parentLabel="Interdependent Device">
           </control-messages>
-          <input id="deviceApplicationNumber" name="deviceApplicationNumber" class="form-control"
+          <input id="deviceApplicationNumber" name="deviceApplicationNumber" class="form-control" required
                  only-digits maxlength="6" formControlName="deviceApplicationNumber"/>
         </label>
       </div>
@@ -87,9 +87,16 @@
         <label for="deviceExplain" class="required" aria-required="true">
           <span class="field-name" i18n>{{'device.explain'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="deviceFormLocalModel.controls.deviceExplain.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="deviceFormLocalModel.controls.deviceExplain"
+                            controlId="deviceExplain" label="device.explain" parentId="deviceDetails"
+                            parentLabel="Interdependent Device"></control-messages>
         </label>
           <input id="deviceExplain" name="deviceExplain" class="form-control full-width"
-                 formControlName="deviceExplain" maxlength="1000"/>
+                 required formControlName="deviceExplain" maxlength="1000"/>
+
+
       </div>
 
     </div>

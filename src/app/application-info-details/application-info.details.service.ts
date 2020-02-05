@@ -11,10 +11,6 @@ export class ApplicationInfoDetailsService {
   private static drugTypeList: Array<any> = ApplicationInfoDetailsService.getRawDrugTypeList();
   private static lang = GlobalsService.ENGLISH;
 
-  private static activityLeadList: Array<any> = ApplicationInfoDetailsService.getActivityLeadList();
-  private static activityTypeList: Array<any> = ApplicationInfoDetailsService.getActivityTypeList();
-  private static deviceClassList: Array<any> = ApplicationInfoDetailsService.getDeviceClassList();
-
   constructor() {
   }
 
@@ -212,6 +208,10 @@ export class ApplicationInfoDetailsService {
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, appInfoModel) {
+    const activityLeadList = ApplicationInfoDetailsService.getActivityLeadList(ApplicationInfoDetailsService.lang);
+    const activityTypeList = ApplicationInfoDetailsService.getActivityTypeList(ApplicationInfoDetailsService.lang);
+    const deviceclassList = ApplicationInfoDetailsService.getDeviceClassList(ApplicationInfoDetailsService.lang);
+
    // appInfoModel.company_id = formRecord.controls.companyId.value;
     if (formRecord.controls.companyId.value) {
       appInfoModel.company_id = 'k' + formRecord.controls.companyId.value;
@@ -248,14 +248,13 @@ export class ApplicationInfoDetailsService {
     }
 
     if (formRecord.controls.activityLead.value) {
-      const latList = ApplicationInfoDetailsService.getActivityLeadList(ApplicationInfoDetailsService.lang);
-      const recordIndex2 = ListService.getRecord(latList, formRecord.controls.activityLead.value, 'id');
-      if (recordIndex2 > -1) {
+      const recordIndex1 = ListService.getRecord(activityLeadList, formRecord.controls.activityLead.value, 'id');
+      if (recordIndex1 > -1) {
         appInfoModel.regulatory_activity_lead = {
-          '__text': latList[recordIndex2].text,
-          '_id': latList[recordIndex2].id,
-          '_label_en': latList[recordIndex2].en,
-          '_label_fr': latList[recordIndex2].fr
+          '__text': activityLeadList[recordIndex1].text,
+          '_id': activityLeadList[recordIndex1].id,
+          '_label_en': activityLeadList[recordIndex1].en,
+          '_label_fr': activityLeadList[recordIndex1].fr
         };
       }
     } else {
@@ -263,14 +262,13 @@ export class ApplicationInfoDetailsService {
     }
 
     if (formRecord.controls.activityType.value) {
-      const latList = ApplicationInfoDetailsService.getActivityTypeList(ApplicationInfoDetailsService.lang);
-      const recordIndex2 = ListService.getRecord(latList, formRecord.controls.activityType.value, 'id');
+      const recordIndex2 = ListService.getRecord(activityTypeList, formRecord.controls.activityType.value, 'id');
       if (recordIndex2 > -1) {
         appInfoModel.regulatory_activity_type = {
-          '__text': latList[recordIndex2].text,
-          '_id': latList[recordIndex2].id,
-          '_label_en': latList[recordIndex2].en,
-          '_label_fr': latList[recordIndex2].fr
+          '__text': activityTypeList[recordIndex2].text,
+          '_id' : activityTypeList[recordIndex2].id,
+          '_label_en': activityTypeList[recordIndex2].en,
+          '_label_fr': activityTypeList[recordIndex2].fr
         };
       }
     } else {
@@ -278,19 +276,19 @@ export class ApplicationInfoDetailsService {
     }
 
     if (formRecord.controls.deviceClass.value) {
-      const latList = ApplicationInfoDetailsService.getDeviceClassList(ApplicationInfoDetailsService.lang);
-      const recordIndex2 = ListService.getRecord(latList, formRecord.controls.deviceClass.value, 'id');
+      const recordIndex2 = ListService.getRecord(deviceclassList, formRecord.controls.deviceClass.value, 'id');
       if (recordIndex2 > -1) {
         appInfoModel.device_class = {
-          '__text': latList[recordIndex2].text,
-          '_id': latList[recordIndex2].id,
-          '_label_en': latList[recordIndex2].en,
-          '_label_fr': latList[recordIndex2].fr
+          '__text': deviceclassList[recordIndex2].text,
+          '_id' : deviceclassList[recordIndex2].id,
+          '_label_en': deviceclassList[recordIndex2].en,
+          '_label_fr': deviceclassList[recordIndex2].fr
         };
       }
     } else {
       appInfoModel.device_class = null;
     }
+
     appInfoModel.is_ivdd = formRecord.controls.isIvdd.value;
     appInfoModel.is_home_use = formRecord.controls.isHomeUse.value;
     appInfoModel.is_care_point_use = formRecord.controls.isCarePoint.value;
@@ -351,9 +349,10 @@ export class ApplicationInfoDetailsService {
     }
   //  formRecord.controls.activityLead.setValue(appInfoModel.regulatory_activity_lead);
     if (appInfoModel.regulatory_activity_lead) {
-      const recordIndex2 = ListService.getRecord(this.activityLeadList, appInfoModel.regulatory_activity_lead._id, 'id');
+      const activityLeadList = ApplicationInfoDetailsService.getActivityLeadList(ApplicationInfoDetailsService.lang);
+      const recordIndex2 = ListService.getRecord(activityLeadList, appInfoModel.regulatory_activity_lead._id, 'id');
       if (recordIndex2 > -1) {
-        formRecord.controls.activityLead.setValue(this.activityLeadList[recordIndex2].id);
+        formRecord.controls.activityLead.setValue(activityLeadList[recordIndex2].id);
       } else {
         formRecord.controls.activityLead.setValue(null);
       }
@@ -362,9 +361,10 @@ export class ApplicationInfoDetailsService {
     }
    //formRecord.controls.activityType.setValue(appInfoModel.regulatory_activity_type);
     if (appInfoModel.regulatory_activity_type) {
-      const recordIndex2 = ListService.getRecord(this.activityTypeList, appInfoModel.regulatory_activity_type._id, 'id');
+      const activityTypeList = ApplicationInfoDetailsService.getActivityTypeList(ApplicationInfoDetailsService.lang);
+      const recordIndex2 = ListService.getRecord(activityTypeList, appInfoModel.regulatory_activity_type._id, 'id');
       if (recordIndex2 > -1) {
-        formRecord.controls.activityType.setValue(this.activityTypeList[recordIndex2].id);
+        formRecord.controls.activityType.setValue(activityTypeList[recordIndex2].id);
       } else {
         formRecord.controls.activityType.setValue(null);
       }
@@ -373,9 +373,10 @@ export class ApplicationInfoDetailsService {
     }
    // formRecord.controls.deviceClass.setValue(appInfoModel.device_class);
     if (appInfoModel.device_class) {
-      const recordIndex2 = ListService.getRecord(this.deviceClassList, appInfoModel.device_class._id, 'id');
+      const deviceClassList = ApplicationInfoDetailsService.getDeviceClassList(ApplicationInfoDetailsService.lang);
+      const recordIndex2 = ListService.getRecord(deviceClassList, appInfoModel.device_class._id, 'id');
       if (recordIndex2 > -1) {
-        formRecord.controls.deviceClass.setValue(this.deviceClassList[recordIndex2].id);
+        formRecord.controls.deviceClass.setValue(deviceClassList[recordIndex2].id);
       } else {
         formRecord.controls.deviceClass.setValue(null);
       }
@@ -501,8 +502,8 @@ export class ApplicationInfoDetailsService {
     return  [
       {
         id: 'B14-20160301-08',
-        en: 'Medical Device Bureau',
-        fr: 'Medical Device Bureau'
+        en: 'Medical Device Directorate',
+        fr: 'Medical Device Directorate'
       },
       {
         id: 'B14-20160301-10',
