@@ -26,6 +26,7 @@ export class AddressDetailsService {
     if (!fb) {return null; }
     return fb.group({
       companyName: [null, Validators.required],
+      businessNum: '',
       address: [null, Validators.required],
       provText: '',
       provList: '',
@@ -44,6 +45,7 @@ export class AddressDetailsService {
     return (
       {
         company_name: '',
+        business_number: '',
         address: '',
         city: '',
         country: '',
@@ -57,6 +59,7 @@ export class AddressDetailsService {
 
   public static mapFormModelToDataModel(formRecord: FormGroup, addressModel, countryList, provStatList) {
     addressModel.company_name = formRecord.controls.companyName.value;
+    addressModel.business_number = formRecord.controls.businessNum.value;
     addressModel.address = formRecord.controls.address.value;
     addressModel.city = formRecord.controls.city.value;
     if (formRecord.controls.country.value && formRecord.controls.country.value.length > 0) {
@@ -98,6 +101,7 @@ export class AddressDetailsService {
 
   public static mapDataModelToFormModel(addressModel, formRecord: FormGroup, countryList, provStatList) {
     formRecord.controls.companyName.setValue(addressModel.company_name);
+    formRecord.controls.businessNum.setValue(addressModel.business_number);
     formRecord.controls.address.setValue(addressModel.address);
     formRecord.controls.city.setValue(addressModel.city);
     formRecord.controls.postal.setValue(addressModel.postal);

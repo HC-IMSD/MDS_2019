@@ -21,12 +21,12 @@ export class ContactDetailsService {
   ];
   public static statusListInternal: Array<any> = ContactDetailsService.statusListAdd.concat(ContactDetailsService.statusListExternal);
 
-  public static salutationList: Array<any> = [
-    {id: 'DR', label_en: 'Dr.', label_fr: 'fr_Dr.'},
-    {id: 'MR', label_en: 'Mr.', label_fr: 'fr_Mr.'},
-    {id: 'MRS', label_en: 'Mrs.', label_fr: 'fr_Mrs.'},
-    {id: 'MS', label_en: 'Ms.', label_fr: 'fr_Ms.'}
-  ];
+  // public static salutationList: Array<any> = [
+  //   {id: 'DR', label_en: 'Dr.', label_fr: 'fr_Dr.'},
+  //   {id: 'MR', label_en: 'Mr.', label_fr: 'fr_Mr.'},
+  //   {id: 'MRS', label_en: 'Mrs.', label_fr: 'fr_Mrs.'},
+  //   {id: 'MS', label_en: 'Ms.', label_fr: 'fr_Ms.'}
+  // ];
   public static languageList: Array<any> = [
     {'id': 'EN', 'label_en': 'English', 'label_fr': 'Anglais'},
     {'id': 'FR', 'label_en': 'French', 'label_fr': 'Français'}
@@ -51,11 +51,12 @@ export class ContactDetailsService {
   public static getReactiveModel(fb: FormBuilder, isInternal) {
     if (!fb) {return null; }
     const contactIdValidators = isInternal ? [Validators.required, ValidationService.dossierContactIdValidator] : [];
+    const recordProcessedValidator = isInternal ? [Validators.required] : [];
     return fb.group({
       contactId: [null, contactIdValidators],
       status: [null, Validators.required],
       // hcStatus: [null, Validators.required],
-      salutation: [null, Validators.required],
+      // salutation: [null, Validators.required],
       firstName: [null, Validators.required],
       initials: '',
       lastName: [null, Validators.required],
@@ -64,7 +65,9 @@ export class ContactDetailsService {
       faxNumber: ['', [Validators.minLength(10), ValidationService.faxNumberValidator]],
       phoneNumber: ['', [Validators.required, Validators.minLength(10), ValidationService.phoneNumberValidator]],
       phoneExtension: '',
-      email: [null, [Validators.required, ValidationService.emailValidator]]
+      email: [null, [Validators.required, ValidationService.emailValidator]],
+      routingId: '',
+      recordProcessed: [null, recordProcessedValidator]
     });
   }
 
@@ -80,7 +83,7 @@ export class ContactDetailsService {
         status: '',
         status_text: '',
         // hc_status: '',
-        salutation: '',
+        // salutation: '',
         first_name: '',
         initials: '',
         last_name: '',
@@ -89,7 +92,8 @@ export class ContactDetailsService {
         fax_number: '',
         phone_number: '',
         phone_extension: '',
-        email: ''
+        email: '',
+        routing_id: ''
       }
     );
   }
@@ -113,20 +117,20 @@ export class ContactDetailsService {
       contactModel.status = null;
     }
     // contactModel.hc_status = formRecord.controls.hcStatus.value;
-    if (formRecord.controls.salutation.value) {
-      const salutList = this._convertListText(this.salutationList, this.lang);
-      const recordIndex2 = ListService.getRecord(salutList, formRecord.controls.salutation.value, 'id');
-      if (recordIndex2 > -1) {
-        contactModel.salutation = {
-          '__text': salutList[recordIndex2].text,
-          '_id': salutList[recordIndex2].id,
-          '_label_en': salutList[recordIndex2].label_en,
-          '_label_fr': salutList[recordIndex2].label_fr
-        };
-      }
-    } else {
-      contactModel.salutation = null;
-    }
+    // if (formRecord.controls.salutation.value) {
+    //   const salutList = this._convertListText(this.salutationList, this.lang);
+    //   const recordIndex2 = ListService.getRecord(salutList, formRecord.controls.salutation.value, 'id');
+    //   if (recordIndex2 > -1) {
+    //     contactModel.salutation = {
+    //       '__text': salutList[recordIndex2].text,
+    //       '_id': salutList[recordIndex2].id,
+    //       '_label_en': salutList[recordIndex2].label_en,
+    //       '_label_fr': salutList[recordIndex2].label_fr
+    //     };
+    //   }
+    // } else {
+    //   contactModel.salutation = null;
+    // }
     contactModel.first_name = formRecord.controls.firstName.value;
     contactModel.initials = formRecord.controls.initials.value;
     contactModel.last_name = formRecord.controls.lastName.value;
@@ -149,6 +153,7 @@ export class ContactDetailsService {
     contactModel.phone_number = formRecord.controls.phoneNumber.value;
     contactModel.phone_extension = formRecord.controls.phoneExtension.value;
     contactModel.email = formRecord.controls.email.value;
+    contactModel.routing_id = formRecord.controls.routingId.value;
   }
 
   public static mapDataModelToFormModel(contactModel, formRecord: FormGroup) {
@@ -162,14 +167,14 @@ export class ContactDetailsService {
       formRecord.controls.status.setValue(null);
     }
     // formRecord.controls.hcStatus.setValue(contactModel.hc_status);
-    if (contactModel.salutation) {
-      const recordIndex2 = ListService.getRecord(this.salutationList, contactModel.salutation._id, 'id');
-      if (recordIndex2 > -1) {
-        formRecord.controls.salutation.setValue(this.salutationList[recordIndex2].id);
-      }
-    } else {
-      formRecord.controls.salutation.setValue(null);
-    }
+    // if (contactModel.salutation) {
+    //   const recordIndex2 = ListService.getRecord(this.salutationList, contactModel.salutation._id, 'id');
+    //   if (recordIndex2 > -1) {
+    //     formRecord.controls.salutation.setValue(this.salutationList[recordIndex2].id);
+    //   }
+    // } else {
+    //   formRecord.controls.salutation.setValue(null);
+    // }
 
     formRecord.controls.firstName.setValue(contactModel.first_name);
     formRecord.controls.initials.setValue(contactModel.initials);
@@ -187,6 +192,7 @@ export class ContactDetailsService {
     formRecord.controls.phoneNumber.setValue(contactModel.phone_number);
     formRecord.controls.phoneExtension.setValue(contactModel.phone_extension);
     formRecord.controls.email.setValue(contactModel.email);
+    formRecord.controls.routingId.setValue(contactModel.routing_id);
   }
 
   public static getRecordId(record: FormGroup) {

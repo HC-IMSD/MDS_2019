@@ -8,6 +8,8 @@
       <company-contact-record
         [detailsChanged]="updateContactDetails" [isInternal]="isInternal"
         [showErrors]="showErrors" [lang]="lang"
+        [hasRecords]="dataModel.length > 0"
+        [helpTextSequences]="helpTextSequences"
         (saveRecord)="saveContactRecord($event)"
         (errors)="updateErrorList($event)"
         (revertRecord)="revertContact($event)" (deleteRecord)="deleteContact($event)"></company-contact-record>
@@ -18,7 +20,9 @@
         [detailsChanged]="updateContactDetails" [isInternal]="isInternal" [lang]="lang"
         [countries]="countryList"
         [group]="newContactForm"
+        [helpTextSequences]="helpTextSequences"
         [showErrors]="showErrors"
+        [hasRecords]="dataModel.length > 0"
         (saveRecord)="saveContactRecord($event)"
         (errors)="updateErrorList($event)"
         (revertRecord)="revertContact($event)" (deleteRecord)="deleteContact($event)"></company-contact-record>

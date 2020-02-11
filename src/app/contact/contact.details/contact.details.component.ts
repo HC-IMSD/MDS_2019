@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
-  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef
+  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {ControlMessagesComponent} from '../../error-msg/control-messages.component/control-messages.component';
@@ -10,7 +10,8 @@ import {isArray} from 'util';
 
 @Component({
   selector: 'contact-details',
-  templateUrl: 'contact.details.component.html'
+  templateUrl: 'contact.details.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 
 /**
@@ -24,13 +25,14 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Input() showErrors: boolean;
   @Input() isInternal: boolean;
   @Input() lang;
+  @Input() helpTextSequences;
   @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
   public statuses: Array<any> = [];
-  public salutations: Array<any> = [];
+  // public salutations: Array<any> = [];
   public languages: Array<any>;
   public showFieldErrors: boolean = false;
   private detailsService: ContactDetailsService;
@@ -41,7 +43,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
     this.detailsService = new ContactDetailsService();
     this.statuses = ContactDetailsService.statusListExternal;
     // this.statuses = this.isInternal ? this.detailsService.statusListInternal : this.detailsService.statusListExternal;
-    this.salutations = ContactDetailsService.salutationList;
+    // this.salutations = ContactDetailsService.salutationList;
     this.languages = ContactDetailsService.languageList;
   }
 
@@ -129,6 +131,13 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   removed(rec) {
     console.log(rec);
     // this.contactFormLocalModel.controls.country.setValue(null)
+  }
+
+  recordPrcsOnblur() {
+    // console.log('');
+    if (!this.contactFormLocalModel.controls.recordProcessed.value) {
+      this.contactFormLocalModel.controls.recordProcessed.setValue('');
+    }
   }
 
   onblur() {

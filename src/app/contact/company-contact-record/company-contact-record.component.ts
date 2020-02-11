@@ -1,7 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges, ViewChild,
-  ViewChildren
+  ViewChildren, ViewEncapsulation
 } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ContactDetailsComponent} from '../contact.details/contact.details.component';
@@ -14,7 +14,8 @@ import {ControlMessagesComponent} from '../../error-msg/control-messages.compone
   selector: 'company-contact-record',
   templateUrl: './company-contact-record.component.html',
   styleUrls: ['./company-contact-record.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 
 })
 export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
@@ -25,7 +26,9 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Input() countries: Array<any>;
   @Input() isInternal: boolean;
   @Input() showErrors: boolean;
+  @Input() hasRecords: boolean;
   @Input() lang;
+  @Input() helpTextSequences;
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
@@ -49,6 +52,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   constructor(private _fb: FormBuilder,  private cdr: ChangeDetectorRef) {
     this.showErrors = false;
     this.showErrSummary = false;
+    this.hasRecords = true;
   }
 
   ngOnInit() {
@@ -75,8 +79,10 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       console.warn('Contact List found >1 Error Summary ' + list.length);
     }
     this.errorSummaryChild = list.first;
-    if (this.errorSummaryChild) {
+    if (this.errorSummaryChild && !this.hasRecords) {
+      // update summary for at least one record error
       this.errorSummaryChild.tableId = 'contactListTable';
+      this.errorSummaryChild.type = 'leastOneRecordError';
     }
     // set table id to point to
     this._emitErrors();
@@ -109,13 +115,13 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       }
       this.updateChild++;
     }
-    if (this.isInternal) {
+    // if (this.isInternal) {
       if (changes['showErrors']) {
         this.showErrSummary = changes['showErrors'].currentValue;
         this._emitErrors();
       }
       this.cdr.detectChanges(); // doing our own change detection
-    }
+    // }
   }
 
   /***
@@ -173,7 +179,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   }
 
   public saveContactRecord(): void {
-    console.log(this.errorList);
+    // console.log(this.errorList);
     if (this.contactRecordModel.valid) {
       this.saveRecord.emit((this.contactRecordModel));
       this.showErrSummary = false;

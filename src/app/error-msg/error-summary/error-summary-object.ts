@@ -11,6 +11,7 @@ export interface ErrorSummaryObject {
   tabSet: NgbTabset;
   tabId:number,
   componentId: string;
+  tableId: string;
   expander: ExpanderComponent;
   compRef;
 }

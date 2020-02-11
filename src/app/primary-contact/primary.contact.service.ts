@@ -33,7 +33,8 @@ export class PrimaryContactService {
       isThirdParty: '',
       repContactCompanyId: [null, [Validators.required, ValidationService.primaryCompanyIdValidator]],
       repContactId: [null, [Validators.required, ValidationService.primaryContactIdValidator]],
-      repContactName: [null, Validators.required],
+      repRoutingId: '',
+      repContactName: [null, Validators.required]
     });
   }
 
@@ -48,6 +49,7 @@ export class PrimaryContactService {
         is_third_party: '',
         rep_contact_company_id: '',
         rep_contact_id: '',
+        rep_routing_id: '',
         rep_contact_name: ''
       }
     );
@@ -57,6 +59,7 @@ export class PrimaryContactService {
     primContactModel.is_third_party = formRecord.controls.isThirdParty.value;
     primContactModel.rep_contact_company_id = formRecord.controls.repContactCompanyId.value;
     primContactModel.rep_contact_id = formRecord.controls.repContactId.value;
+    primContactModel.rep_routing_id = formRecord.controls.repRoutingId.value;
     primContactModel.rep_contact_name = formRecord.controls.repContactName.value;
   }
 
@@ -64,6 +67,7 @@ export class PrimaryContactService {
     formRecord.controls.isThirdParty.setValue(primContactModel.is_third_party);
     formRecord.controls.repContactCompanyId.setValue(primContactModel.rep_contact_company_id);
     formRecord.controls.repContactId.setValue(primContactModel.rep_contact_id);
+    formRecord.controls.repRoutingId.setValue(primContactModel.rep_routing_id);
     formRecord.controls.repContactName.setValue(primContactModel.rep_contact_name);
   }
 
