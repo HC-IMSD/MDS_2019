@@ -45,11 +45,11 @@
                             parentLabel="Interdependent Device">
           </control-messages>
           <input id="licenceNum" name="licenceNum" class="form-control" only-digits maxlength="6"
-                 formControlName="licenceNum" (blur)="licenceNumOnblur()"/>
+                 formControlName="licenceNum" minlength="6"/>
         </label>
       </div>
 
-      <div *ngIf="isDeviceAuthorized()" class="form-group col-sm-12">
+      <div *ngIf="isDeviceNotAuthorized()" class="form-group col-sm-12">
         <label for="deviceApplicationSubmitted" class="required full-width">
           <span class="field-name" i18n>{{'device.application.submitted' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
@@ -79,7 +79,7 @@
                             parentLabel="Interdependent Device">
           </control-messages>
           <input id="deviceApplicationNumber" name="deviceApplicationNumber" class="form-control" required
-                 only-digits maxlength="6" formControlName="deviceApplicationNumber"/>
+                 only-digits maxlength="6" minlength="6" formControlName="deviceApplicationNumber"/>
         </label>
       </div>
 
@@ -93,8 +93,8 @@
                             controlId="deviceExplain" label="device.explain" parentId="deviceDetails"
                             parentLabel="Interdependent Device"></control-messages>
         </label>
-          <input id="deviceExplain" name="deviceExplain" class="form-control full-width"
-                 required formControlName="deviceExplain" maxlength="1000"/>
+          <textarea id="deviceExplain" name="deviceExplain" class="form-control full-width"
+                    required formControlName="deviceExplain" rows="5" maxlength="1000"></textarea>
 
 
       </div>

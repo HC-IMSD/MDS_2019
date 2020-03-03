@@ -214,7 +214,7 @@ export class ApplicationInfoDetailsService {
 
    // appInfoModel.company_id = formRecord.controls.companyId.value;
     if (formRecord.controls.companyId.value) {
-      appInfoModel.company_id = 'k' + formRecord.controls.companyId.value;
+      appInfoModel.company_id = 'K' + formRecord.controls.companyId.value;
     }
     appInfoModel.dossier_id = formRecord.controls.dossierId.value;
     // appInfoModel.device_class = formRecord.controls.deviceClass.value;
@@ -330,7 +330,7 @@ export class ApplicationInfoDetailsService {
 
   public static mapDataModelToFormModel(appInfoModel, formRecord: FormGroup) {
     if ( appInfoModel.company_id.length > 0 ) {
-      const comIDs = appInfoModel.company_id.split('k');
+      const comIDs = appInfoModel.company_id.slice(1);
       // console.log("company_id" + comIDs[1]);
       formRecord.controls.companyId.setValue(comIDs[1]);
     }

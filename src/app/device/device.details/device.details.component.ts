@@ -118,16 +118,31 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
     }
   }
 
-  licenceNumOnblur() {
-    if (this.deviceFormLocalModel.controls.licenceNum.value && !isNaN(this.deviceFormLocalModel.controls.licenceNum.value)) {
-      const lnum = '000000' + this.deviceFormLocalModel.controls.licenceNum.value;
-      this.deviceFormLocalModel.controls.licenceNum.setValue(lnum.substring(lnum.length - 6));
-    }
-  }
+ // licenceNumOnblur() {
+ //   // if (this.deviceFormLocalModel.controls.licenceNum.value && !isNaN(this.deviceFormLocalModel.controls.licenceNum.value)) {
+ //  //     const lnum = '000000' + this.deviceFormLocalModel.controls.licenceNum.value;
+ //  //     this.deviceFormLocalModel.controls.licenceNum.setValue(lnum.substring(lnum.length - 6));
+ ////  }
 
   isDeviceAuthorized() {
     if (this.deviceFormLocalModel.controls.deviceAuthorized.value &&
-      this.deviceFormLocalModel.controls.deviceAuthorized.value === GlobalsService.YES) {
+        this.deviceFormLocalModel.controls.deviceAuthorized.value === GlobalsService.YES) {
+        this.deviceFormLocalModel.controls.deviceApplicationSubmitted.setValue(null);
+        this.deviceFormLocalModel.controls.deviceApplicationSubmitted.markAsUntouched();
+        this.deviceFormLocalModel.controls.deviceApplicationNumber.setValue(null);
+        this.deviceFormLocalModel.controls.deviceApplicationNumber.markAsUntouched();
+        this.deviceFormLocalModel.controls.deviceExplain.setValue(null);
+        this.deviceFormLocalModel.controls.deviceExplain.markAsUntouched();
+      return true;
+    }
+    return false;
+  }
+
+  isDeviceNotAuthorized() {
+    if (this.deviceFormLocalModel.controls.deviceAuthorized.value &&
+      this.deviceFormLocalModel.controls.deviceAuthorized.value === GlobalsService.NO) {
+      this.deviceFormLocalModel.controls.licenceNum.setValue(null);
+      this.deviceFormLocalModel.controls.licenceNum.markAsUntouched();
       return true;
     }
     return false;
@@ -136,10 +151,9 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
   isDeviceApplicationSubmitted() {
     if (this.deviceFormLocalModel.controls.deviceApplicationSubmitted.value &&
       this.deviceFormLocalModel.controls.deviceApplicationSubmitted.value === GlobalsService.YES) {
+      this.deviceFormLocalModel.controls.deviceExplain.setValue(null);
+      this.deviceFormLocalModel.controls.deviceExplain.markAsUntouched();
       return true;
-    } else {
-       this.deviceFormLocalModel.controls.deviceApplicationNumber.setValue(null);
-       this.deviceFormLocalModel.controls.deviceApplicationNumber.markAsUntouched();
     }
     return false;
   }
@@ -147,10 +161,9 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
   isDeviceApplicationNotSubmitted() {
     if (this.deviceFormLocalModel.controls.deviceApplicationSubmitted.value &&
       this.deviceFormLocalModel.controls.deviceApplicationSubmitted.value === GlobalsService.NO) {
+      this.deviceFormLocalModel.controls.deviceApplicationNumber.setValue(null);
+      this.deviceFormLocalModel.controls.deviceApplicationNumber.markAsUntouched();
       return true;
-    } else {
-        this.deviceFormLocalModel.controls.deviceExplain.setValue(null);
-        this.deviceFormLocalModel.controls.deviceExplain.markAsUntouched();
     }
     return false;
   }
