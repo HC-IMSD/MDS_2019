@@ -6,7 +6,8 @@
         <label for="deviceName" >
           <span class="field-name" i18n>{{'device.name'|translate}}</span>
         </label>
-          <input id="deviceName" class="form-control full-width" formControlName="deviceName" maxlength="150"/>
+          <input id="deviceName" name="deviceName" class="form-control full-width"
+                 formControlName="deviceName" maxlength="150"/>
       </div>
     </div>
 
@@ -43,12 +44,12 @@
                             controlId="licenceNum" label="licence.application.number" parentId="deviceDetails"
                             parentLabel="Interdependent Device">
           </control-messages>
-          <input id="licenceNum" class="form-control" only-digits maxlength="6"
-                 formControlName="licenceNum" (blur)="licenceNumOnblur()"/>
+          <input id="licenceNum" name="licenceNum" class="form-control" only-digits maxlength="6"
+                 formControlName="licenceNum" minlength="6"/>
         </label>
       </div>
 
-      <div *ngIf="isDeviceAuthorized()" class="form-group col-sm-12">
+      <div *ngIf="isDeviceNotAuthorized()" class="form-group col-sm-12">
         <label for="deviceApplicationSubmitted" class="required full-width">
           <span class="field-name" i18n>{{'device.application.submitted' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
@@ -77,10 +78,8 @@
                             controlId="deviceApplicationNumber" label="application.number" parentId="deviceDetails"
                             parentLabel="Interdependent Device">
           </control-messages>
-          <!--<input id="deviceApplicationNumber" class="form-control" only-digits maxlength="6"-->
-                 <!--formControlName="deviceApplicationNumber" (blur)="licenceNumOnblur()"/>-->
-          <input id="deviceApplicationNumber" class="form-control" only-digits maxlength="6"
-                 formControlName="deviceApplicationNumber"/>
+          <input id="deviceApplicationNumber" name="deviceApplicationNumber" class="form-control" required
+                 only-digits maxlength="6" minlength="6" formControlName="deviceApplicationNumber"/>
         </label>
       </div>
 
@@ -88,8 +87,16 @@
         <label for="deviceExplain" class="required" aria-required="true">
           <span class="field-name" i18n>{{'device.explain'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="deviceFormLocalModel.controls.deviceExplain.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="deviceFormLocalModel.controls.deviceExplain"
+                            controlId="deviceExplain" label="device.explain" parentId="deviceDetails"
+                            parentLabel="Interdependent Device"></control-messages>
         </label>
-          <input id="deviceExplain" class="form-control full-width" formControlName="deviceExplain" maxlength="1000"/>
+          <textarea id="deviceExplain" name="deviceExplain" class="form-control full-width"
+                    required formControlName="deviceExplain" rows="5" maxlength="1000"></textarea>
+
+
       </div>
 
     </div>

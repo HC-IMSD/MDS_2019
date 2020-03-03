@@ -1,8 +1,9 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'application-info-help-en',
-  templateUrl: './application-info-help-en.component.html'
+  templateUrl: './application-info-help-en.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 
 /**

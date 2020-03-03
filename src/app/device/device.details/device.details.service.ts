@@ -23,7 +23,7 @@ export class DeviceDetailsService {
       licenceNum: [null, [Validators.required, ValidationService.licenceNumValidator ]],
      // licenceNum: [null, [ValidationService.licenceNumValidator]]
       deviceApplicationSubmitted: '',
-      deviceApplicationNumber: [null, [Validators.required, ValidationService.licenceNumValidator ]],
+      deviceApplicationNumber: [null, [Validators.required, ValidationService.appNumValidator ]],
       deviceExplain: ''
     });
   }

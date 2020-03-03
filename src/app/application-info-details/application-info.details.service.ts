@@ -208,9 +208,13 @@ export class ApplicationInfoDetailsService {
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, appInfoModel) {
+    const activityLeadList = ApplicationInfoDetailsService.getActivityLeadList(ApplicationInfoDetailsService.lang);
+    const activityTypeList = ApplicationInfoDetailsService.getActivityTypeList(ApplicationInfoDetailsService.lang);
+    const deviceclassList = ApplicationInfoDetailsService.getDeviceClassList(ApplicationInfoDetailsService.lang);
+
    // appInfoModel.company_id = formRecord.controls.companyId.value;
     if (formRecord.controls.companyId.value) {
-      appInfoModel.company_id = 'k' + formRecord.controls.companyId.value;
+      appInfoModel.company_id = 'K' + formRecord.controls.companyId.value;
     }
     appInfoModel.dossier_id = formRecord.controls.dossierId.value;
     // appInfoModel.device_class = formRecord.controls.deviceClass.value;
@@ -242,9 +246,49 @@ export class ApplicationInfoDetailsService {
     } else {
       appInfoModel.licence_application_type = null;
     }
-    appInfoModel.regulatory_activity_lead = formRecord.controls.activityLead.value;
-    appInfoModel.regulatory_activity_type = formRecord.controls.activityType.value;
-    appInfoModel.device_class = formRecord.controls.deviceClass.value;
+
+    if (formRecord.controls.activityLead.value) {
+      const recordIndex1 = ListService.getRecord(activityLeadList, formRecord.controls.activityLead.value, 'id');
+      if (recordIndex1 > -1) {
+        appInfoModel.regulatory_activity_lead = {
+          '__text': activityLeadList[recordIndex1].text,
+          '_id': activityLeadList[recordIndex1].id,
+          '_label_en': activityLeadList[recordIndex1].en,
+          '_label_fr': activityLeadList[recordIndex1].fr
+        };
+      }
+    } else {
+      appInfoModel.regulatory_activity_lead = null;
+    }
+
+    if (formRecord.controls.activityType.value) {
+      const recordIndex2 = ListService.getRecord(activityTypeList, formRecord.controls.activityType.value, 'id');
+      if (recordIndex2 > -1) {
+        appInfoModel.regulatory_activity_type = {
+          '__text': activityTypeList[recordIndex2].text,
+          '_id' : activityTypeList[recordIndex2].id,
+          '_label_en': activityTypeList[recordIndex2].en,
+          '_label_fr': activityTypeList[recordIndex2].fr
+        };
+      }
+    } else {
+      appInfoModel.regulatory_activity_type = null;
+    }
+
+    if (formRecord.controls.deviceClass.value) {
+      const recordIndex2 = ListService.getRecord(deviceclassList, formRecord.controls.deviceClass.value, 'id');
+      if (recordIndex2 > -1) {
+        appInfoModel.device_class = {
+          '__text': deviceclassList[recordIndex2].text,
+          '_id' : deviceclassList[recordIndex2].id,
+          '_label_en': deviceclassList[recordIndex2].en,
+          '_label_fr': deviceclassList[recordIndex2].fr
+        };
+      }
+    } else {
+      appInfoModel.device_class = null;
+    }
+
     appInfoModel.is_ivdd = formRecord.controls.isIvdd.value;
     appInfoModel.is_home_use = formRecord.controls.isHomeUse.value;
     appInfoModel.is_care_point_use = formRecord.controls.isCarePoint.value;
@@ -286,7 +330,7 @@ export class ApplicationInfoDetailsService {
 
   public static mapDataModelToFormModel(appInfoModel, formRecord: FormGroup) {
     if ( appInfoModel.company_id.length > 0 ) {
-      const comIDs = appInfoModel.company_id.split('k');
+      const comIDs = appInfoModel.company_id.slice(1);
       // console.log("company_id" + comIDs[1]);
       formRecord.controls.companyId.setValue(comIDs[1]);
     }
@@ -303,9 +347,42 @@ export class ApplicationInfoDetailsService {
     } else {
       formRecord.controls.licenceAppType.setValue(null);
     }
-    formRecord.controls.activityLead.setValue(appInfoModel.regulatory_activity_lead);
-    formRecord.controls.activityType.setValue(appInfoModel.regulatory_activity_type);
-    formRecord.controls.deviceClass.setValue(appInfoModel.device_class);
+  //  formRecord.controls.activityLead.setValue(appInfoModel.regulatory_activity_lead);
+    if (appInfoModel.regulatory_activity_lead) {
+      const activityLeadList = ApplicationInfoDetailsService.getActivityLeadList(ApplicationInfoDetailsService.lang);
+      const recordIndex2 = ListService.getRecord(activityLeadList, appInfoModel.regulatory_activity_lead._id, 'id');
+      if (recordIndex2 > -1) {
+        formRecord.controls.activityLead.setValue(activityLeadList[recordIndex2].id);
+      } else {
+        formRecord.controls.activityLead.setValue(null);
+      }
+    } else {
+      formRecord.controls.activityLead.setValue(null);
+    }
+   //formRecord.controls.activityType.setValue(appInfoModel.regulatory_activity_type);
+    if (appInfoModel.regulatory_activity_type) {
+      const activityTypeList = ApplicationInfoDetailsService.getActivityTypeList(ApplicationInfoDetailsService.lang);
+      const recordIndex2 = ListService.getRecord(activityTypeList, appInfoModel.regulatory_activity_type._id, 'id');
+      if (recordIndex2 > -1) {
+        formRecord.controls.activityType.setValue(activityTypeList[recordIndex2].id);
+      } else {
+        formRecord.controls.activityType.setValue(null);
+      }
+    } else {
+      formRecord.controls.activityType.setValue(null);
+    }
+   // formRecord.controls.deviceClass.setValue(appInfoModel.device_class);
+    if (appInfoModel.device_class) {
+      const deviceClassList = ApplicationInfoDetailsService.getDeviceClassList(ApplicationInfoDetailsService.lang);
+      const recordIndex2 = ListService.getRecord(deviceClassList, appInfoModel.device_class._id, 'id');
+      if (recordIndex2 > -1) {
+        formRecord.controls.deviceClass.setValue(deviceClassList[recordIndex2].id);
+      } else {
+        formRecord.controls.deviceClass.setValue(null);
+      }
+    } else {
+      formRecord.controls.deviceClass.setValue(null);
+    }
     formRecord.controls.isIvdd.setValue(appInfoModel.is_ivdd);
     formRecord.controls.isHomeUse.setValue(appInfoModel.is_home_use);
     formRecord.controls.isCarePoint.setValue(appInfoModel.is_care_point_use);
@@ -420,9 +497,29 @@ export class ApplicationInfoDetailsService {
       }
     ];
   }
+
+  private static getRawActivityLeadList() {
+    return  [
+      {
+        id: 'B14-20160301-08',
+        en: 'Medical Device Directorate',
+        fr: 'Medical Device Directorate'
+      },
+      {
+        id: 'B14-20160301-10',
+        en: 'Post-market Vigilance',
+        fr: 'Post-market Vigilance'
+      }];
+  }
+
   public static getActivityLeadList(lang) {
     return ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityLeadList(), lang);
   }
+
+  public static getActivityTypeList(lang) {
+    return ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);
+  }
+
   public static getRawActivityTypeList() {
     return [
       {
@@ -473,9 +570,6 @@ export class ApplicationInfoDetailsService {
     ];
   }
 
-  public static getActivityTypeList(lang) {
-    return ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);
-  }
 
   public static getActivityTypeMDBList(lang) {
     const descArray = ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);
@@ -485,28 +579,6 @@ export class ApplicationInfoDetailsService {
   public static getActivityTypePVList(lang) {
     const descArray = ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);
     return [descArray[4], descArray[5], descArray[6], descArray[7], descArray[8]];
-  }
-
-  /**
-   {
-       // id: 'B14-20160301-10 ',
-       // en: 'Post-market Vigilance',
-       // fr: 'Post-market Vigilance'
-     }
-   */
-
-  private static getRawActivityLeadList() {
-    return  [
-      {
-        id: 'B14-20160301-08',
-        en: 'Medical Device Bureau',
-        fr: 'Medical Device Bureau'
-      },
-      {
-        id: 'B14-20160301-10',
-        en: 'Post-market Vigilance',
-        fr: 'Post-market Vigilance'
-      }];
   }
 
 }

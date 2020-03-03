@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
-  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef
+  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
@@ -16,7 +16,8 @@ import {noUndefined} from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-info-details',
-  templateUrl: 'application-info.details.component.html'
+  templateUrl: 'application-info.details.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 
 /**
@@ -73,7 +74,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     this.detailsChanged = 0;
     ApplicationInfoDetailsService.setLang(this.lang);
     this.actLeadList = ApplicationInfoDetailsService.getActivityLeadList(this.lang);
-    this.actTypeList = ApplicationInfoDetailsService.getActivityTypeList(this.lang);
     this.devClassList = ApplicationInfoDetailsService.getDeviceClassList(this.lang);
     this.drugTypeList = ApplicationInfoDetailsService.getDrugTypes(this.lang);
     this.licenceAppTypeList = ApplicationInfoDetailsService.getLicenceAppTypeList(this.lang); // todo: test which lang is working
@@ -431,28 +431,18 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     this.onblur();
   }
 
-  // activityTypeOnblur() {
-  //   if (this.appInfoFormLocalModel.controls.activityType.value) {
-  //     this.appInfoFormLocalModel.controls.deviceClass.setValue(null);
-  //     this.appInfoFormLocalModel.controls.deviceClass.markAsUntouched();
-  //   }
-  //   this.onblur();
-  // }
-
-    isLicenced() {
-
-        if ((this.appInfoFormLocalModel.controls.activityType.value === this.actTypeList[1].id
-             || this.appInfoFormLocalModel.controls.activityType.value === this.actTypeList[2].id)
-          && (this.appInfoFormLocalModel.controls.deviceClass.value === this.devClassList[1].id
-            || this.appInfoFormLocalModel.controls.deviceClass.value === this.devClassList[2].id)) {
-            return true;
-        }
-        return false;
+  isLicenced() {
+    if ((this.appInfoFormLocalModel.controls.activityType.value === 'B02-20160301-039'
+        || this.appInfoFormLocalModel.controls.activityType.value === 'B02-20160301-040')
+      && (this.appInfoFormLocalModel.controls.deviceClass.value === this.devClassList[1].id
+        || this.appInfoFormLocalModel.controls.deviceClass.value === this.devClassList[2].id)) {
+      return true;
     }
+    return false;
+  }
 
-  isMandatory(){
-
-    if (this.appInfoFormLocalModel.controls.activityType.value === this.actTypeList[1].id
+  isMandatory() {
+    if (this.appInfoFormLocalModel.controls.activityType.value === 'B02-20160301-039'
       && (this.appInfoFormLocalModel.controls.deviceClass.value === this.devClassList[1].id
         || this.appInfoFormLocalModel.controls.deviceClass.value === this.devClassList[2].id)) {
       return true;
@@ -461,8 +451,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   }
 
   isOptional() {
-
-    if (this.appInfoFormLocalModel.controls.activityType.value === this.actTypeList[2].id
+    if (this.appInfoFormLocalModel.controls.activityType.value === 'B02-20160301-040'
       && (this.appInfoFormLocalModel.controls.deviceClass.value === this.devClassList[1].id
         || this.appInfoFormLocalModel.controls.deviceClass.value === this.devClassList[2].id)) {
       return true;
@@ -472,10 +461,10 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   isDeviceIV() {
     if (this.appInfoFormLocalModel.controls.deviceClass.value === this.devClassList[2].id) {
-        return true;
-      }
-      return false;
+      return true;
     }
+    return false;
+  }
 
 }
 
