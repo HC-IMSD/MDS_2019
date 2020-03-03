@@ -5,7 +5,7 @@
         <label for="isThirdParty" class="full-width">
           <span class="field-name">{{'is.3rd.party' |translate}}
               <sup id="co6-rf">
-                <a class="fn-lnk" href="#co6"><span class="wb-inv">{{'instruction'|translate}}</span>5</a>
+                <a class="fn-lnk" href="#co6"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.is3rdPartyInx}}</a>
               </sup>
           </span>
           <select id="isThirdParty" required class="form-control" (blur)="onblur()" formControlName="isThirdParty">
@@ -43,12 +43,24 @@
         </label>
       </div>
     </div>
+    <div class="row" *ngIf="by3rdParty()">
+      <div class="form-group col-sm-6" >
+        <label for="repRoutingId">
+          <span class="field-name">{{'routing.id.rep.contact' |translate}}</span>
+          <sup id="co6a-rf">
+            <a class="fn-lnk" href="#co6a"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.repRoutIdInx}}</a>
+          </sup>
+          <input name="repRoutingId" id="repRoutingId" class="form-control full-width"
+                 formControlName="repRoutingId" (blur)="onblur()" maxlength="64"/>
+        </label>
+      </div>
+    </div>
     <div class="row" *ngIf="notBy3rdParty()">
       <div class="form-group col-xs-12" >
         <label for="repContactName" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'contact.name'|translate}}
               <sup id="co7-rf">
-                <a class="fn-lnk" href="#co7"><span class="wb-inv">{{'instruction'|translate}}</span>5.1</a>
+                <a class="fn-lnk" href="#co7"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.conNameInx}}</a>
               </sup>
           </span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>

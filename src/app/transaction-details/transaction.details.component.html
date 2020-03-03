@@ -1,152 +1,162 @@
 <div>
   <div [formGroup]="transDetailsFormLocalModel">
     <div class="row">
-      <div class="form-group col-xs-6" >
-        <label for="dossierId" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'dossier.id'|translate}} {{'minAlphanum6.m'|translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+      <!--<div class="form-group col-xs-6 minWidth300" >-->
+        <!--<label for="routingId" class="full-width">-->
+          <!--<span class="field-name" i18n>{{ 'routing.id'|translate }}</span>-->
+          <!--<sup id="tr3a-rf">-->
+            <!--<a class="fn-lnk" href="#tr3a"><span class="wb-inv">{{ 'instruction'|translate }}</span>3</a>-->
+          <!--</sup>-->
+          <!--<input id="routingId" name="routingId" class="form-control full-width" maxlength="64" data-ng-reflect-maxlength="64"-->
+                 <!--formControlName="routingId" />-->
+        <!--</label>-->
+      <!--</div>-->
+      <div class="form-group col-xs-6 minWidth300">
+        <label for="dossierType" class="full-width">
+          <span class="field-name" i18n>{{ 'dossier.type'|translate }}</span>
+          <input id="dossierType" class="form-control full-width"
+                 formControlName="dossierType"  [readonly]="true"/>
+        </label>
+      </div>
+      <div class="form-group col-xs-6 minWidth300" >
+        <label for="dossierId" class="required full-width">
+          <span class="field-name" i18n>{{ 'dossier.id'|translate }} {{ 'minAlphanum6.m'|translate }}</span>
+          <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
           <control-messages *ngIf="transDetailsFormLocalModel.controls.dossierId.invalid"
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls.dossierId"
                             controlId="dossierId" label="dossier.id" parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
-          <div class="rep-input-group">
+          <span class="rep-input-group">
             <span class="input-group-addon">HC6-024-</span>
-            <input id="dossierId" class="form-control full-width"  (blur)="onblur()"
-                 formControlName="dossierId" maxlength="7"/>
-          </div>
-        </label>
-      </div>
-      <div class="form-group col-xs-6" >
-        <label for="dossierType" class="full-width">
-          <span class="field-name" i18n>{{'dossier.type'|translate}}</span>
-          <input id="dossierType" class="form-control full-width"
-                 formControlName="dossierType"  [readonly]="true"/>
+            <input id="dossierId" name="dossierId" class="form-control full-width"  (blur)="onblur()"
+                   formControlName="dossierId" maxlength="7" data-ng-reflect-maxlength="7"/>
+          </span>
         </label>
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-xs-6" >
+      <div class=".form-inline col-xs-6 minWidth300">
         <label for="manuCompanyId" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'manufacturing.company.id'|translate}} {{'minNumber6'|translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <span class="field-name" i18n>{{ 'manufacturing.company.id'|translate }} {{ 'minNumber6'|translate }}</span>
+          <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
           <control-messages *ngIf="transDetailsFormLocalModel.controls.manuCompanyId.invalid"
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls.manuCompanyId"
                             controlId="manuCompanyId" label="manufacturing.company.id" parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
-          <input id="manuCompanyId" class="form-control full-width" (blur)="onblur()"
-                 formControlName="manuCompanyId" maxlength="6"/>
+          <input id="manuCompanyId" name="manuCompanyId" class="form-control full-width" (blur)="onblur()"
+                 formControlName="manuCompanyId" maxlength="6" data-ng-reflect-maxlength="6"/>
         </label>
       </div>
-      <div class="form-group col-xs-6" >
-        <label for="manuContactId" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'manufacturing.contact.id'|translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="transDetailsFormLocalModel.controls.manuContactId.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="transDetailsFormLocalModel.controls.manuContactId"
-                            controlId="manuContactId" label="manufacturing.contact.id" parentId="transDetails"
-                            parentLabel="Transaction Information"></control-messages>
-          <input id="manuContactId" class="form-control full-width" (blur)="onblur()"
-                 formControlName="manuContactId" maxlength="5"/>
-        </label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group col-xs-6" >
+      <div class=".form-inline col-xs-6 minWidth300" >
         <label for="reguCompanyId" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'regulatory.company.id'|translate}} {{'minNumber6'|translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <span class="field-name" i18n>{{ 'regulatory.company.id'|translate }} {{ 'minNumber6'|translate }}</span>
+          <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
           <control-messages *ngIf="transDetailsFormLocalModel.controls.reguCompanyId.invalid"
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls.reguCompanyId"
                             controlId="reguCompanyId" label="regulatory.company.id" parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
-          <input id="reguCompanyId" class="form-control full-width" (blur)="onblur()"
-                 formControlName="reguCompanyId" maxlength="6"/>
+          <input id="reguCompanyId" name="reguCompanyId" class="form-control full-width" (blur)="onblur()"
+                 formControlName="reguCompanyId" maxlength="6" data-ng-reflect-maxlength="6"/>
         </label>
       </div>
-      <div class="form-group col-xs-6" >
+    </div>
+    <div class="row">
+      <div class=".form-inline col-xs-6 minWidth300" >
+        <label for="manuContactId" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{ 'manufacturing.contact.id'|translate }} {{ 'minNumber5'|translate }}</span>
+          <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
+          <control-messages *ngIf="transDetailsFormLocalModel.controls.manuContactId.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="transDetailsFormLocalModel.controls.manuContactId"
+                            controlId="manuContactId" label="manufacturing.contact.id" parentId="transDetails"
+                            parentLabel="Transaction Information"></control-messages>
+          <input id="manuContactId" name="manuContactId" class="form-control full-width" (blur)="onblur()"
+                 formControlName="manuContactId" maxlength="5" data-ng-reflect-maxlength="5"/>
+        </label>
+      </div>
+      <div class=".form-inline col-xs-6 minWidth300" >
         <label for="reguContactId" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'regulatory.contact.id'|translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <span class="field-name" i18n>{{ 'regulatory.contact.id'|translate }} {{ 'minNumber5'|translate }}</span>
+          <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
           <sup id="tr3-rf">
-            <a class="fn-lnk" href="#tr3"><span class="wb-inv">{{'instruction'|translate}}</span>3</a>
+            <a class="fn-lnk" href="#tr3"><span class="wb-inv">{{ 'instruction'|translate }}</span>3</a>
           </sup>
           <control-messages *ngIf="transDetailsFormLocalModel.controls.reguContactId.invalid"
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls.reguContactId"
                             controlId="reguContactId" label="regulatory.contact.id" parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
-          <input id="reguContactId" class="form-control full-width" (blur)="onblur()"
-                 formControlName="reguContactId" maxlength="5"/>
+          <input id="reguContactId" name="reguContactId" class="form-control full-width" (blur)="onblur()"
+                 formControlName="reguContactId" maxlength="5" data-ng-reflect-maxlength="5"/>
         </label>
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-xs-6" >
+      <div class="form-group col-xs-6 minWidth300" >
         <label for="activityLead" class="required full-width">
-          <span class="field-name" i18n>{{'activity.lead' |translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <span class="field-name" i18n>{{ 'activity.lead' |translate }}</span>
+          <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
           <control-messages *ngIf="transDetailsFormLocalModel.controls.activityLead.invalid"
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls.activityLead"
                             controlId="activityLead" label="activity.lead"
                             parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
-          <select id="activityLead" required class="form-control full-width" (blur)="activityLeadOnblur()"
+          <select id="activityLead" name="activityLead" required class="form-control full-width" (blur)="activityLeadOnblur()" (click)="activityLeadOnblur()"
                   (selected)="activityLeadOnblur()" formControlName="activityLead">
             <option label=" " value=""></option>
-            <option *ngFor="let lead of actLeadList" [ngValue]="lead.id"> {{lead.text|translate}}</option>
+            <option *ngFor="let lead of actLeadList" [ngValue]="lead.id"> {{ lead.text|translate }}</option>
           </select>
         </label>
       </div>
-      <div class="form-group col-xs-6" >
+      <div class="form-group col-xs-6 minWidth300" >
         <label for="activityType" class="required full-width">
-          <span class="field-name" i18n>{{'activity.type' |translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <span class="field-name" i18n>{{ 'activity.type' |translate }}</span>
+          <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
           <control-messages *ngIf="transDetailsFormLocalModel.controls.activityType.invalid"
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls.activityType"
                             controlId="activityType" label="activity.type"
                             parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
-          <select id="activityType" required class="form-control full-width" (blur)="activityTypeOnblur()"
+          <select id="activityType" name="activityType" required class="form-control full-width" (blur)="activityTypeOnblur()"
                   (click)="activityTypeOnblur()"
                   (selected)="activityTypeOnblur()" formControlName="activityType">
             <option label=" " value=""></option>
-            <option *ngFor="let type of actTypeList" [ngValue]="type.id"> {{type.text|translate}}</option>
+            <option *ngFor="let type of actTypeList" [ngValue]="type.id"> {{ type.text|translate }}</option>
           </select>
         </label>
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-xs-6" >
+      <div class="form-group col-xs-6 minWidth300" >
         <label for="descriptionType" class="required full-width">
-          <span class="field-name" i18n>{{'trans.description' |translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <span class="field-name" i18n>{{ 'trans.description' |translate }}</span>
+          <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
           <control-messages *ngIf="transDetailsFormLocalModel.controls.descriptionType.invalid"
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls.descriptionType"
                             controlId="descriptionType" label="trans.description"
                             parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
-          <select id="descriptionType" required class="form-control full-width" (blur)="descrDeviceOnblur()"
+          <select id="descriptionType" name="descriptionType" required class="form-control full-width" (blur)="descrDeviceOnblur()"
                   (click)="descrDeviceOnblur()"
                   (selected)="descrDeviceOnblur()" formControlName="descriptionType">
             <option label=" " value=""></option>
-            <option *ngFor="let desc of transDescList" [ngValue]="desc.id"> {{desc.text|translate}}</option>
+            <option *ngFor="let desc of transDescList" [ngValue]="desc.id"> {{ desc.text|translate }}</option>
 
           </select>
         </label>
       </div>
-      <div class="form-group col-xs-6" *ngIf="isDescInitial()">
+      <div class="form-group col-xs-6 minWidth300" *ngIf="isDescInitial()">
         <label for="deviceClass" class="required full-width">
-          <span class="field-name" i18n>{{'device.class' |translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <span class="field-name" i18n>{{ 'device.class' |translate }}</span>
+          <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
           <sup id="tr2a-rf">
-            <a class="fn-lnk" href="#tr2a"><span class="wb-inv">{{'instruction'|translate}}</span>3.1</a>
+            <a class="fn-lnk" href="#tr2a"><span class="wb-inv">{{ 'instruction'|translate }}</span>3.1</a>
           </sup>
           <control-messages *ngIf="transDetailsFormLocalModel.controls.deviceClass.invalid"
                             [showError]="showFieldErrors"
@@ -154,27 +164,27 @@
                             controlId="deviceClass" label="device.class"
                             parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
-          <select id="deviceClass" required class="form-control full-width" (blur)="descrDeviceOnblur()"
+          <select id="deviceClass" name="deviceClass" required class="form-control full-width" (blur)="descrDeviceOnblur()"
                   (selected)="descrDeviceOnblur()" (click)="descrDeviceOnblur()"
                   formControlName="deviceClass">
             <option label=" " value=""></option>
-            <option *ngFor="let class of devClassList" [ngValue]="class.id"> {{class.id|translate}}</option>
+            <option *ngFor="let class of devClassList" [ngValue]="class.id"> {{ class.id|translate }}</option>
           </select>
         </label>
       </div>
     </div>
     <div class="row" *ngIf="isInitialNotLicenceDCSet()">
         <fieldset id="amendReasons" class="form-group col-xs-12">
-          <legend>
-            <span class="field-name">{{'amend.reason' | translate}}</span>
-            <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <legend class="legend-rep">
+            <span class="required">{{ 'amend.reason' | translate }}</span>
+            <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
             <control-messages *ngIf="transDetailsFormLocalModel.controls.amendReason.invalid"
                   [showError]="showFieldErrors"
                   [control]="transDetailsFormLocalModel.controls.amendReason"
                   controlId="amendReason" label="amend.reason"
                   parentId="amendReasons"
                   parentLabel="Transaction Information"></control-messages>
-            <input id="amendReason" type="hidden" class="form-control full-width"
+            <input id="amendReason" name="amendReason" type="hidden" class="form-control full-width"
                    formControlName="amendReason"/>
           </legend>
           <div class="row" *ngIf="reasonArray[0]">
@@ -184,7 +194,7 @@
                   <input type="checkbox" (blur)="reasonOnblur(0)"
                          formControlName="classChange"
                          id="classChange"/>
-                  <span>{{'classification.change'|translate}}</span>
+                  <span>{{ 'classification.change'|translate }}</span>
                 </label>
               </div>
             </div>
@@ -193,10 +203,10 @@
             <div class="col-sm-12">
               <div class="checkbox">
                 <label for="licenceChange">
-                  <input type="checkbox" (blur)="reasonOnblur(1)"
+                  <input type="checkbox" name="licenceChange" (blur)="reasonOnblur(1)"
                          formControlName="licenceChange"
                          id="licenceChange"/>
-                  <span>{{'licence.change'|translate}}</span>
+                  <span>{{ 'licence.change'|translate }}</span>
                 </label>
               </div>
             </div>
@@ -205,10 +215,10 @@
             <div class="col-sm-12">
               <div class="checkbox">
                 <label for="deviceChange">
-                  <input type="checkbox" (blur)="reasonOnblur(2)"
+                  <input type="checkbox" name="deviceChange" (blur)="reasonOnblur(2)"
                          formControlName="deviceChange"
                          id="deviceChange"/>
-                  <span>{{'device.change'|translate}}</span>
+                  <span>{{ 'device.change'|translate }}</span>
                 </label>
               </div>
             </div>
@@ -217,10 +227,10 @@
             <div class="col-sm-12">
               <div class="checkbox">
                 <label for="processChange">
-                  <input type="checkbox" (blur)="reasonOnblur(3)"
+                  <input type="checkbox" name="processChange" (blur)="reasonOnblur(3)"
                          formControlName="processChange"
                          id="processChange"/>
-                  <span>{{'process.change'|translate}}</span>
+                  <span>{{ 'process.change'|translate }}</span>
                 </label>
               </div>
             </div>
@@ -229,10 +239,10 @@
             <div class="col-sm-12">
               <div class="checkbox">
                 <label for="qualityChange">
-                  <input type="checkbox" (blur)="reasonOnblur(4)"
+                  <input type="checkbox" name="qualityChange" (blur)="reasonOnblur(4)"
                          formControlName="qualityChange"
                          id="qualityChange"/>
-                  <span>{{'quality.change'|translate}}</span>
+                  <span>{{ 'quality.change'|translate }}</span>
                 </label>
               </div>
             </div>
@@ -241,10 +251,10 @@
             <div class="col-sm-12">
               <div class="checkbox">
                 <label for="designChange">
-                  <input type="checkbox" (blur)="reasonOnblur(5)"
+                  <input type="checkbox" name="designChange" (blur)="reasonOnblur(5)"
                          formControlName="designChange"
                          id="designChange"/>
-                  <span>{{'design.change'|translate}}</span>
+                  <span>{{ 'design.change'|translate }}</span>
                 </label>
               </div>
             </div>
@@ -253,10 +263,10 @@
             <div class="col-sm-12">
               <div class="checkbox">
                 <label for="materialsChange">
-                  <input type="checkbox" (blur)="reasonOnblur(6)"
+                  <input type="checkbox" name="materialsChange" (blur)="reasonOnblur(6)"
                          formControlName="materialsChange"
                          id="materialsChange"/>
-                  <span>{{'materials.change'|translate}}</span>
+                  <span>{{ 'materials.change'|translate }}</span>
                 </label>
               </div>
             </div>
@@ -265,10 +275,10 @@
             <div class="col-sm-12">
               <div class="checkbox">
                 <label for="labellingChange">
-                  <input type="checkbox" (blur)="reasonOnblur(7)"
+                  <input type="checkbox" name="labellingChange" (blur)="reasonOnblur(7)"
                          formControlName="labellingChange"
                          id="labellingChange"/>
-                  <span>{{'labelling.change'|translate}}</span>
+                  <span>{{ 'labelling.change'|translate }}</span>
                 </label>
               </div>
             </div>
@@ -277,10 +287,10 @@
             <div class="col-sm-12">
               <div class="checkbox">
                 <label for="safetyChange">
-                  <input type="checkbox" (blur)="reasonOnblur(8)"
+                  <input type="checkbox" name="safetyChange" (blur)="reasonOnblur(8)"
                          formControlName="safetyChange"
                          id="safetyChange"/>
-                  <span>{{'safety.change'|translate}}</span>
+                  <span>{{ 'safety.change'|translate }}</span>
                 </label>
               </div>
             </div>
@@ -291,8 +301,8 @@
                 <label for="purposeChange">
                   <input type="checkbox" (blur)="reasonOnblur(9)"
                          formControlName="purposeChange"
-                         id="purposeChange"/>
-                  <span>{{'purpose.change'|translate}}</span>
+                         id="purposeChange" name="purposeChange"/>
+                  <span>{{ 'purpose.change'|translate }}</span>
                 </label>
               </div>
             </div>
@@ -303,21 +313,111 @@
                 <label for="addChange">
                   <input type="checkbox" (blur)="reasonOnblur(10)"
                          formControlName="addChange"
-                         id="addChange"/>
-                  <span>{{'add.delete.change'|translate}}</span>
+                         id="addChange" name="addChange"/>
+                  <span>{{ 'add.delete.change'|translate }}</span>
                 </label>
               </div>
             </div>
           </div>
         </fieldset>
       </div>
+    <div class="row" *ngIf="showRationalRequired()">
+      <div class="col-xs-12 form-group">
+        <label class="required full-width" for="rational" i18n>{{ 'rational' | translate }}
+        <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
+          <control-messages *ngIf="transDetailsFormLocalModel.controls.rational.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="transDetailsFormLocalModel.controls.rational"
+                            controlId="rational" label="rational"
+                            parentId="transDetails"
+                            parentLabel="Transaction Information"></control-messages>
+          <textarea  row="3" id="rational" name="rational" class="form-control full-width"  maxlength="500" formControlName="rational" (blur)="onblur()" required ></textarea>
+        </label>
+      </div>
+    </div>
+    <div class="row" *ngIf="showProposeIndication()">
+      <div class="col-xs-12 form-group">
+        <label class="required full-width" for="proposedIndication" i18n>{{ 'proposed.indication' | translate }}
+          <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
+          <control-messages *ngIf="transDetailsFormLocalModel.controls.proposedIndication.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="transDetailsFormLocalModel.controls.proposedIndication"
+                            controlId="proposedIndication" label="proposed.indication"
+                            parentId="transDetails"
+                            parentLabel="Transaction Information"></control-messages>
+          <textarea  row="3" id="proposedIndication" name="proposedIndication" class="form-control full-width"  formControlName="proposedIndication" (blur)="onblur()" required ></textarea>
+        </label>
+      </div>
+    </div>
+    <div class="row" *ngIf="showDate">
+      <div class="form-group col-xs-6" *ngIf="showVersion">
+        <label for="requestDate" class="required full-width">
+          <span class="field-name" i18n>{{ 'request.version' |translate }}</span>
+          <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
+          <control-messages *ngIf="transDetailsFormLocalModel.controls.requestVersion.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="transDetailsFormLocalModel.controls.requestVersion"
+                            controlId="requestVersion" label="request.version"
+                            parentId="transDetails"
+                            parentLabel="Transaction Information"></control-messages>
+          <input id="requestVersion" name="requestVersion" type="text" class="form-control full-width" (blur)="onblur()" maxlength="10" data-ng-reflect-maxlength="10"
+                 formControlName="requestVersion" />
+        </label>
+      </div>
+
+      <div class="form-group col-xs-6">
+        <label for="requestDate" class="required full-width">
+          <span class="field-name" i18n>{{ 'request.date' |translate }}</span>
+          <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
+          <control-messages *ngIf="transDetailsFormLocalModel.controls.requestDate.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="transDetailsFormLocalModel.controls.requestDate"
+                            controlId="requestDate" label="request.date"
+                            parentId="transDetails"
+                            parentLabel="Transaction Information"></control-messages>
+          <input id="requestDate" name="requestDate" type="date" class="form-control full-width" (blur)="onblur()"
+                 formControlName="requestDate" min="1970-01-01" max="2099-12-31" pattern="\d{4}-\d{2}-\d{2}"/>
+        </label>
+      </div>
+    </div>
+    <div class="row" *ngIf="showPeriod">
+      <div class="form-group col-xs-6">
+        <label for="requestFrom" class="required full-width">
+          <span class="field-name" i18n>{{ 'request.from' |translate }}</span>
+          <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
+          <control-messages *ngIf="transDetailsFormLocalModel.controls.requestDate.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="transDetailsFormLocalModel.controls.requestDate"
+                            controlId="requestDate" label="request.date"
+                            parentId="transDetails"
+                            parentLabel="Transaction Information"></control-messages>
+          <input id="requestFrom" name="requestDate" type="date" class="form-control full-width" (blur)="onblur()"
+                 formControlName="requestDate" min="1970-01-01" max="2099-12-31"/>
+        </label>
+      </div>
+      <div class="form-group col-xs-6">
+        <label for="requestTo" class="required full-width">
+          <span class="field-name" i18n>{{ 'request.to' |translate }}</span>
+          <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
+          <control-messages *ngIf="transDetailsFormLocalModel.controls.requestDate.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="transDetailsFormLocalModel.controls.requestDate"
+                            controlId="requestDate" label="request.date"
+                            parentId="transDetails"
+                            parentLabel="Transaction Information"></control-messages>
+          <input id="requestTo" name="requestTo" type="date" class="form-control full-width" (blur)="onblur()"
+                 formControlName="requestTo" min="1970-01-01" max="2099-12-31"/>
+        </label>
+      </div>
+
+    </div>
     <div class="row">
       <div class="form-group col-xs-6" *ngIf="isNotInitialMmUd()">
         <label for="appNum" class="required full-width">
-          <span class="field-name" i18n>{{'application.number' |translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <span class="field-name" i18n>{{ 'application.number' |translate }}</span>
+          <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
           <sup id="tr2b-rf">
-            <a class="fn-lnk" href="#tr2b"><span class="wb-inv">{{'instruction'|translate}}</span>3.2</a>
+            <a class="fn-lnk" href="#tr2b"><span class="wb-inv">{{ 'instruction'|translate }}</span>3.2</a>
           </sup>
           <control-messages *ngIf="transDetailsFormLocalModel.controls.appNum.invalid"
                             [showError]="showFieldErrors"
@@ -325,15 +425,15 @@
                             controlId="appNum" label="application.number"
                             parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
-          <input id="appNum" class="form-control full-width" (blur)="onblur()"
-                 formControlName="appNum" maxlength="6"/>
+          <input id="appNum" name="appNum" class="form-control full-width" (blur)="onblur()"
+                 formControlName="appNum" maxlength="6" data-ng-reflect-maxlength="6"/>
         </label>
       </div>
       <div class="form-group col-xs-6" *ngIf="isMmUd()">
         <label for="appNumOpt" class="full-width">
-          <span class="field-name" i18n>{{'application.number' |translate}}</span>
+          <span class="field-name" i18n>{{ 'application.number' |translate }}</span>
           <sup id="tr2b-rf">
-            <a class="fn-lnk" href="#tr2b"><span class="wb-inv">{{'instruction'|translate}}</span>3.2</a>
+            <a class="fn-lnk" href="#tr2b"><span class="wb-inv">{{ 'instruction'|translate }}</span>3.2</a>
           </sup>
           <control-messages *ngIf="transDetailsFormLocalModel.controls.appNumOpt.invalid"
                             [showError]="showFieldErrors"
@@ -341,23 +441,23 @@
                             controlId="appNumOpt" label="application.number"
                             parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
-          <input id="appNumOpt" class="form-control full-width" (blur)="onblur()"
-                 formControlName="appNumOpt" maxlength="6"/>
+          <input id="appNumOpt" name="appNumOpt" class="form-control full-width" (blur)="onblur()"
+                 formControlName="appNumOpt" maxlength="6" data-ng-reflect-maxlength="6"/>
         </label>
       </div>
       <div class="form-group col-xs-6" *ngIf="isMm()">
         <label for="meetingId" class="full-width">
-          <span class="field-name" i18n>{{'meeting.id' |translate}}</span>
-          <input id="meetingId" class="form-control full-width" (blur)="onblur()"
-                 formControlName="meetingId" maxlength="6"/>
+          <span class="field-name" i18n>{{ 'meeting.id' |translate }}</span>
+          <input id="meetingId" name="meetingId" class="form-control full-width" (blur)="onblur()"
+                 formControlName="meetingId" maxlength="6" data-ng-reflect-maxlength="6"/>
         </label>
       </div>
       <div class="form-group col-xs-6" *ngIf="isInitialAndLicence()">
         <label for="deviceName" class="required full-width">
-          <span class="field-name" i18n>{{'device.name' |translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <span class="field-name" i18n>{{ 'device.name' |translate }}</span>
+          <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
           <sup id="tr2c-rf">
-            <a class="fn-lnk" href="#tr2c"><span class="wb-inv">{{'instruction'|translate}}</span>3.3</a>
+            <a class="fn-lnk" href="#tr2c"><span class="wb-inv">{{ 'instruction'|translate }}</span>3.3</a>
           </sup>
           <control-messages *ngIf="transDetailsFormLocalModel.controls.deviceName.invalid"
                             [showError]="showFieldErrors"
@@ -365,8 +465,8 @@
                             controlId="deviceName" label="device.name"
                             parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
-          <input id="deviceName" class="form-control full-width" (blur)="onblur()"
-                 formControlName="deviceName" maxlength="150"/>
+          <input id="deviceName" name="deviceName" class="form-control full-width" (blur)="onblur()"
+                 formControlName="deviceName" maxlength="150" data-ng-reflect-maxlength="150"/>
         </label>
       </div>
     </div>
@@ -376,69 +476,51 @@
         <div class="form-group">
         </div>
         <label for="licenceName" class="required full-width">
-          <span class="field-name" i18n>{{'licence.name' |translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <span class="field-name" i18n>{{ 'licence.name' |translate }}</span>
+          <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
           <control-messages *ngIf="transDetailsFormLocalModel.controls.licenceName.invalid"
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls.licenceName"
                             controlId="licenceName" label="licence.name"
                             parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
-          <input class="form-control full-width" id="licenceName" (blur)="onblur()"
-                    required formControlName="licenceName" maxlength="150"/>
+          <input class="form-control full-width" id="licenceName" name="licenceName" (blur)="onblur()"
+                 required formControlName="licenceName" maxlength="150" data-ng-reflect-maxlength="150"/>
         </label>
       </div>
     </div>
     <div class="row" *ngIf="isDeviceNameChanged()">
       <div class="col-xs-12 form-group alert alert-info" role="alert">
            <span>
-            <p aria-live="polite">{{'include.ddt'|translate}}</p>
+            <p aria-live="polite">{{ 'include.ddt'|translate }}</p>
            </span>
       </div>
     </div>
 
-    <div class="row" *ngIf="showDate">
-      <div class="form-group col-xs-6">
-        <div class="form-group">
-        </div>
-        <label for="requestDate" class="required full-width">
-          <span class="field-name" i18n>{{'request.date' |translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="transDetailsFormLocalModel.controls.requestDate.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="transDetailsFormLocalModel.controls.requestDate"
-                            controlId="requestDate" label="request.date"
-                            parentId="transDetails"
-                            parentLabel="Transaction Information"></control-messages>
-          <input id="requestDate" type="date" class="form-control full-width" (blur)="onblur()"
-                 formControlName="requestDate" min="1970-01-01" max="2099-12-31"/>
-        </label>
-      </div>
-    </div>
     <div class="row" *ngIf="showBriefDesc">
       <div class="form-group col-xs-12">
         <div class="form-group">
         </div>
         <label for="briefDesc" class="required full-width">
-          <span class="field-name" i18n>{{'brief.descr' |translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <span class="field-name" i18n>{{ 'brief.descr' |translate }}</span>
+          <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
           <control-messages *ngIf="transDetailsFormLocalModel.controls.briefDesc.invalid"
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls.briefDesc"
                             controlId="briefDesc" label="brief.descr"
                             parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
-          <textarea type="text" class="form-control full-width" id="briefDesc" (blur)="onblur()"
+          <textarea type="text" class="form-control full-width" id="briefDesc" name="briefDesc" (blur)="onblur()"
                     required formControlName="briefDesc"></textarea>
         </label>
       </div>
     </div>
     <div class="row form-group col-xs-6">
       <label for="licenceNum" class="required full-width">
-        <span class="field-name" i18n>{{'licence.number' |translate}}</span>
-        <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+        <span class="field-name" i18n>{{ 'licence.number' |translate }}</span>
+        <strong class="required" i18n>{{ 'commmon.required.bracket'|translate }}</strong>
         <sup id="tr4-rf">
-          <a class="fn-lnk" href="#tr4"><span class="wb-inv">{{'instruction'|translate}}</span>4</a>
+          <a class="fn-lnk" href="#tr4"><span class="wb-inv">{{ 'instruction'|translate }}</span>4</a>
         </sup>
         <control-messages *ngIf="transDetailsFormLocalModel.controls.licenceNum.invalid"
                           [showError]="showFieldErrors"
@@ -446,8 +528,8 @@
                           controlId="licenceNum" label="licence.number"
                           parentId="transDetails"
                           parentLabel="Transaction Information"></control-messages>
-        <input id="licenceNum" class="form-control full-width" (blur)="licenceNumOnblur()" only-digits
-               formControlName="licenceNum" maxlength="6"/>
+        <input id="licenceNum" name="licenceNum" class="form-control full-width" (blur)="licenceNumOnblur()" data-only-digits
+               formControlName="licenceNum" maxlength="6" data-ng-reflect-maxlength="6"/>
       </label>
     </div>
     <div class="row" *ngIf="!isHasDdtMandatory()">
@@ -456,7 +538,7 @@
           <label for="hasDdt">
             <input type="checkbox" (blur)="onblur()"
                    formControlName="hasDdt"
-                   id="hasDdt"/>
+                   id="hasDdt" name="hasDdt"/>
             <strong>{{'has.ddt'|translate}}</strong>
             <sup id="tr5-rf">
               <a class="fn-lnk" href="#tr5"><span class="wb-inv">{{'instruction'|translate}}</span>5</a>
@@ -471,7 +553,7 @@
           <label for="hasDdtMan">
             <input type="checkbox" (blur)="onblur()"
                    formControlName="hasDdtMan"
-                   id="hasDdtMan"/>
+                   id="hasDdtMan" name="hasDdtMan"/>
             <strong>{{'has.ddt'|translate}}</strong>
             <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
             <sup id="tr5-rf">
@@ -493,26 +575,25 @@
           <label for="hasAppInfo">
             <input type="checkbox" (blur)="onblur()"
                    formControlName="hasAppInfo"
-                   id="hasAppInfo"/>
-            <strong>{{'has.app.info'|translate}}</strong>
+                   id="hasAppInfo" name="hasAppInfo"/>
+            <strong>{{ 'has.app.info'|translate }}</strong>
           </label>
         </div>
       </div>
     </div>
     <div class="row" *ngIf="isNotUnsolicited()">
-      <div class="form-group col-xs-6 rep-margin-top-12" >
-        <label for="isSolicitedInfo" class="required full-width">
-          <span class="field-name" i18n>{{'is.solicited' |translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="transDetailsFormLocalModel.controls.isSolicitedInfo.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="transDetailsFormLocalModel.controls.isSolicitedInfo"
-                            controlId="isSolicitedInfo" label="is.solicited"
-                            parentId="transDetails"
-                            parentLabel="Transaction Information"></control-messages>
-          <select id="isSolicitedInfo" required class="form-control full-width" (blur)="isSolicitedOnblur()" (selected)="isSolicitedOnblur()" formControlName="isSolicitedInfo">
+      <div class="form-group col-xs-12 rep-margin-top-12" >
+        <label for="isSolicitedInfo" class="full-width">
+          <span class="field-name" i18n>{{ 'is.solicited' |translate }}</span>
+          <!--<control-messages *ngIf="transDetailsFormLocalModel.controls.isSolicitedInfo.invalid"-->
+                            <!--[showError]="showFieldErrors"-->
+                            <!--[control]="transDetailsFormLocalModel.controls.isSolicitedInfo"-->
+                            <!--controlId="isSolicitedInfo" label="is.solicited"-->
+                            <!--parentId="transDetails"-->
+                            <!--parentLabel="Transaction Information"></control-messages>-->
+          <select id="isSolicitedInfo" name="isSolicitedInfo" class="form-control" (blur)="isSolicitedOnblur()" (click)="isSolicitedOnblur()" (selected)="isSolicitedOnblur()" formControlName="isSolicitedInfo">
             <option label=" " value=""></option>
-            <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+            <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{ opt | translate }}</option>
           </select>
         </label>
       </div>

@@ -1,7 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges, ViewChild,
-  ViewChildren
+  ViewChildren, ViewEncapsulation
 } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {RequesterDetailsComponent} from '../requester.details/requester.details.component';
@@ -14,7 +14,8 @@ import {ControlMessagesComponent} from '../../error-msg/control-messages.compone
   selector: 'requester-record',
   templateUrl: './requester-record.component.html',
   styleUrls: ['./requester-record.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 
 })
 export class RequesterRecordComponent implements OnInit, AfterViewInit {
@@ -25,6 +26,7 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
   @Input() public showErrors: boolean;
   @Input() detailsChanged: number;
   @Input() userList: Array<any>;
+  @Input() newRecordIndicator: boolean;
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
@@ -145,7 +147,10 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
     this.errorList = new Array();
     this.errorList = this.parentErrorList.concat(this.childErrorList);
     console.log('requester record - updateErrorList: ' + this.errorList);
-    // this._emitErrors();
+    if ( this.errorList[0] && this.errorList[0].currentError) {
+      this.showErrSummary = true;
+    }
+    this._emitErrors();
     // this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -181,6 +186,7 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
       } else {
         this.requesterRecordModel.controls.id.setValue(temp);
         RequesterRecordService.mapFormModelToDataModel(this.requesterRecordModel, this.requesterModel, this.userList);
+        this._emitErrors();
       }
     }
   }

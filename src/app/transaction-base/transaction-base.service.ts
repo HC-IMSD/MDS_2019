@@ -21,6 +21,7 @@ export class TransactionBaseService {
       return null;
     }
     return fb.group({
+      softwareVersion: GlobalsService.SOFTWARE_VERSION,
       enrolVersion: '0.0',
       lastSavedDate: '',
       dossierId: [null, [Validators.required, ValidationService.dossierIdValidator]],
@@ -73,6 +74,7 @@ export class TransactionBaseService {
 
     return (
       {
+        software_version: GlobalsService.SOFTWARE_VERSION,
         enrol_version: '0.0',
         last_saved_date: '',  // todo: to map into form model ???
         dossier_id: '',

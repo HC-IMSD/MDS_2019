@@ -1,6 +1,6 @@
 import {
   Component, OnInit, Input, ViewChild, SimpleChanges, OnChanges, ViewChildren, QueryList, EventEmitter, Output,
-  AfterViewInit, ChangeDetectorRef, DoCheck
+  AfterViewInit, ChangeDetectorRef, DoCheck, ViewEncapsulation
 } from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
@@ -16,7 +16,8 @@ import {GlobalsService} from '../../globals/globals.service';
 @Component({
   selector: 'contact-list',
   templateUrl: './contact.list.component.html',
-  styleUrls: ['./contact.list.component.css']
+  styleUrls: ['./contact.list.component.css'],
+  encapsulation: ViewEncapsulation.None
 
 })
 export class ContactListComponent extends ListOperations implements OnInit, OnChanges, AfterViewInit, DoCheck {
@@ -26,6 +27,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   @Input() public loadFileIndicator: boolean;
   @Input() public isInternal: boolean;
   @Input() lang;
+  @Input() helpTextSequences;
   @Output() public errors = new EventEmitter();
 
   @ViewChild(CompanyContactRecordComponent, {static: true}) companyContactChild: CompanyContactRecordComponent;

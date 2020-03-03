@@ -17,7 +17,7 @@
       </div>
       <aside class="wb-fnote" role="note" id="instructions">
         <h2>{{'instruction.help'|translate}}</h2>
-        <section><company-help-en></company-help-en></section>
+        <section><company-help-en [helpTextSequences]="helpIndex"></company-help-en></section>
       </aside>
       <span id="main"></span>
       <div class="row mrgn-tp-md">
@@ -32,7 +32,7 @@
           <header class="panel-heading clearfix">
             <h2 class="panel-title">{{'company.load.file'|translate}}
               <sup id="co1-rf">
-                <a class="fn-lnk" href="#co1"><span class="wb-inv">{{'instruction'|translate}}</span>1</a>
+                <a class="fn-lnk" href="#co1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex.loadFileInx}}</a>
               </sup>
             </h2>
           </header>
@@ -52,7 +52,7 @@
           <header class="panel-heading clearfix">
             <h2 class="panel-title">{{'heading.company'|translate}}
               <sup id="co2-rf">
-                <a class="fn-lnk" href="#co2"><span class="wb-inv">{{'instruction'|translate}}</span>2</a>
+                <a class="fn-lnk" href="#co2"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex.compREPInx}}</a>
               </sup>
             </h2>
           </header>
@@ -61,6 +61,7 @@
             <com-gen-info [showErrors]="showErrors" [isInternal]="isInternalSite"
                               [detailsChanged]="updateChild" [lang]="lang"
                               [genInfoModel]="genInfoModel"
+                              [helpTextSequences]="helpIndex"
                               (showAdminChanges)="processAdminChangesUpdate($event)"
                               (errorList)="processGenInfoErrors($event)">
             </com-gen-info>
@@ -74,6 +75,7 @@
                   <address-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
                                    [detailsChanged]="updateChild" [provinceList]="provinceList"
                                    [addressModel]="addressModel" [stateList]="stateList"
+                                   [helpTextSequences]="helpIndex"
                                    (errorList)="processAddressErrors($event)"></address-details>
                 </div>
               </section>
@@ -90,14 +92,15 @@
                     </button>-->
                   </div>
                   <h3 class="panel-title">{{'heading.contactInfo'|translate}}
-                    <sup id="co3-rf">
-                      <a class="fn-lnk" href="#co3"><span class="wb-inv">{{'instruction'|translate}}</span>3</a>
-                    </sup>
+                    <!--<sup id="co3-rf">-->
+                      <!--<a class="fn-lnk" href="#co3"><span class="wb-inv">{{'instruction'|translate}}</span>3</a>-->
+                    <!--</sup>-->
                   </h3>
                 </header>
                 <div class="panel-body">
                   <contact-list  (errors)="processContactErrors($event)" [isInternal]="isInternalSite"
                                  [loadFileIndicator]="loadFileIndicator" [lang]="lang"
+                                 [helpTextSequences]="helpIndex"
                                  [showErrors]="showErrors" [contactModel]="contactModel"></contact-list>
                 </div>
               </section>
@@ -110,8 +113,8 @@
         <section class="panel  panel-default">
           <header class="panel-heading clearfix">
             <h3 class="panel-title">{{'primary.contact'|translate}}
-              <sup id="co4-rf">
-                <a class="fn-lnk" href="#co4"><span class="wb-inv">{{'instruction'|translate}}</span>4</a>
+              <sup id="co5-rf">
+                <a class="fn-lnk" href="#co5"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex.primaryConInx}}</a>
               </sup>
             </h3>
           </header>
@@ -119,6 +122,7 @@
             <primary-contact [showErrors]="showErrors" [lang]="lang"
                              [detailsChanged]="updateChild"
                              [primContactModel]="primContactModel"
+                             [helpTextSequences]="helpIndex"
                              (primContactErrorList)="processPrimContactErrors($event)"></primary-contact>
           </div>
         </section>
@@ -136,6 +140,7 @@
               <comp-admin-changes [showErrors]="showErrors" [showAdminChanges]="adminChanges" [lang]="lang"
                                   [detailsChanged]="updateChild" [isInternal]="isInternalSite"
                                   [adminChangesModel]="adminChangesModel"
+                                  [helpTextSequences]="helpIndex"
                                   (adminChangesErrorList)="processAdminChangesErrors($event)"></comp-admin-changes>
             </div>
           </div>

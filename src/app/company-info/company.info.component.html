@@ -1,28 +1,28 @@
 <div>
   <div [formGroup]="generalInfoFormLocalModel">
     <div class="row">
-      <div class="form-group col-xs-3" style="min-width: 160px;" >
+      <div class="form-group col-xs-3" >
         <label for="formStatus">
-          <span class="field-name">{{'appl.status' |translate}}</span></label>
-        <input id="formStatus" class="form-control" [readonly]="true"
-               formControlName="formStatus" />
-
+          <span class="field-name">{{'appl.status' |translate}}</span>
+          <input name="formStatus" id="formStatus" class="form-control full-width" [readonly]="true"
+                 formControlName="formStatus" (blur)="onblur()" />
+        </label>
       </div>
-      <div class="form-group col-xs-3" style="min-width: 160px;" >
+      <div class="form-group col-xs-3" >
         <label for="enrolVersion">
           <span class="field-name">{{'enrol.version' |translate}}</span>
-          <input id="enrolVersion" class="form-control full-width" [readonly]="disableAmend()"
+          <input name="enrolVersion" id="enrolVersion" class="form-control full-width" [readonly]="disableAmend()"
                  formControlName="enrolVersion" (blur)="onblur()" />
         </label>
       </div>
-      <div class="form-group col-xs-3" style="min-width: 160px;" >
+      <div class="form-group col-xs-3" >
         <label for="lastSavedDate">
           <span class="field-name">{{'date.saved' |translate}}</span>
-          <input id="lastSavedDate" class="form-control full-width" [readonly]="disableAmend()"
+          <input name="lastSavedDate" id="lastSavedDate" class="form-control full-width" [readonly]="disableAmend()"
                  formControlName="lastSavedDate" (blur)="onblur()" />
         </label>
       </div>
-      <div class="form-group col-xs-3" style="min-width: 160px;">
+      <div class="form-group col-xs-3">
         <label for="companyId" [ngClass]="{'required':isInternal}" aria-required="true">
           <span class="field-name" i18n>{{'company.id' |translate}}</span>
           <strong class="required" *ngIf="isInternal" i18n>{{'commmon.required.bracket'|translate}}</strong>
@@ -31,7 +31,7 @@
                             [control]="generalInfoFormLocalModel.controls.companyId"
                             controlId="companyId" label="company.id" parentId="generalInfo"
                             parentLabel="Regulatory Company Enrolment"></control-messages>
-          <input id="companyId" class="form-control" formControlName="companyId"
+          <input name="companyId" id="companyId" class="form-control" formControlName="companyId"
                  [readonly]="disableAmend()" maxlength="6" (blur)="onblur()" />
         </label>
       </div>
@@ -46,7 +46,7 @@
     <div class="row" *ngIf="isAmend">
 
       <fieldset id="amendReasons" class="form-group col-xs-12">
-        <legend class="legend-rep">
+        <legend class="legend-rep col-xs-4">
           <span>{{'amend.reason' | translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="generalInfoFormLocalModel.controls.amendReason.invalid"
@@ -55,14 +55,14 @@
                             controlId="amendReason" label="amend.reason"
                             parentId="amendReasons"
                             parentLabel="Regulatory Company Enrolment"></control-messages>
-          <input id="amendReason" type="hidden" class="form-control full-width"
+          <input name="amendReason" id="amendReason" type="hidden" class="form-control"
                  formControlName="amendReason"/>
         </legend>
-        <div class="row">
-          <div class="col-sm-12">
+        <div class="row rep-margin-left">
+          <div class="col-xs-12">
             <div class="checkbox">
               <label for="nameChange">
-                <input type="checkbox" (blur)="nameChangeOnblur()"
+                <input name="nameChange" type="checkbox" (blur)="nameChangeOnblur()"
                        formControlName="nameChange"
                        id="nameChange"/>
                 <span>{{'manuname.change'|translate}}</span>
@@ -70,11 +70,11 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-sm-12">
+        <div class="row rep-margin-left">
+          <div class="col-xs-12">
             <div class="checkbox">
               <label for="addressChange">
-                <input type="checkbox" (blur)="addressChangeOnblur()"
+                <input name="addressChange" type="checkbox" (blur)="addressChangeOnblur()"
                        formControlName="addressChange"
                        id="addressChange"/>
                 <span>{{'manuaddr.change'|translate}}</span>
@@ -82,11 +82,11 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-sm-12">
+        <div class="row rep-margin-left">
+          <div class="col-xs-12">
             <div class="checkbox">
               <label for="facilityChange">
-                <input type="checkbox" (blur)="facilityChangeOnblur()"
+                <input name="facilityChange" type="checkbox" (blur)="facilityChangeOnblur()"
                        formControlName="facilityChange"
                        id="facilityChange"/>
                 <span>{{'facility.change'|translate}}</span>
@@ -94,11 +94,11 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-sm-6">
+        <div class="row rep-margin-left">
+          <div class="col-xs-12">
             <div class="checkbox">
               <label for="otherChange">
-                <input type="checkbox" (blur)="amendReasonOnblur()"
+                <input name="otherChange" type="checkbox" (blur)="amendReasonOnblur()"
                        formControlName="otherChange"
                        id="otherChange"/>
                 <span>{{'other'|translate}}</span>
@@ -108,9 +108,16 @@
         </div>
         <div class="row">
           <div *ngIf="isOther()" class="col-xs-12 form-group">
-            <label for="otherDetails"  class="full-width">{{'other.details'|translate}}
-              <textarea type="text" class="form-control full-width" id="otherDetails" (blur)="amendReasonOnblur()"
-                        formControlName="otherDetails" maxlength="500"></textarea>
+            <label for="otherDetails" class="full-width">{{'other.details'|translate}}
+              <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+              <control-messages *ngIf="generalInfoFormLocalModel.controls.otherDetails.invalid"
+                                [showError]="showFieldErrors"
+                                [control]="generalInfoFormLocalModel.controls.otherDetails"
+                                controlId="otherDetails" label="other.details"
+                                parentId="generalInfo"
+                                parentLabel="Regulatory Company Enrolment"></control-messages>
+            <textarea type="text" class="form-control full-width" id="otherDetails" (blur)="amendReasonOnblur()"
+                      formControlName="otherDetails" maxlength="500"></textarea>
             </label>
           </div>
         </div>
@@ -136,12 +143,12 @@
         </label>
       </div>
     </div>
-    <!--<div class="col-xs-7">-->
-    <!--<div *ngIf="showAmendMsg()" class="alert alert-info" role="alert"-->
-    <!--aria-live="polite">-->
-    <!--<span>{{'amend.msg'|translate}}</span>-->
-    <!--</div>-->
-    <!--</div>-->
+      <!--<div class="col-xs-7">-->
+        <!--<div *ngIf="showAmendMsg()" class="alert alert-info" role="alert"-->
+             <!--aria-live="polite">-->
+          <!--<span>{{'amend.msg'|translate}}</span>-->
+        <!--</div>-->
+      <!--</div>-->
     <!--pre>{{generalInfoFormLocalModel.value |json}}</pre>
       <pre>companyId.invalid={{generalInfoFormLocalModel.controls.companyId.invalid}}</pre-->
   </div>

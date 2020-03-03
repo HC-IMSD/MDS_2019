@@ -36,6 +36,13 @@ export class RequesterRecordService {
     console.log(requesterRecordModel);
     console.log(formRecord);
     requesterRecordModel.id = formRecord.controls.id.value;
+    if (requesterRecordModel.requester && requesterRecordModel.requester._id) {
+      requesterRecordModel.requester_text = requesterRecordModel.requester._id;
+      requesterRecordModel.requester.requester_text = requesterRecordModel.requester._id;
+    } else {
+      requesterRecordModel.requester_text = '';
+      requesterRecordModel.requester = {'requester_text': ''};
+    }
     // requesterRecordModel.company = formRecord.controls.companyName.value;
     RequesterDetailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls.requesterDetails), requesterRecordModel, userList);
 
@@ -43,7 +50,7 @@ export class RequesterRecordService {
 
 
   public static mapDataModelFormModel(requesterRecordModel, formRecord: FormGroup, userList) {
-    formRecord.controls.id.setValue(requesterRecordModel.id);
+    formRecord.controls.id.setValue(Number(requesterRecordModel.id));
     formRecord.controls.isNew.setValue(false);
     // formRecord.controls.companyName.setValue(requesterRecordModel.company);
     RequesterDetailsService.mapDataModelToFormModel(requesterRecordModel, <FormGroup>formRecord.controls.requesterDetails, userList);

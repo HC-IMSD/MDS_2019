@@ -76,9 +76,10 @@ export class ErrorSummaryComponent implements AfterViewInit {
       controlError.expander = err.expander; // error summary only uses
       controlError.compRef = err;
       // Case 1: an error summary Component
-      if (err.hasOwnProperty('type') && err.type === GlobalsService.errorSummClassName) {
+      if (err.hasOwnProperty('type') &&
+        (err.type === GlobalsService.errorSummClassName || err.type === GlobalsService.errorSummleastOneRcd)) {
         if (err.tableId) { // replace componentId with table ID
-          err.componentId = err.tableId;
+          controlError.tableId = err.tableId;
         }
         let parentError = {parentLabel: '', index: -1, controls: []};
         parentError.parentLabel = err.componentId;
@@ -99,7 +100,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
         }
       }
     }
-    //console.log(this.errors);
+    // console.log(this.errors);
   }
 
   /**
@@ -134,6 +135,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
       tabSet: null,
       tabId: -1,
       componentId: '',
+      tableId: '',
       expander: null,
       compRef: null
     };

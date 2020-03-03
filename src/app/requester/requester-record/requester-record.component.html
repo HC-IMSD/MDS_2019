@@ -1,17 +1,17 @@
 <div class="container-fluid" [formGroup]="requesterRecordModel">
-  <h3>{{'heading.requester.detail'| translate}}&nbsp;{{requesterRecordModel.controls.id.value + 1}}</h3>
+  <h4>{{'heading.requester.detail'| translate}}&nbsp;{{requesterRecordModel.controls.id.value + 1}}</h4>
   <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="heading.requester.record"
                  [headingLevel]="headingLevel" label="Requester Record" compId="requesterRec"></error-summary>
-  <requester-details [showErrors]="showErrors" [userList]="userList"
+  <requester-details [showErrors]="showErrors" [userList]="userList" [newRecordIndicator]="newRecordIndicator"
                    [detailsChanged]="updateChild" [group]="requesterRecordModel.controls.requesterDetails"
                    (errorList)="updateErrorList($event)" (saveRecord)="saveRequesterRecord($event)"></requester-details>
 
   <div class="row">
     <div class="btn-group-sm col-xs-12 text-left">
-      <!--<button class="btn btn-primary" (click)="saveRequesterRecord()" i18n>{{'save.requester'|translate}}</button>-->
-      <button class="btn btn-danger" (click)="deleteRequesterRecord()" i18n>{{'delete.requester'|translate}}</button>
-      <button class="btn btn-default" (click)="revertRequesterRecord()" i18n>{{'discard.changes'|translate}}</button>
+      <button class="btn btn-primary" (click)="saveRequesterRecord($event)" i18n>{{'save.requester'|translate}}</button>&nbsp;
+      <button class="btn btn-danger" (click)="deleteRequesterRecord()" i18n>{{'delete.requester'|translate}}</button>&nbsp;
+      <button class="btn btn-default" (click)="revertRequesterRecord()" i18n *ngIf="! newRecordIndicator">{{'discard.changes'|translate}}</button>
     </div>
   </div>
 

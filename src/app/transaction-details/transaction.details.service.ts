@@ -21,6 +21,7 @@ export class TransactionDetailsService {
   public getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
+      // routingId: ['', []],
       dossierId: ['', [Validators.required, ValidationService.dossierIdValidator]],
       dossierType: ['Medical device', []],
       manuCompanyId: ['', [Validators.required, ValidationService.companyIdValidator]],
@@ -33,6 +34,8 @@ export class TransactionDetailsService {
       deviceClass: ['', Validators.required],
       amendReason: ['', Validators.required],
       classChange: [false, []],
+      rational: ['', Validators.required],
+      proposedIndication: ['', Validators.required],
       licenceChange: [false, []],
       deviceChange: [false, []],
       processChange: [false, []],
@@ -49,13 +52,15 @@ export class TransactionDetailsService {
       meetingId: '',
       deviceName: ['', Validators.required],
       licenceName: ['', Validators.required],
+      requestVersion: ['', Validators.required],
       requestDate: ['', Validators.required],
+      requestTo: ['', Validators.required],
       briefDesc: ['', Validators.required],
       transDescription: [null, []],
       hasDdt: [false, []],
       hasDdtMan: ['', ValidationService.checkboxRequiredValidator],
       hasAppInfo: [false, []],
-      isSolicitedInfo: ['', Validators.required]
+      isSolicitedInfo: ['', []]
     });
   }
 
@@ -94,8 +99,12 @@ export class TransactionDetailsService {
         application_number: '',
         meeting_id: '',
         device_name: '',
+        rational: '',
+        proposed_indication: '',
         proposed_licence_name: '',
+        request_version: '',
         request_date: '',
+        request_to: '',
         brief_description: '',
         transaction_description: '',
         has_ddt: '',
@@ -168,17 +177,33 @@ export class TransactionDetailsService {
    */
   public static getFaxbackDescriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-    return [descArray[8], descArray[9], descArray[11]];
+    return [descArray[8], descArray[9], descArray[11], descArray[12]];
   }
 
   public static getS36394041Descriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-    return [descArray[2], descArray[3], descArray[6], descArray[7], descArray[12]];
+    return [descArray[2], descArray[3], descArray[6], descArray[7], descArray[12], descArray[21], descArray[24], descArray[25]];
   }
 
-  public static getMDPVDescriptions(lang) {
+  public static getPAPVDescriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-    return [descArray[13]];
+    return [descArray[4], descArray[10], descArray[11], descArray[12], descArray[13], descArray[26]];
+  }
+  public static getPSURPVDescriptions(lang) {
+    const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
+    return [descArray[23]];
+  }
+  public static getRCPVDescriptions(lang) {
+    const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
+    return [descArray[19], descArray[20]];
+  }
+  public static getPSAPVDescriptions(lang) {
+    const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
+    return [descArray[22], descArray[25]];
+  }
+  public static getREGPVDescriptions(lang) {
+    const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
+    return [descArray[10], descArray[15], descArray[16], descArray[17], descArray[18]];
   }
 
   /**
@@ -207,8 +232,8 @@ export class TransactionDetailsService {
     return  [
       {
         id: 'B14-20160301-08',
-        en: 'Medical Device Bureau',
-        fr: 'Medical Device Bureau'
+        en: 'Medical Device Directorate',
+        fr: 'Medical Device Directorate'
       },
       {
         id: 'B14-20160301-10',
@@ -240,13 +265,33 @@ export class TransactionDetailsService {
       },
       {
         id: 'B02-20160301-081',
-        en: 'S.36/39/40/41',
-        fr: 'S.36/39/40/41'
+        en: 'S.25/36/39/40/41',
+        fr: 'S.25/36/39/40/41'
       },
       {
-        id: 'B02-20160621-01',
-        en: 'MD-PV',
-        fr: 'MD-PV'
+        id: 'B02-20190627-02',
+        en: 'PA-PV',
+        fr: 'PA-PV'
+      },
+      {
+        id: 'B02-20160301-079',
+        en: 'PSUR-PV',
+        fr: 'PSUR-PV'
+      },
+      {
+        id: 'B02-20190627-04',
+        en: 'RC-PV',
+        fr: 'RC-PV'
+      },
+      {
+        id: 'B02-20190627-03',
+        en: 'PSA-PV',
+        fr: 'PSA-PV'
+      },
+      {
+        id: 'B02-20190627-05',
+        en: 'REG-PV',
+        fr: 'REG-PV'
       }
     ];
   }
@@ -262,7 +307,7 @@ export class TransactionDetailsService {
 
   public static getActivityTypePVList(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityTypeList(), lang);
-    return [descArray[4]];
+    return descArray.slice(4);
   }
 
   public static getTransDescList(lang) {
@@ -272,79 +317,139 @@ export class TransactionDetailsService {
   public static getRawTransDescList() {
     return [
       {
-        id: 'ACD',
+        id: 'ACD', //0
         en: 'Appeal Comprehensive Document',
         fr: 'Appeal Comprehensive Document'
       },
       {
-        id: 'LIA',
+        id: 'LIA', //1
         en: 'Letter of Intent to Appeal',
         fr: 'Letter of Intent to Appeal'
       },
       {
-        id: 'LIOH',
+        id: 'LIOH', //2
         en: 'Letter of Intent to Invoke Opportunity to be Heard',
         fr: 'Letter of Intent to Invoke Opportunity to be Heard'
       },
       {
-        id: 'OHCD',
+        id: 'OHCD', //3
         en: 'Opportunity to be Heard Comprehensive Document',
         fr: 'Opportunity to be Heard Comprehensive Document'
       },
       {
-        id: 'RAIL',
+        id: 'RAIL', //4
         en: 'Response to Additional Information Letter',
         fr: 'Response to Additional Information Letter'
       },
       {
-        id: 'RS',
+        id: 'RS', //5
         en: 'Response to Screening Deficiency Letter',
         fr: 'Response to Screening Deficiency Letter'
       },
       {
-        id: 'RS36L',
+        id: 'RS36L', //6
         en: 'Response to S.36 Letter',
         fr: 'Response to S.36 Letter'
       },
       {
-        id: 'RS39L',
+        id: 'RS39L', //6
         en: 'Response to S.39 Letter',
         fr: 'Response to S.39 Letter'
       },
       {
-        id: 'WR',
+        id: 'WR', //7
         en: 'Withdrawal Request',
         fr: 'Withdrawal Request'
       },
       {
-        id: 'INITIAL',
+        id: 'INITIAL',  //8
         en: 'Initial',
         fr: 'Initial'
       },
       {
-        id: 'MM',
+        id: 'MM', //9
         en: 'Minutes of Meeting',
         fr: 'Minutes of Meeting'
       },
       {
-        id: 'RER',
+        id: 'RER', //10
         en: 'Response to E-mail Request',
         fr: 'Response to E-mail Request'
       },
       {
-        id: 'UD',
+        id: 'UD', //11
         en: 'Unsolicited Information',
         fr: 'Unsolicited Information'
       },
       {
-        id: 'RMHPDR',
+        id: 'RMHPDR', //12
         en: 'Response to MHPD Request',
         fr: 'Response to MHPD Request'
       },
       {
-        id: 'PRCI',
+        id: 'PRCI', //13
         en: 'Public Release of Clinical Information',
         fr: 'Public Release of Clinical Information'
+      },
+      {
+        id: 'TCC', //14
+        en: 'Terms and Conditions Commitment',
+        fr: 'Terms and Conditions Commitment'
+      },
+      {
+        id: 'FSAN', //15
+        en: 'Foreign Safety Action Notification',
+        fr: 'Foreign Safety Action Notification'
+      },
+      {
+        id: 'TSO', //16
+        en: 'Test and Studies Order',
+        fr: 'Test and Studies Order'
+      },
+      {
+        id: 'RO', //17
+        en: 'Reassessment Order',
+        fr: 'Reassessment Order'
+      },
+      {
+        id: 'RCD', //18
+        en: 'Risk communication document',
+        fr: 'Risk communication document'
+      },
+      {
+        id: 'DLVN', //19
+        en: 'Dissemination list version number',
+        fr: 'Dissemination list version number'
+      },
+      {
+        id: 'RS25L', //20
+        en: 'Response to S.25 Letter',
+        fr: 'Response to S.25 Letter'
+      },
+      {
+        id: 'ACRI', //21
+        en: 'Advertising complaint request for information',
+        fr: 'Advertising complaint request for information'
+      },
+      {
+        id: 'FPO', //22
+        en: 'For Period of ',
+        fr: 'For Period of '
+      },
+      {
+        id: 'IRSR', //23
+        en: 'Issue Related Safety Request ',
+        fr: 'Issue Related Safety Request '
+      },
+      {
+        id: 'PSI', //24
+        en: 'Patient Safety Information (Medication error)',
+        fr: 'Patient Safety Information (Medication error)'
+      },
+      {
+        id: 'SMR', //25
+        en: 'Submission Meeting Request',
+        fr: 'Submission Meeting Request'
       }
     ];
   }
@@ -355,6 +460,7 @@ export class TransactionDetailsService {
     const descArray = TransactionDetailsService.getTransDescList(TransactionDetailsService.lang);
     const dcArray = TransactionDetailsService._convertListText(
             TransactionDetailsService.getDeviceClassList(), TransactionDetailsService.lang);
+    // transactionModel.routing_id = formRecord.controls.routingId.value;
     transactionModel.dossier_id = formRecord.controls.dossierId.value;
     transactionModel.dossier_type = {
       '__text': 'Medical Device',
@@ -460,7 +566,9 @@ export class TransactionDetailsService {
     transactionModel.meeting_id = formRecord.controls.meetingId.value;
     transactionModel.device_name = formRecord.controls.deviceName.value;
     transactionModel.proposed_licence_name = formRecord.controls.licenceName.value;
+    transactionModel.request_date = formRecord.controls.requestVersion.value;
     transactionModel.request_date = formRecord.controls.requestDate.value;
+    transactionModel.request_to = formRecord.controls.requestTo.value;
     transactionModel.brief_description = formRecord.controls.briefDesc.value;
     transactionModel.transaction_description = TransactionDetailsService._setConcatDetails(transactionModel);
     if (formRecord.controls.deviceChange.value ||
@@ -472,9 +580,12 @@ export class TransactionDetailsService {
     }
     transactionModel.has_app_info = formRecord.controls.hasAppInfo.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.is_solicited_info = formRecord.controls.isSolicitedInfo.value;
+    transactionModel.rational = formRecord.controls.rational.value;
+    transactionModel.proposed_indication = formRecord.controls.proposedIndication.value;
   }
 
   public static mapDataModelToFormModel(transactionModel, formRecord: FormGroup, lang) {
+    // formRecord.controls.routingId.setValue(transactionModel.routing_id);
     formRecord.controls.dossierId.setValue(transactionModel.dossier_id);
     if (transactionModel.company_id) {
       formRecord.controls.manuCompanyId.setValue(transactionModel.company_id.slice(1));
@@ -530,7 +641,7 @@ export class TransactionDetailsService {
     // formRecord.controls.deviceClass.setValue(transactionModel.device_class);
     const dcs = TransactionDetailsService._convertListText(TransactionDetailsService.getDeviceClassList(), lang);
     if (transactionModel.device_class) {
-      const recordIndex = ListService.getRecord(descriptions, transactionModel.device_class._id, 'id');
+      const recordIndex = ListService.getRecord(dcs, transactionModel.device_class._id, 'id');
       if (recordIndex > -1) {
         formRecord.controls.deviceClass.setValue(dcs[recordIndex].id);
       } else {
@@ -579,7 +690,9 @@ export class TransactionDetailsService {
     formRecord.controls.meetingId.setValue(transactionModel.meeting_id);
     formRecord.controls.deviceName.setValue(transactionModel.device_name);
     formRecord.controls.licenceName.setValue(transactionModel.proposed_licence_name);
+    formRecord.controls.requestVersion.setValue(transactionModel.request_version);
     formRecord.controls.requestDate.setValue(transactionModel.request_date);
+    formRecord.controls.requestTo.setValue(transactionModel.request_to);
     formRecord.controls.briefDesc.setValue(transactionModel.brief_description);
     formRecord.controls.transDescription.setValue(transactionModel.transaction_description);
     const hasddt = transactionModel.has_ddt === GlobalsService.YES ? true : false;
@@ -593,6 +706,8 @@ export class TransactionDetailsService {
     const hasapp = transactionModel.has_app_info === GlobalsService.YES ? true : false;
     formRecord.controls.hasAppInfo.setValue(hasapp);
     formRecord.controls.isSolicitedInfo.setValue(transactionModel.is_solicited_info);
+    formRecord.controls.rational.setValue(transactionModel.rational);
+    formRecord.controls.proposedIndication.setValue(transactionModel.proposed_indication);
   }
 
   /***
@@ -635,9 +750,11 @@ export class TransactionDetailsService {
       //     concatText += ', and name of device: ' + transactionModel.deviceName;
       //   }
       // }
-      if (transactionModel.request_date) {
-        rDate = TransactionDetailsService._convertDate(transactionModel.request_date);
-        concatText += ' dated ' + rDate;
+      if (transactionModel.request_to) {
+        concatText += transactionModel.request_date + ' to ' + transactionModel.request_to;
+      } else if (transactionModel.request_date) {
+        // rDate = TransactionDetailsService._convertDate(transactionModel.request_date);
+        concatText += ' dated ' + transactionModel.request_date;
       }
       // if (transactionModel.application_number) {
       //   concatText += ' with application number: ' + transactionModel.application_number;

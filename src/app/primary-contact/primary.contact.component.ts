@@ -25,6 +25,7 @@ export class PrimaryContactComponent implements OnInit, OnChanges, AfterViewInit
   @Input() showErrors: boolean;
   @Input() primContactModel;
   @Input() lang;
+  @Input() helpTextSequences;
   @Output() primContactErrorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
@@ -134,6 +135,8 @@ export class PrimaryContactComponent implements OnInit, OnChanges, AfterViewInit
       this.primContactFormLocalModel.controls.repContactCompanyId.markAsUntouched();
       this.primContactFormLocalModel.controls.repContactId.setValue(null);
       this.primContactFormLocalModel.controls.repContactId.markAsUntouched();
+      this.primContactFormLocalModel.controls.repRoutingId.setValue(null);
+      this.primContactFormLocalModel.controls.repRoutingId.markAsUntouched();
     }
     return false;
   }

@@ -1,8 +1,10 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'transaction-help-en',
-  templateUrl: './transaction-help-en.component.html'
+  templateUrl: './transaction-help-en.component.html',
+  encapsulation: ViewEncapsulation.None
+
 })
 
 /**

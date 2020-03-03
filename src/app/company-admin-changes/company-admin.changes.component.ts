@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
-  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef
+  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
@@ -14,7 +14,8 @@ import {noUndefined} from '@angular/compiler/src/util';
 
 @Component({
   selector: 'comp-admin-changes',
-  templateUrl: 'company-admin.changes.component.html'
+  templateUrl: 'company-admin.changes.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 
 /**
@@ -30,6 +31,7 @@ export class CompanyAdminChangesComponent implements OnInit, OnChanges, AfterVie
   @Input() showAdminChanges;
   @Input() adminChangesModel;
   @Input() lang;
+  @Input() helpTextSequences;
   @Output() adminChangesErrorList = new EventEmitter(true);
   // @Output() licenceErrorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
@@ -142,6 +144,28 @@ export class CompanyAdminChangesComponent implements OnInit, OnChanges, AfterVie
     // console.log('input is typed');
     CompanyAdminChangesService.mapFormModelToDataModel((<FormGroup>this.adminChangesFormLocalModel),
       this.adminChangesModel, this.licenceModel);
+  }
+
+  licNumOnblur() {
+    // console.log('license input is typed');
+    const licArray = this.adminChangesFormLocalModel.controls.licenceNumbers.value
+      .split('\n').join(',').split(', ').join(',')
+      .split(' ').join(',').split(';').join(',')
+      .split('; ').join(',').split(':').join(',')
+      .split(',');
+    let templicNum = '';
+    let tempLicStrs = '';
+    if (licArray.length > 0) {
+      templicNum = '000000' + licArray[0];
+      tempLicStrs = templicNum.slice(templicNum.length - 6);
+      for (let i = 1; i < licArray.length; i++) {
+        tempLicStrs += '\n';
+        templicNum = '000000' + licArray[i];
+        tempLicStrs += templicNum.slice(templicNum.length - 6);
+      }
+      this.adminChangesFormLocalModel.controls.licenceNumbers.setValue(tempLicStrs);
+    }
+    this.onblur();
   }
 
   // processLicenceErrors(errorList) {

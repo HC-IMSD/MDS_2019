@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, Input} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, Input, HostListener, ViewEncapsulation } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 // import {TranslateService} from '@ngx-translate/core';
@@ -12,17 +12,21 @@ import {TransactionDataLoaderService} from '../data-loader/transaction-data-load
 import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
 import {DatePipe} from '@angular/common';
+// import { timeout } from 'rxjs/operators';
+import {RequesterListComponent} from '../requester/requester.list/requester.list.component';
 
 @Component({
   selector: 'transaction-base',
   templateUrl: './transaction-base.component.html',
-  styleUrls: ['./transaction-base.component.css']
+  styleUrls: ['./transaction-base.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class TransactionBaseComponent implements OnInit {
   public errors;
   @Input() isInternal;
   @Input() lang;
+  @ViewChild(RequesterListComponent, {static: false}) requesterListChild: RequesterListComponent;
 
   private _transactionDetailErrors = [];
   private _requesterErrors = [];
@@ -40,7 +44,8 @@ export class TransactionBaseComponent implements OnInit {
  // public transFeeModel = [];
   public transFeeModel = TransactionBaseService.getEmptyTransactionFeeModel();
   public fileServices: FileConversionService;
-  public xslName = GlobalsService.STYLESHEETS_1_0_PREFIX + 'REP_MDS_RT_1_0.xsl';
+  public xslName = GlobalsService.STYLESHEETS_1_0_PREFIX + 'REP_MDS_RT_2_0.xsl';
+
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private dataLoader: TransactionDataLoaderService,
@@ -97,21 +102,18 @@ export class TransactionBaseComponent implements OnInit {
   }
 
   public saveXmlFile() {
-    this._updatedAutoFields();
-    if (this.errorList && this.errorList.length > 0) {
+    if (!this.requesterListChild || this.requesterListChild && this.requesterListChild.requesterListForm.pristine && this.requesterListChild.requesterListForm.valid ) {
+      this._updatedAutoFields();
       this.showErrors = true;
+      this._saveXML();
+      // setTimeout(() => this._saveXML(), 1000);
     } else {
-      const result = {
-        'DEVICE_TRANSACTION_ENROL': {
-          'application_info': this.transactionModel,
-          'requester_of_solicited_information': {
-            'requester': this._deleteText(this.requesterModel)
-          },
-          'transFees': this.transFeeModel
-        }
-      };
-      const fileName = 'hcreprtm-' + this.transactionModel.last_saved_date;
-      this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
+      if (this.lang === GlobalsService.ENGLISH) {
+        alert('Please save the unsaved input data before generating XML file.');
+      } else {
+        alert('Veuillez sauvegarder les données d\'entrée non enregistrées avant de générer le fichier XML.');
+      }
+
     }
   }
 
@@ -152,9 +154,9 @@ export class TransactionBaseComponent implements OnInit {
 
   private _updatedAutoFields() {
     this._updatedSavedDate();
-    const version: Array<any> = this.transactionModel.enrol_version.split('.');
-    version[0] = (Number(version[0]) + 1).toString();
-    this.transactionModel.enrol_version = version[0] + '.' + version[1];
+    // const version: Array<any> = this.transactionModel.enrol_version.split('.');
+    // version[0] = (Number(version[0]) + 1).toString();
+    this.transactionModel.enrol_version = this.transactionModel.enrol_version; //version[0] + '.' + version[1];
   }
 
   private _deleteText(dataModel) {
@@ -178,5 +180,25 @@ export class TransactionBaseComponent implements OnInit {
   public updateChild() {
     // console.log("Calling updateChild")
   }
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+      $event.returnValue = true;
+  }
 
+  _saveXML() {
+    if ( this.errorList && this.errorList.length < 1 ) {
+      const result = {
+        'DEVICE_TRANSACTION_ENROL': {
+          'application_info': this.transactionModel,
+          'requester_of_solicited_information': {
+            'requester': this._deleteText(this.requesterModel)
+          },
+          'transFees': this.transFeeModel
+        }
+      };
+      const fileName = 'hcreprtm-' + this.transactionModel.last_saved_date;
+      console.log('save ...');
+      this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
+    }
+  }
 }

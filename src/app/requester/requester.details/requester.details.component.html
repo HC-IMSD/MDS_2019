@@ -6,21 +6,13 @@
         <label for="requester" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'requester.title'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="requesterFormLocalModel.controls.requester.invalid"
+          <control-messages *ngIf="requesterFormLocalModel.controls.requester.invalid && showRequesterError()"
                             [showError]="showFieldErrors"
                             [control]="requesterFormLocalModel.controls.requester"
                             controlId="requester" label="requester.title" parentId="requesterDetails"
                             parentLabel="Requester Details"></control-messages>
-          <div class="margin-top-small">
-            <ng-select id="requester" formControlName="requester" class="required"
-                       [allowClear]="false"
-                       [items]="requesters"
-                       (typed)="typed($event)"
-                       (removed)="typed($event)"
-                       (selected)="onblur($event)">
-            </ng-select>
-          </div>
         </label>
+            <input type="text" maxlength="64" id="requester" class="full-width" formControlName="requester" required (blur)="onblur($event)">
       </div>
     </div>
     <!-- <pre>{{requesterFormLocalModel.value |json}}</pre>-->

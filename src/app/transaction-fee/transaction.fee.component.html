@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="row"  *ngIf="hasFeeYes()">
-      <div class="form-group col-xs-6" >
+      <div class="form-group col-xs-6 minWidth300" >
         <label for="billCompanyId" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'billing.company.id'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
@@ -31,7 +31,7 @@
                  formControlName="billCompanyId" maxlength="6"/>
         </label>
       </div>
-      <div class="form-group col-xs-6" >
+      <div class="form-group col-xs-6 minWidth300" >
         <label for="billContactId" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'billing.contact.id'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>

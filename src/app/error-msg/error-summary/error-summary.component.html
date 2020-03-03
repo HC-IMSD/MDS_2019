@@ -44,11 +44,14 @@
     </h6>
     <ul *ngFor="let parentError of errors | keys">
       <div *ngFor="let controlError of parentError.value.controls">
-        <li *ngIf="controlError.type=='ErrorSummaryComponent'">
+        <li *ngIf="controlError.type==='ErrorSummaryComponent'">
           <a href="#{{controlError.componentId}}" target="_self" (click)="processEvents(controlError)">{{controlError.label}}
           has errors</a>
         </li>
-        <li *ngIf="controlError.type!='ErrorSummaryComponent'">
+        <li *ngIf="controlError.type==='leastOneRecordError'">
+          <a href="#{{controlError.tableId}}" target="_self" (click)="processEvents(controlError)">{{'error.msg.contact.one.record'|translate}}</a>
+        </li>
+        <li *ngIf="controlError.type!=='ErrorSummaryComponent'&& controlError.type!='leastOneRecordError'">
           <a href="#{{controlError.controlId}}" target="_self" (click)="processEvents(controlError)">{{controlError.compRef.label|translate}}&nbsp;&#8208;&nbsp;{{controlError.compRef.currentError|translate}}</a>
         </li>
       </div>

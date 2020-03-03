@@ -38,14 +38,14 @@
                 <span class="field-name" i18n>{{'all.licence.num'|translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
                 <sup id="co8-rf">
-                  <a class="fn-lnk" href="#co8"><span class="wb-inv">{{'instruction'|translate}}</span>5.2</a>
+                  <a class="fn-lnk" href="#co8"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.licenseNumsInx}}</a>
                 </sup>
                 <control-messages *ngIf="adminChangesFormLocalModel.controls.licenceNumbers.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="adminChangesFormLocalModel.controls.licenceNumbers"
                                   controlId="licenceNumbers" label="all.licence.num" parentId="adminChangesDetails"
                                   parentLabel="Admin Changes"></control-messages>
-                <textarea type="text" id="licenceNumbers" class="form-control full-width" (blur)="onblur()"
+                <textarea type="text" id="licenceNumbers" class="form-control full-width" (blur)="licNumOnblur()"
                        formControlName="licenceNumbers" maxlength="4000">
                 </textarea>
               </label>
@@ -82,14 +82,14 @@
                             [control]="adminChangesFormLocalModel.controls.newCompanyId"
                             controlId="newCompanyId" label="new.company.id" parentId="adminChangesDetails"
                             parentLabel="Admin Changes"></control-messages>
-          <input id="newCompanyId" class="form-control full-width" (blur)="onblur()"
+          <input name="newCompanyId" id="newCompanyId" class="form-control full-width" (blur)="onblur()"
                  formControlName="newCompanyId" maxlength="6"/>
         </label>
       </div>
       <div class="form-group col-xs-6" >
         <label for="newContactId" class="full-width">
           <span class="field-name" i18n>{{'new.contact.id'|translate}}</span>
-          <input id="newContactId" class="form-control full-width"  (blur)="onblur()"
+          <input name="newContactId" id="newContactId" class="form-control full-width"  (blur)="onblur()"
                  formControlName="newContactId" maxlength="5"/>
         </label>
       </div>
@@ -104,7 +104,7 @@
                             [control]="adminChangesFormLocalModel.controls.newContactName"
                             controlId="newContactName" label="new.contact.name" parentId="adminChangesDetails"
                             parentLabel="Admin Changes"></control-messages>
-          <input id="newContactName" class="form-control full-width"  (blur)="onblur()"
+          <input name="newContactName" id="newContactName" class="form-control full-width"  (blur)="onblur()"
                  formControlName="newContactName" maxlength="40"/>
         </label>
       </div>

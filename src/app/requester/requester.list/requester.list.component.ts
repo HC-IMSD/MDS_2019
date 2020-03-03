@@ -1,6 +1,6 @@
 import {
   Component, OnInit, Input, ViewChild, SimpleChanges, OnChanges, ViewChildren, QueryList, EventEmitter, Output,
-  AfterViewInit, ChangeDetectorRef, DoCheck
+  AfterViewInit, ChangeDetectorRef, DoCheck, ViewEncapsulation
 } from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
@@ -15,7 +15,8 @@ import {GlobalsService} from '../../globals/globals.service';
 @Component({
   selector: 'requester-list',
   templateUrl: './requester.list.component.html',
-  styleUrls: ['./requester.list.component.css']
+  styleUrls: ['./requester.list.component.css'],
+  encapsulation: ViewEncapsulation.None
 
 })
 export class RequesterListComponent extends ListOperations implements OnInit, OnChanges, AfterViewInit, DoCheck {
