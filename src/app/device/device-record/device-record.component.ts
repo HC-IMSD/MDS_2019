@@ -158,7 +158,8 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
   }
 
   public saveDeviceRecord(): void {
-    if (this.deviceRecordModel.valid) {
+    this.updateErrorList(null, true);
+    if (this.deviceRecordModel.valid || this.errorList.length === 0) {
       this.saveRecord.emit((this.deviceRecordModel));
       this.showErrSummary = false;
       this.showErrors = false;
