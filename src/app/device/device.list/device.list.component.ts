@@ -39,6 +39,7 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
   public errorList = [];
   public dataModel = [];
   public validRec = true;
+  public recModified = false;
   public columnDefinitions = [
     {
       label: 'Name of Compatible Device',
@@ -177,7 +178,8 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
 
     // add device to the list
     // console.log('adding an device');
-    // 1. Get the list of reactive form Records
+    // 1. reset modification flag and get the list of reactive form Records
+    this.recModified = false;
     let deviceFormList = <FormArray>this.deviceListForm.controls['devices'];
     console.log(deviceFormList);
     // 2. Get a blank Form Model for the new record
@@ -201,6 +203,7 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
     this.dataModel = this.service.getModelRecordList();
     this.addRecordMsg++;
     this.validRec = true;
+    this.recModified = true;
   }
 
   /**
@@ -264,6 +267,7 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
     let deviceList = this.getFormDeviceList();
     this.deleteRecord(id, deviceList, this.service);
     this.validRec = true;
+    this.recModified = true;
     this.deleteRecordMsg++;
   }
 
@@ -271,10 +275,15 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
    * check if its record exists
    */
   public isDirty(): boolean {
-    if (this.deviceChild && this.deviceChild.deviceFormRecord) {
-      return (this.deviceChild.deviceFormRecord.dirty);
-    } else {
+    if (this.recModified) {
       return false;
+    } else {
+      const isd = !(this.deviceListForm.valid);
+      if (this.deviceChild && this.deviceChild.deviceFormRecord) {
+        return (isd || this.deviceChild.deviceFormRecord.dirty);
+      } else {
+        return isd;
+      }
     }
   }
 
