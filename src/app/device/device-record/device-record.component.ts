@@ -1,7 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges, ViewChild,
-  ViewChildren
+  ViewChildren, ViewEncapsulation
 } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {DeviceDetailsComponent} from '../device.details/device.details.component';
@@ -14,7 +14,8 @@ import {ControlMessagesComponent} from '../../error-msg/control-messages.compone
   selector: 'device-record',
   templateUrl: './device-record.component.html',
   styleUrls: ['./device-record.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 
 })
 export class DeviceRecordComponent implements OnInit, AfterViewInit {
@@ -157,7 +158,8 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
   }
 
   public saveDeviceRecord(): void {
-    if (this.deviceRecordModel.valid) {
+    this.updateErrorList(null, true);
+    if (this.deviceRecordModel.valid || this.errorList.length === 0) {
       this.saveRecord.emit((this.deviceRecordModel));
       this.showErrSummary = false;
       this.showErrors = false;

@@ -11,7 +11,7 @@
                             controlId="companyId" label="company.id" parentId="appInfoDetails"
                             parentLabel="Application Information">
           </control-messages>
-          <input id="companyId" class="form-control" (blur)="onblur()"
+          <input id="companyId" name="companyId" class="form-control" (blur)="onblur()"
                  formControlName="companyId" maxlength="6"/>
         </label>
       </div>
@@ -25,7 +25,8 @@
                             controlId="dossierId" label="dossier.id" parentId="appInfoDetails"
                             parentLabel="Application Information">
           </control-messages>
-          <input id="dossierId" class="form-control"  (blur)="onblur()" formControlName="dossierId" maxlength="7"/>
+          <input id="dossierId" name="dossierId" class="form-control"  (blur)="onblur()"
+                 formControlName="dossierId" maxlength="7"/>
         </label>
       </div>
     </div>
@@ -39,7 +40,8 @@
                             [control]="appInfoFormLocalModel.controls.qmscNum"
                             controlId="qmscNum" label="qmsc.number" parentId="appInfoDetails"
                             parentLabel="Application Information"></control-messages>
-          <input id="qmscNum" class="form-control full-width"  (blur)="onblur()"  formControlName="qmscNum" maxlength="30"/>
+          <input id="qmscNum" name="qmscNum" class="form-control full-width"  (blur)="onblur()"
+                 formControlName="qmscNum" maxlength="30"/>
         </label>
       </div>
       <div class="form-group col-xs-6 minWidth300" >
@@ -92,9 +94,6 @@
                             controlId="activityType" label="activity.type"
                             parentId="appInfoDetails"
                             parentLabel="Application Information"></control-messages>
-          <!--<select id="activityType" required class="form-control full-width" (blur)="activityTypeOnblur()"-->
-          <!--(click)="activityTypeOnblur()"-->
-          <!--(selected)="activityTypeOnblur()" formControlName="activityType">-->
           <select id="activityType" required class="form-control full-width"  formControlName="activityType">
             <option label=" " value=""></option>
             <option *ngFor="let type of actTypeList" [ngValue]="type.id"> {{type.text|translate}}</option>
@@ -233,7 +232,7 @@
                                   controlId="din" label="din" parentId="appInfoDetails"
                                   parentLabel="Application Information">
                 </control-messages>
-                <input id="din" class="form-control full-width"  (blur)="onblur()"
+                <input id="din" name="din"  class="form-control full-width"  (blur)="onblur()"
                        formControlName="din" maxlength="8"/>
               </label>
             </div>
@@ -247,7 +246,7 @@
                                   controlId="npn" label="npn" parentId="appInfoDetails"
                                   parentLabel="Application Information">
                 </control-messages>
-                <input id="npn" class="form-control full-width"  (blur)="onblur()"
+                <input id="npn" name="npn" class="form-control full-width"  (blur)="onblur()"
                        formControlName="npn" maxlength="8"/>
               </label>
             </div>
@@ -303,7 +302,7 @@
                                     controlId="manufacturer" label="manufacturer" parentId="appInfoDetails"
                                     parentLabel="Application Information">
                   </control-messages>
-                  <input id="manufacturer" class="form-control full-width" (blur)="onblur()"
+                  <input id="manufacturer" name="manufacturer" class="form-control full-width" (blur)="onblur()"
                          formControlName="manufacturer" maxlength="80"/>
                 </label>
               </div>
@@ -319,14 +318,15 @@
                                     controlId="hasCompliances" label="compliance"
                                     parentId="hasCompliances"
                                     parentLabel="Application Information"></control-messages>
-                  <input id="hasCompliance" type="hidden" class="form-control full-width"
+                  <input id="hasCompliance" name="hasCompliance" type="hidden" class="form-control full-width"
                          formControlName="hasCompliance"/>
                 </legend>
                 <div class="row">
                   <div class="col-sm-4">
                     <div class="checkbox">
                       <label for="chk-compliance-usp">
-                        <input type="checkbox" (blur)="complianceOnblur()" formControlName="complianceUsp" id="chk-compliance-usp"/>
+                        <input type="checkbox" (blur)="complianceOnblur()"
+                               formControlName="complianceUsp" id="chk-compliance-usp" name="chk-compliance-usp"/>
                         <span>{{'compliance.usp'|translate}}</span>
                       </label>
                     </div>
@@ -336,7 +336,7 @@
                       <label for="chk-compliance-gmp">
                         <input type="checkbox" (blur)="complianceOnblur()"
                                formControlName="complianceGmp"
-                               id="chk-compliance-gmp"/>
+                               id="chk-compliance-gmp" name="chk-compliance-gmp"/>
                         <span>{{'compliance.gmp'|translate}}</span>
                       </label>
                     </div>
@@ -346,7 +346,7 @@
                       <label for="chk-compliance-other">
                         <input type="checkbox" (blur)="complianceOnblur()"
                                formControlName="complianceOther"
-                               id="chk-compliance-other"/>
+                               id="chk-compliance-other" name="chk-compliance-other"/>
                         <span>{{'compliance.other'|translate}}</span>
                       </label>
                     </div>
@@ -363,7 +363,7 @@
                                         controlId="otherPharmacopeia" label="other.pharmacopeia" parentId="appInfoDetails"
                                         parentLabel="Application Information">
                       </control-messages>
-                      <input id="otherPharmacopeia" class="form-control full-width" (blur)="onblur()"
+                      <input id="otherPharmacopeia" name="otherPharmacopeia" class="form-control full-width" (blur)="onblur()"
                              formControlName="otherPharmacopeia" maxlength="20"/>
                     </label>
                   </div>
@@ -392,7 +392,7 @@
                     <label for="chk-mdr-it">
                       <input type="checkbox" (blur)="onblur()"
                              formControlName="provisionMdrIT"
-                             id="chk-mdr-it"/>
+                             id="chk-mdr-it" name="chk-mdr-it"/>
                       <span>{{'mdr.it'|translate}}</span>
                     </label>
                   </div>
@@ -406,7 +406,7 @@
                                       controlId="applicationNum" label="application.number" parentId="appInfoDetails"
                                       parentLabel="Application Information">
                     </control-messages>
-                    <input id="applicationNum" class="form-control full-width"  (blur)="onblur()"
+                    <input id="applicationNum" name="applicationNum" class="form-control full-width"  (blur)="onblur()"
                            formControlName="applicationNum" only-digits maxlength="6"/>
                   </label>
                 </div>
@@ -423,7 +423,7 @@
                 <div class="form-group col-xs-7" *ngIf="isSa()">
                   <label for="sapReqNum" class=" full-width">
                     <span class="field-name" i18n>{{'sap.req.number'|translate}}</span>
-                    <input id="sapReqNum" class="form-control full-width"  (blur)="onblur()"
+                    <input id="sapReqNum" name="sapReqNum" class="form-control full-width"  (blur)="onblur()"
                            formControlName="sapReqNum" maxlength="30"/>
                   </label>
                 </div>
@@ -447,11 +447,11 @@
     </div>
 
     <div>
-      <section class="panel  panel-default">
+      <section *ngIf="isLicenced()" class="panel  panel-default">
         <header class="panel-heading clearfix">
           <h2 class="panel-title">{{'standards.list'|translate}}</h2>
         </header>
-        <div *ngIf="isLicenced()" class="panel-body">
+        <div class="panel-body">
           <div *ngIf="isMandatory()" class="row">
             <div class="form-group col-xs-12">
               <label  for="declarationConformity" class="required full-width">
@@ -572,16 +572,14 @@
           <div *ngIf="isAnimalHumanSourced()">
             <section id="materialList" class="panel  panel-default">
               <header class="panel-heading clearfix">
-                <h3 class="panel-title">{{'heading.material.table'|translate}}
-                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                </h3>
+                <h3 class="panel-title">{{'heading.material.table'|translate}}</h3>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.hasMaterial.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.hasMaterial"
                                   controlId="materialList" label="heading.material"
                                   parentId="materialList"
                                   parentLabel="Application Information"></control-messages>
-                <input id="hasMaterial" type="hidden" class="form-control full-width"
+                <input id="hasMaterial" name="hasMaterial" type="hidden" class="form-control full-width"
                        formControlName="hasMaterial"/>
               </header>
               <div class="panel-body">

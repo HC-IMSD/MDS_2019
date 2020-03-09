@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, Input, HostListener} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, Input, ViewEncapsulation, HostListener} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 // import {TranslateService} from '@ngx-translate/core';
@@ -16,7 +16,8 @@ import {DatePipe} from '@angular/common';
 @Component({
   selector: 'app-info-base',
   templateUrl: './application-info-base.component.html',
-  styleUrls: ['./application-info-base.component.css']
+  styleUrls: ['./application-info-base.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class ApplicationInfoBaseComponent implements OnInit {

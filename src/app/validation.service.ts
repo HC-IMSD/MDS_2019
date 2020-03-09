@@ -68,6 +68,7 @@ export class ValidationService {
     }
 
   }
+
   static usaPostalValidator(control) {
     if (!control.value) {
       return null;
@@ -182,12 +183,14 @@ export class ValidationService {
     if (!control.value) {
       return null;
     }
-    if (control.value.match(/^[0-9]{1,6}$/)) {
+    if (control.value.match(/^[0-9]{6}$/)) {
       return null;
     } else {
       return {'error.mgs.licence.number': true};
     }
   }
+
+
 
   static appNumValidator(control) {
     if (!control.value) {
