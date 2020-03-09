@@ -179,6 +179,10 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
         this.transDescList = TransactionDetailsService.getPSAPVDescriptions(this.lang);
       } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[8].id) { // 'B02-20190627-05'
         this.transDescList = TransactionDetailsService.getREGPVDescriptions(this.lang);
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[9].id) { // 'B02-20160301-073'
+        this.transDescList = TransactionDetailsService.getPRVLDDescriptions(this.lang);
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[10].id) { // 'B02-20160301-074'
+        this.transDescList = TransactionDetailsService.getPRVLDADescriptions(this.lang);
       }
     }
     // update reasonArray
@@ -238,6 +242,10 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
         this.transDescList = TransactionDetailsService.getPSAPVDescriptions(this.lang);
       } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[8].id) { // 'B02-20160621-01'
         this.transDescList = TransactionDetailsService.getREGPVDescriptions(this.lang);
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[9].id) { // 'B02-20160301-073'
+        this.transDescList = TransactionDetailsService.getPRVLDDescriptions(this.lang);
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[10].id) { // 'B02-20160301-074'
+        this.transDescList = TransactionDetailsService.getPRVLDADescriptions(this.lang);
       }
     } else {
       this.transDescList = [];
@@ -276,7 +284,15 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.isSolicitedFlag.emit(this.transDetailsFormLocalModel.controls.isSolicitedInfo.value === GlobalsService.YES);
     this.onblur();
   }
-
+  onOrgManufactureLicblur() {
+    if (this.transDetailsFormLocalModel.controls.orgManufactureLic.value
+        && this.transDetailsFormLocalModel.controls.orgManufactureLic.value.toString().length < 6) {
+      this.transDetailsFormLocalModel.controls.orgManufactureLic.setValue(
+        ('000000' + this.transDetailsFormLocalModel.controls.orgManufactureLic.value )
+          .slice(this.transDetailsFormLocalModel.controls.orgManufactureLic.value.toString().length) );
+    }
+    this.onblur();
+  }
   // reasonArray is the flags to display the reason chexk box list
   private _updateReasonArray() {
     const descValue = this.transDetailsFormLocalModel.controls.descriptionType.value;
@@ -297,6 +313,9 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
       } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[0].id ) { // 'B02-20160301-033'
         this.reasonArray = [false, true, true, false, false, false, false, false, false, false, true];
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[9].id
+        || this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[10].id ) { // 'B02-20160301-033'
+        this.reasonArray = [true, true, true, false, false, false, false, false, false, true, true];
       }
     } else {
       this.reasonArray = [false, false, false, false, false, false, false, false, false, false, false];
@@ -353,6 +372,10 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.transDetailsFormLocalModel.controls.addChange.markAsUntouched();
     this.transDetailsFormLocalModel.controls.licenceNum.setValue(null);
     this.transDetailsFormLocalModel.controls.licenceNum.markAsUntouched();
+    this.transDetailsFormLocalModel.controls.orgManufactureId.setValue(null);
+    this.transDetailsFormLocalModel.controls.orgManufactureId.markAsUntouched();
+    this.transDetailsFormLocalModel.controls.orgManufactureLic.setValue(null);
+    this.transDetailsFormLocalModel.controls.orgManufactureLic.markAsUntouched();
     this.transDetailsFormLocalModel.controls.appNum.setValue(null);
     this.transDetailsFormLocalModel.controls.appNum.markAsUntouched();
     this.transDetailsFormLocalModel.controls.deviceName.setValue(null);
@@ -361,8 +384,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.transDetailsFormLocalModel.controls.requestDate.markAsUntouched();
     this.transDetailsFormLocalModel.controls.briefDesc.setValue(null);
     this.transDetailsFormLocalModel.controls.briefDesc.markAsUntouched();
-    this.transDetailsFormLocalModel.controls.rational.setValue(null);
-    this.transDetailsFormLocalModel.controls.rational.markAsUntouched();
+    this.transDetailsFormLocalModel.controls.rationale.setValue(null);
+    this.transDetailsFormLocalModel.controls.rationale.markAsUntouched();
     this.transDetailsFormLocalModel.controls.proposedIndication.setValue(null);
     this.transDetailsFormLocalModel.controls.proposedIndication.markAsUntouched();
     this.transDetailsFormLocalModel.controls.requestTo.setValue(null);
@@ -429,7 +452,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     //   ) ? true : false;
     this.onblur();
   }
-  showRationalRequired() {
+  showRationaleRequired() {
     if ((this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls.descriptionType.value &&
       this.transDetailsFormLocalModel.controls.deviceClass.value ) && (this.rawActTypes[0].id === this.transDetailsFormLocalModel.controls.activityType.value ||
       (this.rawActTypes[2].id === this.transDetailsFormLocalModel.controls.activityType.value && (
@@ -440,8 +463,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
       )))) {
       return true;
     } else {
-      this.transDetailsFormLocalModel.controls.rational.setValue(null);
-      this.transDetailsFormLocalModel.controls.rational.markAsUntouched();
+      this.transDetailsFormLocalModel.controls.rationale.setValue(null);
+      this.transDetailsFormLocalModel.controls.rationale.markAsUntouched();
     }
     return false;
   }
@@ -631,6 +654,21 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
   getReasonArrayVelue(index) {
     return this.reasonArray[index];
+  }
+
+  showOrgManufactureId() {
+    if (this.transDetailsFormLocalModel.controls.descriptionType.value
+        && this.transDetailsFormLocalModel.controls.descriptionType.value !== this.rawDescTypes[8].id
+        && (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[9].id
+            || this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[10].id
+            )
+      ) {
+      return true;
+    }
+    return false;
+  }
+  showOrgManufactureLic() {
+    return this.showOrgManufactureId();
   }
 }
 

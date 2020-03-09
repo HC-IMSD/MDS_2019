@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, Input, HostListener, ViewEncapsulation } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, Input, HostListener, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 // import {TranslateService} from '@ngx-translate/core';
@@ -22,7 +22,7 @@ import {RequesterListComponent} from '../requester/requester.list/requester.list
   encapsulation: ViewEncapsulation.None
 })
 
-export class TransactionBaseComponent implements OnInit {
+export class TransactionBaseComponent implements OnInit, AfterViewInit {
   public errors;
   @Input() isInternal;
   @Input() lang;
@@ -65,6 +65,9 @@ export class TransactionBaseComponent implements OnInit {
     this.userList = await (this.dataLoader.getRequesters(this.translate.currentLang));
     console.log();
   }
+  ngAfterViewInit(): void {
+    document.location.href = '#main';
+  }
 
   processErrors() {
     // console.log('@@@@@@@@@@@@ Processing errors in ApplicationInfo base compo
@@ -106,7 +109,6 @@ export class TransactionBaseComponent implements OnInit {
       this._updatedAutoFields();
       this.showErrors = true;
       this._saveXML();
-      // setTimeout(() => this._saveXML(), 1000);
     } else {
       if (this.lang === GlobalsService.ENGLISH) {
         alert('Please save the unsaved input data before generating XML file.');
@@ -126,7 +128,7 @@ export class TransactionBaseComponent implements OnInit {
       },
       'transFees': this.transFeeModel
     }};
-    const fileName = 'hcreprtm-' + this.transactionModel.last_saved_date;
+    const fileName = 'rt-' + this.transactionModel.dossier_id + '-' + this.transactionModel.last_saved_date;
     this.fileServices.saveJsonToFile(result, fileName, null);
   }
 
@@ -196,9 +198,11 @@ export class TransactionBaseComponent implements OnInit {
           'transFees': this.transFeeModel
         }
       };
-      const fileName = 'hcreprtm-' + this.transactionModel.last_saved_date;
+      const fileName = 'rt-' + this.transactionModel.dossier_id + '-' + this.transactionModel.last_saved_date;
       console.log('save ...');
       this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
+      return ;
     }
+    document.location.href = '#topErrorSummaryId';
   }
 }

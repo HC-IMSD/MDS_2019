@@ -106,7 +106,9 @@ export class TransactionBaseService {
         transaction_description: '',
         has_ddt: '',
         has_app_info: '',
-        is_solicited_info: ''
+        is_solicited_info: '',
+        org_manufacture_id: '',
+        org_manufacture_lic: ''
       }
     );
   }
