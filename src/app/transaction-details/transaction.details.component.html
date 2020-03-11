@@ -82,7 +82,7 @@
           <span class="field-name" >{{ 'regulatory.contact.id'|translate }} {{ 'minNumber5'|translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
           <sup id="tr3-rf">
-            <a class="fn-lnk" href="#tr3"><span class="wb-inv">{{ 'instruction'|translate }}</span>3</a>
+            <a class="fn-lnk" href="#tr3"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex.tr3}}</a>
           </sup>
           <control-messages *ngIf="transDetailsFormLocalModel.controls.reguContactId.invalid"
                             [showError]="showFieldErrors"
@@ -156,7 +156,7 @@
           <span class="field-name" >{{ 'device.class' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
           <sup id="tr2a-rf">
-            <a class="fn-lnk" href="#tr2a"><span class="wb-inv">{{ 'instruction'|translate }}</span>3.1</a>
+            <a class="fn-lnk" href="#tr2a"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex.tr2a}}</a>
           </sup>
           <control-messages *ngIf="transDetailsFormLocalModel.controls.deviceClass.invalid"
                             [showError]="showFieldErrors"
@@ -417,7 +417,7 @@
           <span class="field-name" >{{ 'application.number' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
           <sup id="tr2b-rf">
-            <a class="fn-lnk" href="#tr2b"><span class="wb-inv">{{ 'instruction'|translate }}</span>3.2</a>
+            <a class="fn-lnk" href="#tr2b"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex.tr2b}}</a>
           </sup>
           <control-messages *ngIf="transDetailsFormLocalModel.controls.appNum.invalid"
                             [showError]="showFieldErrors"
@@ -433,7 +433,7 @@
         <label for="appNumOpt" class="full-width">
           <span class="field-name" >{{ 'application.number' |translate }}</span>
           <sup id="tr2b-rf">
-            <a class="fn-lnk" href="#tr2b"><span class="wb-inv">{{ 'instruction'|translate }}</span>3.2</a>
+            <a class="fn-lnk" href="#tr2b"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex.tr2b}}</a>
           </sup>
           <control-messages *ngIf="transDetailsFormLocalModel.controls.appNumOpt.invalid"
                             [showError]="showFieldErrors"
@@ -457,7 +457,7 @@
           <span class="field-name" >{{ 'device.name' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
           <sup id="tr2c-rf">
-            <a class="fn-lnk" href="#tr2c"><span class="wb-inv">{{ 'instruction'|translate }}</span>3.3</a>
+            <a class="fn-lnk" href="#tr2c"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex.tr2c}}</a>
           </sup>
           <control-messages *ngIf="transDetailsFormLocalModel.controls.deviceName.invalid"
                             [showError]="showFieldErrors"
@@ -521,7 +521,7 @@
         <span class="field-name" >{{ 'licence.number' |translate }}</span>
         <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
         <sup id="tr4-rf">
-          <a class="fn-lnk" href="#tr4"><span class="wb-inv">{{ 'instruction'|translate }}</span>4</a>
+          <a class="fn-lnk" href="#tr4"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex.tr4}}</a>
         </sup>
         <control-messages *ngIf="transDetailsFormLocalModel.controls.licenceNum.invalid"
                           [showError]="showFieldErrors"
@@ -543,7 +543,7 @@
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls.orgManufactureId"
                             controlId="orgManufactureId" label="orgManufactureId"
-                            parentId="transDetails"cd
+                            parentId="transDetails"
                             parentLabel="Transaction Information"></control-messages>
           <input id="orgManufactureId" name="orgManufactureId" class="form-control" (blur)="onblur()" only-digits
                  [formControl]="transDetailsFormLocalModel.controls.orgManufactureId" minlength="6" maxlength="6" />
@@ -586,7 +586,7 @@
             <strong>{{'has.ddt'|translate}}</strong>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <sup id="tr5-rf">
-              <a class="fn-lnk" href="#tr5"><span class="wb-inv">{{'instruction'|translate}}</span>5</a>
+              <a class="fn-lnk" href="#tr5"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex.tr5}}</a>
             </sup>
             <control-messages *ngIf="transDetailsFormLocalModel.controls.hasDdtMan.invalid"
                               [showError]="showFieldErrors"

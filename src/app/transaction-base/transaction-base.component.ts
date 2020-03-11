@@ -45,6 +45,7 @@ export class TransactionBaseComponent implements OnInit, AfterViewInit {
   public transFeeModel = TransactionBaseService.getEmptyTransactionFeeModel();
   public fileServices: FileConversionService;
   public xslName = GlobalsService.STYLESHEETS_1_0_PREFIX + 'REP_MDS_RT_2_0.xsl';
+  public helpIndex = TransactionBaseService.getHelpTextIndex();
 
 
   /* public customSettings: TinyMce.Settings | any;*/

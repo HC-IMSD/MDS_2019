@@ -32,6 +32,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   @Input() userList;
   @Input() transactionModel;
   @Input() lang;
+  @Input() helpIndex;
   @Output() detailErrorList = new EventEmitter(true);
   @Output() isSolicitedFlag = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
@@ -296,7 +297,9 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   // reasonArray is the flags to display the reason chexk box list
   private _updateReasonArray() {
     const descValue = this.transDetailsFormLocalModel.controls.descriptionType.value;
-    if (this.transDetailsFormLocalModel.controls.activityType.value !== this.rawActTypes[1].id && descValue === this.rawDescTypes[9].id &&
+    if (this.transDetailsFormLocalModel.controls.activityType.value !== this.rawActTypes[1].id
+      && this.transDetailsFormLocalModel.controls.activityType.value !== this.rawActTypes[9].id
+      && descValue === this.rawDescTypes[9].id &&
       this.transDetailsFormLocalModel.controls.deviceClass.value) {
       if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[2].id ) { // 'B02-20160301-040'
         switch (this.transDetailsFormLocalModel.controls.deviceClass.value) {
@@ -313,8 +316,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
       } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[0].id ) { // 'B02-20160301-033'
         this.reasonArray = [false, true, true, false, false, false, false, false, false, false, true];
-      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[9].id
-        || this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[10].id ) { // 'B02-20160301-033'
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[10].id ) { // 'B02-20160301-033'
         this.reasonArray = [true, true, true, false, false, false, false, false, false, true, true];
       }
     } else {
@@ -519,7 +521,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   isLicence() {
-    return (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[1].id);
+    return (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[1].id
+      || this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[9].id);
   }
 
   isClassSet() {

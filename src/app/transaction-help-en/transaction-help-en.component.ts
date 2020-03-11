@@ -10,4 +10,8 @@ import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewEn
 /**
  * Sample component is used for nothing
  */
-export class TransactionHelpEnComponent {}
+export class TransactionHelpEnComponent {
+  @Input() helpTextSequences;
+  constructor () {
+  }
+}
