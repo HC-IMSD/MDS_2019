@@ -349,23 +349,26 @@ export class ApplicationInfoDetailsService {
     if ( appInfoModel.company_id.length > 0 ) {
       const comIDs = appInfoModel.company_id.slice(1);
       // console.log("company_id" + comIDs[1]);
-      formRecord.controls.companyId.setValue(comIDs[1]);
+      formRecord.controls.companyId.setValue(comIDs);
     }
+
+
    // formRecord.controls.companyId.setValue(appInfoModel.company_id);
     formRecord.controls.dossierId.setValue(appInfoModel.dossier_id);
     formRecord.controls.mdsapNum.setValue(appInfoModel.mdsap_number);
 
-    formRecord.controls.mdsapOrg.setValue(appInfoModel.mdsap_org);
-    const mdsapOrgList = ApplicationInfoDetailsService.getMdsapOrgListList(ApplicationInfoDetailsService.lang);
-    const recordIndex2 = ListService.getRecord(mdsapOrgList, appInfoModel.mdsap_org._id, 'id');
     if (appInfoModel.mdsap_org) {
-      if (recordIndex2 > -1) {
-        formRecord.controls.mdsapOrg.setValue(mdsapOrgList[recordIndex2].id);
+      const mdsapOrgList = ApplicationInfoDetailsService.getMdsapOrgListList(ApplicationInfoDetailsService.lang);
+      const recordIndex2 = ListService.getRecord(mdsapOrgList, appInfoModel.mdsap_org._id, 'id');
+      if (appInfoModel.mdsap_org) {
+        if (recordIndex2 > -1) {
+          formRecord.controls.mdsapOrg.setValue(mdsapOrgList[recordIndex2].id);
+        } else {
+          formRecord.controls.mdsapOrg.setValue(null);
+        }
       } else {
         formRecord.controls.mdsapOrg.setValue(null);
       }
-    } else {
-      formRecord.controls.mdsapOrg.setValue(null);
     }
 
     if (appInfoModel.licence_application_type) {
@@ -378,7 +381,7 @@ export class ApplicationInfoDetailsService {
     } else {
       formRecord.controls.licenceAppType.setValue(null);
     }
-  //  formRecord.controls.activityLead.setValue(appInfoModel.regulatory_activity_lead);
+
     if (appInfoModel.regulatory_activity_lead) {
       const activityLeadList = ApplicationInfoDetailsService.getActivityLeadList(ApplicationInfoDetailsService.lang);
       const recordIndex2 = ListService.getRecord(activityLeadList, appInfoModel.regulatory_activity_lead._id, 'id');
@@ -390,7 +393,7 @@ export class ApplicationInfoDetailsService {
     } else {
       formRecord.controls.activityLead.setValue(null);
     }
-   //formRecord.controls.activityType.setValue(appInfoModel.regulatory_activity_type);
+
     if (appInfoModel.regulatory_activity_type) {
       const activityTypeList = ApplicationInfoDetailsService.getActivityTypeList(ApplicationInfoDetailsService.lang);
       const recordIndex2 = ListService.getRecord(activityTypeList, appInfoModel.regulatory_activity_type._id, 'id');
@@ -402,7 +405,7 @@ export class ApplicationInfoDetailsService {
     } else {
       formRecord.controls.activityType.setValue(null);
     }
-   // formRecord.controls.deviceClass.setValue(appInfoModel.device_class);
+
     if (appInfoModel.device_class) {
       const deviceClassList = ApplicationInfoDetailsService.getDeviceClassList(ApplicationInfoDetailsService.lang);
       const recordIndex2 = ListService.getRecord(deviceClassList, appInfoModel.device_class._id, 'id');
@@ -419,6 +422,7 @@ export class ApplicationInfoDetailsService {
     formRecord.controls.isCarePoint.setValue(appInfoModel.is_care_point_use);
     formRecord.controls.isEmitRadiation.setValue(appInfoModel.is_emit_radiation);
     formRecord.controls.hasDrug.setValue(appInfoModel.has_drug);
+
     if (appInfoModel.has_din_npn) {
       const recordIndex3 = ListService.getRecord(this.drugTypeList, appInfoModel.has_din_npn._id, 'id');
       if (recordIndex3 > -1) {
