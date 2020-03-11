@@ -20,10 +20,10 @@ export class DeviceDetailsService {
     return fb.group({
       deviceName: '',
       deviceAuthorized: '',
-      licenceNum: [null, [Validators.required, ValidationService.licenceNumValidator ]],
-     // licenceNum: [null, [ValidationService.licenceNumValidator]]
+      licenceNum: '',
       deviceApplicationSubmitted: '',
-      deviceApplicationNumber: [null, [Validators.required, ValidationService.appNumValidator ]],
+      //deviceApplicationNumber: [null, [Validators.required, ValidationService.appNumValidator ]],
+      deviceApplicationNumber: '',
       deviceExplain: ''
     });
   }
