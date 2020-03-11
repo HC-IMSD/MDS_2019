@@ -24,7 +24,8 @@ export class ApplicationInfoDetailsService {
     return fb.group({
       companyId: [null, [Validators.required, ValidationService.companyIdValidator]],
       dossierId: [null, [Validators.required, ValidationService.dossierIdValidator]],
-      qmscNum: [null, Validators.required],
+      mdsapNum: [null, Validators.required],
+      mdsapOrg: [null, Validators.required],
       licenceAppType: [null, Validators.required],
       activityLead: [null, Validators.required],
       activityType: [null, Validators.required],
@@ -69,7 +70,8 @@ export class ApplicationInfoDetailsService {
       {
         company_id: '',
         dossier_id: '',
-        qmsc_number: '',
+        mdsap_number: '',
+        mdsap_org: '',
         licence_application_type: '',
         regulatory_activity_lead: '',
         regulatory_activity_type: '',
@@ -218,7 +220,7 @@ export class ApplicationInfoDetailsService {
     }
     appInfoModel.dossier_id = formRecord.controls.dossierId.value;
     // appInfoModel.device_class = formRecord.controls.deviceClass.value;
-    appInfoModel.qmsc_number = formRecord.controls.qmscNum.value;
+    appInfoModel.mdsap_number = formRecord.controls.mdsapNum.value;
     // appInfoModel.has_qmsc = formRecord.controls.hasQMSC.value;
     // if (formRecord.controls.qMSCRegistrar.value) {
     //   const recordIndex1 = ListService.getRecord(registrarList, formRecord.controls.qMSCRegistrar.value, 'id');
@@ -232,6 +234,21 @@ export class ApplicationInfoDetailsService {
     // } else {
     //   appInfoModel.registrar = null;
     // }
+    if (formRecord.controls.mdsapOrg.value) {
+     const mdsapOrgList = ApplicationInfoDetailsService.getMdsapOrgListList(ApplicationInfoDetailsService.lang);
+      const recordIndex2 = ListService.getRecord(mdsapOrgList, formRecord.controls.mdsapOrg.value, 'id');
+      if (recordIndex2 > -1) {
+        appInfoModel.mdsap_org = {
+          '__text': mdsapOrgList[recordIndex2].text,
+          '_id': mdsapOrgList[recordIndex2].id,
+          '_label_en': mdsapOrgList[recordIndex2].en,
+          '_label_fr': mdsapOrgList[recordIndex2].fr
+        };
+      }
+    } else {
+      appInfoModel.mdsap_org = null;
+    }
+
     if (formRecord.controls.licenceAppType.value) {
       const latList = ApplicationInfoDetailsService.getLicenceAppTypeList(ApplicationInfoDetailsService.lang);
       const recordIndex2 = ListService.getRecord(latList, formRecord.controls.licenceAppType.value, 'id');
@@ -336,7 +353,21 @@ export class ApplicationInfoDetailsService {
     }
    // formRecord.controls.companyId.setValue(appInfoModel.company_id);
     formRecord.controls.dossierId.setValue(appInfoModel.dossier_id);
-    formRecord.controls.qmscNum.setValue(appInfoModel.qmsc_number);
+    formRecord.controls.mdsapNum.setValue(appInfoModel.mdsap_number);
+
+    formRecord.controls.mdsapOrg.setValue(appInfoModel.mdsap_org);
+    const mdsapOrgList = ApplicationInfoDetailsService.getMdsapOrgListList(ApplicationInfoDetailsService.lang);
+    const recordIndex2 = ListService.getRecord(mdsapOrgList, appInfoModel.mdsap_org._id, 'id');
+    if (appInfoModel.mdsap_org) {
+      if (recordIndex2 > -1) {
+        formRecord.controls.mdsapOrg.setValue(mdsapOrgList[recordIndex2].id);
+      } else {
+        formRecord.controls.mdsapOrg.setValue(null);
+      }
+    } else {
+      formRecord.controls.mdsapOrg.setValue(null);
+    }
+
     if (appInfoModel.licence_application_type) {
       const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, appInfoModel.licence_application_type._id, 'id');
       if (recordIndex2 > -1) {
@@ -502,8 +533,8 @@ export class ApplicationInfoDetailsService {
     return  [
       {
         id: 'B14-20160301-08',
-        en: 'Medical Device Directorate',
-        fr: 'Medical Device Directorate'
+        en: 'Medical Devices Directorate',
+        fr: 'Medical Devices Directorate'
       },
       {
         id: 'B14-20160301-10',
@@ -518,6 +549,10 @@ export class ApplicationInfoDetailsService {
 
   public static getActivityTypeList(lang) {
     return ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);
+  }
+
+  public static getMdsapOrgListList(lang) {
+    return ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawMdsapOrgList(), lang);
   }
 
   public static getRawActivityTypeList() {
@@ -536,6 +571,16 @@ export class ApplicationInfoDetailsService {
         id: 'B02-20160301-040',
         en: 'Licence Amendment',
         fr: 'Licence Amendment'
+      },
+      {
+        id: 'B02-20160301-073',
+        en: 'Private Label',
+        fr: 'Private Label'
+      },
+      {
+        id: 'B02-20160301-074',
+        en: 'Private Label Amendment',
+        fr: 'Private Label Amendment'
       },
       {
         id: 'B02-20160301-081',
@@ -570,15 +615,96 @@ export class ApplicationInfoDetailsService {
     ];
   }
 
+  public static getRawMdsapOrgList() {
+    return [
+      {
+        id: 'Not Applicable',
+        en: 'Not Applicable',
+        fr: 'Not Applicable'
+      },
+      {
+        id: 'BSI Group America Inc.',
+        en: 'BSI Group America Inc.',
+        fr: 'BSI Group America Inc.'
+      },
+      {
+        id: 'Dekra Certification B.V.',
+        en: 'Dekra Certification B.V.',
+        fr: 'Dekra Certification B.V.'
+      },
+      {
+        id: 'Dekra Certification B.V.',
+        en: 'Dekra Certification B.V.',
+        fr: 'Dekra Certification B.V.'
+      },
+      {
+        id: 'Intertek Testing Services NA Inc.',
+        en: 'Intertek Testing Services NA Inc.',
+        fr: 'Intertek Testing Services NA Inc.'
+      },
+      {
+        id: 'Laboratoire National de métrologie et d\'Essais (LNE) - Dvision certification G-MED (traiding as LNE/G-MED and G-MED)',
+        en: 'Laboratoire National de métrologie et d\'Essais (LNE) - Dvision certification G-MED (traiding as LNE/G-MED and G-MED)PSU',
+        fr: 'Laboratoire National de métrologie et d\'Essais (LNE) - Dvision certification G-MED (traiding as LNE/G-MED and G-MED)'
+      },
+      {
+        id: 'Lloyd\'s Register Quality Assurance Inc.',
+        en: 'Lloyd\'s Register Quality Assurance Inc.',
+        fr: 'Lloyd\'s Register Quality Assurance Inc.'
+      },
+      {
+        id: 'National Standards Authority of Ireland',
+        en: 'National Standards Authority of Ireland',
+        fr: 'National Standards Authority of Ireland'
+      },
+      {
+        id: 'QMI-SAI Canada Limited',
+        en: 'QMI-SAI Canada Limited',
+        fr: 'QMI-SAI Canada Limited'
+      },
+
+      {
+        id: 'SGS United Kingdom Ltd.',
+        en: 'SGS United Kingdom Ltd.',
+        fr: 'SGS United Kingdom Ltd.'
+      },
+      {
+        id: 'TUVRNA - TÜV Rheinland of North America, Inc.',
+        en: 'TUVRNA - TÜV Rheinland of North America, Inc.',
+        fr: 'TUVRNA - TÜV Rheinland of North America, Inc.'
+      },
+      {
+        id: 'TUVAM - TÜV SÜD America Inc. (also operating as TÜV America Inc.)',
+        en: 'TUVAM - TÜV SÜD America Inc. (also operating as TÜV America Inc.)',
+        fr: 'TUVAM - TÜV SÜD America Inc. (also operating as TÜV America Inc.)'
+      },
+      {
+        id: 'TUV USA - TÜV USA, Inc.',
+        en: 'TUV USA - TÜV USA, Inc.',
+        fr: 'TUV USA - TÜV USA, Inc.'
+      },
+      {
+        id: 'TUVNORD - TUV Nord Cert GMBH',
+        en: 'TUVNORD - TUV Nord Cert GMBH',
+        fr: 'TUVNORD - TUV Nord Cert GMBH'
+      },
+      {
+        id: 'UL - UL LLC',
+        en: 'UL - UL LLC',
+        fr: 'UL - UL LLC'
+      }
+    ];
+  }
+
 
   public static getActivityTypeMDBList(lang) {
     const descArray = ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);
-    return [descArray[0], descArray[1], descArray[2], descArray[3]];
+    return [descArray[0], descArray[1], descArray[2], descArray[3], descArray[4], descArray[5]];
   }
 
   public static getActivityTypePVList(lang) {
     const descArray = ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);
-    return [descArray[4], descArray[5], descArray[6], descArray[7], descArray[8]];
+    return [descArray[6], descArray[7], descArray[8], descArray[9], descArray[10]];
   }
 
 }

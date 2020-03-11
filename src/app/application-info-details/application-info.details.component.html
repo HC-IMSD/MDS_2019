@@ -12,7 +12,7 @@
                             parentLabel="Application Information">
           </control-messages>
           <input id="companyId" name="companyId" class="form-control" (blur)="onblur()"
-                 formControlName="companyId" maxlength="6"/>
+                 formControlName="companyId" maxlength="6" only-digits/>
         </label>
       </div>
       <div class="form-group col-xs-6 minWidth300" >
@@ -32,24 +32,27 @@
     </div>
     <div class="row">
       <div class="form-group col-xs-6 minWidth300" >
-        <label for="qmscNum" class="required" aria-required="true">
-          <span class="field-name" i18n>{{'qmsc.number'|translate}}</span>
+        <label for="mdsapNum" class="required">
+          <span class="field-name" i18n>{{'mdsap.number'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="appInfoFormLocalModel.controls.qmscNum.invalid"
+          <sup id="ap3-rf">
+            <a class="fn-lnk" href="#ap3"><span class="wb-inv">{{'instruction'|translate}}</span>3</a>
+          </sup>
+          <control-messages *ngIf="appInfoFormLocalModel.controls.mdsapNum.invalid"
                             [showError]="showFieldErrors"
-                            [control]="appInfoFormLocalModel.controls.qmscNum"
-                            controlId="qmscNum" label="qmsc.number" parentId="appInfoDetails"
+                            [control]="appInfoFormLocalModel.controls.mdsapNum"
+                            controlId="mdsapNum" label="mdsap.number" parentId="appInfoDetails"
                             parentLabel="Application Information"></control-messages>
-          <input id="qmscNum" name="qmscNum" class="form-control full-width"  (blur)="onblur()"
-                 formControlName="qmscNum" maxlength="30"/>
+          <input id="mdsapNum" name="mdsapNum" class="form-control "  (blur)="onblur()"
+                 formControlName="mdsapNum" maxlength="30"/>
         </label>
       </div>
       <div class="form-group col-xs-6 minWidth300" >
         <label for="licenceAppType" class="required">
           <span class="field-name" i18n>{{'licence.app.type' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <sup id="ap3-rf">
-            <a class="fn-lnk" href="#ap3"><span class="wb-inv">{{'instruction'|translate}}</span>3</a>
+          <sup id="ap4-rf">
+            <a class="fn-lnk" href="#ap4"><span class="wb-inv">{{'instruction'|translate}}</span>4</a>
           </sup>
           <control-messages *ngIf="appInfoFormLocalModel.controls.licenceAppType.invalid"
                             [showError]="showFieldErrors"
@@ -57,7 +60,7 @@
                             controlId="licenceAppType" label="licence.app.type"
                             parentId="appInfoDetails"
                             parentLabel="Application Information"></control-messages>
-          <select id="licenceAppType" required class="form-control full-width" (blur)="onblur()"
+          <select id="licenceAppType" required class="form-control " (blur)="onblur()"
                   formControlName="licenceAppType">
             <option label=" " value=""></option>
             <option *ngFor="let lat of licenceAppTypeList" [ngValue]="lat.id"> {{lat.text}}</option>
@@ -65,6 +68,29 @@
         </label>
       </div>
     </div>
+
+    <div class="row">
+      <div class="form-group col-xs-12 minWidth300" >
+        <label for="mdsapOrg" class="required">
+          <span class="field-name" i18n>{{'mdsap.org'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <sup id="ap5-rf">
+            <a class="fn-lnk" href="#ap5"><span class="wb-inv">{{'instruction'|translate}}</span>5</a>
+          </sup>
+          <control-messages *ngIf="appInfoFormLocalModel.controls.mdsapOrg.vaild"
+                            [showError]="showFieldErrors"
+                            [control]="appInfoFormLocalModel.controls.mdsapOrg"
+                            controlId="mdsapOrg" label="mdsap.org" parentId="appInfoDetails"
+                            parentLabel="Application Information"></control-messages>
+          <select id="mdsapOrg" required class="form-control " (blur)="onblur()"
+                  formControlName="mdsapOrg">
+            <option label=" " value=""></option>
+            <option *ngFor="let mdsapOrg of mdsapOrgList" [ngValue]="mdsapOrg.id"> {{mdsapOrg.text}}</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
     <div class="row">
       <div class="form-group col-xs-6 minWidth300">
         <label for="activityLead" class="required full-width">
@@ -76,16 +102,15 @@
                             controlId="activityLead" label="activity.lead"
                             parentId="appInfoDetails"
                             parentLabel="Application Information"></control-messages>
-          <select id="activityLead" required class="form-control full-width" (blur)="activityLeadOnblur()"
+          <select id="activityLead" required class="form-control " (blur)="activityLeadOnblur()"
           (selected)="activityLeadOnblur()" formControlName="activityLead">
             <option label=" " value=""></option>
             <option *ngFor="let lead of actLeadList" [ngValue]="lead.id"> {{lead.text|translate}}</option>
           </select>
         </label>
       </div>
-
       <div class="form-group col-xs-6 minWidth300">
-        <label for="activityType" class="required full-width">
+        <label for="activityType" class="required  ">
           <span class="field-name" i18n>{{'activity.type' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="appInfoFormLocalModel.controls.activityType.invalid"
@@ -104,11 +129,11 @@
 
     <div class="row">
     <div class="form-group col-xs-6 minWidth300">
-      <label for="deviceClass" class="required full-width">
+      <label for="deviceClass" class="required ">
         <span class="field-name" i18n>{{'device.class' |translate}}</span>
         <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-        <sup id="ap4-rf">
-          <a class="fn-lnk" href="#ap4"><span class="wb-inv">{{'instruction'|translate}}</span>4</a>
+        <sup id="ap6-rf">
+          <a class="fn-lnk" href="#ap6"><span class="wb-inv">{{'instruction'|translate}}</span>6</a>
         </sup>
         <control-messages *ngIf="appInfoFormLocalModel.controls.deviceClass.invalid"
                           [showError]="showFieldErrors"
@@ -457,8 +482,8 @@
               <label  for="declarationConformity" class="required full-width">
                 <span class="field-name" i18n>{{'conformity.declaration' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-                <sup id="ap6-rf">
-                  <a class="fn-lnk" href="#ap6"><span class="wb-inv">{{'instruction'|translate}}</span>6</a>
+                <sup id="ap7-rf">
+                  <a class="fn-lnk" href="#ap7"><span class="wb-inv">{{'instruction'|translate}}</span>7</a>
                 </sup>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.declarationConformity.invalid"
                                   [showError]="showFieldErrors"
@@ -511,8 +536,8 @@
 
     </div>
 
-    <div>
-      <section class="panel  panel-default" *ngIf="isDeviceIV()">
+    <div *ngIf="isDeviceIV()">
+      <section class="panel  panel-default">
         <header class="panel-heading clearfix">
           <h2 class="panel-title">{{'containing.material'|translate}}</h2>
         </header>
@@ -576,11 +601,10 @@
                 <control-messages *ngIf="appInfoFormLocalModel.controls.hasMaterial.invalid"
                                   [showError]="showFieldErrors"
                                   [control]="appInfoFormLocalModel.controls.hasMaterial"
-                                  controlId="materialList" label="heading.material"
+                                  controlId="hasMaterial" label="heading.material"
                                   parentId="materialList"
                                   parentLabel="Application Information"></control-messages>
-                <input id="hasMaterial" name="hasMaterial" type="hidden" class="form-control full-width"
-                       formControlName="hasMaterial"/>
+                <input id="hasMaterial" name="hasMaterial" type="hidden" required formControlName="hasMaterial"/>
               </header>
               <div class="panel-body">
                 <material-list  (errors)="processMaterialErrors($event)" [countryList]="countryList" [lang]="lang"

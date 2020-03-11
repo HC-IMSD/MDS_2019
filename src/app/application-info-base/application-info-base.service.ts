@@ -25,8 +25,12 @@ export class ApplicationInfoBaseService {
       lastSavedDate: '',
       companyId: ['', [Validators.required, Validators.min(6)]],
       dossierId: ['', [Validators.required, Validators.min(7)]],
-      qmscNum: [null, Validators.required],
+      mdsapNum: [null, Validators.required],
+      mdsapOrg: [null, Validators.required],
       licenceAppType: [null, Validators.required],
+      activityLead: [null, Validators.required],
+      activityType: [null, Validators.required],
+      deviceClass: [null, Validators.required],
       isIvdd: [null, Validators.required],
       isHomeUse: [null, Validators.required],
       isCarePoint: [null, Validators.required],
@@ -67,12 +71,32 @@ export class ApplicationInfoBaseService {
         last_saved_date: '',  // todo: to map into form model ???
         company_id: '',
         dossier_id: '',
-        qmsc_number: '',
+        mdsap_number: '',
+        mdsap_org: {
+          '__text': '',
+          '_label_en': '',
+          '_label_fr': ''
+        },
         licence_application_type: {
             '__text': '',
             '_label_en': '',
             '_label_fr': ''
           },
+        regulatory_activity_lead: {
+          '__text': '',
+          '_label_en': '',
+          '_label_fr': ''
+        },
+        regulatory_activity_type: {
+          '__text': '',
+          '_label_en': '',
+          '_label_fr': ''
+        },
+        device_class: {
+          '__text': '',
+          '_label_en': '',
+          '_label_fr': ''
+        },
         is_ivdd: '',
         is_home_use: '',
         is_care_point_use: '',
