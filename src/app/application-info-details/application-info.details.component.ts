@@ -179,13 +179,13 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     this.onblur();
   }
 
-  hasRecombinantOnblur() {
-    if (!this.appInfoFormLocalModel.controls.hasRecombinant.value ||
-        this.appInfoFormLocalModel.controls.hasRecombinant.value === GlobalsService.NO) {
-      this.materialModel = [];
-    }
-    this.onblur();
-  }
+  // hasRecombinantOnblur() {
+  //   if (!this.appInfoFormLocalModel.controls.hasRecombinant.value ||
+  //       this.appInfoFormLocalModel.controls.hasRecombinant.value === GlobalsService.NO) {
+  //     this.materialModel = [];
+  //   }
+  //   this.onblur();
+  // }
 
   isAnimalHumanSourcedOnblur() {
     if (!this.appInfoFormLocalModel.controls.isAnimalHumanSourced.value ||

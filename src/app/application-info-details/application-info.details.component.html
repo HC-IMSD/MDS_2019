@@ -77,7 +77,7 @@
           <sup id="ap5-rf">
             <a class="fn-lnk" href="#ap5"><span class="wb-inv">{{'instruction'|translate}}</span>5</a>
           </sup>
-          <control-messages *ngIf="appInfoFormLocalModel.controls.mdsapOrg.vaild"
+          <control-messages *ngIf="appInfoFormLocalModel.controls.mdsapOrg.valid"
                             [showError]="showFieldErrors"
                             [control]="appInfoFormLocalModel.controls.mdsapOrg"
                             controlId="mdsapOrg" label="mdsap.org" parentId="appInfoDetails"
@@ -552,7 +552,7 @@
                                   [control]="appInfoFormLocalModel.controls.hasRecombinant"
                                   controlId="hasRecombinant" label="consist.recombinant" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
-                <select id="hasRecombinant" required class="form-control" (blur)="hasRecombinantOnblur()" [formControl]="appInfoFormLocalModel.controls.hasRecombinant">
+                <select id="hasRecombinant" required class="form-control" (blur)="onblur()" [formControl]="appInfoFormLocalModel.controls.hasRecombinant">
                   <option label=" " value=""></option>
                   <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
                 </select>
