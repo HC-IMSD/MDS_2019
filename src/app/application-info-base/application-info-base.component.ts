@@ -119,7 +119,7 @@ export class ApplicationInfoBaseComponent implements OnInit {
           }
         }
       };
-      const fileName = 'hcrepaim-' + this.appInfoModel.last_saved_date;
+      const fileName = 'ai-' + this.appInfoModel.dossier_id + '-' + this.appInfoModel.last_saved_date;
       this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
     }
   }
@@ -136,7 +136,7 @@ export class ApplicationInfoBaseComponent implements OnInit {
         'material': this.materialModel
       }
     }};
-    const fileName = 'hcrepaim-' + this.appInfoModel.last_saved_date;
+    const fileName = 'ai-' + this.appInfoModel.dossier_id + '-' + this.appInfoModel.last_saved_date;
     this.fileServices.saveJsonToFile(result, fileName, null);
   }
 

@@ -7,7 +7,7 @@
           <span class="field-name" i18n>{{'device.name'|translate}}</span>
         </label>
           <input id="deviceName" name="deviceName" class="form-control full-width"
-                 formControlName="deviceName" maxlength="150"/>
+                 [formControl]="deviceFormLocalModel.controls.deviceName" maxlength="150"/>
       </div>
     </div>
 
@@ -23,7 +23,7 @@
                             parentLabel="Interdependent Device"></control-messages>
 
           <select id="deviceAuthorized" required class="form-control"
-                  formControlName="deviceAuthorized">
+                  [formControl]="deviceFormLocalModel.controls.deviceAuthorized">
 
             <option label=" " value=""></option>
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
@@ -35,8 +35,8 @@
         <label for="licenceNum" class="required" aria-required="true">
           <span class="field-name" i18n>{{'licence.application.number' |translate}} {{'minNumber6' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <sup id="ap5-rf">
-            <a class="fn-lnk" href="#ap5"><span class="wb-inv">{{'instruction'|translate}}</span>5</a>
+          <sup id="ap7-rf">
+            <a class="fn-lnk" href="#ap7"><span class="wb-inv">{{'instruction'|translate}}</span>7</a>
           </sup>
           <control-messages *ngIf="deviceFormLocalModel.controls.licenceNum.invalid"
                             [showError]="showFieldErrors"
@@ -45,7 +45,7 @@
                             parentLabel="Interdependent Device">
           </control-messages>
           <input id="licenceNum" name="licenceNum" class="form-control" only-digits maxlength="6"
-                 formControlName="licenceNum" minlength="6"/>
+                 [formControl]="deviceFormLocalModel.controls.licenceNum" minlength="6" required/>
         </label>
       </div>
 
@@ -60,7 +60,7 @@
                             parentLabel="Interdependent Device"></control-messages>
 
           <select id="deviceApplicationSubmitted" required class="form-control"
-                  formControlName="deviceApplicationSubmitted">
+                  [formControl]="deviceFormLocalModel.controls.deviceApplicationSubmitted">
 
             <option label=" " value=""></option>
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
@@ -79,7 +79,7 @@
                             parentLabel="Interdependent Device">
           </control-messages>
           <input id="deviceApplicationNumber" name="deviceApplicationNumber" class="form-control" required
-                 only-digits maxlength="6" minlength="6" formControlName="deviceApplicationNumber"/>
+                 only-digits maxlength="6" minlength="6" [formControl]="deviceFormLocalModel.controls.deviceApplicationNumber"/>
         </label>
       </div>
 
@@ -94,7 +94,7 @@
                             parentLabel="Interdependent Device"></control-messages>
         </label>
           <textarea id="deviceExplain" name="deviceExplain" class="form-control full-width"
-                    required formControlName="deviceExplain" rows="5" maxlength="1000"></textarea>
+                    required [formControl]="deviceFormLocalModel.controls.deviceExplain" rows="5" maxlength="1000"></textarea>
 
 
       </div>
