@@ -173,6 +173,7 @@ export class TransactionBaseComponent implements OnInit, AfterViewInit {
   private _insertTextfield() {
     this.requesterModel.forEach (item => {
       item.requester_text = this.lang === GlobalsService.ENGLISH ? item.requester._label_en : item.requester._label_fr;
+      item.id = Number(item.id);
     });
   }
 
