@@ -12,7 +12,7 @@
                             controlId="requester" label="requester.title" parentId="requesterDetails"
                             parentLabel="Requester Details"></control-messages>
         </label>
-            <input type="text" maxlength="64" id="requester" class="full-width" formControlName="requester" required (blur)="onblur($event)">
+            <input type="text" maxlength="64" id="requester" class="full-width" [formControl]="requesterFormLocalModel.controls.requester" required (blur)="onblur($event)">
       </div>
     </div>
     <!-- <pre>{{requesterFormLocalModel.value |json}}</pre>-->
