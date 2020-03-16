@@ -11,7 +11,7 @@
                             controlId="companyName" label="company.name.full" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
           <input name="companyName" id="companyName" class="form-control full-width" (blur)="onblur()"
-                 formControlName="companyName" maxlength="80"/>
+                 [formControl]="addressFormLocalModel.controls.companyName" maxlength="80"/>
         </label>
       </div>
     </div>
@@ -23,7 +23,7 @@
             <a class="fn-lnk" href="#co3"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.busNumInx}}</a>
           </sup>
           <input name="businessNum" id="businessNum" class="form-control full-width"
-                 formControlName="businessNum" (blur)="onblur()"  maxlength="9"/>
+                 [formControl]="addressFormLocalModel.controls.businessNum" (blur)="onblur()"  maxlength="9"/>
         </label>
       </div>
     </div>
@@ -38,7 +38,7 @@
                             controlId="address" label="addressDetails.street" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
           <input name="address" id="address" class="form-control full-width" (blur)="onblur()"
-            formControlName="address" maxlength="120"/>
+            [formControl]="addressFormLocalModel.controls.address" maxlength="120"/>
         </label>
       </div>
     </div>
@@ -53,7 +53,7 @@
                             controlId="city" label="addressDetails.city" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
           <input name="city" id="city" class="form-control full-width"  (blur)="onblur()"
-                 formControlName="city" maxlength="35"/>
+                 [formControl]="addressFormLocalModel.controls.city" maxlength="35"/>
         </label>
       </div>
       <div class="form-group col-sm-5 col-xs-12" >
@@ -66,7 +66,7 @@
                             controlId="country" label="addressDetails.country" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
           <div class="margin-top-small">
-            <ng-select id="country" formControlName="country" class="required"
+            <ng-select id="country" [formControl]="addressFormLocalModel.controls.country" class="required"
                        [allowClear]="false"
                        [items]="countries"
                        (typed)="typed($event)"
@@ -89,7 +89,7 @@
                             [control]="addressFormLocalModel.controls.provList"
                             controlId="provState" label="{{provinceLabel}}" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
-          <select id="provState" required class="form-control full-width" (blur)="onblur()" formControlName="provList">
+          <select id="provState" required class="form-control full-width" (blur)="onblur()" [formControl]="addressFormLocalModel.controls.provList">
             <option label=" " value=""></option>
             <option *ngFor="let prov of provStateList" [ngValue]="prov.id"> {{prov.text}}</option>
           </select>
@@ -99,7 +99,7 @@
         <label for="provText" class="full-width">
           <span class="field-name">{{'addressDetails.provState'|translate}}</span>
           <input name="provText" id="provText" class="form-control full-width" (blur)="onblur()"
-                 formControlName="provText" maxlength="40"/>
+                 [formControl]="addressFormLocalModel.controls.provText" maxlength="40"/>
         <!--  <control-messages *ngIf="addressFormLocalModel.controls.provText.invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls.provText"
@@ -116,7 +116,7 @@
                             [control]="addressFormLocalModel.controls.postal"
                             controlId="postal" label="{{postalLabel}}" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
-          <input name="postal" id="postal" class="form-control" formControlName="postal"  (blur)="onblur()"
+          <input name="postal" id="postal" class="form-control" [formControl]="addressFormLocalModel.controls.postal"  (blur)="onblur()"
                  maxlength="10" />
         </label>
     </div>

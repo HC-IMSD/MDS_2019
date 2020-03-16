@@ -8,7 +8,7 @@
                 <a class="fn-lnk" href="#co6"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.is3rdPartyInx}}</a>
               </sup>
           </span>
-          <select id="isThirdParty" required class="form-control" (blur)="onblur()" formControlName="isThirdParty">
+          <select id="isThirdParty" required class="form-control" (blur)="onblur()" [formControl]="primContactFormLocalModel.controls.isThirdParty">
             <option label=" " value=""></option>
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
           </select>
@@ -26,7 +26,7 @@
                             controlId="repContactCompanyId" label="company.id.contact" parentId="companyDetails"
                             parentLabel="REP Company"></control-messages>
           <input id="repContactCompanyId" class="form-control full-width" (blur)="onblur()"
-                 formControlName="repContactCompanyId" maxlength="6"/>
+                 [formControl]="primContactFormLocalModel.controls.repContactCompanyId" maxlength="6"/>
         </label>
       </div>
       <div class="form-group col-xs-6" >
@@ -39,7 +39,7 @@
                             controlId="repContactId" label="contact.id.contact" parentId="companyDetails"
                             parentLabel="REP Company"></control-messages>
           <input id="repContactId" class="form-control full-width" (blur)="onblur()"
-            formControlName="repContactId" maxlength="5"/>
+            [formControl]="primContactFormLocalModel.controls.repContactId" maxlength="5"/>
         </label>
       </div>
     </div>
@@ -51,7 +51,7 @@
             <a class="fn-lnk" href="#co6a"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.repRoutIdInx}}</a>
           </sup>
           <input name="repRoutingId" id="repRoutingId" class="form-control full-width"
-                 formControlName="repRoutingId" (blur)="onblur()" maxlength="64"/>
+                 [formControl]="primContactFormLocalModel.controls.repRoutingId" (blur)="onblur()" maxlength="64"/>
         </label>
       </div>
     </div>
@@ -70,7 +70,7 @@
                             controlId="repContactName" label="contact.name" parentId="companyDetails"
                             parentLabel="REP Company"></control-messages>
           <input id="repContactName" class="form-control full-width"  (blur)="onblur()"
-                 formControlName="repContactName" maxlength="40"/>
+                 [formControl]="primContactFormLocalModel.controls.repContactName" maxlength="40"/>
         </label>
       </div>
     </div>

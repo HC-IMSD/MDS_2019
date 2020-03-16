@@ -79,7 +79,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       console.warn('Contact List found >1 Error Summary ' + list.length);
     }
     this.errorSummaryChild = list.first;
-    if (this.errorSummaryChild && !this.hasRecords) {
+    if (!this.isInternal && this.errorSummaryChild && !this.hasRecords) {
       // update summary for at least one record error
       this.errorSummaryChild.tableId = 'contactListTable';
       this.errorSummaryChild.type = 'leastOneRecordError';
@@ -156,7 +156,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
 
     this.errorList = new Array();
     this.errorList = this.parentErrorList.concat(this.childErrorList);
-    console.log(this.errorList);
+    // console.log(this.errorList);
 
     this.cdr.detectChanges(); // doing our own change detection
   }

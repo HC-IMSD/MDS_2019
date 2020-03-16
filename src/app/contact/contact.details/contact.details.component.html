@@ -11,7 +11,7 @@
                             controlId="contactId" label="contact.id" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
           <input name="contactId" id="contactId" class="form-control"
-                 [readonly]="!isInternal" formControlName="contactId" maxlength="5"/>
+                 [readonly]="!isInternal" [formControl]="contactFormLocalModel.controls.contactId" maxlength="5"/>
         </label>
       </div>
       <div class="form-group col-sm-6" >
@@ -27,7 +27,7 @@
                             [control]="contactFormLocalModel.controls.status"
                             controlId="status" label="status" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <select id="status" required class="form-control" formControlName="status">
+          <select id="status" required class="form-control" [formControl]="contactFormLocalModel.controls.status">
             <option label=" " value=""></option>
             <option *ngFor="let stat of statuses" [ngValue]="stat.id"> {{stat.label_en}}</option>
           </select>
@@ -39,7 +39,7 @@
       <!--<div class="form-group col-sm-6" >-->
         <!--<label for="salutation" class="full-width">-->
           <!--<span class="field-name" i18n>{{'salutation' |translate}}</span>-->
-          <!--<select id="salutation" class="form-control" formControlName="salutation">-->
+          <!--<select id="salutation" class="form-control" [formControl]="contactFormLocalModel.controls.salutation">-->
             <!--<option label=" " value=""></option>-->
             <!--<option *ngFor="let sal of salutations" [ngValue]="sal.id"> {{sal.label_en}}</option>-->
           <!--</select>-->
@@ -56,13 +56,13 @@
                             [control]="contactFormLocalModel.controls.firstName"
                             controlId="firstName" label="first.name" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="firstName" id="firstName" class="form-control full-width" maxlength="20" formControlName="firstName"/>
+          <input name="firstName" id="firstName" class="form-control full-width" maxlength="20" [formControl]="contactFormLocalModel.controls.firstName"/>
         </label>
       </div>
       <div class="form-group col-sm-2" >
         <label for="initials" class="full-width">
           <span class="field-name" i18n>{{'initials'|translate}}</span>
-          <input name="initials" id="initials" class="form-control full-width" maxlength="5" formControlName="initials"/>
+          <input name="initials" id="initials" class="form-control full-width" maxlength="5" [formControl]="contactFormLocalModel.controls.initials"/>
         </label>
       </div>
       <div class="form-group col-sm-5" >
@@ -74,7 +74,7 @@
                             [control]="contactFormLocalModel.controls.lastName"
                             controlId="lastName" label="last.name" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="lastName" id="lastName" class="form-control full-width" maxlength="20" formControlName="lastName"/>
+          <input name="lastName" id="lastName" class="form-control full-width" maxlength="20" [formControl]="contactFormLocalModel.controls.lastName"/>
         </label>
       </div>
     </div>
@@ -88,7 +88,7 @@
                             [control]="contactFormLocalModel.controls.language"
                             controlId="language" label="lang.correspond" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <select id="language" required class="form-control" formControlName="language">
+          <select id="language" required class="form-control" [formControl]="contactFormLocalModel.controls.language">
             <option label=" " value=""></option>
             <option *ngFor="let lang of languages" [ngValue]="lang.id"> {{lang.label_en}}</option>
           </select>
@@ -97,7 +97,7 @@
       <div class="form-group col-sm-4">
         <label for="jobTitle" class="full-width">
           <span class="field-name">{{'job.title'|translate}}</span>
-          <input name="jobTitle" id="jobTitle" class="form-control full-width" maxlength="40" formControlName="jobTitle"/>
+          <input name="jobTitle" id="jobTitle" class="form-control full-width" maxlength="40" [formControl]="contactFormLocalModel.controls.jobTitle"/>
         </label>
       </div>
     </div>
@@ -111,13 +111,13 @@
                             [control]="contactFormLocalModel.controls.phoneNumber"
                             controlId="phoneNumber" label="phone.number" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="phoneNumber" id="phoneNumber" class="form-control only-digits full-width" formControlName="phoneNumber" maxlength="16"/>
+          <input name="phoneNumber" id="phoneNumber" class="form-control only-digits full-width" [formControl]="contactFormLocalModel.controls.phoneNumber" maxlength="16"/>
         </label>
       </div>
       <div class="form-group col-sm-3">
         <label for="phoneExtension">
           <span class="field-name" i18n>{{'phone.extension' |translate}}</span>
-          <input name="phoneExtension" id="phoneExtension" class="form-control" maxlength="10" formControlName="phoneExtension"/>
+          <input name="phoneExtension" id="phoneExtension" class="form-control" maxlength="10" [formControl]="contactFormLocalModel.controls.phoneExtension"/>
         </label>
       </div>
       <div class="form-group col-sm-4 ">
@@ -128,7 +128,8 @@
                             [control]="contactFormLocalModel.controls.faxNumber"
                             controlId="faxNumber" label="fax.number" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="faxNumber" id="faxNumber" class="form-control full-width" only-digits maxlength="16" formControlName="faxNumber"/>
+          <input name="faxNumber" id="faxNumber" class="form-control full-width" only-digits maxlength="16"
+                 [formControl]="contactFormLocalModel.controls.faxNumber"/>
         </label>
       </div>
     </div>
@@ -142,7 +143,7 @@
                             [control]="contactFormLocalModel.controls.email"
                             controlId="email" label="contact.email" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="email" id="email" class="form-control full-width" maxlength="50" formControlName="email"/>
+          <input name="email" id="email" class="form-control full-width" maxlength="50" [formControl]="contactFormLocalModel.controls.email"/>
         </label>
       </div>
       <div class="form-group col-sm-6" >
@@ -152,7 +153,7 @@
             <a class="fn-lnk" href="#co4a"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.routIdInx}}</a>
           </sup>
           <input name="routingId" id="routingId" class="form-control full-width"
-                 formControlName="routingId" (blur)="onblur()" maxlength="64"/>
+                 [formControl]="contactFormLocalModel.controls.routingId" (blur)="onblur()" maxlength="64"/>
         </label>
       </div>
     </div>
@@ -161,7 +162,7 @@
       <div class="checkbox col-sm-12">
           <label for="recordProcessed">
             <input name="recordProcessed" type="checkbox" (blur)="recordPrcsOnblur()"
-                   formControlName="recordProcessed"
+                   [formControl]="contactFormLocalModel.controls.recordProcessed"
                    id="recordProcessed"/>
             <strong class="field-name" i18n>{{'record.processed'|translate}}</strong>
             <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>

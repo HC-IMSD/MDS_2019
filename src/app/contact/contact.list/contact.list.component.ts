@@ -77,7 +77,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     this.service = new ContactListService();
     this.dataModel = this.service.getModelRecordList();
     this.translate.get('error.msg.required').subscribe(res => {
-      console.log(res);
+      // console.log(res);
     });
     this.contactListForm = this._fb.group({
       contacts: this._fb.array([])
@@ -166,7 +166,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     if (this.errorSummaryChild) {
       this.errorSummaryChild.index = this.getExpandedRow();
     }
-    console.log(this.errorSummaryChild);
+    // console.log(this.errorSummaryChild);
     this._emitErrors();
   }
 
@@ -287,14 +287,14 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     // console.log('adding an contact');
     // 1. Get the list of reactive form Records
     let contactFormList = <FormArray>this.contactListForm.controls['contacts'];
-    console.log(contactFormList);
+    // console.log(contactFormList);
     // 2. Get a blank Form Model for the new record
     let formContact = CompanyContactRecordService.getReactiveModel(this._fb, this.isInternal);
     // 3. set record id
     this.service.setRecordId(formContact, this.service.getNextIndex());
     // 4. Add the form record using the super class. New form is addded at the end
     this.addRecord(formContact, contactFormList);
-    console.log(contactFormList);
+    // console.log(contactFormList);
     // 5. Set the new form to the new contact form reference.
     this.newContactForm = <FormGroup> contactFormList.controls[contactFormList.length - 1];
 
@@ -353,9 +353,10 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     if (this.errorSummaryChild) {
       emitErrors.push(this.errorSummaryChild);
     }
-    this.errors.emit(emitErrors);
+    if (!this.isInternal || this.newContactForm || this.dataModel.length > 0) {
+      this.errors.emit(emitErrors);
+    }
   }
-
 
   /***
    * Loads the last saved version of the record data

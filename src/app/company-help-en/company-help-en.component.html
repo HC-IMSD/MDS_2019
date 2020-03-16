@@ -3,23 +3,22 @@
   <dd id="co1">
     <p>{{'company.load.file'|translate}}</p>
     <ul>
-      <li>A file should not be loaded if this is the first time enrolling the Company.</li>
-      <li>When continuing with a working copy, the format of the file to load should be (.hcsc).</li>
-      <li>When viewing/updating a draft or final XML file, the format of the file to load should be (.xml).</li>
+      <li>{{'help.load.file.01'|translate}}</li>
+      <li>{{'help.load.file.02'|translate}}</li>
+      <li>{{'help.load.file.03'|translate}}</li>
     </ul>
-    <p class="fn-rtn"><a href="#co1-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>{{helpTextSequences.loadFileInx}}
+    <p class="fn-rtn"><a href="#co1-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences.loadFileInx}}
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
   <dt>{{helpTextSequences.compREPInx}}</dt>
   <dd id="co2">
     <p>{{'heading.company'|translate}}</p>
     <ul>
-      <li>The “Enrolment Status”, “Enrolment Version”, and “Date Last Saved” fields are automatically filled by the form upon selecting “Save Working Copy” or
-        “Save Draft XML” in the bottom of the template.</li>
-      <li>The “Company Identifier” field will be filled by Health Canada when they generate the final company XML file.</li>
-      <li>The “Amend Enrolment” button is only enabled when a final company xml file is loaded into the template, and must be selected when amending a final company XML file.</li>
+      <li>{{'help.heading.01'|translate}}</li>
+      <li>{{'help.heading.02'|translate}}</li>
+      <li>{{'help.heading.03'|translate}}</li>
     </ul>
-    <p class="fn-rtn"><a href="#co2-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>{{helpTextSequences.compREPInx}}
+    <p class="fn-rtn"><a href="#co2-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences.compREPInx}}
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
 
@@ -27,12 +26,10 @@
   <dd id="co3">
     <p>{{'business.num'|translate}}</p>
     <ul>
-      <li>The routing identifier is a unique identifier within the Electronic Submissions Gateway (ESG) for each account, used to identify the specific gateway account, whether it uses the Applicability Statement 2 (AS2) or WebTrader interfaces.</li>
-      <li>For the WebTrader users, the routing identifier is automatically assigned to each account by the system. It can be retrieved from any message disposition notification receipt, under attribute: “X-Cyclone-To:”</li>
-      <li>For AS2 users, the routing identifier has to be created by the company. It is recommended that the company's data universal numbering system number be used for this, but any alpha-numeric text string is acceptable.</li>
-      <li>For any further questions on the routing identifier, please contact the Food and Drug Administration Help Desk at ESGHelpDesk@fda.hhs.gov.</li>
+     <li>{{'help.business.num.01'|translate}}
+       <a href="{{'help.business.num.02'|translate}}">{{'help.business.num.03'|translate}}</a></li>
     </ul>
-    <p class="fn-rtn"><a href="#co3-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>{{helpTextSequences.busNumInx}}
+    <p class="fn-rtn"><a href="#co3-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences.busNumInx}}
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
 
@@ -40,11 +37,11 @@
   <dd id="co4">
     <p>{{'status'|translate}}</p>
     <ul>
-      <li>A new contact should be identified with "new" status.</li>
-      <li>A revision to an exisiting contact should be identified with "revise" status.</li>
-      <li>A deactivation of an existing contact should be identified with "delete" status.</li>
+      <li>{{'help.status.01'|translate}}</li>
+      <li>{{'help.status.02'|translate}}</li>
+      <li>{{'help.status.03'|translate}}</li>
     </ul>
-    <p class="fn-rtn"><a href="#co4-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>{{helpTextSequences.conStatInx}}
+    <p class="fn-rtn"><a href="#co4-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences.conStatInx}}
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
 
@@ -52,12 +49,12 @@
   <dd id="co4a">
     <p>{{'routing.id'|translate}}</p>
     <ul>
-      <li>The routing identifier is a unique identifier within the Electronic Submissions Gateway (ESG) for each account, used to identify the specific gateway account, whether it uses the Applicability Statement 2 (AS2) or WebTrader interfaces.</li>
-      <li>For the WebTrader users, the routing identifier is automatically assigned to each account by the system. It can be retrieved from any message disposition notification receipt, under attribute: “X-Cyclone-To:”</li>
-      <li>For AS2 users, the routing identifier has to be created by the company. It is recommended that the company's data universal numbering system number be used for this, but any alpha-numeric text string is acceptable.</li>
-      <li>For any further questions on the routing identifier, please contact the Food and Drug Administration Help Desk at ESGHelpDesk@fda.hhs.gov.</li>
+      <li>{{'help.routing.id.01'|translate}}</li>
+      <li>{{'help.routing.id.02'|translate}}</li>
+      <li>{{'help.routing.id.03'|translate}}</li>
+      <li>{{'help.routing.id.04'|translate}}<a href="mailto:ESGHelpDesk@fda.hhs.gov">ESGHelpDesk@fda.hhs.gov</a>.</li>
     </ul>
-    <p class="fn-rtn"><a href="#co4a-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>{{helpTextSequences.routIdInx}}
+    <p class="fn-rtn"><a href="#co4a-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences.routIdInx}}
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
 
@@ -65,9 +62,9 @@
   <dd id="co5">
     <p>{{'primary.contact'|translate}}</p>
     <ul>
-      <li>The Primary REP contact is the person to be contacted by Health Canada if there are any issues or clarifications required for this template when it is submitted for finalization.</li>
+      <li>{{'help.primary.contact'|translate}}</li>
     </ul>
-    <p class="fn-rtn"><a href="#co5-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>{{helpTextSequences.primaryConInx}}
+    <p class="fn-rtn"><a href="#co5-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences.primaryConInx}}
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
 
@@ -75,9 +72,9 @@
   <dd id="co6">
     <p>{{'is.3rd.party'|translate}}</p>
     <ul>
-      <li>Third party companies must obtain their Company Identifier and Contact Identifiers (by enrolling themselves using the REP Company template) prior to enrolling another company on their behalf.</li>
+      <li>{{'help.is.3rd.party'|translate}}</li>
     </ul>
-    <p class="fn-rtn"><a href="#co6-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>{{helpTextSequences.is3rdPartyInx}}
+    <p class="fn-rtn"><a href="#co6-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences.is3rdPartyInx}}
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
 
@@ -85,12 +82,12 @@
   <dd id="co6a">
     <p>{{'section.show.option'|translate}}{{'routing.id.rep.contact'|translate}}</p>
     <ul>
-      <li>The routing identifier is a unique identifier within the Electronic Submissions Gateway (ESG) for each account, used to identify the specific gateway account, whether it uses the Applicability Statement 2 (AS2) or WebTrader interfaces.</li>
-      <li>For the WebTrader users, the routing identifier is automatically assigned to each account by the system. It can be retrieved from any message disposition notification receipt, under attribute: “X-Cyclone-To:”</li>
-      <li>For AS2 users, the routing identifier has to be created by the company. It is recommended that the company's data universal numbering system number be used for this, but any alpha-numeric text string is acceptable.</li>
-      <li>For any further questions on the routing identifier, please contact the Food and Drug Administration Help Desk at ESGHelpDesk@fda.hhs.gov.</li>
+      <li>{{'help.routing.id.01'|translate}}</li>
+      <li>{{'help.routing.id.02'|translate}}</li>
+      <li>{{'help.routing.id.03'|translate}}</li>
+      <li>{{'help.routing.id.04'|translate}}<a href="mailto:ESGHelpDesk@fda.hhs.gov">ESGHelpDesk@fda.hhs.gov</a>.</li>
     </ul>
-    <p class="fn-rtn"><a href="#co6a-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>{{helpTextSequences.repRoutIdInx}}
+    <p class="fn-rtn"><a href="#co6a-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences.repRoutIdInx}}
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
 
@@ -98,9 +95,9 @@
   <dd id="co7">
     <p>{{'section.show.option'|translate}}{{'contact.name'|translate}}</p>
     <ul>
-      <li>This company representative full contact information should be listed in the company representative table above.</li>
+      <li>{{'help.contact.name'|translate}}</li>
     </ul>
-    <p class="fn-rtn"><a href="#co7-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>{{helpTextSequences.conNameInx}}
+    <p class="fn-rtn"><a href="#co7-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences.conNameInx}}
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
 
@@ -108,9 +105,9 @@
   <dd id="co8">
     <p>{{'section.show.option'|translate}}{{'all.licence.num'|translate}}</p>
     <ul>
-      <li>List all impacted licences, separated by a hard return (can copy and paste)</li>
+      <li>{{'help.licence.num'|translate}}</li>
     </ul>
-    <p class="fn-rtn"><a href="#co8-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>{{helpTextSequences.licenseNumsInx}}
+    <p class="fn-rtn"><a href="#co8-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences.licenseNumsInx}}
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
 

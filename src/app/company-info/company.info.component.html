@@ -5,21 +5,21 @@
         <label for="formStatus">
           <span class="field-name">{{'appl.status' |translate}}</span>
           <input name="formStatus" id="formStatus" class="form-control full-width" [readonly]="true"
-                 formControlName="formStatus" (blur)="onblur()" />
+                 [formControl]="generalInfoFormLocalModel.controls.formStatus" (blur)="onblur()" />
         </label>
       </div>
       <div class="form-group col-xs-3" >
         <label for="enrolVersion">
           <span class="field-name">{{'enrol.version' |translate}}</span>
           <input name="enrolVersion" id="enrolVersion" class="form-control full-width" [readonly]="disableAmend()"
-                 formControlName="enrolVersion" (blur)="onblur()" />
+                 [formControl]="generalInfoFormLocalModel.controls.enrolVersion" (blur)="onblur()" />
         </label>
       </div>
       <div class="form-group col-xs-3" >
         <label for="lastSavedDate">
           <span class="field-name">{{'date.saved' |translate}}</span>
           <input name="lastSavedDate" id="lastSavedDate" class="form-control full-width" [readonly]="disableAmend()"
-                 formControlName="lastSavedDate" (blur)="onblur()" />
+                 [formControl]="generalInfoFormLocalModel.controls.lastSavedDate" (blur)="onblur()" />
         </label>
       </div>
       <div class="form-group col-xs-3">
@@ -31,7 +31,7 @@
                             [control]="generalInfoFormLocalModel.controls.companyId"
                             controlId="companyId" label="company.id" parentId="generalInfo"
                             parentLabel="Regulatory Company Enrolment"></control-messages>
-          <input name="companyId" id="companyId" class="form-control" formControlName="companyId"
+          <input name="companyId" id="companyId" class="form-control" [formControl]="generalInfoFormLocalModel.controls.companyId"
                  [readonly]="disableAmend()" maxlength="6" (blur)="onblur()" />
         </label>
       </div>
@@ -56,14 +56,14 @@
                             parentId="amendReasons"
                             parentLabel="Regulatory Company Enrolment"></control-messages>
           <input name="amendReason" id="amendReason" type="hidden" class="form-control"
-                 formControlName="amendReason"/>
+                 [formControl]="generalInfoFormLocalModel.controls.amendReason"/>
         </legend>
         <div class="row rep-margin-left">
           <div class="col-xs-12">
             <div class="checkbox">
               <label for="nameChange">
                 <input name="nameChange" type="checkbox" (blur)="nameChangeOnblur()"
-                       formControlName="nameChange"
+                       [formControl]="generalInfoFormLocalModel.controls.nameChange"
                        id="nameChange"/>
                 <span>{{'manuname.change'|translate}}</span>
               </label>
@@ -75,7 +75,7 @@
             <div class="checkbox">
               <label for="addressChange">
                 <input name="addressChange" type="checkbox" (blur)="addressChangeOnblur()"
-                       formControlName="addressChange"
+                       [formControl]="generalInfoFormLocalModel.controls.addressChange"
                        id="addressChange"/>
                 <span>{{'manuaddr.change'|translate}}</span>
               </label>
@@ -87,7 +87,7 @@
             <div class="checkbox">
               <label for="facilityChange">
                 <input name="facilityChange" type="checkbox" (blur)="facilityChangeOnblur()"
-                       formControlName="facilityChange"
+                       [formControl]="generalInfoFormLocalModel.controls.facilityChange"
                        id="facilityChange"/>
                 <span>{{'facility.change'|translate}}</span>
               </label>
@@ -99,7 +99,7 @@
             <div class="checkbox">
               <label for="otherChange">
                 <input name="otherChange" type="checkbox" (blur)="amendReasonOnblur()"
-                       formControlName="otherChange"
+                       [formControl]="generalInfoFormLocalModel.controls.otherChange"
                        id="otherChange"/>
                 <span>{{'other'|translate}}</span>
               </label>
@@ -117,7 +117,7 @@
                                 parentId="generalInfo"
                                 parentLabel="Regulatory Company Enrolment"></control-messages>
             <textarea type="text" class="form-control full-width" id="otherDetails" (blur)="amendReasonOnblur()"
-                      formControlName="otherDetails" maxlength="500"></textarea>
+                      [formControl]="generalInfoFormLocalModel.controls.otherDetails" maxlength="500"></textarea>
             </label>
           </div>
         </div>
@@ -136,7 +136,7 @@
                             parentId="generalInfo"
                             parentLabel="Regulatory Company Enrolment"></control-messages>
           <select id="areLicensesTransfered" required class="form-control full-width" (blur)="amendReasonOnblur()"
-                  (selected)="amendReasonOnblur()" formControlName="areLicensesTransfered">
+                  (selected)="amendReasonOnblur()" [formControl]="generalInfoFormLocalModel.controls.areLicensesTransfered">
             <option label=" " value=""></option>
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
           </select>

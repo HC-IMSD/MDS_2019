@@ -1,5 +1,5 @@
 {
   "files": "./dist/prod/applicationInfo/en/index.html",
-  "from": ["<!--build:mainHeading--><!--endbuild-->","<!--build:langHtml--><!--endbuild-->"],
-  "to": ["Application Information Template: Regulatory Enrolment Process (REP)<br>(Version 2.0.0)","../fr/index.html"]
+  "from": ["<!--build:mainHeading--><!--endbuild-->","<!--build:mainTitle-->","<!--build:langHtml--><!--endbuild-->"],
+  "to": ["Application Information Template: Regulatory Enrolment Process (REP) (Version 2.0.0)","Application Information Template: Regulatory Enrolment Process - Canada.ca","../fr/index.html"]
 }

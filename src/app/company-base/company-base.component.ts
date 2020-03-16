@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, Input, HostListener, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, Input, HostListener, ViewEncapsulation, AfterViewInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 // import {TranslateService} from '@ngx-translate/core';
@@ -83,6 +83,10 @@ export class CompanyBaseComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit(): void {
+    document.location.href = '#main';
+  }
+
   processErrors() {
     // console.log('@@@@@@@@@@@@ Processing errors in Company base compo
     this.errorList = [];
@@ -147,6 +151,7 @@ export class CompanyBaseComponent implements OnInit {
   public saveXmlFile() {
     if (this.errorList && this.errorList.length > 0) {
       this.showErrors = true;
+      document.location.href = '#topErrorSummary';
     } else {
       if (this.companyContacts.contactListForm.pristine) { // .isPristine
         this._updatedAutoFields();
@@ -188,15 +193,15 @@ export class CompanyBaseComponent implements OnInit {
     }};
     result.DEVICE_COMPANY_ENROL.contacts =
       (this.contactModel && (this.contactModel).length > 0) ? {contact: this.contactModel} : {};
-    const version: Array<any> = this.genInfoModel.enrol_version.toString().split('.');
-    const fileName = 'draftrepcom-' + version[0] + '-' + version[1];
+    // const version: Array<any> = this.genInfoModel.enrol_version.toString().split('.');
+    const fileName = this._buildfileName();
     this.fileServices.saveJsonToFile(result, fileName, null);
   }
 
   public processFile(fileData: ConvertResults) {
     this.loadFileIndicator = true;
-     console.log('processing file.....');
-     console.log(fileData);
+     // console.log('processing file.....');
+     // console.log(fileData);
     this.genInfoModel = fileData.data.DEVICE_COMPANY_ENROL.general_information;
    // set amend reasons and admin changes section to null if status is Final
     if (this.genInfoModel.status === GlobalsService.FINAL) {
@@ -254,11 +259,11 @@ export class CompanyBaseComponent implements OnInit {
   private _buildfileName() {
     const version: Array<any> = this.genInfoModel.enrol_version.split('.');
     if (this.isInternalSite) {
-      return 'hcrepcom-' + this.genInfoModel.company_id + '-' + version[0] + '-' + version[1];
+      return 'final-com-' + this.genInfoModel.company_id + '-' + version[0] + '-' + version[1];
     } else if (this.genInfoModel.status === GlobalsService.AMEND) {
-      return 'draftrepcom-' + this.genInfoModel.company_id + '-' + version[0] + '-' + version[1];
+      return 'draft-com-' + this.genInfoModel.company_id + '-' + version[0] + '-' + version[1];
     } else {
-      return 'draftrepcom-' + version[0] + '-' + version[1];
+      return 'draft-com-' + version[0] + '-' + version[1];
     }
   }
 /*

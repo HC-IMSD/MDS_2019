@@ -8,7 +8,7 @@
       <label for="company" class="required full-width" aria-required="true">
         <span class="field-name" i18n>{{'company.name.full'|translate}}</span>
         <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-        <input id="company" class="form-control full-width" formControlName="companyName" maxlength="80"/>
+        <input id="company" class="form-control full-width" [formControl]="addressRecordModel.controls.companyName" maxlength="80"/>
         <control-messages *ngIf="addressRecordModel.controls.companyName.invalid"
                           [showError]="showErrors"
                           [control]="addressRecordModel.controls.companyName"

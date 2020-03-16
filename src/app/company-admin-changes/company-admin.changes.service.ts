@@ -78,7 +78,7 @@ export class CompanyAdminChangesService {
     adminChangesModel.all_licence_numbers = formRecord.controls.licenceNumbers.value;
     adminChangesModel.is_regulatory_change = formRecord.controls.isReguChange.value;
     if (formRecord.controls.newCompanyId.value) {
-      adminChangesModel.new_company_id = 'k' + formRecord.controls.newCompanyId.value;
+      adminChangesModel.new_company_id = formRecord.controls.newCompanyId.value;
     }
     adminChangesModel.new_contact_id = formRecord.controls.newContactId.value;
     adminChangesModel.new_contact_name = formRecord.controls.newContactName.value;
@@ -88,7 +88,7 @@ export class CompanyAdminChangesService {
     formRecord.controls.licenceNumbers.setValue(adminChangesModel.all_licence_numbers);
     formRecord.controls.isReguChange.setValue(adminChangesModel.is_regulatory_change);
     if (adminChangesModel.new_company_id) {
-      formRecord.controls.newCompanyId.setValue(adminChangesModel.new_company_id.slice(1));
+      formRecord.controls.newCompanyId.setValue(adminChangesModel.new_company_id);
     }
     formRecord.controls.newContactId.setValue(adminChangesModel.new_contact_id);
     formRecord.controls.newContactName.setValue(adminChangesModel.new_contact_name);
