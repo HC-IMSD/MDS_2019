@@ -88,7 +88,9 @@ export class CompanyAdminChangesService {
     formRecord.controls.licenceNumbers.setValue(adminChangesModel.all_licence_numbers);
     formRecord.controls.isReguChange.setValue(adminChangesModel.is_regulatory_change);
     if (adminChangesModel.new_company_id) {
-      formRecord.controls.newCompanyId.setValue(adminChangesModel.new_company_id);
+      const cid = (adminChangesModel.new_company_id.indexOf('k') === 0) ?
+        adminChangesModel.new_company_id.slice(1) : adminChangesModel.new_company_id;
+      formRecord.controls.newCompanyId.setValue(cid);
     }
     formRecord.controls.newContactId.setValue(adminChangesModel.new_contact_id);
     formRecord.controls.newContactName.setValue(adminChangesModel.new_contact_name);
