@@ -53,7 +53,7 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
       width: '50'
     },
     {
-      label: 'Name of Device',
+      label: 'Name of Compatible Device',
       binding: 'device_name',
       width: '50'
     }

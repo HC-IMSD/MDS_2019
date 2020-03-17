@@ -17,7 +17,7 @@
     </div>
     <div class="row">
       <div class="form-group col-sm-12" >
-        <label for="deviceName" class="required full-width" aria-required="true">
+        <label for="materialDeviceName" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'device.name'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="materialFormLocalModel.controls.deviceName.invalid"
@@ -26,7 +26,7 @@
                             controlId="deviceName" label="device.name" parentId="materialDetails"
                             parentLabel="Biological Material">
           </control-messages>
-          <input id="deviceName" class="form-control full-width" [formControl]="materialFormLocalModel.controls.deviceName" maxlength="150"/>
+          <input id="materialDeviceName" class="form-control full-width" [formControl]="materialFormLocalModel.controls.deviceName" maxlength="150"/>
         </label>
       </div>
     </div>
