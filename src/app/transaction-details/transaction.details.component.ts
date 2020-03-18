@@ -382,6 +382,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.transDetailsFormLocalModel.controls.appNum.markAsUntouched();
     this.transDetailsFormLocalModel.controls.deviceName.setValue(null);
     this.transDetailsFormLocalModel.controls.deviceName.markAsUntouched();
+    this.transDetailsFormLocalModel.controls.requestVersion.setValue(null);
+    this.transDetailsFormLocalModel.controls.requestVersion.markAsUntouched();
     this.transDetailsFormLocalModel.controls.requestDate.setValue(null);
     this.transDetailsFormLocalModel.controls.requestDate.markAsUntouched();
     this.transDetailsFormLocalModel.controls.briefDesc.setValue(null);

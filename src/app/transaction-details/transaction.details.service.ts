@@ -585,7 +585,7 @@ export class TransactionDetailsService {
     transactionModel.meeting_id = formRecord.controls.meetingId.value;
     transactionModel.device_name = formRecord.controls.deviceName.value;
     transactionModel.proposed_licence_name = formRecord.controls.licenceName.value;
-    transactionModel.request_date = formRecord.controls.requestVersion.value;
+    transactionModel.request_version = formRecord.controls.requestVersion.value;
     transactionModel.request_date = formRecord.controls.requestDate.value;
     transactionModel.request_to = formRecord.controls.requestTo.value;
     transactionModel.brief_description = formRecord.controls.briefDesc.value;
