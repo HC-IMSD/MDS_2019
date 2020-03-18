@@ -326,7 +326,7 @@ export class TransactionDetailsService {
 
   public static getActivityTypePVList(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityTypeList(), lang);
-    return descArray.slice(4);
+    return [descArray[4], descArray[5], descArray[6], descArray[7], descArray[8]];
   }
 
   public static getTransDescList(lang) {
