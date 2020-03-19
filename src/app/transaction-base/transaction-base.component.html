@@ -15,7 +15,7 @@
       </div>
       <aside class="wb-fnote" role="note" id="instructions">
         <h2>{{'instruction.help'|translate}}</h2>
-        <section><transaction-help-en></transaction-help-en></section>
+        <section><transaction-help-en [helpTextSequences]="helpIndex"></transaction-help-en></section>
       </aside>
       <span id="main"></span>
       <div class="row mrgn-tp-md">
@@ -41,23 +41,23 @@
           </div>
         </section>
       </div>
-
-      <error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
-                     headingPreamble="errorSummary.transaction"></error-summary>
-
+      <div id="topErrorSummaryId">
+        <error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
+                       headingPreamble="errorSummary.transaction"></error-summary>
+      </div>
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
             <h2 class="panel-title">{{'heading.transaction'|translate}}
               <sup id="tr2-rf">
-                <a class="fn-lnk" href="#tr2"><span class="wb-inv">{{'instruction'|translate}}</span>2</a>
+                <a class="fn-lnk" href="#tr2"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex.tr2}}</a>
               </sup>
             </h2>
           </header>
           <div class="panel-body">
             <transaction-details [showErrors]="showErrors" [lang]="lang" [userList]="userList"
                               [detailsChanged]="updateChild" [transactionModel]="transactionModel"
-                              (isSolicitedFlag)="processIsSolicitedFlag($event)"
+                              (isSolicitedFlag)="processIsSolicitedFlag($event)" [helpIndex]="helpIndex"
                               (detailErrorList)="processDetailErrors($event)"></transaction-details>
 
           </div>

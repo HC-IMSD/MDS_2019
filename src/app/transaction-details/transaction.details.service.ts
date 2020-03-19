@@ -21,7 +21,6 @@ export class TransactionDetailsService {
   public getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
-      // routingId: ['', []],
       dossierId: ['', [Validators.required, ValidationService.dossierIdValidator]],
       dossierType: ['Medical device', []],
       manuCompanyId: ['', [Validators.required, ValidationService.companyIdValidator]],
@@ -34,7 +33,7 @@ export class TransactionDetailsService {
       deviceClass: ['', Validators.required],
       amendReason: ['', Validators.required],
       classChange: [false, []],
-      rational: ['', Validators.required],
+      rationale: ['', Validators.required],
       proposedIndication: ['', Validators.required],
       licenceChange: [false, []],
       deviceChange: [false, []],
@@ -47,6 +46,8 @@ export class TransactionDetailsService {
       purposeChange: [false, []],
       addChange: [false, []],
       licenceNum: ['', [Validators.required, ValidationService.licenceNumValidator]],
+      orgManufactureId: ['', [Validators.required, ValidationService.numberValidator]],
+      orgManufactureLic: ['', [Validators.required, ValidationService.numberValidator]],
       appNum: ['', [Validators.required, ValidationService.appNumValidator]],
       appNumOpt: ['', [ValidationService.appNumValidator]],
       meetingId: '',
@@ -58,7 +59,7 @@ export class TransactionDetailsService {
       briefDesc: ['', Validators.required],
       transDescription: [null, []],
       hasDdt: [false, []],
-      hasDdtMan: ['', ValidationService.checkboxRequiredValidator],
+      hasDdtMan: ['', Validators.required],
       hasAppInfo: [false, []],
       isSolicitedInfo: ['', []]
     });
@@ -99,7 +100,7 @@ export class TransactionDetailsService {
         application_number: '',
         meeting_id: '',
         device_name: '',
-        rational: '',
+        rationale: '',
         proposed_indication: '',
         proposed_licence_name: '',
         request_version: '',
@@ -205,6 +206,14 @@ export class TransactionDetailsService {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
     return [descArray[10], descArray[15], descArray[16], descArray[17], descArray[18]];
   }
+  public static getPRVLDDescriptions(lang) {
+    const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
+    return [descArray[5], descArray[8], descArray[9], descArray[12]];
+  }
+  public static getPRVLDADescriptions(lang) {
+    const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
+    return [descArray[5], descArray[8], descArray[9], descArray[12]];
+  }
 
   /**
    * Gets an data array
@@ -292,6 +301,16 @@ export class TransactionDetailsService {
         id: 'B02-20190627-05',
         en: 'REG-PV',
         fr: 'REG-PV'
+      },
+      {
+        id: 'B02-20160301-073',
+        en: 'Private Label',
+        fr: 'Private Label'
+      },
+      {
+        id: 'B02-20160301-074',
+        en: 'Private Label Amendment',
+        fr: 'Private Label Amendment'
       }
     ];
   }
@@ -302,12 +321,12 @@ export class TransactionDetailsService {
 
   public static getActivityTypeMDBList(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityTypeList(), lang);
-    return [descArray[0], descArray[1], descArray[2], descArray[3]];
+    return [descArray[0], descArray[1], descArray[2], descArray[9], descArray[10], descArray[3]];
   }
 
   public static getActivityTypePVList(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityTypeList(), lang);
-    return descArray.slice(4);
+    return [descArray[4], descArray[5], descArray[6], descArray[7], descArray[8]];
   }
 
   public static getTransDescList(lang) {
@@ -470,11 +489,11 @@ export class TransactionDetailsService {
     };
 
     if (formRecord.controls.manuCompanyId.value) {
-      transactionModel.company_id = 'k' + formRecord.controls.manuCompanyId.value;
+      transactionModel.company_id = 'K' + formRecord.controls.manuCompanyId.value;
     }
     transactionModel.manufacturing_contact_id = formRecord.controls.manuContactId.value;
     if (formRecord.controls.reguCompanyId.value) {
-      transactionModel.regulatory_company_id = 'k' + formRecord.controls.reguCompanyId.value;
+      transactionModel.regulatory_company_id = 'K' + formRecord.controls.reguCompanyId.value;
     }
     transactionModel.regulatory_contact_id = formRecord.controls.reguContactId.value;
    // transactionModel.regulatory_activity_lead = formRecord.controls.activityLead.value;
@@ -566,22 +585,24 @@ export class TransactionDetailsService {
     transactionModel.meeting_id = formRecord.controls.meetingId.value;
     transactionModel.device_name = formRecord.controls.deviceName.value;
     transactionModel.proposed_licence_name = formRecord.controls.licenceName.value;
-    transactionModel.request_date = formRecord.controls.requestVersion.value;
+    transactionModel.request_version = formRecord.controls.requestVersion.value;
     transactionModel.request_date = formRecord.controls.requestDate.value;
     transactionModel.request_to = formRecord.controls.requestTo.value;
     transactionModel.brief_description = formRecord.controls.briefDesc.value;
     transactionModel.transaction_description = TransactionDetailsService._setConcatDetails(transactionModel);
-    if (formRecord.controls.deviceChange.value ||
-        (formRecord.controls.activityType.value === activityTypeList[1].id &&
-              formRecord.controls.descriptionType.value === descArray[9].id)) {
-      transactionModel.has_ddt = formRecord.controls.hasDdtMan.value ? GlobalsService.YES : GlobalsService.NO;
-    } else {
-      transactionModel.has_ddt = formRecord.controls.hasDdt.value ? GlobalsService.YES : GlobalsService.NO;
-    }
+    // if (formRecord.controls.deviceChange.value ||
+    //     (formRecord.controls.activityType.value === activityTypeList[1].id &&
+    //           formRecord.controls.descriptionType.value === descArray[9].id)) {
+      transactionModel.has_ddt = formRecord.controls.hasDdtMan.value;
+    // } else {
+    //   transactionModel.has_ddt = formRecord.controls.hasDdt.value ? GlobalsService.YES : GlobalsService.NO;
+    // }
     transactionModel.has_app_info = formRecord.controls.hasAppInfo.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.is_solicited_info = formRecord.controls.isSolicitedInfo.value;
-    transactionModel.rational = formRecord.controls.rational.value;
+    transactionModel.rationale = formRecord.controls.rationale.value;
     transactionModel.proposed_indication = formRecord.controls.proposedIndication.value;
+    transactionModel.org_manufacture_id = formRecord.controls.orgManufactureId.value;
+    transactionModel.org_manufacture_lic = formRecord.controls.orgManufactureLic.value;
   }
 
   public static mapDataModelToFormModel(transactionModel, formRecord: FormGroup, lang) {
@@ -695,19 +716,21 @@ export class TransactionDetailsService {
     formRecord.controls.requestTo.setValue(transactionModel.request_to);
     formRecord.controls.briefDesc.setValue(transactionModel.brief_description);
     formRecord.controls.transDescription.setValue(transactionModel.transaction_description);
-    const hasddt = transactionModel.has_ddt === GlobalsService.YES ? true : false;
-    if (formRecord.controls.deviceChange.value ||
-      (transactionModel.regulatory_activity_type._id === activityTypes[1].id &&
-            transactionModel.description_type._id === descriptions[9].id)) {
-      formRecord.controls.hasDdtMan.setValue(hasddt);
-    } else {
-      formRecord.controls.hasDdt.setValue(hasddt);
-    }
+    // const hasddt = transactionModel.has_ddt === GlobalsService.YES ? true : false;
+    // if (formRecord.controls.deviceChange.value ||
+    //   (transactionModel.regulatory_activity_type._id === activityTypes[1].id &&
+    //         transactionModel.description_type._id === descriptions[9].id)) {
+      formRecord.controls.hasDdtMan.setValue(transactionModel.has_ddt);
+    // } else {
+    //   formRecord.controls.hasDdt.setValue(hasddt);
+    // }
     const hasapp = transactionModel.has_app_info === GlobalsService.YES ? true : false;
     formRecord.controls.hasAppInfo.setValue(hasapp);
     formRecord.controls.isSolicitedInfo.setValue(transactionModel.is_solicited_info);
-    formRecord.controls.rational.setValue(transactionModel.rational);
+    formRecord.controls.rationale.setValue(transactionModel.rationale);
     formRecord.controls.proposedIndication.setValue(transactionModel.proposed_indication);
+    formRecord.controls.orgManufactureId.setValue(transactionModel.org_manufacture_id);
+    formRecord.controls.orgManufactureLic.setValue(transactionModel.org_manufacture_lic);
   }
 
   /***
@@ -779,5 +802,4 @@ export class TransactionDetailsService {
     const result = m_names[date.getUTCMonth()] + '. ' + date.getUTCDate() + ', ' + date.getFullYear();
     return result;
   }
-
 }

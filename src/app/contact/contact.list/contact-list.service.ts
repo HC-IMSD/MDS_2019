@@ -87,6 +87,9 @@ export class ContactListService extends ListService implements IMasterDetails {
       return contactModel.id;
     } else {
       let modelRecord = this.getModelRecord(record.controls.id.value);
+      if (!modelRecord) {
+        modelRecord = this.getContactModel();
+      }
       let updatedModel = this.contactFormToData(record, modelRecord);
     }
   }

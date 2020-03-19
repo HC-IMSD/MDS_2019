@@ -45,8 +45,8 @@
                                   [control]="adminChangesFormLocalModel.controls.licenceNumbers"
                                   controlId="licenceNumbers" label="all.licence.num" parentId="adminChangesDetails"
                                   parentLabel="Admin Changes"></control-messages>
-                <textarea type="text" id="licenceNumbers" class="form-control full-width" (blur)="licNumOnblur()"
-                       formControlName="licenceNumbers" maxlength="4000">
+                <textarea type="text" id="licenceNumbers" class="form-control full-width" (blur)="licNumOnblur()" only-digits
+                       [formControl]="adminChangesFormLocalModel.controls.licenceNumbers" maxlength="4000">
                 </textarea>
               </label>
             </div>
@@ -64,7 +64,7 @@
                             [control]="adminChangesFormLocalModel.controls.isReguChange"
                             controlId="isReguChange" label="is.change" parentId="adminChangesDetails"
                             parentLabel="Admin Changes"></control-messages>
-          <select id="isReguChange" required class="form-control" (blur)="onblur()" formControlName="isReguChange">
+          <select id="isReguChange" required class="form-control" (blur)="onblur()" [formControl]="adminChangesFormLocalModel.controls.isReguChange">
             <option label=" " value=""></option>
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
           </select>
@@ -83,14 +83,14 @@
                             controlId="newCompanyId" label="new.company.id" parentId="adminChangesDetails"
                             parentLabel="Admin Changes"></control-messages>
           <input name="newCompanyId" id="newCompanyId" class="form-control full-width" (blur)="onblur()"
-                 formControlName="newCompanyId" maxlength="6"/>
+                 [formControl]="adminChangesFormLocalModel.controls.newCompanyId" maxlength="6"/>
         </label>
       </div>
       <div class="form-group col-xs-6" >
         <label for="newContactId" class="full-width">
           <span class="field-name" i18n>{{'new.contact.id'|translate}}</span>
           <input name="newContactId" id="newContactId" class="form-control full-width"  (blur)="onblur()"
-                 formControlName="newContactId" maxlength="5"/>
+                 [formControl]="adminChangesFormLocalModel.controls.newContactId" maxlength="5"/>
         </label>
       </div>
     </div>
@@ -105,7 +105,7 @@
                             controlId="newContactName" label="new.contact.name" parentId="adminChangesDetails"
                             parentLabel="Admin Changes"></control-messages>
           <input name="newContactName" id="newContactName" class="form-control full-width"  (blur)="onblur()"
-                 formControlName="newContactName" maxlength="40"/>
+                 [formControl]="adminChangesFormLocalModel.controls.newContactName" maxlength="40"/>
         </label>
       </div>
     </div>

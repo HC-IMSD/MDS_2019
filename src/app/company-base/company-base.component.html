@@ -44,8 +44,10 @@
         </section>
       </div>
 
-      <error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
+      <div id="topErrorSummary">
+        <error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
                      headingPreamble="errorSummary.company"></error-summary>
+      </div>
 
       <div>
         <section class="panel panel-primary mrgn-tp-lg">

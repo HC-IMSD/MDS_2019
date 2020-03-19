@@ -153,6 +153,5 @@ export class TransactionFeeComponent implements OnInit, OnChanges, AfterViewInit
     }
     return false;
   }
-
 }
 

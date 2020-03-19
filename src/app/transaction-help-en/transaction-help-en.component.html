@@ -1,23 +1,23 @@
 <dl>
-  <dt><span class="wb-inv">{{'Instruction'|translate}} </span>1</dt>
+  <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.loadFileInx}}</dt>
   <dd id="tr1">
     <p>{{'transaction.load.file'|translate}}</p>
     <ul>
-      <li>A file should not be loaded if it is the first REP transaction for this dossier.</li>
-      <li>When continuing with a working copy, the format of the file to load should be .hcsc.</li>
-      <li>When viewing/updating a final XML file, the format of the file to load should be .xml.</li>
+      <li>{{'hlp_load1'|translate}}</li>
+      <li>{{'hlp_load2'|translate}}</li>
+      <li>{{'hlp_load3'|translate}}</li>
     </ul>
-    <p class="fn-rtn"><a href="#tr1-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>1
+    <p class="fn-rtn"><a href="#tr1-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences.loadFileInx}}
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
-  <dt><span class="wb-inv">{{'Instruction'|translate}} </span>2</dt>
+  <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.tr2}}</dt>
   <dd id="tr2">
     <p>{{'heading.transaction'|translate}}</p>
     <ul>
-      <li>The Company identifier must be obtained from the final company XML file, issued by Health Canada.</li>
-      <li>The Dossier identifier can be obtained from the final dossier XML file or other Health Canada issued document.(e.g. HC6-024-m178974).</li>
+      <li>{{'hlp_transaction1'|translate}}</li>
+      <li>{{'hlp_transaction2'|translate}}</li>
     </ul>
-    <p class="fn-rtn"><a href="#tr2-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>2
+    <p class="fn-rtn"><a href="#tr2-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences.tr2}}
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
   <!--<dt><span class="wb-inv">{{'Instruction'|translate}} </span>3</dt>-->
@@ -27,50 +27,50 @@
     <!--<p class="fn-rtn"><a href="#tr3a-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>3-->
       <!--<span class="wb-inv"> referrer</span></a></p>-->
   <!--</dd>-->
-  <dt><span class="wb-inv">{{'Instruction'|translate}} </span>3</dt>
+  <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.tr3}}</dt>
   <dd id="tr3">
     <p>{{'regulatory.contact.id'|translate}}</p>
-    <p>All regulatory correspondence will be sent to this contact, but the licence will be issued to the Manufacturer. A medical device licence application can be submitted by a third party.</p>
-    <p class="fn-rtn"><a href="#tr3-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>3
+    <p>{{'hlp_contactId' | translate}}</p>
+    <p class="fn-rtn"><a href="#tr3-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences.tr3}}
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
-  <dt><span class="wb-inv">{{'Instruction'|translate}} </span>3.1</dt>
+  <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.tr2a}}</dt>
   <dd id="tr2a">
     <p>{{'section.show.option' | translate}}{{'device.class' |translate}}</p>
-    <p>Refer to the <a href="https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/guidance-document-guidance-risk-based-classification-system-non-vitro-diagnostic.html">
-      Guidance Document - Guidance on the Risk-based Classification System for Non-In Vitro Diagnostic Devices (non-IVDDs)</a></p>
-    <p class="fn-rtn"><a href="#tr2a-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>3.1
+    <p>{{'hlp_deviceClass1' | translate}}<a href="https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/guidance-document-guidance-risk-based-classification-system-non-vitro-diagnostic.html">
+      {{'hlp_deviceClass2' | translate}}</a></p>
+    <p class="fn-rtn"><a href="#tr2a-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences.tr2a}}
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
-  <dt><span class="wb-inv">{{'Instruction'|translate}} </span>3.2</dt>
+  <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.tr2b}}</dt>
   <dd id="tr2b">
     <p>{{'section.show.option' | translate}}{{'application.number' |translate}}</p>
-    <p>This number is assigned by Health Canada for each application/transaction received</p>
-    <p class="fn-rtn"><a href="#tr2b-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>3.2
+    <p>{{'hlp_appNumber' | translate}}</p>
+    <p class="fn-rtn"><a href="#tr2b-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences.tr2b}}
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
-  <dt><span class="wb-inv">{{'Instruction'|translate}} </span>3.3</dt>
+  <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.tr2c}}</dt>
   <dd id="tr2c">
     <p>{{'section.show.option' | translate}}{{'device.name' |translate}}</p>
-    <p>Only one name should be entered in this field. The listed name will be used as the licence name unless it is deemed that a generic licence name is more appropriate to cover all of the devices contained within the licence.</p>
-    <p class="fn-rtn"><a href="#tr2c-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>3.3
+    <p>{{'hlp_deviceName'|translate}}</p>
+    <p class="fn-rtn"><a href="#tr2c-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences.tr2c}}
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
-  <dt><span class="wb-inv">{{'Instruction'|translate}} </span>4</dt>
+  <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.tr4}}</dt>
   <dd id="tr4">
     <p>{{'licence.number' |translate}}</p>
     <ul>
-      <li>This number is assigned by Health Canada once a device(s) has been authorized for sale </li>
-      <li>If the Licence number has not yet been assigned, use 000000.</li>
+      <li>{{'hlp_licenceNumber1'|translate}}</li>
+      <li>{{'hlp_licenceNumber2'|translate}}</li>
     </ul>
-    <p class="fn-rtn"><a href="#tr4-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>4
+    <p class="fn-rtn"><a href="#tr4-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences.tr4}}
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
-  <dt><span class="wb-inv">{{'Instruction'|translate}} </span>5</dt>
+  <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.tr5}}</dt>
   <dd id="tr5">
     <p>{{'has.ddt'|translate}}</p>
-    <p>The identifiers listed in the device details table must appear on and match the identifier listed on the submitted labelling.</p>
-    <p class="fn-rtn"><a href="#tr5-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>5
+    <p>{{'hlp_deviceDetail'|translate}}</p>
+    <p class="fn-rtn"><a href="#tr5-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences.tr5}}
       <span class="wb-inv"> referrer</span></a></p>
   </dd>
 </dl>
