@@ -94,7 +94,7 @@
   "manuname.change": "Change in manufacturer's name",
   "manuaddr.change": "Change in manufacturer's address",
   "facility.change": "Change only to the name and/or address of the manufacturing facility",
-  "other": "Other:",
+  "other": "Other",
   "other.details": "Other Details",
   "ownership.transferred": "Are any ownership of licenses being transferred?",
   "admin.changes": "Company Administrative Changes",
