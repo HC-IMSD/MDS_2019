@@ -45,7 +45,7 @@
                                   [control]="adminChangesFormLocalModel.controls.licenceNumbers"
                                   controlId="licenceNumbers" label="all.licence.num" parentId="adminChangesDetails"
                                   parentLabel="Admin Changes"></control-messages>
-                <textarea type="text" id="licenceNumbers" class="form-control full-width" (blur)="licNumOnblur()" only-digits
+                <textarea rows="6" type="text" id="licenceNumbers" class="form-control rep-margin-top" (blur)="licNumOnblur()"
                        [formControl]="adminChangesFormLocalModel.controls.licenceNumbers" maxlength="4000">
                 </textarea>
               </label>
