@@ -83,7 +83,7 @@
   "yes": "Yes",
   "no": "No",
   "minlength": "Minimum length 10",
-  "error.mgs.company.id": "Please specify a valid Company Identifier.",
+  "error.mgs.company.id": "Please specify a valid Manufacturer Company Identifier.",
   "error.mgs.dossier.id": "Please specify a valid Dossier Identifier.",
   "error.mgs.din": "Please specify a valid Drug Identification Number (DIN).",
   "error.mgs.npn": "Please specify a valid Natural Product Number (NPN).",

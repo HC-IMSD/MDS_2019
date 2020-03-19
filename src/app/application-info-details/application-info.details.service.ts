@@ -212,7 +212,7 @@ export class ApplicationInfoDetailsService {
   public static mapFormModelToDataModel(formRecord: FormGroup, appInfoModel) {
     const activityLeadList = ApplicationInfoDetailsService.getActivityLeadList(ApplicationInfoDetailsService.lang);
     const activityTypeList = ApplicationInfoDetailsService.getActivityTypeList(ApplicationInfoDetailsService.lang);
-    const deviceclassList = ApplicationInfoDetailsService.getDeviceClassList(ApplicationInfoDetailsService.lang);
+    const deviceClassList = ApplicationInfoDetailsService.getDeviceClassList(ApplicationInfoDetailsService.lang);
 
    // appInfoModel.company_id = formRecord.controls.companyId.value;
     if (formRecord.controls.companyId.value) {
@@ -293,13 +293,13 @@ export class ApplicationInfoDetailsService {
     }
 
     if (formRecord.controls.deviceClass.value) {
-      const recordIndex2 = ListService.getRecord(deviceclassList, formRecord.controls.deviceClass.value, 'id');
+      const recordIndex2 = ListService.getRecord(deviceClassList, formRecord.controls.deviceClass.value, 'id');
       if (recordIndex2 > -1) {
         appInfoModel.device_class = {
-          '__text': deviceclassList[recordIndex2].text,
-          '_id' : deviceclassList[recordIndex2].id,
-          '_label_en': deviceclassList[recordIndex2].en,
-          '_label_fr': deviceclassList[recordIndex2].fr
+          '__text': deviceClassList[recordIndex2].text,
+          '_id' : deviceClassList[recordIndex2].id,
+          '_label_en': deviceClassList[recordIndex2].en,
+          '_label_fr': deviceClassList[recordIndex2].fr
         };
       }
     } else {

@@ -22,7 +22,7 @@
                             controlId="deviceAuthorized" label="device.authorized" parentId="deviceDetails"
                             parentLabel="Interdependent Device"></control-messages>
 
-          <select id="deviceAuthorized" required class="form-control"
+          <select id="deviceAuthorized"name="deviceAuthorized" required class="form-control"
                   [formControl]="deviceFormLocalModel.controls.deviceAuthorized">
 
             <option label=" " value=""></option>
@@ -59,8 +59,8 @@
                             controlId="deviceApplicationSubmitted" label="device.application.submitted" parentId="deviceDetails"
                             parentLabel="Interdependent Device"></control-messages>
 
-          <select id="deviceApplicationSubmitted" required class="form-control"
-                  [formControl]="deviceFormLocalModel.controls.deviceApplicationSubmitted">
+          <select id="deviceApplicationSubmitted" name="deviceApplicationSubmitted" class="form-control"
+                  required [formControl]="deviceFormLocalModel.controls.deviceApplicationSubmitted">
 
             <option label=" " value=""></option>
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>

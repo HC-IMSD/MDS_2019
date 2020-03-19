@@ -11,13 +11,14 @@
                             controlId="materialName" label="material.name" parentId="materialDetails"
                             parentLabel="Biological Material">
           </control-messages>
-          <input id="materialName" class="form-control full-width" [formControl]="materialFormLocalModel.controls.materialName" maxlength="60"/>
+          <input id="materialName" name="materialName" class="form-control full-width"
+                 [formControl]="materialFormLocalModel.controls.materialName" maxlength="60"/>
         </label>
       </div>
     </div>
     <div class="row">
       <div class="form-group col-sm-12" >
-        <label for="deviceName" class="required full-width" aria-required="true">
+        <label for="materialDeviceName" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'device.name'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="materialFormLocalModel.controls.deviceName.invalid"
@@ -26,7 +27,8 @@
                             controlId="deviceName" label="device.name" parentId="materialDetails"
                             parentLabel="Biological Material">
           </control-messages>
-          <input id="deviceName" class="form-control full-width" [formControl]="materialFormLocalModel.controls.deviceName" maxlength="150"/>
+          <input id="materialDeviceName" name="materialDeviceName" class="form-control full-width"
+                 [formControl]="materialFormLocalModel.controls.deviceName" maxlength="150"/>
         </label>
       </div>
     </div>
@@ -35,9 +37,9 @@
         <label for="originCountry" class="full-width">
           <span class="field-name" i18n>{{'country'|translate}}</span>
           <div class="margin-top-small">
-            <ng-select id="originCountry" [formControl]="materialFormLocalModel.controls.originCountry"
-                       [allowClear]="false"
-                       [items]="countries">
+            <ng-select id="originCountry" name="originCountry"
+                       [formControl]="materialFormLocalModel.controls.originCountry"
+                       [allowClear]="false" [items]="countries">
             </ng-select>
           </div>
         </label>
@@ -53,9 +55,9 @@
                             parentLabel="Biological Material">
           </control-messages>
           <div class="margin-top-small">
-            <ng-select id="specFamily" [formControl]="materialFormLocalModel.controls.specFamily" class="required"
-                       [allowClear]="false"
-                       [items]="speciesFamilyList">
+            <ng-select id="specFamily" name="specFamily"
+                       [formControl]="materialFormLocalModel.controls.specFamily" class="required"
+                       [allowClear]="false"  [items]="speciesFamilyList">
             </ng-select>
           </div>
         </label>
@@ -66,9 +68,9 @@
         <label for="tissueType" class="full-width">
           <span class="field-name" i18n>{{'tissue.type'|translate}}</span>
           <div class="margin-top-small">
-            <ng-select id="tissueType" [formControl]="materialFormLocalModel.controls.tissueType"
-                       [allowClear]="false"
-                       [items]="tissueTypeList">
+            <ng-select id="tissueType" name="tissueType"
+                       [formControl]="materialFormLocalModel.controls.tissueType"
+                       [allowClear]="false" [items]="tissueTypeList">
             </ng-select>
           </div>
         </label>
@@ -76,7 +78,8 @@
       <div class="form-group col-sm-3" *ngIf="isOtherType()">
         <label for="tissueTypeOtherDetails">
           <span class="field-name" i18n>{{'tissue.other' |translate}}</span>
-          <input id="tissueTypeOtherDetails" class="form-control" [formControl]="materialFormLocalModel.controls.tissueTypeOtherDetails"/>
+          <input id="tissueTypeOtherDetails" name="tissueTypeOtherDetails" class="form-control"
+                 [formControl]="materialFormLocalModel.controls.tissueTypeOtherDetails"/>
         </label>
       </div>
     </div>
@@ -85,9 +88,9 @@
         <label for="derivative" class=" full-width">
           <span class="field-name" i18n>{{'derivative'|translate}}</span>
           <div class="margin-top-small">
-            <ng-select id="derivative" [formControl]="materialFormLocalModel.controls.derivative"
-                       [allowClear]="false"
-                       [items]="derivativeList">
+            <ng-select id="derivative" name="derivative"
+                       [formControl]="materialFormLocalModel.controls.derivative"
+                       [allowClear]="false" [items]="derivativeList">
             </ng-select>
           </div>
         </label>
@@ -95,7 +98,8 @@
       <div class="form-group col-sm-3" *ngIf="isOtherDerivative()">
         <label for="derivativeOtherDetails">
           <span class="field-name" i18n>{{'derivative.other' |translate}}</span>
-          <input id="derivativeOtherDetails" class="form-control" [formControl]="materialFormLocalModel.controls.derivativeOtherDetails"/>
+          <input id="derivativeOtherDetails" name="derivativeOtherDetails" class="form-control"
+                 [formControl]="materialFormLocalModel.controls.derivativeOtherDetails"/>
         </label>
       </div>
     </div>
