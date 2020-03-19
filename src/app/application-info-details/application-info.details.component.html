@@ -562,7 +562,7 @@
                                   parentLabel="Application Information"></control-messages>
 
                 <select id="hasRecombinant" name="hasRecombinant" required class="form-control"
-                        (blur)="hasRecombinantOnblur()" [formControl]="appInfoFormLocalModel.controls.hasRecombinant">
+                        (blur)="onblur()" [formControl]="appInfoFormLocalModel.controls.hasRecombinant">
                   <option label=" " value=""></option>
                   <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
                 </select>
