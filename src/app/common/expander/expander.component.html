@@ -10,7 +10,7 @@
       <tbody *ngFor="let record of dataItems; index as i;">
       <tr  id="tr-expand-row-{{i}}" class="clickableRow" role="button"
           [ngClass]="{'selected':isExpanded(i)}"
-          [attr.aria-expanded]="getExpandedState(i)" i18n-title="@@expander.rowTitle" title="Expand Row {{i+1}}"
+          [attr.aria-expanded]="getExpandedState(i)" i18n-title="@@expander.rowTitle" [title]="getRowTitle(i)"
           (click)="selectTableRow(i)">
         <td width="1%"><span class="fa fa-lg fa-fw"
                              [ngClass]="{'fa-caret-right':isCollapsed(i), 'fa-caret-down':isExpanded(i) }"></span>
