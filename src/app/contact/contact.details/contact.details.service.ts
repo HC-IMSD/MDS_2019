@@ -82,7 +82,7 @@ export class ContactDetailsService {
         contact_id: '',
         status: '',
         status_text: '',
-        // hc_status: '',
+        hc_status: '',
         // salutation: '',
         first_name: '',
         initials: '',
@@ -154,6 +154,7 @@ export class ContactDetailsService {
     contactModel.phone_extension = formRecord.controls.phoneExtension.value;
     contactModel.email = formRecord.controls.email.value;
     contactModel.routing_id = formRecord.controls.routingId.value;
+    contactModel.hc_status = formRecord.controls.recordProcessed.value ? GlobalsService.YES : GlobalsService.NO;
   }
 
   public static mapDataModelToFormModel(contactModel, formRecord: FormGroup) {
@@ -193,6 +194,10 @@ export class ContactDetailsService {
     formRecord.controls.phoneExtension.setValue(contactModel.phone_extension);
     formRecord.controls.email.setValue(contactModel.email);
     formRecord.controls.routingId.setValue(contactModel.routing_id);
+    if (contactModel.hc_status) {
+      const hcs = contactModel.hc_status === GlobalsService.YES ? true : false;
+      formRecord.controls.recordProcessed.setValue(hcs);
+    }
   }
 
   public static getRecordId(record: FormGroup) {

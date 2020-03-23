@@ -46,7 +46,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   public validRec = true;
   public columnDefinitions = [
     {
-      label: 'Contact ID',
+      label: 'Contact Identifier',
       binding: 'contact_id',
       width: '10'
     },

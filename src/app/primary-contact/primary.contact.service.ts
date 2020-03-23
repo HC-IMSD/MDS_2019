@@ -64,11 +64,13 @@ export class PrimaryContactService {
   }
 
   public static mapDataModelToFormModel(primContactModel, formRecord: FormGroup) {
-    formRecord.controls.isThirdParty.setValue(primContactModel.is_third_party);
-    formRecord.controls.repContactCompanyId.setValue(primContactModel.rep_contact_company_id);
-    formRecord.controls.repContactId.setValue(primContactModel.rep_contact_id);
-    formRecord.controls.repRoutingId.setValue(primContactModel.rep_routing_id);
-    formRecord.controls.repContactName.setValue(primContactModel.rep_contact_name);
+    if (primContactModel) {
+      formRecord.controls.isThirdParty.setValue(primContactModel.is_third_party);
+      formRecord.controls.repContactCompanyId.setValue(primContactModel.rep_contact_company_id);
+      formRecord.controls.repContactId.setValue(primContactModel.rep_contact_id);
+      formRecord.controls.repRoutingId.setValue(primContactModel.rep_routing_id);
+      formRecord.controls.repContactName.setValue(primContactModel.rep_contact_name);
+    }
   }
 
   public static getRecordId(record: FormGroup) {

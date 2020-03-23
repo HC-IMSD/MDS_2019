@@ -104,8 +104,8 @@ export class PrimaryContactComponent implements OnInit, OnChanges, AfterViewInit
       this.primContactFormRecord = this.primContactFormLocalModel;
     }
     if (changes['primContactModel']) {
-      const dataModel = changes['primContactModel'].currentValue;
-      PrimaryContactService.mapDataModelToFormModel(dataModel, (<FormGroup>this.primContactFormLocalModel));
+      this.primContactModel = changes['primContactModel'].currentValue;
+      PrimaryContactService.mapDataModelToFormModel(this.primContactModel, (<FormGroup>this.primContactFormLocalModel));
     }
   }
 

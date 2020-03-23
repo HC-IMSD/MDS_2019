@@ -167,8 +167,10 @@ export class CompanyBaseComponent implements OnInit {
             'administrative_changes': this.adminChangesModel
           }
         };
-        result.DEVICE_COMPANY_ENROL.contacts =
-          (this.contactModel && (this.contactModel).length > 0) ? {contact: this.contactModel} : {};
+        if (this.contactModel && (this.contactModel).length > 0) {
+          const cm = this._removeHcStatus(this.contactModel);
+          result.DEVICE_COMPANY_ENROL.contacts = {contact: cm};
+        }
         const fileName = this._buildfileName();
         this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
       } else {
@@ -191,8 +193,12 @@ export class CompanyBaseComponent implements OnInit {
       'primary_contact': this.primContactModel,
       'administrative_changes': this.adminChangesModel
     }};
-    result.DEVICE_COMPANY_ENROL.contacts =
-      (this.contactModel && (this.contactModel).length > 0) ? {contact: this.contactModel} : {};
+    if (this.contactModel && (this.contactModel).length > 0) {
+      const cm = !this.isInternalSite ? this._removeHcStatus(this.contactModel) : this.contactModel;
+      result.DEVICE_COMPANY_ENROL.contacts = {contact: cm};
+    }
+    // result.DEVICE_COMPANY_ENROL.contacts =
+    //   (this.contactModel && (this.contactModel).length > 0) ? {contact: this.contactModel} : {};
     // const version: Array<any> = this.genInfoModel.enrol_version.toString().split('.');
     const fileName = this._buildfileName();
     this.fileServices.saveJsonToFile(result, fileName, null);
@@ -250,6 +256,14 @@ export class CompanyBaseComponent implements OnInit {
     const today = new Date();
     const pipe = new DatePipe('en-US');
     this.genInfoModel.last_saved_date = pipe.transform(today, 'yyyy-MM-dd');
+  }
+
+  private _removeHcStatus(contacts) {
+    const cts = contacts.map(function(item) {
+      delete item.hc_status;
+      return item;
+    });
+    return cts;
   }
 
   public updateChild() {
