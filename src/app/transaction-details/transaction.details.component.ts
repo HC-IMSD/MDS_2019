@@ -53,6 +53,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   public rawActTypes;
   public rawDescTypes;
   private showVersion: boolean;
+  private rawDescMap;
   // public showRationalRequired: boolean;
   // public showProposeIndication: boolean;
   public showPeriod: boolean;
@@ -73,6 +74,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.yesNoList = this.detailsService.getYesNoList();
     this.rawActTypes = TransactionDetailsService.getRawActivityTypeList();
     this.rawDescTypes = TransactionDetailsService.getRawTransDescList();
+    this.rawDescMap = TransactionDetailsService.getDescMap();
     if (!this.transDetailsFormLocalModel) {
       this.transDetailsFormLocalModel = this.detailsService.getReactiveModel(this._fb);
     }
@@ -299,7 +301,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     const descValue = this.transDetailsFormLocalModel.controls.descriptionType.value;
     if (this.transDetailsFormLocalModel.controls.activityType.value !== this.rawActTypes[1].id
       && this.transDetailsFormLocalModel.controls.activityType.value !== this.rawActTypes[9].id
-      && descValue === this.rawDescTypes[9].id &&
+      && descValue === this.rawDescTypes[this.rawDescMap.indexOf('i5')].id &&
       this.transDetailsFormLocalModel.controls.deviceClass.value) {
       if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[2].id ) { // 'B02-20160301-040'
         switch (this.transDetailsFormLocalModel.controls.deviceClass.value) {
@@ -325,14 +327,16 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   private _setDescFieldFlags(descValue) {
-    this.showBriefDesc = (descValue === this.rawDescTypes[12].id) ? true : false;
-    this.showDate =  (descValue === this.rawDescTypes[4].id ||  descValue === this.rawDescTypes[5].id
-      || descValue === this.rawDescTypes[10].id || descValue === this.rawDescTypes[11].id || descValue === this.rawDescTypes[13].id ||
-      descValue === this.rawDescTypes[6].id || descValue === this.rawDescTypes[7].id || descValue === this.rawDescTypes[16].id
-      || descValue === this.rawDescTypes[19].id || descValue === this.rawDescTypes[20].id || descValue === this.rawDescTypes[21].id
-      || descValue === this.rawDescTypes[22].id || descValue === this.rawDescTypes[24].id
-      || descValue === this.rawDescTypes[25].id) ? true : false;
-    this.showVersion = (descValue === this.rawDescTypes[19].id || descValue === this.rawDescTypes[20].id) ? true : false;
+    this.showBriefDesc = (descValue === this.rawDescTypes[this.rawDescMap.indexOf('i25')].id) ? true : false;
+    this.showDate =  (descValue === this.rawDescTypes[this.rawDescMap.indexOf('i0')].id ||  descValue === this.rawDescTypes[this.rawDescMap.indexOf('i2')].id
+      || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i3')].id || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i4')].id
+      || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i6')].id || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i9')].id
+      || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i11')].id || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i14')].id
+      || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i15')].id || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i16')].id
+      || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i17')].id || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i18')].id
+      || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i19')].id || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i20')].id
+      || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i21')].id) ? true : false;
+    this.showVersion = (descValue === this.rawDescTypes[2].id || descValue === this.rawDescTypes[21].id) ? true : false;
     // this.showRationalRequired = (
     //   (this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls.descriptionType.value) &&
     //   (this.rawActTypes[0].id === this.transDetailsFormLocalModel.controls.activityType.value
@@ -343,7 +347,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     //         this.transDetailsFormLocalModel.controls.addChange.value
     //       ))
     //     )) ? true : false;
-    this.showPeriod = descValue === this.rawDescTypes[23].id ? true : false;
+    this.showPeriod = descValue === this.rawDescTypes[this.rawDescMap.indexOf('i3')].id ? true : false;
   }
 
   private _resetReasonValues() {
@@ -382,8 +386,6 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.transDetailsFormLocalModel.controls.appNum.markAsUntouched();
     this.transDetailsFormLocalModel.controls.deviceName.setValue(null);
     this.transDetailsFormLocalModel.controls.deviceName.markAsUntouched();
-    this.transDetailsFormLocalModel.controls.requestVersion.setValue(null);
-    this.transDetailsFormLocalModel.controls.requestVersion.markAsUntouched();
     this.transDetailsFormLocalModel.controls.requestDate.setValue(null);
     this.transDetailsFormLocalModel.controls.requestDate.markAsUntouched();
     this.transDetailsFormLocalModel.controls.briefDesc.setValue(null);
@@ -457,7 +459,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.onblur();
   }
   showRationaleRequired() {
-    if ((this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls.descriptionType.value &&
+    if ((this.rawDescTypes[this.rawDescMap.indexOf('i5')].id === this.transDetailsFormLocalModel.controls.descriptionType.value &&
       this.transDetailsFormLocalModel.controls.deviceClass.value ) && (this.rawActTypes[0].id === this.transDetailsFormLocalModel.controls.activityType.value ||
       (this.rawActTypes[2].id === this.transDetailsFormLocalModel.controls.activityType.value && (
         this.transDetailsFormLocalModel.controls.classChange.value ||
@@ -473,7 +475,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     return false;
   }
   showProposeIndication() {
-    if (this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls.descriptionType.value &&
+    if (this.rawDescTypes[this.rawDescMap.indexOf('i5')].id === this.transDetailsFormLocalModel.controls.descriptionType.value &&
       this.rawActTypes[2].id === this.transDetailsFormLocalModel.controls.activityType.value &&
       this.devClassList[0].id === this.transDetailsFormLocalModel.controls.deviceClass.value &&
       this.transDetailsFormLocalModel.controls.purposeChange.value) {
@@ -519,7 +521,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   isInitial() {
-    return (this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[9].id);
+    return (this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i5')].id);
   }
 
   isLicence() {
@@ -580,7 +582,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   isNotUnsolicited() {
-    if (this.transDetailsFormLocalModel.controls.descriptionType.value !== this.rawDescTypes[12].id) {
+    if (this.transDetailsFormLocalModel.controls.descriptionType.value !== this.rawDescTypes[this.rawDescMap.indexOf('i25')].id) {
       return true;
     } else {
       this.transDetailsFormLocalModel.controls.isSolicitedInfo.setValue(null);
@@ -592,12 +594,12 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
   isNotInitialMmUd() {
     if (this.isNotInitial() && (
-      this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[0].id ||
-          this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[1].id ||
-      this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[4].id ||
-      this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[5].id ||
-      this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[8].id ||
-      this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[11].id
+      this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i1')].id ||
+          this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i7')].id ||
+      this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i14')].id ||
+      this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i15')].id ||
+      this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i20')].id ||
+      this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i26')].id
       )) {
       return true;
     } else {
@@ -608,11 +610,11 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   isMmUd() {
-    if (this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[10].id ||
-      this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[2].id ||
-      this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[3].id ||
-      this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[6].id ||
-      this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[7].id ) {
+    if (this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i8')].id ||
+      this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i9')].id ||
+      this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i10')].id ||
+      this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i18')].id ||
+      this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i19')].id ) {
       return true;
     } else {
       this.transDetailsFormLocalModel.controls.appNumOpt.setValue(null);
@@ -648,7 +650,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   isMm() {
-    if (this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[10].id) {
+    if (this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i9')].id) {
       return true;
     } else {
       this.transDetailsFormLocalModel.controls.meetingId.setValue(null);
@@ -663,7 +665,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
   showOrgManufactureId() {
     if (this.transDetailsFormLocalModel.controls.descriptionType.value
-        && this.transDetailsFormLocalModel.controls.descriptionType.value !== this.rawDescTypes[8].id
+        && this.transDetailsFormLocalModel.controls.descriptionType.value !== this.rawDescTypes[this.rawDescMap.indexOf('i26')].id
         && (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[9].id
             || this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[10].id
             )

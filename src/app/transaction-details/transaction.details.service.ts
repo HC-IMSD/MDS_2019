@@ -168,8 +168,11 @@ export class TransactionDetailsService {
    */
   public static getLicenceDescriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-    return [descArray[0], descArray[1], descArray[4], descArray[5],
-      descArray[8], descArray[9], descArray[10], descArray[11], descArray[12], descArray[14]];
+    return [descArray[this.getDescMap().indexOf('i1')], descArray[this.getDescMap().indexOf('i5')],
+      descArray[this.getDescMap().indexOf('i7')], descArray[this.getDescMap().indexOf('i9')],
+      descArray[this.getDescMap().indexOf('i12')], descArray[this.getDescMap().indexOf('i14')],
+      descArray[this.getDescMap().indexOf('i15')], descArray[this.getDescMap().indexOf('i20')],
+      descArray[this.getDescMap().indexOf('i25')], descArray[this.getDescMap().indexOf('i26')]];
   }
 
   /**
@@ -178,41 +181,46 @@ export class TransactionDetailsService {
    */
   public static getFaxbackDescriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-    return [descArray[8], descArray[9], descArray[11], descArray[12]];
+    return [descArray[this.getDescMap().indexOf('i5')], descArray[this.getDescMap().indexOf('i15')],
+      descArray[this.getDescMap().indexOf('i25')], descArray[this.getDescMap().indexOf('i26')]];
   }
 
   public static getS36394041Descriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-    return [descArray[2], descArray[3], descArray[6], descArray[7], descArray[12], descArray[21], descArray[24], descArray[25]];
+    return [descArray[this.getDescMap().indexOf('i6')], descArray[this.getDescMap().indexOf('i8')], descArray[this.getDescMap().indexOf('i10')],
+      descArray[this.getDescMap().indexOf('i11')], descArray[this.getDescMap().indexOf('i17')], descArray[this.getDescMap().indexOf('i18')],
+      descArray[this.getDescMap().indexOf('i19')], descArray[this.getDescMap().indexOf('i25')]];
   }
 
   public static getPAPVDescriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-    return [descArray[4], descArray[10], descArray[11], descArray[12], descArray[13], descArray[26]];
+    return [descArray[this.getDescMap().indexOf('i9')], descArray[this.getDescMap().indexOf('i14')], descArray[this.getDescMap().indexOf('i15')],
+      descArray[this.getDescMap().indexOf('i16')], descArray[this.getDescMap().indexOf('i22')], descArray[this.getDescMap().indexOf('i25')]];
   }
   public static getPSURPVDescriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-    return [descArray[23]];
+    return [descArray[this.getDescMap().indexOf('i3')]];
   }
   public static getRCPVDescriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-    return [descArray[19], descArray[20]];
+    return [descArray[this.getDescMap().indexOf('i2')], descArray[this.getDescMap().indexOf('i21')]];
   }
   public static getPSAPVDescriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-    return [descArray[22], descArray[25]];
+    return [descArray[this.getDescMap().indexOf('i0')], descArray[this.getDescMap().indexOf('i13')]];
   }
   public static getREGPVDescriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-    return [descArray[10], descArray[15], descArray[16], descArray[17], descArray[18]];
+    return [descArray[this.getDescMap().indexOf('i4')], descArray[this.getDescMap().indexOf('i9')], descArray[this.getDescMap().indexOf('i13')],
+      descArray[this.getDescMap().indexOf('i23')], descArray[this.getDescMap().indexOf('i24')]];
   }
   public static getPRVLDDescriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-    return [descArray[5], descArray[8], descArray[9], descArray[12]];
+    return [descArray[this.getDescMap().indexOf('i5')], descArray[this.getDescMap().indexOf('i20')], descArray[this.getDescMap().indexOf('i25')], descArray[this.getDescMap().indexOf('i26')]];
   }
   public static getPRVLDADescriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-    return [descArray[5], descArray[8], descArray[9], descArray[12]];
+    return [descArray[this.getDescMap().indexOf('i5')], descArray[this.getDescMap().indexOf('i20')], descArray[this.getDescMap().indexOf('i25')], descArray[this.getDescMap().indexOf('i26')]];
   }
 
   /**
@@ -241,8 +249,8 @@ export class TransactionDetailsService {
     return  [
       {
         id: 'B14-20160301-08',
-        en: 'Medical Device Directorate',
-        fr: 'Medical Device Directorate'
+        en: 'Medical Devices Directorate',
+        fr: 'Medical Devices Directorate'
       },
       {
         id: 'B14-20160301-10',
@@ -321,12 +329,14 @@ export class TransactionDetailsService {
 
   public static getActivityTypeMDBList(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityTypeList(), lang);
-    return [descArray[0], descArray[1], descArray[2], descArray[9], descArray[10], descArray[3]];
+    return [descArray[this.getDescMap().indexOf('i0')], descArray[this.getDescMap().indexOf('i1')], descArray[this.getDescMap().indexOf('i2')],
+      descArray[this.getDescMap().indexOf('i9')], descArray[this.getDescMap().indexOf('i10')], descArray[this.getDescMap().indexOf('i3')]];
   }
 
   public static getActivityTypePVList(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityTypeList(), lang);
-    return [descArray[4], descArray[5], descArray[6], descArray[7], descArray[8]];
+    return [descArray[this.getDescMap().indexOf('i4')], descArray[this.getDescMap().indexOf('i5')], descArray[this.getDescMap().indexOf('i6')],
+      descArray[this.getDescMap().indexOf('i7')], descArray[this.getDescMap().indexOf('i8')]];
   }
 
   public static getTransDescList(lang) {
@@ -336,9 +346,39 @@ export class TransactionDetailsService {
   public static getRawTransDescList() {
     return [
       {
+        id: 'ACRI', //22
+        en: 'Advertising complaint request for information',
+        fr: 'Advertising complaint request for information'
+      },
+      {
         id: 'ACD', //0
         en: 'Appeal Comprehensive Document',
         fr: 'Appeal Comprehensive Document'
+      },
+      {
+        id: 'DLVN', //20
+        en: 'Dissemination list version number',
+        fr: 'Dissemination list version number'
+      },
+      {
+        id: 'FPO', //23
+        en: 'For Period of ',
+        fr: 'For Period of '
+      },
+      {
+        id: 'FSAN', //16
+        en: 'Foreign Safety Action Notification',
+        fr: 'Foreign Safety Action Notification'
+      },
+      {
+        id: 'INITIAL',  //9
+        en: 'Initial',
+        fr: 'Initial'
+      },
+      {
+        id: 'IRSR', //24
+        en: 'Issue Related Safety Request ',
+        fr: 'Issue Related Safety Request '
       },
       {
         id: 'LIA', //1
@@ -351,9 +391,29 @@ export class TransactionDetailsService {
         fr: 'Letter of Intent to Invoke Opportunity to be Heard'
       },
       {
+        id: 'MM', //10
+        en: 'Minutes of Meeting',
+        fr: 'Minutes of Meeting'
+      },
+      {
         id: 'OHCD', //3
         en: 'Opportunity to be Heard Comprehensive Document',
         fr: 'Opportunity to be Heard Comprehensive Document'
+      },
+      {
+        id: 'PSI', //25
+        en: 'Patient Safety Information (Medication error)',
+        fr: 'Patient Safety Information (Medication error)'
+      },
+      {
+        id: 'PRCI', //14
+        en: 'Public Release of Clinical Information',
+        fr: 'Public Release of Clinical Information'
+      },
+      {
+        id: 'RO', //18
+        en: 'Reassessment Order',
+        fr: 'Reassessment Order'
       },
       {
         id: 'RAIL', //4
@@ -361,9 +421,19 @@ export class TransactionDetailsService {
         fr: 'Response to Additional Information Letter'
       },
       {
-        id: 'RS', //5
-        en: 'Response to Screening Deficiency Letter',
-        fr: 'Response to Screening Deficiency Letter'
+        id: 'RER', //11
+        en: 'Response to E-mail Request',
+        fr: 'Response to E-mail Request'
+      },
+      {
+        id: 'RMHPDR', //13
+        en: 'Response to MHPD Request',
+        fr: 'Response to MHPD Request'
+      },
+      {
+        id: 'RS25L', //21
+        en: 'Response to S.25 Letter',
+        fr: 'Response to S.25 Letter'
       },
       {
         id: 'RS36L', //6
@@ -371,106 +441,49 @@ export class TransactionDetailsService {
         fr: 'Response to S.36 Letter'
       },
       {
-        id: 'RS39L', //6
+        id: 'RS39L', //7
         en: 'Response to S.39 Letter',
         fr: 'Response to S.39 Letter'
       },
       {
-        id: 'WR', //7
-        en: 'Withdrawal Request',
-        fr: 'Withdrawal Request'
+        id: 'RS', //5
+        en: 'Response to Screening Deficiency Letter',
+        fr: 'Response to Screening Deficiency Letter'
       },
       {
-        id: 'INITIAL',  //8
-        en: 'Initial',
-        fr: 'Initial'
-      },
-      {
-        id: 'MM', //9
-        en: 'Minutes of Meeting',
-        fr: 'Minutes of Meeting'
-      },
-      {
-        id: 'RER', //10
-        en: 'Response to E-mail Request',
-        fr: 'Response to E-mail Request'
-      },
-      {
-        id: 'UD', //11
-        en: 'Unsolicited Information',
-        fr: 'Unsolicited Information'
-      },
-      {
-        id: 'RMHPDR', //12
-        en: 'Response to MHPD Request',
-        fr: 'Response to MHPD Request'
-      },
-      {
-        id: 'PRCI', //13
-        en: 'Public Release of Clinical Information',
-        fr: 'Public Release of Clinical Information'
-      },
-      {
-        id: 'TCC', //14
-        en: 'Terms and Conditions Commitment',
-        fr: 'Terms and Conditions Commitment'
-      },
-      {
-        id: 'FSAN', //15
-        en: 'Foreign Safety Action Notification',
-        fr: 'Foreign Safety Action Notification'
-      },
-      {
-        id: 'TSO', //16
-        en: 'Test and Studies Order',
-        fr: 'Test and Studies Order'
-      },
-      {
-        id: 'RO', //17
-        en: 'Reassessment Order',
-        fr: 'Reassessment Order'
-      },
-      {
-        id: 'RCD', //18
+        id: 'RCD', //19
         en: 'Risk communication document',
         fr: 'Risk communication document'
       },
       {
-        id: 'DLVN', //19
-        en: 'Dissemination list version number',
-        fr: 'Dissemination list version number'
-      },
-      {
-        id: 'RS25L', //20
-        en: 'Response to S.25 Letter',
-        fr: 'Response to S.25 Letter'
-      },
-      {
-        id: 'ACRI', //21
-        en: 'Advertising complaint request for information',
-        fr: 'Advertising complaint request for information'
-      },
-      {
-        id: 'FPO', //22
-        en: 'For Period of ',
-        fr: 'For Period of '
-      },
-      {
-        id: 'IRSR', //23
-        en: 'Issue Related Safety Request ',
-        fr: 'Issue Related Safety Request '
-      },
-      {
-        id: 'PSI', //24
-        en: 'Patient Safety Information (Medication error)',
-        fr: 'Patient Safety Information (Medication error)'
-      },
-      {
-        id: 'SMR', //25
+        id: 'SMR', //26
         en: 'Submission Meeting Request',
         fr: 'Submission Meeting Request'
+      },
+      {
+        id: 'TCC', //15
+        en: 'Terms and Conditions Commitment',
+        fr: 'Terms and Conditions Commitment'
+      },
+      {
+        id: 'TSO', //17
+        en: 'Test and Studies Order',
+        fr: 'Test and Studies Order'
+      },
+      {
+        id: 'UD', //12
+        en: 'Unsolicited Information',
+        fr: 'Unsolicited Information'
+      },
+      {
+        id: 'WR', //8
+        en: 'Withdrawal Request',
+        fr: 'Withdrawal Request'
       }
     ];
+  }
+  public static getDescMap() {
+    return ['i0', 'i1', 'i2', 'i3', 'i4', 'i5', 'i6', 'i7', 'i8', 'i9', 'i10', 'i11', 'i12', 'i13', 'i14', 'i15', 'i16', 'i17', 'i18', 'i19', 'i20', 'i21', 'i22', 'i23', 'i24', 'i25', 'i26'];
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, transactionModel) {
@@ -566,20 +579,20 @@ export class TransactionDetailsService {
     transactionModel.amend_reasons.purpose_change = formRecord.controls.purposeChange.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.amend_reasons.add_delete_change = formRecord.controls.addChange.value ? GlobalsService.YES : GlobalsService.NO;
     transactionModel.licence_number = formRecord.controls.licenceNum.value;
-    if (formRecord.controls.descriptionType.value !== descArray[9].id &&
-      formRecord.controls.descriptionType.value !== descArray[2].id &&
-      formRecord.controls.descriptionType.value !== descArray[3].id &&
-      formRecord.controls.descriptionType.value !== descArray[6].id &&
-      formRecord.controls.descriptionType.value !== descArray[7].id &&
-      formRecord.controls.descriptionType.value !== descArray[10].id &&
-      formRecord.controls.descriptionType.value !== descArray[12].id) {
+    if (formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i9')].id &&
+      formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i2')].id &&
+      formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i3')].id &&
+      formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i6')].id &&
+      formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i7')].id &&
+      formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i10')].id &&
+      formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i12')].id) {
       transactionModel.application_number = formRecord.controls.appNum.value;
-    } else if (formRecord.controls.descriptionType.value === descArray[2].id  ||
-            formRecord.controls.descriptionType.value === descArray[3].id  ||
-            formRecord.controls.descriptionType.value === descArray[6].id  ||
-            formRecord.controls.descriptionType.value === descArray[7].id  ||
-            formRecord.controls.descriptionType.value === descArray[10].id  ||
-            formRecord.controls.descriptionType.value === descArray[12].id ) {
+    } else if (formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i2')].id  ||
+            formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i3')].id  ||
+            formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i6')].id  ||
+            formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i7')].id  ||
+            formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i10')].id  ||
+            formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i12')].id ) {
       transactionModel.application_number = formRecord.controls.appNumOpt.value;
     }
     transactionModel.meeting_id = formRecord.controls.meetingId.value;
