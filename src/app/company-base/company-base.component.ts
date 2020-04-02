@@ -84,6 +84,7 @@ export class CompanyBaseComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    document.location.href = '#def-top';
     document.location.href = '#main';
   }
 

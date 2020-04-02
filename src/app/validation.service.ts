@@ -240,7 +240,7 @@ export class ValidationService {
     if (control.value.match(/^[0-9]{5}$/)) {
       return null;
     } else {
-      return {'error.mgs.primary.contact.id': true};
+      return {'error.mgs.contact.id': true};
     }
   }
 
@@ -251,7 +251,7 @@ export class ValidationService {
     if (control.value.match(/^[0-9]{6}$/)) {
       return null;
     } else {
-      return {'error.mgs.primary.company.id': true};
+      return {'error.mgs.company.id': true};
     }
   }
 }

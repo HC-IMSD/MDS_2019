@@ -67,6 +67,7 @@ export class TransactionBaseComponent implements OnInit, AfterViewInit {
     console.log();
   }
   ngAfterViewInit(): void {
+    document.location.href = '#def-top';
     document.location.href = '#main';
   }
 

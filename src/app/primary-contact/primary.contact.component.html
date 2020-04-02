@@ -8,7 +8,7 @@
                 <a class="fn-lnk" href="#co6"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.is3rdPartyInx}}</a>
               </sup>
           </span>
-          <select id="isThirdParty" required class="form-control" (blur)="onblur()" [formControl]="primContactFormLocalModel.controls.isThirdParty">
+          <select id="isThirdParty" class="form-control" (blur)="onblur()" [formControl]="primContactFormLocalModel.controls.isThirdParty">
             <option label=" " value=""></option>
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
           </select>
@@ -16,9 +16,9 @@
       </div>
     </div>
     <div class="row" *ngIf="by3rdParty()">
-      <div class="form-group col-xs-6" >
+      <div class="form-group col-xs-6 minWidth200" >
         <label for="repContactCompanyId" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'company.id.contact'|translate}}</span>
+          <span class="field-name" i18n>{{'company.id.contact'|translate}} {{'minNumber6'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="primContactFormLocalModel.controls.repContactCompanyId.invalid"
                             [showError]="showFieldErrors"
@@ -29,9 +29,9 @@
                  [formControl]="primContactFormLocalModel.controls.repContactCompanyId" maxlength="6"/>
         </label>
       </div>
-      <div class="form-group col-xs-6" >
+      <div class="form-group col-xs-6 minWidth200" >
         <label for="repContactId" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'contact.id.contact'|translate}}</span>
+          <span class="field-name" i18n>{{'contact.id.contact'|translate}} {{'minNumber5'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="primContactFormLocalModel.controls.repContactId.invalid"
                             [showError]="showFieldErrors"
@@ -44,7 +44,7 @@
       </div>
     </div>
     <div class="row" *ngIf="by3rdParty()">
-      <div class="form-group col-sm-6" >
+      <div class="form-group col-sm-6 minWidth200" >
         <label for="repRoutingId">
           <span class="field-name">{{'routing.id.rep.contact' |translate}}</span>
           <sup id="co6a-rf">

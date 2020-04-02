@@ -297,7 +297,11 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     // console.log(contactFormList);
     // 5. Set the new form to the new contact form reference.
     this.newContactForm = <FormGroup> contactFormList.controls[contactFormList.length - 1];
-
+    if (this.isInternal) {
+      document.location.href = '#contactId';
+    } else {
+      document.location.href = '#status';
+    }
   }
 
   /**
@@ -309,6 +313,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     this.dataModel = this.service.getModelRecordList();
     this.addRecordMsg++;
     this.validRec = true;
+    document.location.href = '#addContactBtn';
   }
 
   /**
@@ -377,6 +382,11 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
       // should never happen, there should always be a UI record
       console.warn('ContactList:rec is null');
     }
+    if (this.isInternal) {
+      document.location.href = '#contactId';
+    } else {
+      document.location.href = '#status';
+    }
   }
 
   /**
@@ -388,6 +398,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     this.deleteRecord(id, contactList, this.service);
     this.validRec = true;
     this.deleteRecordMsg++;
+    document.location.href = '#addContactBtn';
   }
 
   /**
