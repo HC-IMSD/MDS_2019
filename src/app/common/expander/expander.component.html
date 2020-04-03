@@ -3,7 +3,7 @@
     <table class="table dataTable table-bordered table-hover table-condensed table-striped">
       <thead>
       <tr>
-        <th aria-label="Expanded State" scope="col" style="color:transparent">e</th>
+        <th aria-label="Expanded State" scope="col" style="color:transparent">Expand/Collapse</th>
         <th scope="col" *ngFor="let heading of columnDefinitions">{{heading.label}}</th>
       </tr>
       </thead>
@@ -12,7 +12,7 @@
           [ngClass]="{'selected':isExpanded(i)}"
           [attr.aria-expanded]="getExpandedState(i)" i18n-title="@@expander.rowTitle" [title]="getRowTitle(i)"
           (click)="selectTableRow(i)">
-        <td width="1%"><span class="fa fa-lg fa-fw"
+        <td aria-label="Expanded/Collapse State" scope="col" style="color:transparent" width="1%"><span class="fa fa-lg fa-fw"
                              [ngClass]="{'fa-caret-right':isCollapsed(i), 'fa-caret-down':isExpanded(i) }"></span>
         </td>
         <td *ngFor="let def of columnDefinitions" width="{{def.width}}%">

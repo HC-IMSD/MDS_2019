@@ -77,7 +77,7 @@
           <sup id="ap5-rf">
             <a class="fn-lnk" href="#ap5"><span class="wb-inv">{{'instruction'|translate}}</span>5</a>
           </sup>
-          <control-messages *ngIf="appInfoFormLocalModel.controls.mdsapOrg.valid"
+          <control-messages *ngIf="appInfoFormLocalModel.controls.mdsapOrg.invalid"
                             [showError]="showFieldErrors"
                             [control]="appInfoFormLocalModel.controls.mdsapOrg"
                             controlId="mdsapOrg" label="mdsap.org" parentId="appInfoDetails"
