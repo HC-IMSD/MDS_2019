@@ -89,6 +89,7 @@
   "error.mgs.npn": "fr_Please specify a valid Natural Product Number (NPN).",
   "error.mgs.licence.number": "fr_Please specify a valid Licence Number.",
   "error.mgs.application.number": "fr_Please specify a valid application number.",
+  "error.msg.contact.one.record": "fr_At least one biological material attribute should be entered ",
   "errorSummary.application-info": "fr_Application Information Form",
   "error.found.plural": " fr_errors were found",
   "error.found.singular": " fr_error was found",
@@ -114,5 +115,21 @@
   "error.found.because":" fr_could not be saved because ",
   "instruction": "fr_instruction",
   "instruction.help": "fr_Instructions for completing sections on form",
-  "return.instruction": "fr_Return to instruction "
+  "return.instruction": "fr_Return to instruction ",
+  "section.show.option": "fr_[ This section may not be visible.] ",
+
+  "help.file.load_1": "fr_A file should not be loaded if it is the initial enrolment for the Dossier.",
+  "help.file.load_2": "fr_When continuing with a working copy, the format of the file to load should be .hcsc.",
+  "help.file.load_3": "fr_When viewing a draft or final XML file, the format of the file to load should be .xml.",
+  "help.app.info_1": "fr_The Manufacturer Company Identifier must be obtained from the final company XML file, issued by Health Canada.",
+  "help.app.info_2": "fr_The Dossier Identifier can be obtained from the final dossier XML file or other Health Canada issued document. (e.g. HC6-024-m178974).",
+  "help.mdsap.number": "fr_For New and Amendment Private Label Licence Applications, please provide the MDSAP Certificate number for the medical device manufactured by the original manufacturer.",
+  "help.refer.to": "fr_Refer to the ",
+  "help.lic.app.type_1": "fr_https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/guidance-interpretation-sections-28-31-licence-application-type.html",
+  "help.lic.app.type_2": "fr_Guidance for the Interpretation of Sections 28 to 31: Licence Application Type",
+  "help.mdsap.org": "fr_For New and Amendment Private Label Licence Applicatons, please select “Not Applicable”.",
+  "help.device.class_1": "fr_https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/guidance-document-guidance-risk-based-classification-system-non-vitro-diagnostic.html",
+  "help.device.class_2": "fr_Guidance Document - Guidance on the Risk-based Classification System for Non-In Vitro Diagnostic Devices (non-IVDDs)",
+  "help.confm.declar_1": "fr_https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/forms/declaration-conformity-forms-medical-devices.html",
+  "help.confm.declar_2": "fr_Declaration of Conformity"
 }

@@ -23,6 +23,7 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
   public deviceRecordModel: FormGroup;
   @Input('group') public deviceFormRecord: FormGroup;
   @Input() detailsChanged: number;
+  @Input() showErrors: boolean;
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
@@ -39,7 +40,6 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
   private childErrorList: Array<any> = [];
   private parentErrorList: Array<any> = [];
   public showErrSummary: boolean;
-  public showErrors: boolean;
   public errorSummaryChild: ErrorSummaryComponent = null;
   public headingLevel = 'h4';
 
@@ -103,6 +103,13 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
       }
       this.updateChild++;
     }
+
+    if (changes['showErrors']) {
+      this.showErrSummary = changes['showErrors'].currentValue;
+    }
+    if (this.showErrSummary) {
+      this.updateErrorList(null, true);
+    }
   }
 
   /***
@@ -158,7 +165,7 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
   }
 
   public saveDeviceRecord(): void {
-    this.updateErrorList(null, true);
+    // this.updateErrorList(null, true);
     if (this.deviceRecordModel.valid || this.errorList.length === 0) {
       this.saveRecord.emit((this.deviceRecordModel));
       this.showErrSummary = false;

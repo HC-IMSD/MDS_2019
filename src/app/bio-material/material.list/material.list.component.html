@@ -1,5 +1,5 @@
 <div [formGroup]="materialListForm">
-  <div formArrayName="materials">
+  <div formArrayName="materials" id="materialListTable">
     <expander-component [group]="dataModel"
                         [isValid]="validRec" [addRecord]="addRecordMsg"
                         [columnDefinitions]="columnDefinitions"
@@ -10,6 +10,8 @@
         [speciesFamilyList]="speciesFamilyList"
         [tissueTypeList]="tissueTypeList"
         [derivativeList]="derivativeList"
+        [hasRecords]="dataModel.length > 0"
+        [showErrors]="showErrors"
         (saveRecord)="saveMaterialRecord($event)"
         (errors)="updateErrorList($event)"
         (revertRecord)="revertMaterial($event)" (deleteRecord)="deleteMaterial($event)"></material-record>
@@ -23,6 +25,8 @@
         [tissueTypeList]="tissueTypeList"
         [derivativeList]="derivativeList"
         [group]="newMaterialForm"
+        [hasRecords]="dataModel.length > 0"
+        [showErrors]="showErrors"
         (saveRecord)="saveMaterialRecord($event)"
         (errors)="updateErrorList($event)"
         (revertRecord)="revertMaterial($event)" (deleteRecord)="deleteMaterial($event)"></material-record>

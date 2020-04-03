@@ -130,7 +130,7 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
     if (changes['saveDevice']) {
       this.saveDeviceRecord(changes['saveDevice'].currentValue);
     }
-    if (changes['deviceModel']) {
+    if (changes['deviceModel']) { // && changes['deviceModel'].currentValue && changes['deviceModel'].currentValue.length > 0) {
       this.service.setModelRecordList(changes['deviceModel'].currentValue);
       this.service.initIndex(changes['deviceModel'].currentValue);
       this.dataModel = this.service.getModelRecordList();
@@ -191,6 +191,7 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
     console.log(deviceFormList);
     // 5. Set the new form to the new device form reference.
     this.newDeviceForm = <FormGroup> deviceFormList.controls[deviceFormList.length - 1];
+    this.updateDeviceDetails++;
 
   }
 
@@ -218,7 +219,11 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
         err.expander = this.expander; // associate the expander
       }
     }
-    this._emitErrors(); // needed or will generate a valuechanged error
+
+    const deviceFormList = this.getFormDeviceList();
+    if (deviceFormList && deviceFormList.length > 0) {
+      this._emitErrors(); // needed or will generate a valuechanged error
+    }
   }
 
   /***

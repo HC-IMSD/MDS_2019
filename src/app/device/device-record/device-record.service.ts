@@ -43,7 +43,7 @@ export class DeviceRecordService {
 
 
   public static mapDataModelFormModel(deviceRecordModel, formRecord: FormGroup) {
-    formRecord.controls.id.setValue(deviceRecordModel.id);
+    formRecord.controls.id.setValue(Number(deviceRecordModel.id));
     formRecord.controls.isNew.setValue(false);
     // formRecord.controls.companyName.setValue(deviceRecordModel.company);
     DeviceDetailsService.mapDataModelToFormModel(deviceRecordModel, <FormGroup>formRecord.controls.deviceDetails);

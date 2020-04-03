@@ -123,4 +123,27 @@ export class ApplicationInfoBaseService {
       }
     );
   }
+
+  /**
+   * Sets the Help Text Index
+   *
+   */
+  public static getHelpTextIndex() {
+
+    const helpTextInx = {
+      loadFileIndx: 0,
+      appInfoREPIndx: 0,
+      mdsapNumIndx: 0,
+      licAppTypeIndx: 0,
+      mdsapOrgIndx: 0,
+      devClsIndx: 0,
+      cfmDecIndx: 0
+    };
+    const keys = Object.keys(helpTextInx);
+    for (let i = 0; i < keys.length; i++) {
+      helpTextInx[keys[i]] = i + 1;
+    }
+
+    return helpTextInx;
+  }
 }

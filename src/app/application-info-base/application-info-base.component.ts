@@ -6,6 +6,7 @@ import {ApplicationInfoBaseService} from './application-info-base.service';
 import {FileConversionService} from '../filereader/file-io/file-conversion.service';
 import {ConvertResults} from '../filereader/file-io/convert-results';
 import {GlobalsService} from '../globals/globals.service';
+import {ApplicationInfoDetailsComponent} from '../application-info-details/application-info.details.component';
 
 import {NgbTabset} from '@ng-bootstrap/ng-bootstrap';
 import {CompanyDataLoaderService} from '../data-loader/company-data-loader.service';
@@ -24,6 +25,7 @@ export class ApplicationInfoBaseComponent implements OnInit {
   public errors;
   @Input() isInternal;
   @Input() lang;
+  @ViewChild(ApplicationInfoDetailsComponent, {static: false}) aiDetails: ApplicationInfoDetailsComponent;
 
   private _appInfoDetailErrors = [];
   private _deviceErrors = [];
@@ -36,10 +38,11 @@ export class ApplicationInfoBaseComponent implements OnInit {
   public title = '';
   public headingLevel = 'h2';
   public appInfoModel = ApplicationInfoBaseService.getEmptyAppInfoDetailsModel();
+  public helpIndex = ApplicationInfoBaseService.getHelpTextIndex();
   public deviceModel = [];
   public materialModel = [];
   public fileServices: FileConversionService;
-  public xslName = GlobalsService.STYLESHEETS_1_0_PREFIX + 'REP_MDS_AI_1_0.xsl';
+  public xslName = 'REP_MDS_AI_2_0.xsl';
   public disableSaveXml = true;
 
   /* public customSettings: TinyMce.Settings | any;*/
@@ -91,8 +94,7 @@ export class ApplicationInfoBaseComponent implements OnInit {
   }
 
   private _checkMaterialModel() {
-    if (this.appInfoModel.has_recombinant !== GlobalsService.YES ||
-          this.appInfoModel.is_animal_human_sourced !== GlobalsService.YES) {
+    if (this.appInfoModel.is_animal_human_sourced !== GlobalsService.YES) {
       this.materialModel = [];
     }
   }
@@ -106,21 +108,40 @@ export class ApplicationInfoBaseComponent implements OnInit {
     this._updatedAutoFields();
     if (this.errorList && this.errorList.length > 0) {
       this.showErrors = true;
+      document.location.href = '#topErrorSummary';
     } else {
-      this._checkMaterialModel();
-      const result = {
-        'DEVICE_APPLICATION_INFO': {
-          'application_info': this.appInfoModel,
-          'devices': {
-            'device': this.deviceModel
-          },
-          'materials': {
-            'material': this.materialModel
+      if (this._hasUnsavedInput()) {
+        this._checkMaterialModel();
+        const result = {
+          'DEVICE_APPLICATION_INFO': {
+            'application_info': this.appInfoModel,
+            'devices': {
+              'device': this.deviceModel
+            },
+            'materials': {
+              'material': this.materialModel
+            }
           }
+        };
+        const fileName = 'ai-' + this.appInfoModel.dossier_id + '-' + this.appInfoModel.last_saved_date;
+        this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
+      } else {
+        if (this.lang === GlobalsService.ENGLISH) {
+          alert('Please save the unsaved input data before generating XML file.');
+        } else {
+          alert('Veuillez sauvegarder les données d\'entrée non enregistrées avant de générer le fichier XML.');
         }
-      };
-      const fileName = 'ai-' + this.appInfoModel.dossier_id + '-' + this.appInfoModel.last_saved_date;
-      this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
+      }
+    }
+  }
+
+  private _hasUnsavedInput() {
+    if (this.aiDetails.bioMaterials) {
+      return (this.aiDetails.aiDevices.deviceListForm.pristine &&
+        (this.aiDetails.bioMaterials.materialListForm ? this.aiDetails.bioMaterials.materialListForm.pristine : true) &&
+        (this.aiDetails.bioMaterials.newMaterialForm ? this.aiDetails.bioMaterials.newMaterialForm.pristine : true));
+    } else {
+      return this.aiDetails.aiDevices.deviceListForm.pristine;
     }
   }
 

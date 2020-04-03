@@ -143,5 +143,13 @@ export class MaterialDetailsComponent implements OnInit, OnChanges, AfterViewIni
     console.log(' BLRRE$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
 
   }
+  selected(event) {
+    // console.log(event);
+    this.materialFormLocalModel.controls.specFamily.setValue([event]);
+    //if (this.showFieldErrors) {
+    //   this.cdr.detectChanges();
+      this.ngAfterViewInit();// doing our own change detection
+    //}
+  }
 }
 

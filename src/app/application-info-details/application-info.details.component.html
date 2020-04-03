@@ -31,12 +31,12 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-xs-6 minWidth300" >
+      <div class="form-group col-xs-12 minWidth300" >
         <label for="mdsapNum" class="required">
           <span class="field-name" i18n>{{'mdsap.number'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <sup id="ap3-rf">
-            <a class="fn-lnk" href="#ap3"><span class="wb-inv">{{'instruction'|translate}}</span>3</a>
+            <a class="fn-lnk" href="#ap3"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.mdsapNumIndx}}</a>
           </sup>
           <control-messages *ngIf="appInfoFormLocalModel.controls.mdsapNum.invalid"
                             [showError]="showFieldErrors"
@@ -47,12 +47,14 @@
                  [formControl]="appInfoFormLocalModel.controls.mdsapNum" maxlength="30"/>
         </label>
       </div>
-      <div class="form-group col-xs-6 minWidth300" >
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-12 minWidth300" >
         <label for="licenceAppType" class="required">
           <span class="field-name" i18n>{{'licence.app.type' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <sup id="ap4-rf">
-            <a class="fn-lnk" href="#ap4"><span class="wb-inv">{{'instruction'|translate}}</span>4</a>
+            <a class="fn-lnk" href="#ap4"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.licAppTypeIndx}}</a>
           </sup>
           <control-messages *ngIf="appInfoFormLocalModel.controls.licenceAppType.invalid"
                             [showError]="showFieldErrors"
@@ -75,9 +77,9 @@
           <span class="field-name" i18n>{{'mdsap.org'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <sup id="ap5-rf">
-            <a class="fn-lnk" href="#ap5"><span class="wb-inv">{{'instruction'|translate}}</span>5</a>
+            <a class="fn-lnk" href="#ap5"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.mdsapOrgIndx}}</a>
           </sup>
-          <control-messages *ngIf="appInfoFormLocalModel.controls.mdsapOrg.valid"
+          <control-messages *ngIf="appInfoFormLocalModel.controls.mdsapOrg.invalid"
                             [showError]="showFieldErrors"
                             [control]="appInfoFormLocalModel.controls.mdsapOrg"
                             controlId="mdsapOrg" label="mdsap.org" parentId="appInfoDetails"
@@ -103,7 +105,7 @@
                             parentId="appInfoDetails"
                             parentLabel="Application Information"></control-messages>
           <select id="activityLead" name="activityLead" required class="form-control " (blur)="activityLeadOnblur()"
-          (selected)="activityLeadOnblur()" [formControl]="appInfoFormLocalModel.controls.activityLead">
+          (change)="activityLeadOnblur()" [formControl]="appInfoFormLocalModel.controls.activityLead">
             <option label=" " value=""></option>
             <option *ngFor="let lead of actLeadList" [ngValue]="lead.id"> {{lead.text|translate}}</option>
           </select>
@@ -119,7 +121,9 @@
                             controlId="activityType" label="activity.type"
                             parentId="appInfoDetails"
                             parentLabel="Application Information"></control-messages>
-          <select id="activityType" name="activityType" required class="form-control full-width"  [formControl]="appInfoFormLocalModel.controls.activityType">
+          <select id="activityType" name="activityType" (blur)="onblur()"
+                  (change)="onblur()" required class="form-control full-width"
+                  [formControl]="appInfoFormLocalModel.controls.activityType">
             <option label=" " value=""></option>
             <option *ngFor="let type of actTypeList" [ngValue]="type.id"> {{type.text|translate}}</option>
           </select>
@@ -133,7 +137,7 @@
         <span class="field-name" i18n>{{'device.class' |translate}}</span>
         <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
         <sup id="ap6-rf">
-          <a class="fn-lnk" href="#ap6"><span class="wb-inv">{{'instruction'|translate}}</span>6</a>
+          <a class="fn-lnk" href="#ap6"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.devClsIndx}}</a>
         </sup>
         <control-messages *ngIf="appInfoFormLocalModel.controls.deviceClass.invalid"
                           [showError]="showFieldErrors"
@@ -141,7 +145,9 @@
                           controlId="deviceClass" label="device.class"
                           parentId="appInfoDetails"
                           parentLabel="Application Information"></control-messages>
-        <select id="deviceClass" name="deviceClass" required class="form-control full-width"
+        <select id="deviceClass" name="deviceClass" required
+                class="form-control full-width" (blur)="deviceClassOnblur()"
+                (change)="deviceClassOnblur()"
                 [formControl]="appInfoFormLocalModel.controls.deviceClass">
           <option label=" " value=""></option>
           <option *ngFor="let class of devClassList" [ngValue]="class.id"> {{class.text}}</option>
@@ -474,7 +480,8 @@
         </header>
         <div class="panel-body">
           <device-list  (errors)="processDeviceErrors($event)"
-                         [deviceModel]="deviceModel"></device-list>
+                        [showErrors]="showFieldErrors"
+                        [deviceModel]="deviceModel"></device-list>
         </div>
       </section>
     </div>
@@ -491,7 +498,7 @@
                 <span class="field-name" i18n>{{'conformity.declaration' |translate}}</span>
                 <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
                 <sup id="ap8-rf">
-                  <a class="fn-lnk" href="#ap8"><span class="wb-inv">{{'instruction'|translate}}</span>8</a>
+                  <a class="fn-lnk" href="#ap8"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.cfmDecIndx}}</a>
                 </sup>
                 <control-messages *ngIf="appInfoFormLocalModel.controls.declarationConformity.invalid"
                                   [showError]="showFieldErrors"
@@ -521,7 +528,7 @@
               <label for="declarationConformity" class="full-width">
                 <span class="field-name" i18n>{{'conformity.declaration' |translate}}</span>
                 <sup id="ap8-rf">
-                  <a class="fn-lnk" href="#ap8"><span class="wb-inv">{{'instruction'|translate}}</span>8</a>
+                  <a class="fn-lnk" href="#ap8"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.cfmDecIndx}}</a>
                 </sup>
                 <!--<control-messages *ngIf="appInfoFormLocalModel.controls.declarationConformity.invalid"-->
                                   <!--[showError]="showFieldErrors"-->
@@ -581,7 +588,8 @@
                                   controlId="isAnimalHumanSourced" label="contain.material" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
                 <select id="isAnimalHumanSourced" name="isAnimalHumanSourced" required class="form-control"
-                        (blur)="isAnimalHumanSourcedOnblur()" [formControl]="appInfoFormLocalModel.controls.isAnimalHumanSourced">
+                        (blur)="isAnimalHumanSourcedOnblur()" (change)="isAnimalHumanSourcedOnblur()"
+                        [formControl]="appInfoFormLocalModel.controls.isAnimalHumanSourced">
                   <option label=" " value=""></option>
                   <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
                 </select>
@@ -610,16 +618,17 @@
             <section id="materialList" class="panel  panel-default">
               <header class="panel-heading clearfix">
                 <h3 class="panel-title">{{'heading.material.table'|translate}}</h3>
-                <control-messages *ngIf="appInfoFormLocalModel.controls.hasMaterial.invalid"
-                                  [showError]="showFieldErrors"
-                                  [control]="appInfoFormLocalModel.controls.hasMaterial"
-                                  controlId="hasMaterial" label="heading.material"
-                                  parentId="materialList"
-                                  parentLabel="Application Information"></control-messages>
-                <input id="hasMaterial" name="hasMaterial" type="hidden" required [formControl]="appInfoFormLocalModel.controls.hasMaterial"/>
+                <!--<control-messages *ngIf="appInfoFormLocalModel.controls.hasMaterial.invalid"-->
+                                  <!--[showError]="showFieldErrors"-->
+                                  <!--[control]="appInfoFormLocalModel.controls.hasMaterial"-->
+                                  <!--controlId="hasMaterial" label="heading.material"-->
+                                  <!--parentId="materialList"-->
+                                  <!--parentLabel="Application Information"></control-messages>-->
+                <!--<input id="hasMaterial" name="hasMaterial" type="hidden" required [formControl]="appInfoFormLocalModel.controls.hasMaterial"/>-->
               </header>
               <div class="panel-body">
                 <material-list  (errors)="processMaterialErrors($event)" [countryList]="countryList" [lang]="lang"
+                                [showErrors]="showFieldErrors"
                                 [materialModel]="materialModel"></material-list>
               </div>
             </section>

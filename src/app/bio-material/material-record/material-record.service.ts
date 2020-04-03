@@ -45,7 +45,7 @@ export class MaterialRecordService {
 
   public static mapDataModelFormModel(materialRecordModel,
                 formRecord: FormGroup, countryList, speciesFamilyList, tissueTypeList, derivativeList) {
-    formRecord.controls.id.setValue(materialRecordModel.id);
+    formRecord.controls.id.setValue(Number(materialRecordModel.id));
     formRecord.controls.isNew.setValue(false);
     MaterialDetailsService.mapDataModelToFormModel(materialRecordModel,
       <FormGroup>formRecord.controls.materialDetails, countryList, speciesFamilyList, tissueTypeList, derivativeList);

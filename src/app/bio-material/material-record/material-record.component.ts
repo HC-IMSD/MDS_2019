@@ -27,6 +27,8 @@ export class MaterialRecordComponent implements OnInit, AfterViewInit {
   @Input() speciesFamilyList;
   @Input() tissueTypeList;
   @Input() derivativeList;
+  @Input() hasRecords: boolean;
+  @Input() showErrors: boolean;
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
@@ -44,13 +46,14 @@ export class MaterialRecordComponent implements OnInit, AfterViewInit {
   private childErrorList: Array<any> = [];
   private parentErrorList: Array<any> = [];
   public showErrSummary: boolean;
-  public showErrors: boolean;
+  // public showErrors: boolean;
   public errorSummaryChild: ErrorSummaryComponent = null;
   public headingLevel = 'h4';
 
   constructor(private _fb: FormBuilder,  private cdr: ChangeDetectorRef) {
     this.showErrors = false;
     this.showErrSummary = false;
+    this.hasRecords = true;
   }
 
   ngOnInit() {
@@ -78,6 +81,11 @@ export class MaterialRecordComponent implements OnInit, AfterViewInit {
       console.warn('Material List found >1 Error Summary ' + list.length);
     }
     this.errorSummaryChild = list.first;
+    if (this.errorSummaryChild && !this.hasRecords) {
+      // update summary for at least one record error
+      this.errorSummaryChild.tableId = 'materialListTable';
+      this.errorSummaryChild.type = 'leastOneRecordError';
+    }
     this._emitErrors();
   }
   /***
@@ -107,6 +115,11 @@ export class MaterialRecordComponent implements OnInit, AfterViewInit {
         this.materialRecordModel.markAsPristine();
       }
       this.updateChild++;
+    }
+
+    if (changes['showErrors']) {
+      this.showErrSummary = changes['showErrors'].currentValue;
+      this._emitErrors();
     }
   }
 

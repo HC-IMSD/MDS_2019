@@ -57,7 +57,8 @@
           <div class="margin-top-small">
             <ng-select id="specFamily" name="specFamily"
                        [formControl]="materialFormLocalModel.controls.specFamily" class="required"
-                       [allowClear]="false"  [items]="speciesFamilyList">
+                       [allowClear]="false"  [items]="speciesFamilyList"
+                       (selected)="selected($event)">
             </ng-select>
           </div>
         </label>

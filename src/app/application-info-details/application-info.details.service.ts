@@ -55,7 +55,7 @@ export class ApplicationInfoDetailsService {
       declarationConformity : [null, Validators.required],
       hasRecombinant: [null, Validators.required],
       isAnimalHumanSourced : [null, Validators.required],
-      hasMaterial: [null, Validators.required],
+      // hasMaterial: [null, Validators.required],
       isListedIddTable: [null, Validators.required]
     });
   }
@@ -588,8 +588,8 @@ export class ApplicationInfoDetailsService {
       },
       {
         id: 'B02-20160301-081',
-        en: 'S.25/39/40/41',
-        fr: 'S.25/39/40/41'
+        en: 'S.25/36/39/40/41',
+        fr: 'S.25/36/39/40/41'
       },
       {
         id: 'B02-20190627-02',
@@ -622,84 +622,83 @@ export class ApplicationInfoDetailsService {
   public static getRawMdsapOrgList() {
     return [
       {
-        id: 'Not Applicable',
+        id: 'NotApplicable',
         en: 'Not Applicable',
         fr: 'Not Applicable'
       },
       {
-        id: 'BSI Group America Inc.',
+        id: 'BSIGroupAmericaInc',
         en: 'BSI Group America Inc.',
         fr: 'BSI Group America Inc.'
       },
       {
-        id: 'Dekra Certification B.V.',
+        id: 'DekraCertificationBV',
         en: 'Dekra Certification B.V.',
         fr: 'Dekra Certification B.V.'
       },
       {
-        id: 'Dekra Certification B.V.',
-        en: 'Dekra Certification B.V.',
-        fr: 'Dekra Certification B.V.'
+        id: 'DQSMedizinprodukteGMBH',
+        en: 'DQS Medizinprodukte GMBH',
+        fr: 'DQS Medizinprodukte GMBH'
       },
       {
-        id: 'Intertek Testing Services NA Inc.',
+        id: 'IntertekTestingServicesNAInc',
         en: 'Intertek Testing Services NA Inc.',
         fr: 'Intertek Testing Services NA Inc.'
       },
       {
-        id: 'Laboratoire National de métrologie et d\'Essais (LNE) - Dvision certification G-MED (traiding as LNE/G-MED and G-MED)',
+        id: 'LaboratoireNationaldemétrologie',
         en: 'Laboratoire National de métrologie et d\'Essais (LNE) - Dvision certification G-MED (traiding as LNE/G-MED and G-MED)PSU',
         fr: 'Laboratoire National de métrologie et d\'Essais (LNE) - Dvision certification G-MED (traiding as LNE/G-MED and G-MED)'
       },
       {
-        id: 'Lloyd\'s Register Quality Assurance Inc.',
+        id: 'LloydsRegisterQualityAssuranceInc',
         en: 'Lloyd\'s Register Quality Assurance Inc.',
         fr: 'Lloyd\'s Register Quality Assurance Inc.'
       },
       {
-        id: 'National Standards Authority of Ireland',
+        id: 'NationalStandardsAuthorityofIreland',
         en: 'National Standards Authority of Ireland',
         fr: 'National Standards Authority of Ireland'
       },
       {
-        id: 'QMI-SAI Canada Limited',
+        id: 'QMI-SAICanadaLimited',
         en: 'QMI-SAI Canada Limited',
         fr: 'QMI-SAI Canada Limited'
       },
 
       {
-        id: 'SGS United Kingdom Ltd.',
+        id: 'SGSUnitedKingdomLtd',
         en: 'SGS United Kingdom Ltd.',
         fr: 'SGS United Kingdom Ltd.'
       },
       {
-        id: 'TUVRNA - TÜV Rheinland of North America, Inc.',
+        id: 'TUVRNATÜVRheinlandofNorthAmericaInc',
         en: 'TUVRNA - TÜV Rheinland of North America, Inc.',
         fr: 'TUVRNA - TÜV Rheinland of North America, Inc.'
       },
       {
-        id: 'TUVAM - TÜV SÜD America Inc. (also operating as TÜV America Inc.)',
+        id: 'TUVAMTÜVSÜDAmericaInc',
         en: 'TUVAM - TÜV SÜD America Inc. (also operating as TÜV America Inc.)',
         fr: 'TUVAM - TÜV SÜD America Inc. (also operating as TÜV America Inc.)'
       },
       {
-        id: 'TUV USA - TÜV USA, Inc.',
+        id: 'TUVUSAInc',
         en: 'TUV USA - TÜV USA, Inc.',
         fr: 'TUV USA - TÜV USA, Inc.'
       },
       {
-        id: 'TUVNORD - TUV Nord Cert GMBH',
+        id: 'TUVNORD',
         en: 'TUVNORD - TUV Nord Cert GMBH',
         fr: 'TUVNORD - TUV Nord Cert GMBH'
       },
       {
-        id: 'UL - UL LLC',
+        id: 'UL',
         en: 'UL - UL LLC',
         fr: 'UL - UL LLC'
       }
     ];
   }
-
 
   public static getActivityTypeMDBList(lang) {
     const descArray = ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);

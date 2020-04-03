@@ -1,9 +1,11 @@
 import {
-  Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
+  Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChild, ViewChildren, QueryList,
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
+import {DeviceListComponent} from '../device/device.list/device.list.component';
+import {MaterialListComponent} from '../bio-material/material.list/material.list.component';
 import {ApplicationInfoDetailsService} from './application-info.details.service';
 // todo: add its own dataloader ?
 // import {??DataLoaderService} from '../data-loader/??-data-loader.service';
@@ -34,11 +36,14 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   @Input() deviceModel;
   @Input() materialModel;
   @Input() lang;
+  @Input() helpTextSequences;
   @Output() declarationConformity = new EventEmitter();
   @Output() detailErrorList = new EventEmitter(true);
   @Output() deviceErrorList = new EventEmitter(true);
   @Output() materialErrorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
+  @ViewChild(DeviceListComponent, {static: true}) aiDevices: DeviceListComponent;
+  @ViewChild(MaterialListComponent, {static: false}) bioMaterials: MaterialListComponent;
 
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
@@ -150,7 +155,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       ApplicationInfoDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.appInfoFormLocalModel));
       this._updateLists();
       this._hasReasonChecked();
-      this._hasMaterialRecord();
+      // this._hasMaterialRecord();
     }
   }
 
@@ -195,6 +200,20 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     this.onblur();
   }
 
+  deviceClassOnblur() {
+    if (!this.appInfoFormLocalModel.controls.deviceClass.value ||
+      !this.isDeviceIV()) {
+      this.appInfoFormLocalModel.controls.hasRecombinant.setValue(null);
+      this.appInfoFormLocalModel.controls.hasRecombinant.markAsUntouched();
+      this.appInfoFormLocalModel.controls.isAnimalHumanSourced.setValue(null);
+      this.appInfoFormLocalModel.controls.isAnimalHumanSourced.markAsUntouched();
+      this.appInfoFormLocalModel.controls.isListedIddTable.setValue(null);
+      this.appInfoFormLocalModel.controls.isListedIddTable.markAsUntouched();
+      this.materialModel = [];
+    }
+    this.onblur();
+  }
+
   private _hasReasonChecked() {
     this.appInfoFormLocalModel.controls.hasCompliance.setValue(null);
     if (this.appInfoFormLocalModel.controls.complianceUsp.value ||
@@ -204,12 +223,12 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     }
   }
 
-  private _hasMaterialRecord() {
-    this.appInfoFormLocalModel.controls.hasMaterial.setValue(null);
-    if (this.materialModel && this.materialModel.length > 0) {
-      this.appInfoFormLocalModel.controls.hasMaterial.setValue('hasRecord');
-    }
-  }
+  // private _hasMaterialRecord() {
+  //   this.appInfoFormLocalModel.controls.hasMaterial.setValue(null);
+  //   if (this.materialModel && this.materialModel.length > 0) {
+  //     this.appInfoFormLocalModel.controls.hasMaterial.setValue('hasRecord');
+  //   }
+  // }
 
   isMdsap() {
     const iscert = this.appInfoFormLocalModel.controls.hasMdsap.value;
@@ -223,7 +242,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   processMaterialErrors(errorList) {
     this.materialErrorList.emit(errorList);
-    this._hasMaterialRecord();
+    // this._hasMaterialRecord();
   }
 
   isIVDD() {
@@ -398,6 +417,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   isAnimalHumanSourced() {
     if (this.appInfoFormLocalModel.controls.isAnimalHumanSourced.value &&
           this.appInfoFormLocalModel.controls.isAnimalHumanSourced.value === GlobalsService.YES) {
+        // this.bioMaterials. = ;
         return true;
     } else {
         this.appInfoFormLocalModel.controls.isListedIddTable.setValue(null);

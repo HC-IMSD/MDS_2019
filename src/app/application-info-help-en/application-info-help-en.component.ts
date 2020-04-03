@@ -9,4 +9,9 @@ import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewEn
 /**
  * Sample component is used for nothing
  */
-export class ApplicationInfoHelpEnComponent {}
+export class ApplicationInfoHelpEnComponent {
+
+  @Input() helpTextSequences;
+  constructor () {
+  }
+}

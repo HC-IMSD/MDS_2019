@@ -35,9 +35,9 @@
         <label for="licenceNum" class="required" aria-required="true">
           <span class="field-name" i18n>{{'licence.application.number' |translate}} {{'minNumber6' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <sup id="ap7-rf">
-            <a class="fn-lnk" href="#ap7"><span class="wb-inv">{{'instruction'|translate}}</span>7</a>
-          </sup>
+          <!--<sup id="ap7-rf">-->
+            <!--<a class="fn-lnk" href="#ap7"><span class="wb-inv">{{'instruction'|translate}}</span>7</a>-->
+          <!--</sup>-->
           <control-messages *ngIf="deviceFormLocalModel.controls.licenceNum.invalid"
                             [showError]="showFieldErrors"
                             [control]="deviceFormLocalModel.controls.licenceNum"
