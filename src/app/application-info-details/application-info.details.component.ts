@@ -47,7 +47,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
-  public mdsapOrgList: Array<any> = [];
+  public mdsapOrgList;
   public actLeadList;
   public actTypeList;
   public devClassList;
@@ -64,6 +64,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     // todo: dataLoader = new DossierDataLoaderService(this.http);
     this.showFieldErrors = false;
     this.showErrors = false;
+    this.mdsapOrgList = [];
     this.actLeadList = [];
     this.actTypeList = [];
     this.devClassList = [];
@@ -81,7 +82,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     ApplicationInfoDetailsService.setLang(this.lang);
     this.mdsapOrgList = ApplicationInfoDetailsService.getMdsapOrgListList(this.lang);
     this.actLeadList = ApplicationInfoDetailsService.getActivityLeadList(this.lang);
-    this.actTypeList = ApplicationInfoDetailsService.getActivityTypeList(this.lang);
     this.devClassList = ApplicationInfoDetailsService.getDeviceClassList(this.lang);
     this.drugTypeList = ApplicationInfoDetailsService.getDrugTypes(this.lang);
     this.licenceAppTypeList = ApplicationInfoDetailsService.getLicenceAppTypeList(this.lang); // todo: test which lang is working

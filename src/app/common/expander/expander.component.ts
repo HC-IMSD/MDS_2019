@@ -201,14 +201,4 @@ export class ExpanderComponent implements OnChanges {
     this.tableRowIndexCurrExpanded = -1;
   }
 
-  /**
-   * Get the row title dynamic according to the expand/collapse status
-   */
- public getRowTitle(i) {
-   if (this.isCollapsed(i)) {
-     return 'Expand Row ' + (i + 1);
-   } else if (this.isExpanded(i)) {
-     return 'Collapse Row ' + (i + 1);
-   }
-  }
 }

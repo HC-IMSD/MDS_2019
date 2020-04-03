@@ -438,7 +438,7 @@
                 </div>
                 <div  class="form-group col-xs-7" *ngIf="isIt()">
                   <label for="applicationNum" class=" full-width">
-                    <span class="field-name" i18n>{{'application.number'|translate}} {{'minNumber6' |translate}}</span>
+                    <span class="field-name" i18n>{{'application.number'|translate}}</span>
                     <control-messages *ngIf="appInfoFormLocalModel.controls.applicationNum.invalid"
                                       [showError]="showFieldErrors"
                                       [control]="appInfoFormLocalModel.controls.applicationNum"
@@ -567,6 +567,7 @@
                                   [control]="appInfoFormLocalModel.controls.hasRecombinant"
                                   controlId="hasRecombinant" label="consist.recombinant" parentId="appInfoDetails"
                                   parentLabel="Application Information"></control-messages>
+
                 <select id="hasRecombinant" name="hasRecombinant" required class="form-control"
                         (blur)="onblur()" [formControl]="appInfoFormLocalModel.controls.hasRecombinant">
                   <option label=" " value=""></option>

@@ -9,7 +9,6 @@ export class ApplicationInfoDetailsService {
 
   private static licenceAppTypeList: Array<any> = ApplicationInfoDetailsService.getRawLicenceAppTypeList();
   private static drugTypeList: Array<any> = ApplicationInfoDetailsService.getRawDrugTypeList();
-  private static mdsapOrgList: Array<any> = ApplicationInfoDetailsService.getRawMdsapOrgList();
   private static lang = GlobalsService.ENGLISH;
 
   constructor() {
@@ -72,7 +71,7 @@ export class ApplicationInfoDetailsService {
         company_id: '',
         dossier_id: '',
         mdsap_number: '',
-       // mdsap_org: '',
+        mdsap_org: '',
         licence_application_type: '',
         regulatory_activity_lead: '',
         regulatory_activity_type: '',
@@ -222,15 +221,28 @@ export class ApplicationInfoDetailsService {
     appInfoModel.dossier_id = formRecord.controls.dossierId.value;
     // appInfoModel.device_class = formRecord.controls.deviceClass.value;
     appInfoModel.mdsap_number = formRecord.controls.mdsapNum.value;
+    // appInfoModel.has_qmsc = formRecord.controls.hasQMSC.value;
+    // if (formRecord.controls.qMSCRegistrar.value) {
+    //   const recordIndex1 = ListService.getRecord(registrarList, formRecord.controls.qMSCRegistrar.value, 'id');
+    //   if (recordIndex1 > -1) {
+    //     appInfoModel.registrar = {
+    //       '__text': registrarList[recordIndex1].id,
+    //       '_label_en': registrarList[recordIndex1].en,
+    //       '_label_fr': registrarList[recordIndex1].fr
+    //     };
+    //   }
+    // } else {
+    //   appInfoModel.registrar = null;
+    // }
     if (formRecord.controls.mdsapOrg.value) {
      const mdsapOrgList = ApplicationInfoDetailsService.getMdsapOrgListList(ApplicationInfoDetailsService.lang);
-      const mdsapOrgRecIdndex = ListService.getRecord(mdsapOrgList, formRecord.controls.mdsapOrg.value, 'id');
-      if (mdsapOrgRecIdndex > -1) {
+      const recordIndex2 = ListService.getRecord(mdsapOrgList, formRecord.controls.mdsapOrg.value, 'id');
+      if (recordIndex2 > -1) {
         appInfoModel.mdsap_org = {
-          '__text': mdsapOrgList[mdsapOrgRecIdndex].text,
-          '_id': mdsapOrgList[mdsapOrgRecIdndex].id,
-          '_label_en': mdsapOrgList[mdsapOrgRecIdndex].en,
-          '_label_fr': mdsapOrgList[mdsapOrgRecIdndex].fr
+          '__text': mdsapOrgList[recordIndex2].text,
+          '_id': mdsapOrgList[recordIndex2].id,
+          '_label_en': mdsapOrgList[recordIndex2].en,
+          '_label_fr': mdsapOrgList[recordIndex2].fr
         };
       }
     } else {
@@ -267,13 +279,13 @@ export class ApplicationInfoDetailsService {
     }
 
     if (formRecord.controls.activityType.value) {
-      const activityTypeRecIndex = ListService.getRecord(activityTypeList, formRecord.controls.activityType.value, 'id');
-      if (activityTypeRecIndex > -1) {
+      const recordIndex2 = ListService.getRecord(activityTypeList, formRecord.controls.activityType.value, 'id');
+      if (recordIndex2 > -1) {
         appInfoModel.regulatory_activity_type = {
-          '__text': activityTypeList[activityTypeRecIndex].text,
-          '_id' : activityTypeList[activityTypeRecIndex].id,
-          '_label_en': activityTypeList[activityTypeRecIndex].en,
-          '_label_fr': activityTypeList[activityTypeRecIndex].fr
+          '__text': activityTypeList[recordIndex2].text,
+          '_id' : activityTypeList[recordIndex2].id,
+          '_label_en': activityTypeList[recordIndex2].en,
+          '_label_fr': activityTypeList[recordIndex2].fr
         };
       }
     } else {
@@ -281,13 +293,13 @@ export class ApplicationInfoDetailsService {
     }
 
     if (formRecord.controls.deviceClass.value) {
-      const deviceClassRecIndex2 = ListService.getRecord(deviceClassList, formRecord.controls.deviceClass.value, 'id');
-      if (deviceClassRecIndex2 > -1) {
+      const recordIndex2 = ListService.getRecord(deviceClassList, formRecord.controls.deviceClass.value, 'id');
+      if (recordIndex2 > -1) {
         appInfoModel.device_class = {
-          '__text': deviceClassList[deviceClassRecIndex2].text,
-          '_id' : deviceClassList[deviceClassRecIndex2].id,
-          '_label_en': deviceClassList[deviceClassRecIndex2].en,
-          '_label_fr': deviceClassList[deviceClassRecIndex2].fr
+          '__text': deviceClassList[recordIndex2].text,
+          '_id' : deviceClassList[recordIndex2].id,
+          '_label_en': deviceClassList[recordIndex2].en,
+          '_label_fr': deviceClassList[recordIndex2].fr
         };
       }
     } else {
@@ -346,10 +358,11 @@ export class ApplicationInfoDetailsService {
     formRecord.controls.mdsapNum.setValue(appInfoModel.mdsap_number);
 
     if (appInfoModel.mdsap_org) {
-      const recordIndex2 = ListService.getRecord(this.mdsapOrgList, appInfoModel.mdsap_org._id, 'id');
+      const mdsapOrgList = ApplicationInfoDetailsService.getMdsapOrgListList(ApplicationInfoDetailsService.lang);
+      const recordIndex2 = ListService.getRecord(mdsapOrgList, appInfoModel.mdsap_org._id, 'id');
       if (appInfoModel.mdsap_org) {
         if (recordIndex2 > -1) {
-          formRecord.controls.mdsapOrg.setValue(this.mdsapOrgList[recordIndex2].id);
+          formRecord.controls.mdsapOrg.setValue(mdsapOrgList[recordIndex2].id);
         } else {
           formRecord.controls.mdsapOrg.setValue(null);
         }
@@ -542,6 +555,9 @@ export class ApplicationInfoDetailsService {
     return ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);
   }
 
+  public static getMdsapOrgListList(lang) {
+    return ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawMdsapOrgList(), lang);
+  }
 
   public static getRawActivityTypeList() {
     return [
@@ -601,12 +617,6 @@ export class ApplicationInfoDetailsService {
         fr: 'REG-PV'
       }
     ];
-  }
-
-
-  public static getMdsapOrgListList(lang) {
-    const rawList = this.getRawMdsapOrgList();
-    return this._convertListText(rawList, lang);
   }
 
   public static getRawMdsapOrgList() {
