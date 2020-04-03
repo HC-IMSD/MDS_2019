@@ -192,7 +192,7 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
     // 5. Set the new form to the new device form reference.
     this.newDeviceForm = <FormGroup> deviceFormList.controls[deviceFormList.length - 1];
     this.updateDeviceDetails++;
-
+    document.location.hash = 'deviceName';
   }
 
   /**
@@ -205,6 +205,7 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
     this.addRecordMsg++;
     this.validRec = true;
     this.recModified = true;
+    document.location.hash = 'addDevice';
   }
 
   /**
@@ -262,6 +263,8 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
       // should never happen, there should always be a UI record
       console.warn('DeviceList:rec is null');
     }
+    document.location.hash = 'deviceAuthorized';
+    document.location.hash = 'deviceName';
   }
 
   /**
@@ -274,6 +277,7 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
     this.validRec = true;
     this.recModified = true;
     this.deleteRecordMsg++;
+    document.location.hash = 'addDevice';
   }
 
   /**
@@ -291,6 +295,4 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
       }
     }
   }
-
-
 }

@@ -43,6 +43,7 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
   public errorList = [];
   public dataModel = [];
   public validRec = true;
+  public newRecord = false;
   public speciesFamilyList = [];
   public tissueTypeList = [];
   public derivativeList = [];
@@ -233,7 +234,8 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
     console.log(materialFormList);
     // 5. Set the new form to the new material form reference.
     this.newMaterialForm = <FormGroup> materialFormList.controls[materialFormList.length - 1];
-
+    this.newRecord = true;
+    document.location.hash = 'materialName';
   }
 
   /**
@@ -246,6 +248,8 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
     this.materialModel = this.dataModel;
     this.addRecordMsg++;
     this.validRec = true;
+    this.newRecord = false;
+    document.location.hash = 'addMaterial';
   }
 
   /**
@@ -300,6 +304,9 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
       // should never happen, there should always be a UI record
       console.warn('MaterialList:rec is null');
     }
+    this.newRecord = false;
+    document.location.hash = 'materialDeviceName';
+    document.location.hash = 'materialName';
   }
 
   /**
@@ -311,18 +318,25 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
     this.deleteRecord(id, materialList, this.service);
     this.validRec = true;
     this.deleteRecordMsg++;
+    this.newRecord = false;
+    document.location.hash = 'addMaterial';
   }
 
   /**
    * check if its record exists
    */
   public isDirty(): boolean {
-    if (this.materialChild && this.materialChild.materialFormRecord) {
-      return (this.materialChild.materialFormRecord.dirty);
+    if (this.newRecord) {
+      return true;
     } else {
-      return false;
+      if (this.materialChild && this.materialChild.materialFormRecord) {
+        return (this.materialChild.materialFormRecord.dirty);
+      } else {
+        return false;
+      }
     }
   }
+
 
 
 }
