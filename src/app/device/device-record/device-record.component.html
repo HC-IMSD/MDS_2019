@@ -1,4 +1,4 @@
-<div class="container-fluid" [formGroup]="deviceRecordModel">
+<div class="container-fluid" [formGroup]="deviceRecordModel" *ngIf="deviceRecordModel">
   <h4>{{'heading.interdependent.device'| translate}}&nbsp;{{deviceRecordModel.controls.id.value + 1}}</h4>
   <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="heading.device.record"

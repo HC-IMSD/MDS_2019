@@ -1,4 +1,4 @@
-<div class="container-fluid" [formGroup]="materialRecordModel">
+<div class="container-fluid" [formGroup]="materialRecordModel" *ngIf="materialRecordModel">
   <h4>{{'heading.material'| translate}}&nbsp;{{materialRecordModel.controls.id.value + 1}}</h4>
   <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="heading.material.record"

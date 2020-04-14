@@ -8,6 +8,7 @@
       <company-contact-record
         [detailsChanged]="updateContactDetails" [isInternal]="isInternal"
         [showErrors]="showErrors" [lang]="lang"
+        [newRecord]="newRecordIndicator"
         [hasRecords]="dataModel.length > 0"
         [helpTextSequences]="helpTextSequences"
         (saveRecord)="saveContactRecord($event)"
@@ -21,6 +22,7 @@
         [countries]="countryList"
         [group]="newContactForm"
         [helpTextSequences]="helpTextSequences"
+        [newRecord]="newRecordIndicator"
         [showErrors]="showErrors"
         [hasRecords]="dataModel.length > 0"
         (saveRecord)="saveContactRecord($event)"

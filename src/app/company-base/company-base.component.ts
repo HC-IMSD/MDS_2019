@@ -150,6 +150,7 @@ export class CompanyBaseComponent implements OnInit {
   }
 
   public saveXmlFile() {
+    this.showErrors = false;
     if (this.errorList && this.errorList.length > 0) {
       this.showErrors = true;
       document.location.href = '#topErrorSummary';

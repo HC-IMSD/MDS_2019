@@ -102,7 +102,7 @@ export class MaterialListService extends ListService implements IMasterDetails {
     let modelList = this.getModelRecordList();
 
     for (let i = 0; i < modelList.length; i++) {
-      if (modelList[i].id === id) {
+      if (Number(modelList[i].id) === id) {
         return modelList[i];
       }
     }
@@ -112,7 +112,7 @@ export class MaterialListService extends ListService implements IMasterDetails {
   deleteModelRecord(id): boolean {
     let modelList = this.getModelRecordList();
     for (let i = 0; i < modelList.length; i++) {
-      if (modelList[i].id === id) {
+      if (Number(modelList[i].id) === id) {
         this.materialList.splice(i, 1);
         if (id === this.getCurrentIndex()) {
           this.setIndex(id - 1);

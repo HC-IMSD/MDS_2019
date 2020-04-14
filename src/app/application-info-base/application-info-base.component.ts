@@ -106,23 +106,26 @@ export class ApplicationInfoBaseComponent implements OnInit {
 
   public saveXmlFile() {
     this._updatedAutoFields();
+    this.showErrors = false;
     if (this.errorList && this.errorList.length > 0) {
       this.showErrors = true;
       document.location.href = '#topErrorSummary';
     } else {
-      if (this._hasUnsavedInput()) {
+      if (this._isInputsSaved()) {
         this._checkMaterialModel();
         const result = {
           'DEVICE_APPLICATION_INFO': {
             'application_info': this.appInfoModel,
-            'devices': {
-              'device': this.deviceModel
-            },
-            'materials': {
-              'material': this.materialModel
-            }
+            'devices': {},
+            'materials': {}
           }
         };
+        if (this.deviceModel && (this.deviceModel).length > 0) {
+          result.DEVICE_APPLICATION_INFO.devices = {device: this.deviceModel};
+        }
+        if (this.materialModel && (this.materialModel).length > 0) {
+          result.DEVICE_APPLICATION_INFO.materials = {material: this.materialModel};
+        }
         const fileName = 'ai-' + this.appInfoModel.dossier_id + '-' + this.appInfoModel.last_saved_date;
         this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
       } else {
@@ -135,7 +138,7 @@ export class ApplicationInfoBaseComponent implements OnInit {
     }
   }
 
-  private _hasUnsavedInput() {
+  private _isInputsSaved() {
     if (this.aiDetails.bioMaterials) {
       return (this.aiDetails.aiDevices.deviceListForm.pristine &&
         (this.aiDetails.bioMaterials.materialListForm ? this.aiDetails.bioMaterials.materialListForm.pristine : true) &&

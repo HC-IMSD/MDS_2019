@@ -6,6 +6,7 @@
                         [deleteRecord]="deleteRecordMsg">
       <device-record
         [detailsChanged]="updateDeviceDetails"
+        [newRecord]="newRecordIndicator"
         [showErrors]="showErrors"
         (saveRecord)="saveDeviceRecord($event)"
         (errors)="updateErrorList($event)"
@@ -15,6 +16,7 @@
     <div *ngIf="newRecordIndicator">
       <device-record
         [detailsChanged]="updateDeviceDetails"
+        [newRecord]="newRecordIndicator"
         [showErrors]="showErrors"
         [group]="newDeviceForm"
         (saveRecord)="saveDeviceRecord($event)"

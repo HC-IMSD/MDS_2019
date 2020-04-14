@@ -65,7 +65,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-sm-5 col-xs-12">
+      <div class="form-group col-sm-4">
         <label for="tissueType" class="full-width">
           <span class="field-name" i18n>{{'tissue.type'|translate}}</span>
           <div class="margin-top-small">
@@ -76,16 +76,16 @@
           </div>
         </label>
       </div>
-      <div class="form-group col-sm-3" *ngIf="isOtherType()">
-        <label for="tissueTypeOtherDetails">
+      <div class="form-group col-sm-8" *ngIf="isOtherType()">
+        <label for="tissueTypeOtherDetails" class="full-width">
           <span class="field-name" i18n>{{'tissue.other' |translate}}</span>
-          <input id="tissueTypeOtherDetails" name="tissueTypeOtherDetails" class="form-control"
+          <input id="tissueTypeOtherDetails" name="tissueTypeOtherDetails" class="form-control full-width"
                  [formControl]="materialFormLocalModel.controls.tissueTypeOtherDetails"/>
         </label>
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-sm-5 col-xs-12" >
+      <div class="form-group col-sm-4" >
         <label for="derivative" class=" full-width">
           <span class="field-name" i18n>{{'derivative'|translate}}</span>
           <div class="margin-top-small">
@@ -96,10 +96,10 @@
           </div>
         </label>
       </div>
-      <div class="form-group col-sm-3" *ngIf="isOtherDerivative()">
-        <label for="derivativeOtherDetails">
+      <div class="form-group col-sm-8" *ngIf="isOtherDerivative()">
+        <label for="derivativeOtherDetails" class="full-width">
           <span class="field-name" i18n>{{'derivative.other' |translate}}</span>
-          <input id="derivativeOtherDetails" name="derivativeOtherDetails" class="form-control"
+          <input id="derivativeOtherDetails" name="derivativeOtherDetails" class="form-control full-width"
                  [formControl]="materialFormLocalModel.controls.derivativeOtherDetails"/>
         </label>
       </div>

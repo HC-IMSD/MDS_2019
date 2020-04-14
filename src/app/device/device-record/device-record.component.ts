@@ -23,6 +23,7 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
   public deviceRecordModel: FormGroup;
   @Input('group') public deviceFormRecord: FormGroup;
   @Input() detailsChanged: number;
+  @Input() newRecord: boolean;
   @Input() showErrors: boolean;
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
@@ -39,6 +40,7 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
   public errorList = [];
   private childErrorList: Array<any> = [];
   private parentErrorList: Array<any> = [];
+  public isNew: boolean;
   public showErrSummary: boolean;
   public errorSummaryChild: ErrorSummaryComponent = null;
   public headingLevel = 'h4';
@@ -89,7 +91,9 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
 
 
   private _initDevice() {
-    return DeviceRecordService.getReactiveModel(this._fb);
+    if (this.isNew) {
+      return DeviceRecordService.getReactiveModel(this._fb);
+    }
   }
 
   ngOnChanges (changes: SimpleChanges) {
@@ -99,9 +103,15 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
         this.setToLocalModel();
       } else {
         this.deviceRecordModel = this._initDevice();
-        this.deviceRecordModel.markAsPristine();
+        if (this.deviceRecordModel) {
+          this.deviceRecordModel.markAsPristine();
+        }
       }
       this.updateChild++;
+    }
+
+    if (changes['newRecord']) {
+      this.isNew = changes['newRecord'].currentValue;
     }
 
     if (changes['showErrors']) {
@@ -109,6 +119,7 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
     }
     if (this.showErrSummary) {
       this.updateErrorList(null, true);
+      this._emitErrors();
     }
   }
 

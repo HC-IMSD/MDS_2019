@@ -25,6 +25,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Input() detailsChanged: number;
   @Input() countries: Array<any>;
   @Input() isInternal: boolean;
+  @Input() newRecord: boolean;
   @Input() showErrors: boolean;
   @Input() hasRecords: boolean;
   @Input() lang;
@@ -45,6 +46,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   public errorList = [];
   private childErrorList: Array<any> = [];
   private parentErrorList: Array<any> = [];
+  public isNew: boolean;
   public showErrSummary: boolean;
   public errorSummaryChild: ErrorSummaryComponent = null;
   public headingLevel = 'h4';
@@ -101,7 +103,9 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
 
 
   private _initContact() {
-    return CompanyContactRecordService.getReactiveModel(this._fb, this.isInternal);
+    if (this.isNew) {
+      return CompanyContactRecordService.getReactiveModel(this._fb, this.isInternal);
+    }
   }
 
   ngOnChanges (changes: SimpleChanges) {
@@ -111,9 +115,14 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
         this.setToLocalModel();
       } else {
         this.contactRecordModel = this._initContact();
-        this.contactRecordModel.markAsPristine();
+        if (this.contactRecordModel) {
+          this.contactRecordModel.markAsPristine();
+        }
       }
       this.updateChild++;
+    }
+    if (changes['newRecord']) {
+      this.isNew = changes['newRecord'].currentValue;
     }
     // if (this.isInternal) {
       if (changes['showErrors']) {

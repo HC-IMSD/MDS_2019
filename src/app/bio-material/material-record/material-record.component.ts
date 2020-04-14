@@ -28,6 +28,7 @@ export class MaterialRecordComponent implements OnInit, AfterViewInit {
   @Input() tissueTypeList;
   @Input() derivativeList;
   @Input() hasRecords: boolean;
+  @Input() newRecord: boolean;
   @Input() showErrors: boolean;
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
@@ -45,6 +46,7 @@ export class MaterialRecordComponent implements OnInit, AfterViewInit {
   public errorList = [];
   private childErrorList: Array<any> = [];
   private parentErrorList: Array<any> = [];
+  public isNew: boolean;
   public showErrSummary: boolean;
   // public showErrors: boolean;
   public errorSummaryChild: ErrorSummaryComponent = null;
@@ -102,7 +104,9 @@ export class MaterialRecordComponent implements OnInit, AfterViewInit {
 
 
   private _initMaterial() {
-    return MaterialRecordService.getReactiveModel(this._fb);
+    if (this.isNew) {
+      return MaterialRecordService.getReactiveModel(this._fb);
+    }
   }
 
   ngOnChanges (changes: SimpleChanges) {
@@ -112,13 +116,22 @@ export class MaterialRecordComponent implements OnInit, AfterViewInit {
         this.setToLocalModel();
       } else {
         this.materialRecordModel = this._initMaterial();
-        this.materialRecordModel.markAsPristine();
+        if (this.materialRecordModel) {
+          this.materialRecordModel.markAsPristine();
+        }
       }
       this.updateChild++;
     }
 
+    if (changes['newRecord']) {
+      this.isNew = changes['newRecord'].currentValue;
+    }
+
     if (changes['showErrors']) {
       this.showErrSummary = changes['showErrors'].currentValue;
+    }
+    if (this.showErrSummary) {
+      this.updateErrorList(null, true);
       this._emitErrors();
     }
   }
