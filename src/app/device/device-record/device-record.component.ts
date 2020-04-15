@@ -164,6 +164,7 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
   public revertDeviceRecord(): void {
     this.revertRecord.emit(this.deviceRecordModel);
     this.deviceRecordModel.markAsPristine();
+    document.location.href = '#deviceName';
   }
 
   /***
@@ -173,6 +174,7 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
     this.errorSummaryChild = null;
     this.deleteRecord.emit(this.deviceRecordModel.value.id);
     this._emitErrors();
+    document.location.href = '#addDevice';
   }
 
   public saveDeviceRecord(): void {
@@ -182,6 +184,7 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
       this.showErrSummary = false;
       this.showErrors = false;
       this.deviceRecordModel.markAsPristine();
+      document.location.href = '#addDevice';
     } else {
       // id is used for an error to ensure the record gets saved
       let temp = this.deviceRecordModel.value.id;
