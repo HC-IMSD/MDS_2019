@@ -11,6 +11,10 @@ import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewEn
  * Sample component is used for nothing
  */
 export class ExpanderComponent implements OnChanges {
+  /**
+   * Disable expand
+   */
+  @Input() disableExpand = false;
 
   /**
    * When set to true, disables collapse of a details section that is in error
@@ -172,7 +176,9 @@ export class ExpanderComponent implements OnChanges {
     //    console.warn('select table row did not meet conditions');
     //   return;
     // }
-    this.selectTableRowNoCheck(index);
+    if ( ! this.disableExpand ) {
+      this.selectTableRowNoCheck(index);
+    }
   }
 
 

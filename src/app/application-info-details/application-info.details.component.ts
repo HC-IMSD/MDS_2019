@@ -93,7 +93,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       this._updateErrorList(errorObjs);
     });
     this.msgList.notifyOnChanges();
-
+    document.location.href = '#main';
   }
 
   private _updateErrorList(errorObjs) {

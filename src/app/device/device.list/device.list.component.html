@@ -1,6 +1,6 @@
 <div [formGroup]="deviceListForm">
   <div formArrayName="devices">
-    <expander-component [group]="dataModel"
+    <expander-component [group]="dataModel" [disableExpand]="newRecordIndicator"
                         [isValid]="validRec" [addRecord]="addRecordMsg"
                         [columnDefinitions]="columnDefinitions"
                         [deleteRecord]="deleteRecordMsg">
@@ -26,8 +26,8 @@
   </div>
   <div class="row mrgn-tp-md mrgn-bttm-lg">
     <div class="btn-group-sm col-md-12 text-left">
-      <button class="btn btn-primary" (click)="addDevice()"
-              [disabled]="!(deviceListForm.valid || deviceListForm.errors) || isDirty()">
+      <button id="addDevice" class="btn btn-primary" (click)="addDevice()"
+              [disabled]="isDirty()">
        {{'add.device'|translate}}
       </button>
     </div>

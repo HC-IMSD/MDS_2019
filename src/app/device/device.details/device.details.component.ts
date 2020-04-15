@@ -51,7 +51,7 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
 
   ngAfterViewInit() {
     this.msgList.changes.subscribe(errorObjs => {
-      let temp = [];
+      // let temp = [];
       this._updateErrorList(errorObjs);
 
       /* errorObjs.forEach(
@@ -62,7 +62,7 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
        this.errorList.emit(temp);*/
     });
     this.msgList.notifyOnChanges();
-
+    document.location.href = '#deviceName';
   }
 
   private _updateErrorList(errorObjs) {
@@ -93,16 +93,17 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
 
     }
     if (changes['showErrors']) {
-
-      this.showFieldErrors = changes['showErrors'].currentValue;
-      let temp = [];
-      if (this.msgList) {
-        this.msgList.forEach(item => {
-          temp.push(item);
-          // console.log(item);
-        });
+      if ( document.getElementById('deviceName')) {
+        this.showFieldErrors = changes['showErrors'].currentValue;
+        let temp = [];
+        if (this.msgList) {
+          this.msgList.forEach(item => {
+            temp.push(item);
+            // console.log(item);
+          });
+        }
+        this.errorList.emit(temp);
       }
-      this.errorList.emit(temp);
     }
 
   }

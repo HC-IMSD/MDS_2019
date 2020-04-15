@@ -1,6 +1,6 @@
 <div [formGroup]="materialListForm">
   <div formArrayName="materials" id="materialListTable">
-    <expander-component [group]="dataModel"
+    <expander-component [group]="dataModel" [disableExpand]="newRecordIndicator"
                         [isValid]="validRec" [addRecord]="addRecordMsg"
                         [columnDefinitions]="columnDefinitions"
                         [deleteRecord]="deleteRecordMsg">
@@ -36,7 +36,7 @@
   </div>
   <div class="row mrgn-tp-md mrgn-bttm-lg">
     <div class="btn-group-sm col-md-12 text-left">
-      <button class="btn btn-primary" (click)="addMaterial()"
+      <button class="btn btn-primary" id="addMaterial" (click)="addMaterial()"
               [disabled]="!materialListForm.valid || isDirty()">
        {{'add.material'|translate}}
       </button>
