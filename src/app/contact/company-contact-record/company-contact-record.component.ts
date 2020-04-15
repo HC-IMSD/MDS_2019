@@ -81,11 +81,11 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       console.warn('Contact List found >1 Error Summary ' + list.length);
     }
     this.errorSummaryChild = list.first;
-    if (!this.isInternal && this.errorSummaryChild && !this.hasRecords) {
-      // update summary for at least one record error
-      this.errorSummaryChild.tableId = 'contactListTable';
-      this.errorSummaryChild.type = 'leastOneRecordError';
-    }
+    // if (!this.isInternal && this.errorSummaryChild && !this.hasRecords) {
+    //   // update summary for at least one record error
+    //   this.errorSummaryChild.tableId = 'contactListTable';
+    //   this.errorSummaryChild.type = 'leastOneRecordError';
+    // }
     // set table id to point to
     this._emitErrors();
   }

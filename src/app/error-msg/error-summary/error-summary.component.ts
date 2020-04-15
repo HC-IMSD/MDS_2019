@@ -33,7 +33,9 @@ export class ErrorSummaryComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.cdr.detectChanges();
+    if (this.cdr) {
+      this.cdr.detectChanges();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {

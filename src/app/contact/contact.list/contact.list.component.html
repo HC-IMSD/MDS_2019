@@ -1,6 +1,6 @@
 <div [formGroup]="contactListForm">
   <div formArrayName="contacts" id="contactListTable">
-    <expander-component [group]="dataModel"
+    <expander-component [group]="dataModel" [disableExpand]="newRecordIndicator"
                         [isValid]="validRec" [addRecord]="addRecordMsg"
                         [columnDefinitions]="columnDefinitions"
                         [loadFileIndicator]="loadFileIndicator"

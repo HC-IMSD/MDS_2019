@@ -353,14 +353,22 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     let emitErrors = [];
     // adding the child errors
     if (this.errorList) {
-      emitErrors = this.errorList;
+      // emitErrors = this.errorList;
+      this.errorList.forEach((error: any) => {
+        emitErrors.push(error);
+      });
     }
     if (this.errorSummaryChild) {
       emitErrors.push(this.errorSummaryChild);
     }
-    if (!this.isInternal || this.newContactForm || this.dataModel.length > 0) {
-      this.errors.emit(emitErrors);
+    if (!this.isInternal && this.dataModel.length === 0) { // && this.errorList.length === 0
+      const oerr = new ErrorSummaryComponent(null);
+      oerr.index = 0;
+      oerr.tableId = 'contactListTable';
+      oerr.type = 'leastOneRecordError';
+      emitErrors.push(oerr);
     }
+    this.errors.emit(emitErrors);
   }
 
   /***
@@ -405,11 +413,8 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
    * check if its record exists
    */
   public isDirty(): boolean {
-    if (this.companyContactChild && this.companyContactChild.contactFormRecord) {
-      return (this.companyContactChild.contactFormRecord.dirty);
-    } else {
-      return false;
-    }
+    return (!(this.contactListForm.valid  || !this.contactListForm.errors) ||
+      this.contactListForm.dirty || this.newRecordIndicator);
   }
 
 
