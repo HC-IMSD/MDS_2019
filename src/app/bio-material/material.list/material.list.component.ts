@@ -28,7 +28,7 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
   @Input() countryList;
   @Output() public errors = new EventEmitter();
 
-  @ViewChild(MaterialRecordComponent, {static: false}) materialChild: MaterialRecordComponent;
+  @ViewChild(MaterialRecordComponent, {static: true}) materialChild: MaterialRecordComponent;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
 
   private errorSummaryChild = null;
@@ -71,7 +71,6 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
     }
     */
   ];
-  private isNewRecord: Boolean = false;
 
   constructor(private _fb: FormBuilder, private translate: TranslateService) {
     super();
@@ -235,7 +234,6 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
     // 5. Set the new form to the new material form reference.
     this.newMaterialForm = <FormGroup> materialFormList.controls[materialFormList.length - 1];
     document.location.href = '#materialName';
-    this.isNewRecord = true;
   }
 
   /**
@@ -248,7 +246,6 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
     this.materialModel = this.dataModel;
     this.addRecordMsg++;
     this.validRec = true;
-    this.isNewRecord = false;
     document.location.href = "#addMaterial";
   }
 
@@ -316,7 +313,6 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
     this.deleteRecord(id, materialList, this.service);
     this.validRec = true;
     this.deleteRecordMsg++;
-    this.isNewRecord = false;
     document.location.href = "#addMaterial";
   }
 
@@ -324,14 +320,8 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
    * check if its record exists
    */
   public isDirty(): boolean {
-    if (this.isNewRecord) {
-      return true;
-    }
-    if (this.materialChild && this.materialChild.materialFormRecord) {
-      return (this.materialChild.materialFormRecord.dirty);
-    } else {
-      return false;
-    }
+      return (!(this.materialListForm.valid  || !this.materialListForm.errors) ||
+        this.materialListForm.dirty || this.newRecordIndicator);
   }
 
 

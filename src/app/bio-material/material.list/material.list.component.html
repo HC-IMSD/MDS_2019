@@ -37,7 +37,7 @@
   <div class="row mrgn-tp-md mrgn-bttm-lg">
     <div class="btn-group-sm col-md-12 text-left">
       <button class="btn btn-primary" id="addMaterial" (click)="addMaterial()"
-              [disabled]="!materialListForm.valid || isDirty()">
+              [disabled]="isDirty()">
        {{'add.material'|translate}}
       </button>
     </div>

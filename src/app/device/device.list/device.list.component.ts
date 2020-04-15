@@ -193,7 +193,6 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
     // 5. Set the new form to the new device form reference.
     this.newDeviceForm = <FormGroup> deviceFormList.controls[deviceFormList.length - 1];
     this.updateDeviceDetails++;
-    this.newRecordIndicator = true;
 
   }
 
@@ -206,8 +205,6 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
     this.dataModel = this.service.getModelRecordList();
     this.addRecordMsg++;
     this.validRec = true;
-    // this.recModified = true;
-    this.newRecordIndicator = false;
   }
 
   /**
@@ -277,7 +274,6 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
     this.validRec = true;
     // this.recModified = true;
     this.deleteRecordMsg++;
-    this.newRecordIndicator = false;
   }
 
   /**
@@ -287,15 +283,12 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
     // if (this.recModified) {
     //   return false;
     // } else {
-    //   const isd = !(this.deviceListForm.valid);
-    if (this.newRecordIndicator) {
-      return this.newRecordIndicator;
-    }
-      if (this.deviceChild && this.deviceChild.deviceFormRecord) {
-        return (document.getElementById('deviceName') !== null && this.deviceChild.deviceFormRecord.dirty);
-      } else {
-        return false;
-      }
+      const isd = !(this.deviceListForm.valid || !this.deviceListForm.errors);
+      // if (this.deviceChild && this.deviceChild.deviceFormRecord) {
+      //   return (isd || this.deviceChild.deviceFormRecord.dirty || this.deviceListForm.dirty);
+      // } else {
+        return (isd || this.deviceListForm.dirty || this.newRecordIndicator);
+      // }
     // }
   }
 
