@@ -155,7 +155,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       ApplicationInfoDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.appInfoFormLocalModel));
       this._updateLists();
       this._hasReasonChecked();
-      // this._hasMaterialRecord();
+      this._hasMaterialRecord();
     }
   }
 
@@ -223,12 +223,12 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     }
   }
 
-  // private _hasMaterialRecord() {
-  //   this.appInfoFormLocalModel.controls.hasMaterial.setValue(null);
-  //   if (this.materialModel && this.materialModel.length > 0) {
-  //     this.appInfoFormLocalModel.controls.hasMaterial.setValue('hasRecord');
-  //   }
-  // }
+  private _hasMaterialRecord() {
+    this.appInfoFormLocalModel.controls.hasMaterial.setValue(null);
+    if (this.materialModel && this.materialModel.length > 0) {
+      this.appInfoFormLocalModel.controls.hasMaterial.setValue('hasRecord');
+    }
+  }
 
   isMdsap() {
     const iscert = this.appInfoFormLocalModel.controls.hasMdsap.value;
@@ -242,7 +242,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   processMaterialErrors(errorList) {
     this.materialErrorList.emit(errorList);
-    // this._hasMaterialRecord();
+    this._hasMaterialRecord();
   }
 
   isIVDD() {

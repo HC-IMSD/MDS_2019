@@ -83,11 +83,11 @@ export class MaterialRecordComponent implements OnInit, AfterViewInit {
       console.warn('Material List found >1 Error Summary ' + list.length);
     }
     this.errorSummaryChild = list.first;
-    if (this.errorSummaryChild && !this.hasRecords) {
-      // update summary for at least one record error
-      this.errorSummaryChild.tableId = 'materialListTable';
-      this.errorSummaryChild.type = 'leastOneRecordError';
-    }
+    // if (this.errorSummaryChild && !this.hasRecords) {
+    //   // update summary for at least one record error
+    //   this.errorSummaryChild.tableId = 'materialListTable';
+    //   this.errorSummaryChild.type = 'leastOneRecordError';
+    // }
     this._emitErrors();
   }
   /***

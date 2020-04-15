@@ -618,13 +618,13 @@
             <section id="materialList" class="panel  panel-default">
               <header class="panel-heading clearfix">
                 <h3 class="panel-title">{{'heading.material.table'|translate}}</h3>
-                <!--<control-messages *ngIf="appInfoFormLocalModel.controls.hasMaterial.invalid"-->
-                                  <!--[showError]="showFieldErrors"-->
-                                  <!--[control]="appInfoFormLocalModel.controls.hasMaterial"-->
-                                  <!--controlId="hasMaterial" label="heading.material"-->
-                                  <!--parentId="materialList"-->
-                                  <!--parentLabel="Application Information"></control-messages>-->
-                <!--<input id="hasMaterial" name="hasMaterial" type="hidden" required [formControl]="appInfoFormLocalModel.controls.hasMaterial"/>-->
+                <control-messages *ngIf="appInfoFormLocalModel.controls.hasMaterial.invalid"
+                                  [showError]="false"
+                                  [control]="appInfoFormLocalModel.controls.hasMaterial"
+                                  controlId="hasMaterial" label="heading.material"
+                                  parentId="materialList"
+                                  parentLabel="Application Information"></control-messages>
+                <input id="hasMaterial" name="hasMaterial" type="hidden" required [formControl]="appInfoFormLocalModel.controls.hasMaterial"/>
               </header>
               <div class="panel-body">
                 <material-list  (errors)="processMaterialErrors($event)" [countryList]="countryList" [lang]="lang"

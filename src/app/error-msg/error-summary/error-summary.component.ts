@@ -75,6 +75,10 @@ export class ErrorSummaryComponent implements AfterViewInit {
       controlError.componentId = err.componentId; // error summary only uses this
       controlError.expander = err.expander; // error summary only uses
       controlError.compRef = err;
+      if (err.controlId === 'hasMaterial') {
+        err.type = GlobalsService.errorSummleastOneRcd;
+        err.tableId = 'materialListTable';
+      }
       // Case 1: an error summary Component
       if (err.hasOwnProperty('type') &&
         (err.type === GlobalsService.errorSummClassName || err.type === GlobalsService.errorSummleastOneRcd)) {
