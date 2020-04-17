@@ -417,5 +417,11 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
       this.contactListForm.dirty || this.newRecordIndicator);
   }
 
+  /**
+   * Changes the local model back to the last saved version of the requester
+   */
+  public showErrorsSummary(): boolean {
+    return (this.isInternal && this.showErrors && this.errorList.length > 0);
+  }
 
 }
