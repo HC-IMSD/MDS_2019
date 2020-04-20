@@ -186,6 +186,10 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
         this.transDescList = TransactionDetailsService.getPRVLDDescriptions(this.lang);
       } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[10].id) { // 'B02-20160301-074'
         this.transDescList = TransactionDetailsService.getPRVLDADescriptions(this.lang);
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[11].id) { // 'B02-20160301-074'
+        this.transDescList = TransactionDetailsService.getCOVID19Descriptions(this.lang);
+      } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[12].id) { // 'B02-20160301-074'
+        this.transDescList = TransactionDetailsService.getCOVID19AMDDescriptions(this.lang);
       }
     }
     // update reasonArray
