@@ -1,6 +1,6 @@
 import {
   Component, OnInit, Input, ViewChild, SimpleChanges, OnChanges, ViewChildren, QueryList, EventEmitter, Output,
-  AfterViewInit, ChangeDetectorRef, DoCheck, ViewEncapsulation
+  AfterViewInit, DoCheck, ViewEncapsulation
 } from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
@@ -11,6 +11,7 @@ import {ContactListService} from './contact-list.service';
 import {ListOperations} from '../../list-operations';
 import {TranslateService} from '@ngx-translate/core';
 import {GlobalsService} from '../../globals/globals.service';
+import {ExpanderComponent} from "../../common/expander/expander.component";
 
 //  import {ExpanderComponent} from '../../common/expander/expander.component';
 @Component({
@@ -256,7 +257,8 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
       this.validRec = false;
       return false;
     } else if (this.companyContactChild && this.companyContactChild.contactFormRecord) {
-      this.validRec = this.contactListForm.valid && !this.companyContactChild.contactFormRecord.dirty;
+      this.validRec = true; //this.contactListForm.valid && !this.companyContactChild.contactFormRecord.dirty;
+      console.log(this.companyContactChild.contactFormRecord);
       return (this.contactListForm.valid && !this.companyContactChild.contactFormRecord.dirty);
     }
     this.validRec = this.contactListForm.valid;
@@ -310,9 +312,28 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
    */
   public saveContactRecord(record: FormGroup) {
     this.saveRecord(record, this.service);
-    this.dataModel = this.service.getModelRecordList();
     this.addRecordMsg++;
-    this.validRec = true;
+    const htmlEls = document.getElementsByClassName('clickableRow');
+    let finder = -1;
+    this.dataModel = this.service.getModelRecordList();
+    this.dataModel.forEach(value => {
+      finder++;
+      console.log('finder:' + finder);
+      if (Number(record.value.id) === Number(value.id)) {
+        if (htmlEls.length - finder > 1) {
+          console.log('click next row');
+          const evt = new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            view: window
+          });
+          htmlEls[finder + 1].dispatchEvent(evt);
+          this.loadFileIndicator = false;
+          console.log('expand row:' + this.getExpandedRow());
+          return;
+        }
+      }
+    });
     document.location.href = '#addContactBtn';
   }
 

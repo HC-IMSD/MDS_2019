@@ -1,5 +1,4 @@
 <div>
-  <div>
     <table class="table dataTable table-bordered table-hover table-condensed table-striped">
       <thead>
       <tr>
@@ -7,30 +6,31 @@
         <th scope="col" *ngFor="let heading of columnDefinitions">{{heading.label}}</th>
       </tr>
       </thead>
-      <tbody *ngFor="let record of dataItems; index as i;">
-      <tr  id="tr-expand-row-{{i}}" class="clickableRow" role="button"
-          [ngClass]="{'selected':isExpanded(i)}"
-          [attr.aria-expanded]="getExpandedState(i)" i18n-title="@@expander.rowTitle" title="Expand Row {{i+1}}"
-          (click)="selectTableRow(i)">
-        <td width="1%"><span class="fa fa-lg fa-fw"
-                             [ngClass]="{'fa-caret-right':isCollapsed(i), 'fa-caret-down':isExpanded(i) }"></span>
-        </td>
-        <td *ngFor="let def of columnDefinitions" width="{{def.width}}%">
-           <!--<span ng-if="!def.binding2"> {{record[def.binding]}}</span>-->
+      <tbody >
+      <ng-container  *ngFor="let record of dataItems; index as i;">
+        <tr  id="tr-expand-row-{{i}}" class="clickableRow" role="button"
+             [ngClass]="{'selected':isExpanded(i)}"
+             [attr.aria-expanded]="getExpandedState(i)" i18n-title="@@expander.rowTitle" title="Expand Row {{i+1}}"
+             (click)="selectTableRow(i)">
+          <td width="1%"><span class="fa fa-lg fa-fw"
+                               [ngClass]="{'fa-caret-right':isCollapsed(i), 'fa-caret-down':isExpanded(i) }"></span>
+          </td>
+          <td *ngFor="let def of columnDefinitions" width="{{def.width}}%">
+            <!--<span ng-if="!def.binding2"> {{record[def.binding]}}</span>-->
             <!--<span ng-if="def.binding2">{{record[def.binding][def.binding2]}}</span>-->
-          <span>{{record[def.binding]}}</span>
-          <!-- <span ng-if="!def.isHtml"> {{  record[def.binding]|translate}}</span>-->
-          <!--  <span ng-if="def.isHtml" ng-bind-html="record[def.binding]"></span>-->
-        </td>
-      </tr>
-      <tr class="table-override " >
-        <td [attr.colspan]="numberColSpan" *ngIf="isExpanded(i)"  >
-          <ng-content></ng-content>
-        </td>
-      </tr>
+            <span>{{record[def.binding]}}</span>
+            <!-- <span ng-if="!def.isHtml"> {{  record[def.binding]|translate}}</span>-->
+            <!--  <span ng-if="def.isHtml" ng-bind-html="record[def.binding]"></span>-->
+          </td>
+        </tr>
+        <tr class="table-override" *ngIf="isExpanded(i)"  >
+          <td [attr.colspan]="numberColSpan" >
+            <ng-content></ng-content>
+          </td>
+        </tr>
+      </ng-container>
       </tbody>
     </table>
 <!--  <pre>{{dataItems |json}}</pre>-->
-  </div>
 </div>
 

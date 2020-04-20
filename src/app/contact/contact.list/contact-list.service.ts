@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {ElementRef, Injectable, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CompanyContactRecordService} from '../company-contact-record/company-contact-record.service';
 import {IMasterDetails} from '../../master-details';
@@ -8,7 +8,6 @@ import {ListService} from '../../list-service';
 
 @Injectable()
 export class ContactListService extends ListService implements IMasterDetails {
-
   /***
    *  The data list of contact records
    * @type {{id: number; contact: string; city: string; country: {id: string; text: string}}[]}
@@ -90,7 +89,7 @@ export class ContactListService extends ListService implements IMasterDetails {
       if (!modelRecord) {
         modelRecord = this.getContactModel();
       }
-      let updatedModel = this.contactFormToData(record, modelRecord);
+      const updatedModel = this.contactFormToData(record, modelRecord);
     }
   }
 
@@ -98,7 +97,7 @@ export class ContactListService extends ListService implements IMasterDetails {
     let modelList = this.getModelRecordList();
 
     for (let i = 0; i < modelList.length; i++) {
-      if (Number(modelList[i].id) === id) {
+      if (Number(modelList[i].id) === Number(id)) {
         return modelList[i];
       }
     }
@@ -108,7 +107,7 @@ export class ContactListService extends ListService implements IMasterDetails {
   deleteModelRecord(id): boolean {
     let modelList = this.getModelRecordList();
     for (let i = 0; i < modelList.length; i++) {
-      if (Number(modelList[i].id) === id) {
+      if (Number(modelList[i].id) === Number(id)) {
         this.contactList.splice(i, 1);
         if (id === this.getCurrentIndex()) {
           this.setIndex(id - 1);
