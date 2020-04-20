@@ -222,6 +222,14 @@ export class TransactionDetailsService {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
     return [descArray[this.getDescMap().indexOf('i5')], descArray[this.getDescMap().indexOf('i20')], descArray[this.getDescMap().indexOf('i25')], descArray[this.getDescMap().indexOf('i26')]];
   }
+  public static getCOVID19Descriptions(lang) {
+    const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
+    return [descArray[this.getDescMap().indexOf('i27')]];
+  }
+  public static getCOVID19AMDDescriptions(lang) {
+    const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
+    return [descArray[this.getDescMap().indexOf('i28')]];
+  }
 
   /**
    * Gets an data array
@@ -265,60 +273,70 @@ export class TransactionDetailsService {
 
   public static getRawActivityTypeList() {
     return [
-      {
+      { // 0
         id: 'B02-20160301-033',
         en: 'Minor Change',
         fr: 'Minor Change'
       },
-      {
+      { // 1
         id: 'B02-20160301-039',
         en: 'Licence',
         fr: 'Licence'
       },
-      {
+      { // 2
         id: 'B02-20160301-040',
         en: 'Licence Amendment',
         fr: 'Licence Amendment'
       },
-      {
+      { // 3
         id: 'B02-20160301-081',
         en: 'S.25/36/39/40/41',
         fr: 'S.25/36/39/40/41'
       },
-      {
+      { // 4
         id: 'B02-20190627-02',
         en: 'PA-PV',
         fr: 'PA-PV'
       },
-      {
+      { // 5
         id: 'B02-20160301-079',
         en: 'PSUR-PV',
         fr: 'PSUR-PV'
       },
-      {
+      { // 6
         id: 'B02-20190627-04',
         en: 'RC-PV',
         fr: 'RC-PV'
       },
-      {
+      { // 7
         id: 'B02-20190627-03',
         en: 'PSA-PV',
         fr: 'PSA-PV'
       },
-      {
+      { // 8
         id: 'B02-20190627-05',
         en: 'REG-PV',
         fr: 'REG-PV'
       },
-      {
+      { // 9
         id: 'B02-20160301-073',
         en: 'Private Label',
         fr: 'Private Label'
       },
-      {
+      { // 10
         id: 'B02-20160301-074',
         en: 'Private Label Amendment',
         fr: 'Private Label Amendment'
+      },
+      { // 11
+        id: 'B02-20200417-01',
+        en: 'COVID-19 Interim Order Application',
+        fr: 'Demande d&#39;ordonnance provisoire COVID-19'
+      },
+      { // 12
+        id: 'B02-20200417-02',
+        en: 'COVID-19 Interim Order Ap - Amendment',
+        fr: 'Demande d&#39;ordonnance provisoire COVID-19 - Modification'
       }
     ];
   }
@@ -329,14 +347,14 @@ export class TransactionDetailsService {
 
   public static getActivityTypeMDBList(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityTypeList(), lang);
-    return [descArray[this.getDescMap().indexOf('i0')], descArray[this.getDescMap().indexOf('i1')], descArray[this.getDescMap().indexOf('i2')],
-      descArray[this.getDescMap().indexOf('i9')], descArray[this.getDescMap().indexOf('i10')], descArray[this.getDescMap().indexOf('i3')]];
+    return [descArray[11], descArray[12], descArray[0], descArray[1], descArray[2],
+      descArray[9], descArray[10], descArray[3]];
   }
 
   public static getActivityTypePVList(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityTypeList(), lang);
-    return [descArray[this.getDescMap().indexOf('i4')], descArray[this.getDescMap().indexOf('i5')], descArray[this.getDescMap().indexOf('i6')],
-      descArray[this.getDescMap().indexOf('i7')], descArray[this.getDescMap().indexOf('i8')]];
+    return [descArray[11], descArray[12], descArray[4], descArray[5], descArray[6],
+      descArray[7], descArray[8]];
   }
 
   public static getTransDescList(lang) {
@@ -479,11 +497,21 @@ export class TransactionDetailsService {
         id: 'WR', //8
         en: 'Withdrawal Request',
         fr: 'Withdrawal Request'
+      },
+      {
+        id: 'COVID-19',
+        en: 'COVID-19 Interim Order Application',
+        fr: 'Demande d\'ordonnance provisoire COVID-19'
+      },
+      {
+        id: 'COVID-19-AMD',
+        en: 'COVID-19 Interim Order Ap - Amendment',
+        fr: 'Demande d\'ordonnance provisoire COVID-19 - Modification'
       }
     ];
   }
   public static getDescMap() {
-    return ['i0', 'i1', 'i2', 'i3', 'i4', 'i5', 'i6', 'i7', 'i8', 'i9', 'i10', 'i11', 'i12', 'i13', 'i14', 'i15', 'i16', 'i17', 'i18', 'i19', 'i20', 'i21', 'i22', 'i23', 'i24', 'i25', 'i26'];
+    return ['i0', 'i1', 'i2', 'i3', 'i4', 'i5', 'i6', 'i7', 'i8', 'i9', 'i10', 'i11', 'i12', 'i13', 'i14', 'i15', 'i16', 'i17', 'i18', 'i19', 'i20', 'i21', 'i22', 'i23', 'i24', 'i25', 'i26', 'i27', 'i28'];
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, transactionModel) {
@@ -772,7 +800,7 @@ export class TransactionDetailsService {
   }
 
   private static _setConcatDetails(transactionModel) {
-    let rDate = '';
+    const rDate = '';
     let concatText = '';
     // const dTypeList = TransactionDetailsService.getRawTransDescList();
     if (transactionModel.description_type) {
