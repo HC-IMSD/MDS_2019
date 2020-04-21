@@ -42,9 +42,8 @@ export class ExpanderComponent implements OnChanges {
    */
   @Input() expandOnAdd:boolean=false;
   @Input() deleteRecord: number;
-  @Input() collapseAll: number;
-  @Input() loadFileIndicator: false;
-  @Input() expandAll: false;
+  @Input() collapseAll:number;
+  @Input() loadFileIndicator: boolean;
 
   @Output() expandedRow = new EventEmitter();
 
@@ -138,7 +137,7 @@ export class ExpanderComponent implements OnChanges {
    * @returns {boolean}
    */
   public getExpandedState(index: number) {
-    return <boolean>(this._expanderTable)[index] || this.expandAll;
+    return <boolean>(this._expanderTable)[index];
   }
 
   /**
@@ -147,12 +146,9 @@ export class ExpanderComponent implements OnChanges {
    * @returns {boolean}
    */
   public isExpanded(index: number) {
-    if (this.tableRowIndexCurrExpanded < 0) {
-      return false;
-    }
-    // console.log('current index:' + this.tableRowIndexCurrExpanded + '  index:' + index);
-    return this.tableRowIndexCurrExpanded === index || this.expandAll;
-  }
+    if(this.tableRowIndexCurrExpanded<0) return false;
+    return this.tableRowIndexCurrExpanded === index;
+  };
 
   /**
    *  Checks if a given zero based row denoted by index is collapsed
@@ -189,12 +185,8 @@ export class ExpanderComponent implements OnChanges {
 
   public selectTableRowNoCheck(index: number) {
     if (this._expanderTable.length > index) {
-      let temp = false;
-      if (this._expanderTable[index]) {
-        temp = this._expanderTable[index] && this.tableRowIndexCurrExpanded === index;
-      }
+      let temp = this._expanderTable[index];
       this.collapseTableRows();
-      // console.log('index:' + index + '  temp: ' + temp);
       this._expanderTable[index] = !temp;
       if (this._expanderTable[index]) {
         this.tableRowIndexCurrExpanded = index;

@@ -3,8 +3,8 @@
                  <!--[errorList]="errorList" headingPreamble="heading.contactInfo"-->
                  <!--[headingLevel]="headingLevel" label="Company Representative Record(s)" compId="contactList"></error-summary>-->
   <div formArrayName="contacts" id="contactListTable">
-    <expander-component [group]="dataModel" [disableExpand]="newRecordIndicator"
-                        [isValid]="validRec" [addRecord]="addRecordMsg"
+    <expander-component [group]="dataModel" [disableExpand]="!isInternal && newRecordIndicator"
+                        [isValid]="isInternal || validRec" [addRecord]="addRecordMsg"
                         [columnDefinitions]="columnDefinitions"
                         [loadFileIndicator]="loadFileIndicator"
                         [deleteRecord]="deleteRecordMsg">

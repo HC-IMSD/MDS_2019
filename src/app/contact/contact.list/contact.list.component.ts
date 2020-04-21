@@ -11,7 +11,6 @@ import {ContactListService} from './contact-list.service';
 import {ListOperations} from '../../list-operations';
 import {TranslateService} from '@ngx-translate/core';
 import {GlobalsService} from '../../globals/globals.service';
-import {ExpanderComponent} from "../../common/expander/expander.component";
 
 //  import {ExpanderComponent} from '../../common/expander/expander.component';
 @Component({
@@ -257,8 +256,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
       this.validRec = false;
       return false;
     } else if (this.companyContactChild && this.companyContactChild.contactFormRecord) {
-      this.validRec = true; //this.contactListForm.valid && !this.companyContactChild.contactFormRecord.dirty;
-      console.log(this.companyContactChild.contactFormRecord);
+      this.validRec = this.contactListForm.valid && !this.companyContactChild.contactFormRecord.dirty;
       return (this.contactListForm.valid && !this.companyContactChild.contactFormRecord.dirty);
     }
     this.validRec = this.contactListForm.valid;
@@ -312,28 +310,9 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
    */
   public saveContactRecord(record: FormGroup) {
     this.saveRecord(record, this.service);
-    this.addRecordMsg++;
-    const htmlEls = document.getElementsByClassName('clickableRow');
-    let finder = -1;
     this.dataModel = this.service.getModelRecordList();
-    this.dataModel.forEach(value => {
-      finder++;
-      console.log('finder:' + finder);
-      if (Number(record.value.id) === Number(value.id)) {
-        if (htmlEls.length - finder > 1) {
-          console.log('click next row');
-          const evt = new MouseEvent('click', {
-            bubbles: true,
-            cancelable: true,
-            view: window
-          });
-          htmlEls[finder + 1].dispatchEvent(evt);
-          this.loadFileIndicator = false;
-          console.log('expand row:' + this.getExpandedRow());
-          return;
-        }
-      }
-    });
+    this.addRecordMsg++;
+    this.validRec = true;
     document.location.href = '#addContactBtn';
   }
 
@@ -357,6 +336,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
    */
   updateErrorList(errs) {
     this.errorList = errs;
+    // this.errorList = (errs && errs.length > 0) ? this.errorList.concat(errs) : [];
     for (let err of this.errorList) {
       err.index = this.getExpandedRow();
       if (err.type === GlobalsService.errorSummClassName) {
@@ -373,7 +353,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   private _emitErrors(): void {
     let emitErrors = [];
     // adding the child errors
-    if (this.errorList) {
+    if (this.errorList) { //  && !this.isInternal
       // emitErrors = this.errorList;
       this.errorList.forEach((error: any) => {
         emitErrors.push(error);
