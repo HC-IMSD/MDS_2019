@@ -59,7 +59,7 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
     this.service = new DeviceListService();
     this.dataModel = this.service.getModelRecordList();
     this.translate.get('error.msg.required').subscribe(res => {
-      console.log(res);
+      // console.log(res);
     });
     this.deviceListForm = this._fb.group({
       devices: this._fb.array([])
@@ -94,7 +94,7 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
     if (this.errorSummaryChild) {
       this.errorSummaryChild.index = this.getExpandedRow();
     }
-    console.log(this.errorSummaryChild);
+    // console.log(this.errorSummaryChild);
     this._emitErrors();
   }
 
@@ -182,14 +182,14 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
     // 1. reset modification flag and get the list of reactive form Records
     // this.recModified = false;
     let deviceFormList = <FormArray>this.deviceListForm.controls['devices'];
-    console.log(deviceFormList);
+    // console.log(deviceFormList);
     // 2. Get a blank Form Model for the new record
     let formDevice = DeviceRecordService.getReactiveModel(this._fb);
     // 3. set record id
     this.service.setRecordId(formDevice, this.service.getNextIndex());
     // 4. Add the form record using the super class. New form is addded at the end
     this.addRecord(formDevice, deviceFormList);
-    console.log(deviceFormList);
+    // console.log(deviceFormList);
     // 5. Set the new form to the new device form reference.
     this.newDeviceForm = <FormGroup> deviceFormList.controls[deviceFormList.length - 1];
     this.updateDeviceDetails++;
