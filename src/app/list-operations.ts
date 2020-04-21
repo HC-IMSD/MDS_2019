@@ -58,7 +58,7 @@ export abstract class ListOperations {
     //used to sync the expander with the details
     if (rowNum > -1 && this.prevRow !== rowNum) {
       this.prevRow = rowNum;
-      console.log('Prev control does not equal current row');
+      // console.log('Prev control does not equal current row');
       return <FormGroup> reactiveFormList.controls[rowNum];
     } else {
       //do nothing?
@@ -88,7 +88,7 @@ export abstract class ListOperations {
       this.showErrorSummary = true;
       return -1;
     }
-    console.log(record);
+    // console.log(record);
     let recordId = service.saveRecord(record);
     this.showErrorSummary = false;
     this.newRecordIndicator = false; //in case this was a new record
@@ -104,7 +104,7 @@ export abstract class ListOperations {
   public addRecord(formRecord: FormGroup, formList: FormArray) {
     this.collapseExpanderRows(); //if you don't do this view will not look right
     formList.push(formRecord);
-    console.log(formList);
+    // console.log(formList);
     this.newRecordIndicator = true;// TODO why does superclass variable not update
   }
 

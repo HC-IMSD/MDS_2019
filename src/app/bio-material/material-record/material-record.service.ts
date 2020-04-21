@@ -34,8 +34,8 @@ export class MaterialRecordService {
 
   public static mapFormModelToDataModel(formRecord: FormGroup,
                 materialRecordModel, countryList, speciesFamilyList, tissueTypeList, derivativeList) {
-    console.log(materialRecordModel);
-    console.log(formRecord);
+    // console.log(materialRecordModel);
+    // console.log(formRecord);
     materialRecordModel.id = formRecord.controls.id.value;
     MaterialDetailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls.materialDetails),
       materialRecordModel, countryList, speciesFamilyList, tissueTypeList, derivativeList);

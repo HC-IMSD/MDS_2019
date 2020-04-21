@@ -150,7 +150,7 @@ export class ExpanderComponent implements OnChanges {
     if (this.tableRowIndexCurrExpanded < 0) {
       return false;
     }
-    console.log('current index:' + this.tableRowIndexCurrExpanded + '  index:' + index);
+    // console.log('current index:' + this.tableRowIndexCurrExpanded + '  index:' + index);
     return this.tableRowIndexCurrExpanded === index || this.expandAll;
   }
 
@@ -194,7 +194,7 @@ export class ExpanderComponent implements OnChanges {
         temp = this._expanderTable[index] && this.tableRowIndexCurrExpanded === index;
       }
       this.collapseTableRows();
-      console.log('index:' + index + '  temp: ' + temp);
+      // console.log('index:' + index + '  temp: ' + temp);
       this._expanderTable[index] = !temp;
       if (this._expanderTable[index]) {
         this.tableRowIndexCurrExpanded = index;

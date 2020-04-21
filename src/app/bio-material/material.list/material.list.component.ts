@@ -77,7 +77,7 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
     this.service = new MaterialListService();
     this.dataModel = this.service.getModelRecordList();
     this.translate.get('error.msg.required').subscribe(res => {
-      console.log(res);
+      // console.log(res);
     });
     this.materialListForm = this._fb.group({
       materials: this._fb.array([])
@@ -121,7 +121,7 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
     if (this.errorSummaryChild) {
       this.errorSummaryChild.index = this.getExpandedRow();
     }
-    console.log(this.errorSummaryChild);
+    // console.log(this.errorSummaryChild);
     this._emitErrors();
   }
 
@@ -223,14 +223,14 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
     // console.log('adding an material');
     // 1. Get the list of reactive form Records
     let materialFormList = <FormArray>this.materialListForm.controls['materials'];
-    console.log(materialFormList);
+    // console.log(materialFormList);
     // 2. Get a blank Form Model for the new record
     let formMaterial = MaterialRecordService.getReactiveModel(this._fb);
     // 3. set record id
     this.service.setRecordId(formMaterial, this.service.getNextIndex());
     // 4. Add the form record using the super class. New form is addded at the end
     this.addRecord(formMaterial, materialFormList);
-    console.log(materialFormList);
+    // console.log(materialFormList);
     // 5. Set the new form to the new material form reference.
     this.newMaterialForm = <FormGroup> materialFormList.controls[materialFormList.length - 1];
     document.location.href = '#materialName';
