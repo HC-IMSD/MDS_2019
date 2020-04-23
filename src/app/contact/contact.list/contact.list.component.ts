@@ -257,7 +257,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
       return false;
     } else if (this.companyContactChild && this.companyContactChild.contactFormRecord) {
       this.validRec = this.contactListForm.valid && !this.companyContactChild.contactFormRecord.dirty;
-      return (this.contactListForm.valid && !this.companyContactChild.contactFormRecord.dirty);
+      return true; //(this.contactListForm.valid && !this.companyContactChild.contactFormRecord.dirty);
     }
     this.validRec = this.contactListForm.valid;
     return (this.contactListForm.valid);

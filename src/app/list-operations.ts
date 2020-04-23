@@ -92,7 +92,7 @@ export abstract class ListOperations {
     let recordId = service.saveRecord(record);
     this.showErrorSummary = false;
     this.newRecordIndicator = false; //in case this was a new record
-    this.collapseExpanderRows();
+    // this.collapseExpanderRows();
     return recordId;
   }
 

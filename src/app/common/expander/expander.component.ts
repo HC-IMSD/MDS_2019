@@ -25,7 +25,7 @@ export class ExpanderComponent implements OnChanges {
    * sets if the details form is valid. Controls collapses state
    * @type {boolean}
    */
-  @Input() isValid :boolean;
+  @Input() isValid: boolean;
 
   /**
    * The list of records to display in the expander component
@@ -40,15 +40,16 @@ export class ExpanderComponent implements OnChanges {
   /**
    * Expands a record when it has been added. Default is false
    */
-  @Input() expandOnAdd:boolean=false;
+  @Input() expandOnAdd = false;
   @Input() deleteRecord: number;
-  @Input() collapseAll:number;
+  @Input() collapseAll: number;
   @Input() loadFileIndicator: boolean;
 
   @Output() expandedRow = new EventEmitter();
 
-  private tableRowIndexCurrExpanded: number = -1;
-  private _expandAdd:boolean;
+  private tableRowIndexCurrExpanded = -1;
+  private tableRowIndexPreExpanded = -1;
+  private _expandAdd: boolean;
 
   /**
    * for each table row, stores the state i.e. collapsed or expanded
@@ -67,13 +68,13 @@ export class ExpanderComponent implements OnChanges {
    * The number of columns for this expander. Used to determine columnSpan
    * @type {number}
    */
-  private numberColSpan: number = 1;
+  private numberColSpan = 1;
   public dataItems = [];
-  private _expanderValid:boolean;
+  private _expanderValid: boolean;
 
   constructor() {
-    this._expanderValid=true;
-    this._expandAdd=false;
+    this._expanderValid = true;
+    this._expandAdd = false;
   }
 
   ngOnInit() {
@@ -97,6 +98,7 @@ export class ExpanderComponent implements OnChanges {
       if (!Array.isArray(this.dataItems)) {
         this.dataItems = [];
       } else if (this.dataItems.length > 0 && this.loadFileIndicator) {
+        this.tableRowIndexPreExpanded = this.tableRowIndexCurrExpanded;
         this.tableRowIndexCurrExpanded = 0;
       }
     }
@@ -109,6 +111,13 @@ export class ExpanderComponent implements OnChanges {
       if (this._expandAdd) {
         // expands the table on the additon of a new record
         this.selectTableRowNoCheck(this._expanderTable.length - 1);
+      } else if ( !this.isValid ) {
+        if ( this.tableRowIndexPreExpanded + 1 < this._expanderTable.length ) {
+          this.tableRowIndexCurrExpanded = this.tableRowIndexPreExpanded + 1;
+        } else {
+          this.tableRowIndexCurrExpanded = 0;
+        }
+        this.selectTableRowNoCheck( this.tableRowIndexCurrExpanded );
       }
     }
     if (changes['deleteRecord']) {
@@ -146,7 +155,8 @@ export class ExpanderComponent implements OnChanges {
    * @returns {boolean}
    */
   public isExpanded(index: number) {
-    if(this.tableRowIndexCurrExpanded<0) return false;
+    if (this.tableRowIndexCurrExpanded < 0) return false;
+    this.tableRowIndexPreExpanded = this.tableRowIndexCurrExpanded;
     return this.tableRowIndexCurrExpanded === index;
   };
 
@@ -185,9 +195,10 @@ export class ExpanderComponent implements OnChanges {
 
   public selectTableRowNoCheck(index: number) {
     if (this._expanderTable.length > index) {
-      let temp = this._expanderTable[index];
+      const temp = this._expanderTable[index];
       this.collapseTableRows();
       this._expanderTable[index] = !temp;
+      this.tableRowIndexPreExpanded = this.tableRowIndexCurrExpanded;
       if (this._expanderTable[index]) {
         this.tableRowIndexCurrExpanded = index;
       } else {
@@ -205,6 +216,7 @@ export class ExpanderComponent implements OnChanges {
     for ( let rec of this._expanderTable) {
       rec = false;
     }
+    this.tableRowIndexPreExpanded = this.tableRowIndexCurrExpanded;
     this.tableRowIndexCurrExpanded = -1;
   }
 
