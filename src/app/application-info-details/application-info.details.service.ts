@@ -615,16 +615,6 @@ export class ApplicationInfoDetailsService {
         id: 'B02-20190627-05',
         en: 'REG-PV',
         fr: 'REG-PV'
-      },
-      {
-        id: 'COVID-19',
-        en: 'COVID-19 Interim Order Application',
-        fr: 'Demande d\'ordonnance provisoire COVID-19'
-      },
-      {
-        id: 'COVID-19-AMD',
-        en: 'COVID-19 Interim Order Ap - Amendment',
-        fr: 'Demande d\'ordonnance provisoire COVID-19 - Modification'
       }
     ];
   }
@@ -712,12 +702,12 @@ export class ApplicationInfoDetailsService {
 
   public static getActivityTypeMDBList(lang) {
     const descArray = ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);
-    return [descArray[11], descArray[12], descArray[0], descArray[1], descArray[2], descArray[3], descArray[4], descArray[5]];
+    return [descArray[0], descArray[1], descArray[2], descArray[3], descArray[4], descArray[5]];
   }
 
   public static getActivityTypePVList(lang) {
     const descArray = ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);
-    return [descArray[11], descArray[12], descArray[6], descArray[7], descArray[8], descArray[9], descArray[10]];
+    return [descArray[6], descArray[7], descArray[8], descArray[9], descArray[10]];
   }
 
 }
