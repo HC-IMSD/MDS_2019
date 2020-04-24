@@ -1,14 +1,14 @@
 <div id="{{componentId}}" *ngIf="hiddenSummary">
   <section class="alert alert-danger" tabindex="-1" [ngSwitch]="hdingLevel">
     <h1 *ngSwitchCase="'h1'">
-      <span i18n>For</span><span> {{headingPreamble |translate}}</span>
+      <span i18n></span><span> {{headingPreamble |translate}}</span>
       <span i18n>{{'error.found.because'|translate}}</span>
       <span i18n>{{errorList.length}}</span>
       <span i18n *ngIf="errorList?.length>1">{{'error.found.plural'|translate}}</span>
       <span i18n *ngIf="errorList?.length<2">{{'error.found.singular'|translate}}</span>
     </h1>
     <h2 *ngSwitchCase="'h2'">
-      <span i18n>For</span><span> {{headingPreamble |translate}}</span>
+      <span i18n></span><span> {{headingPreamble |translate}}</span>
       <span i18n>{{'error.found.because'|translate}}</span>
       <span i18n>{{errorList.length}}</span>
       <span i18n *ngIf="errorList?.length>1">{{'error.found.plural'|translate}}</span>
