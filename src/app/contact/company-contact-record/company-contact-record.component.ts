@@ -213,6 +213,6 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    * Changes the local model back to the last saved version of the contact
    */
   public showErrorSummary(): boolean {
-    return (this.showErrSummary && this.errorList.length > 0);
+    return ((this.showErrSummary || this.isInternal) && this.errorList.length > 0);
   }
 }

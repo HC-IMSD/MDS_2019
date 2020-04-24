@@ -57,7 +57,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   ngAfterViewInit() {
     this.msgList.changes.subscribe(errorObjs => {
-      let temp = [];
+      // let temp = [];
       this._updateErrorList(errorObjs);
 
       /* errorObjs.forEach(
@@ -72,7 +72,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   private _updateErrorList(errorObjs) {
-    let temp = [];
+    const temp = [];
     if (errorObjs) {
       errorObjs.forEach(
         error => {

@@ -337,7 +337,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   updateErrorList(errs) {
     this.errorList = errs;
     // this.errorList = (errs && errs.length > 0) ? this.errorList.concat(errs) : [];
-    for (let err of this.errorList) {
+    for (const err of this.errorList) {
       err.index = this.getExpandedRow();
       if (err.type === GlobalsService.errorSummClassName) {
         err.expander = this.expander; // associate the expander
