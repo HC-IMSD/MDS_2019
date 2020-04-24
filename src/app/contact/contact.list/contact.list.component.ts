@@ -302,6 +302,8 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     } else {
       document.location.href = '#status';
     }
+    this.showErrors = false;
+
   }
 
   /**
@@ -312,7 +314,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     this.saveRecord(record, this.service);
     this.dataModel = this.service.getModelRecordList();
     this.addRecordMsg++;
-    this.validRec = true;
+    this.showErrors = true;
     document.location.href = '#addContactBtn';
   }
 
@@ -422,7 +424,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
    * Changes the local model back to the last saved version of the requester
    */
   public showErrorsSummary(): boolean {
-    return (this.isInternal && this.showErrors && this.errorList.length > 0);
+    return (this.showErrors && this.errorList.length > 0);
   }
 
 }

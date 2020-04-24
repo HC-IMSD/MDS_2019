@@ -191,8 +191,8 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     // console.log(this.errorList);
     if (this.contactRecordModel.valid) {
       this.saveRecord.emit((this.contactRecordModel));
-      this.showErrSummary = false;
-      this.showErrors = false;
+      // this.showErrSummary = false;
+      // this.showErrors = false;
       this.contactRecordModel.markAsPristine();
     } else {
       // id is used for an error to ensure the record gets saved
@@ -213,6 +213,6 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    * Changes the local model back to the last saved version of the contact
    */
   public showErrorSummary(): boolean {
-    return ((this.showErrSummary || this.isInternal) && this.errorList.length > 0);
+    return (this.showErrSummary && this.errorList.length > 0);
   }
 }
