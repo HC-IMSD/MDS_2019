@@ -269,27 +269,20 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
    * @param id
    */
   public deleteDevice(id): void {
-    let deviceList = this.getFormDeviceList();
+    const deviceList = this.getFormDeviceList();
     this.deleteRecord(id, deviceList, this.service);
     this.validRec = true;
-    // this.recModified = true;
     this.deleteRecordMsg++;
+    this.deviceListForm.reset('pristine');
+    this.deviceListForm.reset('dirty');
   }
 
   /**
    * check if its record exists
    */
   public isDirty(): boolean {
-    // if (this.recModified) {
-    //   return false;
-    // } else {
       const isd = !(this.deviceListForm.valid || !this.deviceListForm.errors);
-      // if (this.deviceChild && this.deviceChild.deviceFormRecord) {
-      //   return (isd || this.deviceChild.deviceFormRecord.dirty || this.deviceListForm.dirty);
-      // } else {
-        return (isd || this.deviceListForm.dirty || this.newRecordIndicator);
-      // }
-    // }
+      return (isd || this.deviceListForm.dirty || this.newRecordIndicator);
   }
 
 
