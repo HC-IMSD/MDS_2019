@@ -273,8 +273,9 @@ export class DeviceListComponent extends ListOperations implements OnInit, OnCha
     this.deleteRecord(id, deviceList, this.service);
     this.validRec = true;
     this.deleteRecordMsg++;
-    this.deviceListForm.reset('pristine');
-    this.deviceListForm.reset('dirty');
+    this.deviceChild.deviceFormRecord.reset('dirty');
+    this._emitErrors();
+    document.location.href = '#addDevice';
   }
 
   /**

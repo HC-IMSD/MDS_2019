@@ -313,6 +313,9 @@ export class MaterialListComponent extends ListOperations implements OnInit, OnC
     this.deleteRecord(id, materialList, this.service);
     this.validRec = true;
     this.deleteRecordMsg++;
+    this.addRecordMsg++;
+    this.materialChild.materialFormRecord.reset('dirty');
+    this._emitErrors();
     document.location.href = "#addMaterial";
   }
 
