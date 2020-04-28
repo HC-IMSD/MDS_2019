@@ -1,9 +1,12 @@
 <div class="container-fluid" [formGroup]="deviceRecordModel" *ngIf="deviceRecordModel">
   <h4>{{'heading.interdependent.device'| translate}}&nbsp;{{deviceRecordModel.controls.id.value + 1}}</h4>
-  <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
-                 [errorList]="errorList" headingPreamble="heading.device.record"
-                 [headingLevel]="headingLevel" label="Device Record" compId="deviceRec">
-  </error-summary>
+  <div id="deviceErrorSummary">
+    <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
+                   [errorList]="errorList" headingPreamble="heading.device.record"
+                   [headingLevel]="headingLevel" label="Device Record" compId="deviceRec">
+    </error-summary>
+  </div>
+
   <device-details [showErrors]="showErrors"
                    [detailsChanged]="updateChild" [group]="deviceRecordModel.controls.deviceDetails"
                    (errorList)="updateErrorList($event)">

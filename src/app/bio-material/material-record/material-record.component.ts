@@ -205,6 +205,7 @@ export class MaterialRecordComponent implements OnInit, AfterViewInit {
         this.materialRecordModel.controls.id.setValue(temp);
         this.showErrSummary = true;
         this.showErrors = true;
+        document.location.href = '#materialErrSummary';
       }
     }
   }

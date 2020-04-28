@@ -25,7 +25,7 @@ export class ExpanderComponent implements OnChanges {
    * sets if the details form is valid. Controls collapses state
    * @type {boolean}
    */
-  @Input() isValid: boolean;
+  @Input() isValid :boolean;
 
   /**
    * The list of records to display in the expander component
@@ -220,4 +220,14 @@ export class ExpanderComponent implements OnChanges {
     this.tableRowIndexCurrExpanded = -1;
   }
 
+  /**
+   * Get the row title dynamic according to the expand/collapse status
+   */
+ public getRowTitle(i) {
+   if (this.isCollapsed(i)) {
+     return 'Expand Row ' + (i + 1);
+   } else if (this.isExpanded(i)) {
+     return 'Collapse Row ' + (i + 1);
+   }
+  }
 }
