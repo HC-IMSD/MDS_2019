@@ -196,6 +196,8 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
         this.deviceRecordModel.controls.id.setValue(temp);
         this.showErrSummary = true;
         this.showErrors = true;
+
+        document.location.href = '#deviceErrorSummary';
       }
     }
   }
