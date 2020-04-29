@@ -24,7 +24,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   @Input() public contactModel = [];
   @Input() public saveContact;
   @Input() public showErrors: boolean;
-  @Input() public loadFileIndicator: boolean;
+  @Input() public loadFileIndicator;
   @Input() public isInternal: boolean;
   @Input() lang;
   @Input() helpTextSequences;
@@ -86,15 +86,6 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
 
   ngOnInit() {
     // console.log('this.isInterannnnnl: ' + this.isInternal);
-    // if (this.isInternal) {
-    //   this.columnDefinitions.concat(
-    //     {
-    //       label: 'Status',
-    //       binding: 'contactStatus',
-    //       width: '25'
-    //     }
-    //   );
-    // }
   }
 
   ngAfterViewInit() {
@@ -106,50 +97,6 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
 
     //   this.cd.detectChanges();
   }
-
-
-  /***
-   * Loads the model data for the contacts into the form Model Used for Testing purposse
-   * @private
-   */
-  /*private _loadContactListData() {
-    const modelData3 = [
-
-      {
-        'id': 0,
-        'company': 'asdaa',
-        'contact': 'adasd',
-        'provText': '',
-        'provList': '',
-        'city': 'asdas',
-        'country': {
-          '__text': 'AIA',
-          '_label_en': 'Anguilla',
-          '_label_fr': 'Anguilla'
-        },
-        'postal': ''
-      }
-    ];
-    this.dataModel = modelData3;
-    this.service.setModelRecordList(modelData3);
-    // console.log(this.countryList);
-    this.contactListForm = this._fb.group({
-      contacts: this._fb.array([])
-    });
-    this.service.createFormDataList(modelData3, this.countryList, this._fb, this.contactListForm.controls['contacts']);
-    this.validRec = true;
-    // this.companyContactChild.contactFormRecord. markAsPristine();
-    /!*  const contactDataList = this.service.getModelRecordList();
-      const mycontrol = this.getFormContactList();
-      const mycontrol = this.getFormContactList();
-      // TODO temp setting some initial data
-      for (let i = 0; i < contactDataList.length; i++) {
-        const formContactRecord = this.service.getContactFormRecord(this._fb);
-        this.service.contactDataToForm(contactDataList[i], formContactRecord);
-        mycontrol.push(formContactRecord);
-      }*!/
-    console.log(this.contactListForm);
-  }*/
 
   /**
    * Updates the error list to include the error summaries. Messages upwards
@@ -200,40 +147,10 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
    * @param {SimpleChanges} changes
    */
   ngOnChanges(changes: SimpleChanges) {
-    // if (changes['isInternal'] && changes['isInternal'].currentValue) {
-    //   this.columnDefinitions = [
-    //     {
-    //       label: 'Contact ID',
-    //       binding: 'contact_id',
-    //       width: '10'
-    //     },
-    //     {
-    //       label: 'First Name',
-    //       binding: 'first_name',
-    //       width: '20'
-    //     },
-    //     {
-    //       label: 'Last Name',
-    //       binding: 'last_name',
-    //       width: '20'
-    //     },
-    //     {
-    //       label: 'Job Title',
-    //       binding: 'job_title',
-    //       width: '20'
-    //     },
-    //     {
-    //       label: 'Status',
-    //       binding: 'status',
-    //       width: '15'
-    //     },
-    //     {
-    //       label: 'HC Status',
-    //       binding: 'hc_status',
-    //       width: '15'
-    //     }
-    //   ];
-    // }
+    if (changes['loadFileIndicator'] && !changes['loadFileIndicator'].firstChange) {
+      this.newRecordIndicator = false;
+      this._deleteContactInternal(0);
+    }
     if (changes['saveContact']) {
       this.saveContactRecord(changes['saveContact'].currentValue);
     }
@@ -246,6 +163,12 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
       this.validRec = true;
     }
 
+    if (changes['isInternal']) {
+      if (!this.isInternal && (!this.contactModel || this.contactModel.length === 0)) {
+        this.addContactInit();
+        this.showErrors = false;
+      }
+    }
   }
 
   public isValid(override: boolean = false): boolean {
@@ -276,6 +199,27 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   private _getFormContact(id: number): FormGroup {
     let contactList = this.getFormContactList();
     return this.getRecord(id, contactList);
+  }
+
+  /**
+   * Adds an contact UI record to the contact List
+   */
+  public addContactInit(): void {
+
+    // add contact to the list
+    // console.log('adding an contact');
+    // 1. Get the list of reactive form Records
+    let contactFormList = <FormArray>this.contactListForm.controls['contacts'];
+    // console.log(contactFormList);
+    // 2. Get a blank Form Model for the new record
+    let formContact = CompanyContactRecordService.getReactiveModel(this._fb, this.isInternal);
+    // 3. set record id
+    this.service.setRecordId(formContact, this.service.getNextIndex());
+    // 4. Add the form record using the super class. New form is addded at the end
+    this.addRecord(formContact, contactFormList);
+    // console.log(contactFormList);
+    // 5. Set the new form to the new contact form reference.
+    this.newContactForm = <FormGroup> contactFormList.controls[contactFormList.length - 1];
   }
 
   /**
@@ -315,7 +259,9 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     this.dataModel = this.service.getModelRecordList();
     this.addRecordMsg++;
     this.showErrors = true;
-    document.location.href = '#addContactBtn';
+    if (!this.isInternal) {
+      document.location.href = '#addContactBtn';
+    }
   }
 
   /**
@@ -404,11 +350,19 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
    * Deletes a record from the UI list and the model list, if it exists
    * @param id
    */
-  public deleteContact(id): void {
+  private _deleteContactInternal(id): void {
     let contactList = this.getFormContactList();
     this.deleteRecord(id, contactList, this.service);
     this.validRec = true;
     this.deleteRecordMsg++;
+  }
+
+  /**
+   * Deletes a record from the UI list and the model list, if it exists
+   * @param id
+   */
+  public deleteContact(id): void {
+    this._deleteContactInternal(id);
     document.location.href = '#addContactBtn';
   }
 

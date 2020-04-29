@@ -37,8 +37,8 @@ export class CompanyBaseComponent implements OnInit {
   public companyForm: FormGroup;
   public errorList = [];
   public rootTagText = 'DEVICE_COMPANY_ENROL';
-  public isInternalSite = false;
-  public loadFileIndicator = false;
+  public isInternalSite = true;
+  public loadFileIndicator = 0;
   public countryList = [];
   public provinceList = [];
   public stateList = [];
@@ -76,9 +76,10 @@ export class CompanyBaseComponent implements OnInit {
     this.provinceList = await (this.dataLoader.getProvinces(this.translate.currentLang));
     this.stateList = await (this.dataLoader.getStates(this.translate.currentLang));
     // console.log('isInternal in ngOnInit: ' + this.isInternal);
-    if (this.isInternal === GlobalsService.YES) {
-      this.isInternalSite = true;
+    if (this.isInternal === GlobalsService.NO) {
+      this.isInternalSite = false;
       // console.log('isInternalSite in ngOnInit: ' + this.isInternalSite);
+    } else {
       this.saveXmlLabel = 'approve.final';
     }
   }
@@ -207,7 +208,7 @@ export class CompanyBaseComponent implements OnInit {
   }
 
   public processFile(fileData: ConvertResults) {
-    this.loadFileIndicator = true;
+    this.loadFileIndicator++;
      // console.log('processing file.....');
      // console.log(fileData);
     this.genInfoModel = fileData.data.DEVICE_COMPANY_ENROL.general_information;

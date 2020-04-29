@@ -15,7 +15,7 @@ import { Title } from '@angular/platform-browser';
 export class AppComponent {
 
   public translateInstance: TranslateService;
-  @Input() isInternal: boolean;
+  @Input() isInternal;
   public language = 'en';
 
 // we will use form builder to simplify our syntax

@@ -23,8 +23,8 @@
           <!--  <span ng-if="def.isHtml" ng-bind-html="record[def.binding]"></span>-->
         </td>
       </tr>
-      <tr class="table-override " *ngIf="isExpanded(i)"  >
-        <td [attr.colspan]="numberColSpan"  >
+      <tr class="table-override" *ngIf="isExpanded(i)" >
+        <td [attr.colspan]="numberColSpan" >
           <ng-content></ng-content>
         </td>
       </tr>
@@ -32,5 +32,5 @@
       </tbody>
     </table>
 <!--  <pre>{{dataItems |json}}</pre>-->
- </div>
+</div>
 

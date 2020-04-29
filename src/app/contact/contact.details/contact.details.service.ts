@@ -13,13 +13,13 @@ export class ContactDetailsService {
   // todo: move statice data to data loader serivce
   public static statusListExternal: Array<any> = [
     {id: 'NEW', label_en: 'New', label_fr: 'fr_New'},
-    {id: 'AMEND', label_en: 'Amend', label_fr: 'fr_Amend'},
+    {id: 'REVISE', label_en: 'Revise', label_fr: 'fr_Revise'},
     {id: 'DELETE', label_en: 'Delete', label_fr: 'fr_Delete'}
   ];
   public static statusListAdd: Array<any> = [
     {id: 'ACTIVE', label_en: 'Active', label_fr: 'fr_Active'}
   ];
-  public static statusListInternal: Array<any> = ContactDetailsService.statusListAdd.concat(ContactDetailsService.statusListExternal);
+  public static statusListInternal: Array<any> = ContactDetailsService.statusListExternal;
 
   // public static salutationList: Array<any> = [
   //   {id: 'DR', label_en: 'Dr.', label_fr: 'fr_Dr.'},
