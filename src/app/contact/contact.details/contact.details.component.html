@@ -95,8 +95,14 @@
         </label>
       </div>
       <div class="form-group col-sm-4">
-        <label for="jobTitle" class="full-width">
+        <label for="jobTitle" class="required full-width" aria-required="true">
           <span class="field-name">{{'job.title'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="contactFormLocalModel.controls.jobTitle.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="contactFormLocalModel.controls.jobTitle"
+                            controlId="jobTitle" label="job.title" parentId="contactDetails"
+                            parentLabel="REP Contact"></control-messages>
           <input name="jobTitle" id="jobTitle" class="form-control full-width" maxlength="40" [formControl]="contactFormLocalModel.controls.jobTitle"/>
         </label>
       </div>

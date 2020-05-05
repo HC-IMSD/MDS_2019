@@ -28,6 +28,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Input() newRecord: boolean;
   @Input() showErrors: boolean;
   @Input() hasRecords: boolean;
+  @Input() isListVilad: boolean;
   @Input() lang;
   @Input() helpTextSequences;
   @Output() saveRecord = new EventEmitter();

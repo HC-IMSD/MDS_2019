@@ -61,7 +61,7 @@ export class ContactDetailsService {
       initials: '',
       lastName: [null, Validators.required],
       language: '',
-      jobTitle: '',
+      jobTitle: [null, Validators.required],
       faxNumber: ['', [Validators.minLength(10), ValidationService.faxNumberValidator]],
       phoneNumber: ['', [Validators.required, Validators.minLength(10), ValidationService.phoneNumberValidator]],
       phoneExtension: '',
@@ -93,7 +93,7 @@ export class ContactDetailsService {
         phone_number: '',
         phone_extension: '',
         email: '',
-        routing_id: ''
+        RoutingID: ''
       }
     );
   }
@@ -153,7 +153,7 @@ export class ContactDetailsService {
     contactModel.phone_number = formRecord.controls.phoneNumber.value;
     contactModel.phone_extension = formRecord.controls.phoneExtension.value;
     contactModel.email = formRecord.controls.email.value;
-    contactModel.routing_id = formRecord.controls.routingId.value;
+    contactModel.RoutingID = formRecord.controls.routingId.value;
     contactModel.hc_status = formRecord.controls.recordProcessed.value ? GlobalsService.YES : GlobalsService.NO;
   }
 
@@ -193,7 +193,7 @@ export class ContactDetailsService {
     formRecord.controls.phoneNumber.setValue(contactModel.phone_number);
     formRecord.controls.phoneExtension.setValue(contactModel.phone_extension);
     formRecord.controls.email.setValue(contactModel.email);
-    formRecord.controls.routingId.setValue(contactModel.routing_id);
+    formRecord.controls.routingId.setValue(contactModel.RoutingID);
     if (contactModel.hc_status) {
       const hcs = contactModel.hc_status === GlobalsService.YES ? true : false;
       formRecord.controls.recordProcessed.setValue(hcs);

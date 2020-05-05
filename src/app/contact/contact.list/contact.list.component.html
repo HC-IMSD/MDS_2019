@@ -13,6 +13,7 @@
         [showErrors]="showErrors" [lang]="lang"
         [newRecord]="newRecordIndicator"
         [hasRecords]="dataModel.length > 0"
+        [isListVilad]="validRec"
         [helpTextSequences]="helpTextSequences"
         (saveRecord)="saveContactRecord($event)"
         (errors)="updateErrorList($event)"

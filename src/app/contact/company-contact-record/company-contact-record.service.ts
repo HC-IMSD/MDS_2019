@@ -33,8 +33,8 @@ export class CompanyContactRecordService {
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, contactRecordModel) {
-    console.log(contactRecordModel);
-    console.log(formRecord);
+    // console.log(contactRecordModel);
+    // console.log(formRecord);
     contactRecordModel.id = formRecord.controls.id.value;
     // contactRecordModel.company = formRecord.controls.companyName.value;
     ContactDetailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls.contactDetails), contactRecordModel);
