@@ -207,7 +207,7 @@ export class TransactionDetailsService {
   }
   public static getPSAPVDescriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-    return [descArray[this.getDescMap().indexOf('i0')], descArray[this.getDescMap().indexOf('i13')]];
+    return [descArray[this.getDescMap().indexOf('i0')], descArray[this.getDescMap().indexOf('i11')]];
   }
   public static getREGPVDescriptions(lang) {
     const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
