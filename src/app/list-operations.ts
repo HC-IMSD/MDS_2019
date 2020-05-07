@@ -114,10 +114,10 @@ export abstract class ListOperations {
    * @param {FormArray} recordList
    * @param service
    */
-  public deleteRecord(id: number, recordList: FormArray, service:IMasterDetails) {
-    let serviceResult = service.deleteModelRecord(id);
+  public deleteRecord(id: number, recordList: FormArray, service: IMasterDetails) {
+    const serviceResult = service.deleteModelRecord(id);
     for (let i = 0; i < recordList.controls.length; i++) {
-      let temp = <FormGroup> recordList.controls[i];
+      const temp = <FormGroup> recordList.controls[i];
       if (temp.controls.id.value === id) {
         recordList.removeAt(i);
         if (id === service.getCurrentIndex()) {
@@ -126,7 +126,10 @@ export abstract class ListOperations {
         break;
       }
     }
-    this.collapseExpanderRows();
+    if (service.getCurrentIndex() >= recordList.controls.length) {
+      service.setIndex(service.getCurrentIndex() - 1);
+    }
+    // this.collapseExpanderRows();
     this.newRecordIndicator = false;
     this.prevRow = -1;
   }

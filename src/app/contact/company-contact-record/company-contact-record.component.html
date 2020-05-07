@@ -11,7 +11,7 @@
   <div class="row">
     <div class="btn-group-sm col-xs-12 text-left">
       <button class="btn btn-primary" (click)="saveContactRecord()" i18n>{{'save.record'|translate}}</button>&nbsp;
-      <button  *ngIf="isInternal" class="btn btn-danger" (click)="deleteContactRecord()" [disabled]="!isListVilad" i18n>{{'delete.record'|translate}}</button>&nbsp;
+      <button  *ngIf="isInternal" class="btn btn-danger" (click)="deleteContactRecord()"  i18n>{{'delete.record'|translate}}</button>&nbsp;
       <button class="btn btn-default" (click)="revertContactRecord()" i18n>{{'discard.changes'|translate}}</button>
     </div>
   </div>

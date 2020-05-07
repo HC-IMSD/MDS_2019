@@ -147,10 +147,10 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
    * @param {SimpleChanges} changes
    */
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['loadFileIndicator'] && !changes['loadFileIndicator'].firstChange) {
-      this.newRecordIndicator = false;
-      this._deleteContactInternal(0);
-    }
+    // if (changes['loadFileIndicator'] && !changes['loadFileIndicator'].firstChange) {
+    //   this.newRecordIndicator = false;
+    //   this._deleteContactInternal(0);
+    // }
     if (changes['saveContact']) {
       this.saveContactRecord(changes['saveContact'].currentValue);
     }
@@ -351,7 +351,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
    * @param id
    */
   private _deleteContactInternal(id): void {
-    let contactList = this.getFormContactList();
+    const contactList = this.getFormContactList();
     this.deleteRecord(id, contactList, this.service);
     this.validRec = true;
     this.deleteRecordMsg++;
@@ -363,6 +363,9 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
    */
   public deleteContact(id): void {
     this._deleteContactInternal(id);
+    // this.dataModel = this.service.getModelRecordList();
+    // this._emitErrors();
+    // this.contactListForm.reset('dirty');
     document.location.href = '#addContactBtn';
   }
 

@@ -25,7 +25,7 @@ export class ExpanderComponent implements OnChanges {
    * sets if the details form is valid. Controls collapses state
    * @type {boolean}
    */
-  @Input() isValid :boolean;
+  @Input() isValid: boolean;
 
   /**
    * The list of records to display in the expander component
@@ -122,6 +122,14 @@ export class ExpanderComponent implements OnChanges {
     }
     if (changes['deleteRecord']) {
       this.updateDataRows(this.itemsList);
+      if ( !this.isValid ) {
+        if (this.tableRowIndexPreExpanded + 1 < this._expanderTable.length) {
+          this.tableRowIndexCurrExpanded = this.tableRowIndexPreExpanded;
+        } else {
+          this.tableRowIndexCurrExpanded = 0;
+        }
+        this.selectTableRowNoCheck(this.tableRowIndexCurrExpanded);
+      }
     }
     if (changes['collapseAll']) {
       this.collapseTableRows();
