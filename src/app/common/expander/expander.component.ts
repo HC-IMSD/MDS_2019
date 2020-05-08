@@ -122,14 +122,6 @@ export class ExpanderComponent implements OnChanges {
     }
     if (changes['deleteRecord']) {
       this.updateDataRows(this.itemsList);
-      if ( !this.isValid ) {
-        if (this.tableRowIndexPreExpanded + 1 < this._expanderTable.length) {
-          this.tableRowIndexCurrExpanded = this.tableRowIndexPreExpanded;
-        } else {
-          this.tableRowIndexCurrExpanded = 0;
-        }
-        this.selectTableRowNoCheck(this.tableRowIndexCurrExpanded);
-      }
     }
     if (changes['collapseAll']) {
       this.collapseTableRows();

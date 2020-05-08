@@ -55,13 +55,13 @@ export abstract class ListOperations {
       return;
     }
     const rowNum = this.expander.getExpandedRow();
-    //used to sync the expander with the details
+    // used to sync the expander with the details
     if (rowNum > -1 && this.prevRow !== rowNum) {
       this.prevRow = rowNum;
       // console.log('Prev control does not equal current row');
       return <FormGroup> reactiveFormList.controls[rowNum];
     } else {
-      //do nothing?
+      // do nothing?
       return null;
     }
   }
@@ -91,7 +91,7 @@ export abstract class ListOperations {
     // console.log(record);
     let recordId = service.saveRecord(record);
     this.showErrorSummary = false;
-    this.newRecordIndicator = false; //in case this was a new record
+    this.newRecordIndicator = false; // in case this was a new record
     // this.collapseExpanderRows();
     return recordId;
   }
@@ -102,10 +102,10 @@ export abstract class ListOperations {
    * @param {FormArray} formList
    */
   public addRecord(formRecord: FormGroup, formList: FormArray) {
-    this.collapseExpanderRows(); //if you don't do this view will not look right
+    this.collapseExpanderRows(); // if you don't do this view will not look right
     formList.push(formRecord);
     // console.log(formList);
-    this.newRecordIndicator = true;// TODO why does superclass variable not update
+    this.newRecordIndicator = true; // TODO why does superclass variable not update
   }
 
   /**
@@ -126,10 +126,7 @@ export abstract class ListOperations {
         break;
       }
     }
-    if (service.getCurrentIndex() >= recordList.controls.length) {
-      service.setIndex(service.getCurrentIndex() - 1);
-    }
-    // this.collapseExpanderRows();
+    this.collapseExpanderRows();
     this.newRecordIndicator = false;
     this.prevRow = -1;
   }
@@ -150,7 +147,7 @@ export abstract class ListOperations {
     return null;
   }
 
-  public getExpandedRow():number{
+  public getExpandedRow(): number {
      return this.expander.getExpandedRow();
 
   }
