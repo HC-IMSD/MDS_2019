@@ -56,6 +56,7 @@ export class CompanyBaseComponent implements OnInit {
   public foo = '';
   public fileServices: FileConversionService;
   public saveXmlLabel = 'save.draft';
+  public mailToLabel = 'mailto.label';
   public xslName = 'REP_MDS_CO_2_0.xsl';
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private dataLoader: CompanyDataLoaderService,
@@ -148,6 +149,10 @@ export class CompanyBaseComponent implements OnInit {
 
   public isExternalAndFinal() {
     return (!this.isInternalSite && this.genInfoModel.status === GlobalsService.FINAL);
+  }
+
+  public isExternalAndNoError() {
+    return (this.isInternalSite || (this.errorList && this.errorList.length > 0) || !this.companyContacts.contactListForm.pristine);
   }
 
   public saveXmlFile() {
@@ -298,4 +303,17 @@ export class CompanyBaseComponent implements OnInit {
     $event.returnValue = true;
   }
 
+  public mailto() {
+    const emailSubject = 'Draft CO XML - ' + this.addressModel.company_name;
+    let emailAddress;
+    let body = 'NOTE: THE CO IS NOT AUTOMATICALLY ATTACHED. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
+    if (this.genInfoModel.are_licenses_transfered  === GlobalsService.YES) {
+      emailAddress = 'MD_licensing@email.com';
+    } else {
+      emailAddress = 'faxback@email.com';
+    }
+    // todo: add more body text
+
+    return 'mailto:' + emailAddress + '?subject=' + emailSubject + '&body=H' + body;
+  }
 }

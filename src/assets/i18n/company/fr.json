@@ -142,6 +142,7 @@
   "instruction.help": "fr_Instructions for completing sections on form",
   "return.instruction": "fr_Return to instruction",
   "include.page1": "fr_Please include the cover page of each impacted licence, a valid Medical Device Single Audit Program [MDSAP] Certificate that reflects the change in the manufacturer’s name or address, a completed F202 form, and a signed attestation form as applicable.",
+  "mailto.label": "fr_Submit to Health Canada",
   "help.load.file.01": "fr_A file should not be loaded if this is the first time enrolling the Company.",
   "help.load.file.02": "fr_When continuing with a working copy, the format of the file to load should be (.hcsc).",
   "help.load.file.03": "fr_When viewing/updating a draft or final XML file, the format of the file to load should be (.xml).",
@@ -162,5 +163,12 @@
   "help.primary.contact": "fr_The Primary REP contact is the person to be contacted by Health Canada if there are any issues or clarifications required for this template when it is submitted for finalization.",
   "help.is.3rd.party": "fr_Third party companies must obtain their Company Identifier and Contact Identifiers (by enrolling themselves using the REP Company template) prior to enrolling another company on their behalf.",
   "help.contact.name": "fr_This company representative full contact information should be listed in the company representative table above.",
-  "help.licence.num": "fr_List all impacted licences, separated by a hard return (can copy and paste)"
+  "help.licence.num": "fr_List all impacted licences, separated by a hard return (can copy and paste)",
+  "help.mailto.01": "fr_The draft CO XML must be sent via email.",
+  "help.mailto.02": "fr_By clicking this button, a templated email message should be auto-created using the your default email program. Before submitting, please attach your draft CO XML file.",
+  "help.mailto.03": "fr_If an email was not automatically created, you can create an email and include the following:",
+  "help.mailto.04": "fr_To: MD licensing",
+  "help.mailto.05": "fr_Subject: Draft CO XML",
+  "help.mailto.06": "fr_Body: The attached file is the draft CO XML",
+  "help.mailto.07": "fr_Attachment: The draft CO XML."
 }
