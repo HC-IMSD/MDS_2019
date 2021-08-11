@@ -164,11 +164,12 @@
   "help.is.3rd.party": "fr_Third party companies must obtain their Company Identifier and Contact Identifiers (by enrolling themselves using the REP Company template) prior to enrolling another company on their behalf.",
   "help.contact.name": "fr_This company representative full contact information should be listed in the company representative table above.",
   "help.licence.num": "fr_List all impacted licences, separated by a hard return (can copy and paste)",
-  "help.mailto.01": "fr_The draft CO XML must be sent via email.",
-  "help.mailto.02": "fr_By clicking this button, a templated email message should be auto-created using the your default email program. Before submitting, please attach your draft CO XML file.",
-  "help.mailto.03": "fr_If an email was not automatically created, you can create an email and include the following:",
-  "help.mailto.04": "fr_To: MD licensing",
-  "help.mailto.05": "fr_Subject: Draft CO XML",
-  "help.mailto.06": "fr_Body: The attached file is the draft CO XML",
-  "help.mailto.07": "fr_Attachment: The draft CO XML."
+  "mailto.01": "fr_The draft CO XML must be sent via email.",
+  "mailto.02": "fr_By clicking this button, a templated email message should be auto-created using the your default email program. Before submitting, please attach your draft CO XML file.",
+  "mailto.03": "fr_If an email was not automatically created, you can create an email and include the following:",
+  "mailto.04": "fr_To: MD licensing (hc.devicelicensing-homologationinstruments.sc@canada.ca)",
+  "mailto.04a": "fr_To: Quality Systems (hc.qs.mdb.sc@canada.ca)",
+  "mailto.05": "fr_Subject: Draft CO XML",
+  "mailto.06": "fr_Body: The attached file is the draft CO XML",
+  "mailto.07": "fr_Attachment: The draft CO XML."
 }
