@@ -58,6 +58,7 @@ export class CompanyBaseComponent implements OnInit {
   public saveXmlLabel = 'save.draft';
   public mailToLabel = 'mailto.label';
   public xslName = 'REP_MDS_CO_2_0.xsl';
+  public showMailToHelpText = false;
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private dataLoader: CompanyDataLoaderService,
               private http: HttpClient, private translate: TranslateService) {
@@ -304,6 +305,7 @@ export class CompanyBaseComponent implements OnInit {
   }
 
   public mailto() {
+    this.showMailToHelpText = true;
     const emailSubject = 'Draft CO XML - ' + this.addressModel.company_name;
     let emailAddress;
     let body = 'NOTE: THE CO IS NOT AUTOMATICALLY ATTACHED. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';

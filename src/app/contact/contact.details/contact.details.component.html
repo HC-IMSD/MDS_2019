@@ -15,22 +15,24 @@
         </label>
       </div>
       <div class="form-group col-sm-6" >
-        <label for="status" class="required full-width">
+        <label for="status" class="full-width">
           <span class="field-name">{{'status' |translate}}
               <sup id="co4-rf">
                 <a class="fn-lnk" href="#co4"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.conStatInx}}</a>
               </sup>
           </span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="contactFormLocalModel.controls.status.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="contactFormLocalModel.controls.status"
-                            controlId="status" label="status" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
-          <select id="status" required class="form-control" [formControl]="contactFormLocalModel.controls.status">
-            <option label=" " value=""></option>
-            <option *ngFor="let stat of statuses" [ngValue]="stat.id"> {{stat.label_en}}</option>
-          </select>
+          <!--<strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>-->
+          <!--<control-messages *ngIf="contactFormLocalModel.controls.status.invalid"-->
+                            <!--[showError]="showFieldErrors"-->
+                            <!--[control]="contactFormLocalModel.controls.status"-->
+                            <!--controlId="status" label="status" parentId="contactDetails"-->
+                            <!--parentLabel="REP Contact"></control-messages>-->
+          <input name="contactId" id="status" class="form-control"
+                 [readonly]="true" [formControl]="contactFormLocalModel.controls.status"/>
+          <!--<select id="status" required class="form-control" [formControl]="contactFormLocalModel.controls.status">-->
+            <!--<option label=" " value=""></option>-->
+            <!--<option *ngFor="let stat of statuses" [ngValue]="stat.id"> {{stat.label_en}}</option>-->
+          <!--</select>-->
         </label>
       </div>
 

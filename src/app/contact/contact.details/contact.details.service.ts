@@ -14,7 +14,7 @@ export class ContactDetailsService {
   public static statusListExternal: Array<any> = [
     {id: 'NEW', label_en: 'New', label_fr: 'fr_New'},
     {id: 'REVISE', label_en: 'Revise', label_fr: 'fr_Revise'},
-    {id: 'DELETE', label_en: 'Delete', label_fr: 'fr_Delete'}
+    {id: 'REMOVE', label_en: 'Remove', label_fr: 'fr_Remove'}
   ];
   public static statusListAdd: Array<any> = [
     {id: 'ACTIVE', label_en: 'Active', label_fr: 'fr_Active'}
@@ -54,7 +54,7 @@ export class ContactDetailsService {
     const recordProcessedValidator = isInternal ? [Validators.required] : [];
     return fb.group({
       contactId: [null, contactIdValidators],
-      status: [null, Validators.required],
+      status: 'NEW',
       // hcStatus: [null, Validators.required],
       // salutation: [null, Validators.required],
       firstName: [null, Validators.required],
@@ -80,7 +80,7 @@ export class ContactDetailsService {
     return (
       {
         contact_id: '',
-        status: '',
+        status: 'NEW',
         status_text: '',
         hc_status: '',
         // salutation: '',

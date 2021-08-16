@@ -166,9 +166,26 @@
            [class.disabled]="isExternalAndNoError()" i18n>
           {{mailToLabel|translate}}
         </a>
-        <sup id="co9-rf">
-          <a class="fn-lnk" href="#co9"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex.mailToInx}}</a>
-        </sup>
+      </div>
+    </div>
+    <div class="row" *ngIf="showMailToHelpText">
+      <div class="col-xs-12 form-group well">
+        <p>{{'mailto.label'|translate}}</p>
+
+        <p>{{'mailto.01'|translate}}</p>
+        <p>{{'mailto.02'|translate}}</p>
+        <p>{{'mailto.03'|translate}}</p>
+        <br>
+        <b><p *ngIf="genInfoModel.are_licenses_transfered  != GlobalsService.YES">
+          {{'mailto.04'|translate}}
+        </p>
+          <p *ngIf="this.genInfoModel.are_licenses_transfered  === GlobalsService.YES">
+            {{'mailto.04a'|translate}}
+          </p>
+          <p>{{'mailto.05'|translate}}</p>
+          <p>{{'mailto.06'|translate}}</p>
+          <p>{{'mailto.07'|translate}}</p>
+        </b>
       </div>
     </div>
     <!--pre> myForm valid{{myForm.valid}}</pre>

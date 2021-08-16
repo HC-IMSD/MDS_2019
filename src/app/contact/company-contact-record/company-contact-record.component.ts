@@ -187,6 +187,27 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     this.deleteRecord.emit(this.contactRecordModel.value.id);
     this._emitErrors();
   }
+  /***
+   * Deletes the contact reocord with the selected id from both the model and the form
+   */
+  public setStatusToRevise(): void {
+    this.contactRecordModel.controls.contactDetails.status = 'REVISE';
+    this.saveContactRecord();
+  }
+  /***
+   * Deletes the contact reocord with the selected id from both the model and the form
+   */
+  public setStatusToRemove(): void {
+    this.contactRecordModel.controls.contactDetails.status = 'REMOVE';
+    this.saveContactRecord();
+  }
+  /***
+   * Deletes the contact reocord with the selected id from both the model and the form
+   */
+  public activeContactRecord(): void {
+    this.contactRecordModel.controls.contactDetails.status = 'ACTIVE';
+    this.saveContactRecord();
+  }
 
   public saveContactRecord(): void {
     // console.log(this.errorList);
