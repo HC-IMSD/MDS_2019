@@ -166,22 +166,22 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="isInternal">
-      <div class="checkbox col-sm-12">
-          <label for="recordProcessed">
-            <input name="recordProcessed" type="checkbox" (blur)="recordPrcsOnblur()"
-                   [formControl]="contactFormLocalModel.controls.recordProcessed"
-                   id="recordProcessed"/>
-            <strong class="field-name" i18n>{{'record.processed'|translate}}</strong>
-            <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-            <control-messages *ngIf="isInternal && contactFormLocalModel.controls.recordProcessed.invalid"
-                              [showError]="showFieldErrors"
-                              [control]="contactFormLocalModel.controls.recordProcessed"
-                              controlId="recordProcessed" label="record.processed" parentId="contactDetails"
-                              parentLabel="REP Contact"></control-messages>
-          </label>
-      </div>
-    </div>
+    <!--<div class="row" *ngIf="isInternal">-->
+      <!--<div class="checkbox col-sm-12">-->
+          <!--<label for="recordProcessed">-->
+            <!--<input name="recordProcessed" type="checkbox" (blur)="recordPrcsOnblur()"-->
+                   <!--[formControl]="contactFormLocalModel.controls.recordProcessed"-->
+                   <!--id="recordProcessed"/>-->
+            <!--<strong class="field-name" i18n>{{'record.processed'|translate}}</strong>-->
+            <!--<strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>-->
+            <!--<control-messages *ngIf="isInternal && contactFormLocalModel.controls.recordProcessed.invalid"-->
+                              <!--[showError]="showFieldErrors"-->
+                              <!--[control]="contactFormLocalModel.controls.recordProcessed"-->
+                              <!--controlId="recordProcessed" label="record.processed" parentId="contactDetails"-->
+                              <!--parentLabel="REP Contact"></control-messages>-->
+          <!--</label>-->
+      <!--</div>-->
+    <!--</div>-->
     <!-- <pre>{{contactFormLocalModel.value |json}}</pre>-->
   </div>
 </div>

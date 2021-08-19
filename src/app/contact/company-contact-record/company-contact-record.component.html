@@ -3,7 +3,7 @@
   <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="heading.contactRecord"
                  [headingLevel]="headingLevel" label="Company Representative Record(s)" compId="contactRec"></error-summary>
-  <contact-details [showErrors]="showErrors" [isInternal]="isInternal" [lang]="lang"
+  <contact-details [showErrors]="showErrors" [isInternal]="isInternal" [lang]="lang" [statusCode]="statusCode"
                    [detailsChanged]="updateChild" [group]="contactRecordModel.controls.contactDetails"
                    [helpTextSequences]="helpTextSequences"
                    (errorList)="updateErrorList($event)"></contact-details>
@@ -11,11 +11,11 @@
   <div class="row">
     <div class="btn-group-sm col-xs-12 text-left">
       <button class="btn btn-primary" (click)="saveContactRecord()" i18n>{{'save.contact'|translate}}</button>&nbsp;
-      <button  *ngIf="!isInternal && contactRecordModel.controls.contactDetails.status == 'NEW'" class="btn btn-danger" (click)="deleteContactRecord()" [disabled]="!isListVilad" i18n>{{'discard.record'|translate}}</button>&nbsp;
-      <button  *ngIf="!isInternal && contactRecordModel.controls.contactDetails.status == 'ACTIVE'" class="btn btn-danger" (click)="setStatusToRevise()" [disabled]="!isListVilad" i18n>{{'set.revise.status'|translate}}</button>
-      <button  *ngIf="!isInternal && contactRecordModel.controls.contactDetails.status == 'ACTIVE'" class="btn btn-danger" (click)="setStatusToRemove()" [disabled]="!isListVilad" i18n>{{'set.remove.status'|translate}}</button>
-      <button  *ngIf="isInternal" class="btn btn-danger" (click)="activeContactRecord()" [disabled]="!isListVilad" i18n>{{'set.active.status'|translate}}</button>
-      <button  *ngIf="isInternal" class="btn btn-danger" (click)="deleteContactRecord()" [disabled]="!isListVilad" i18n>{{'delete.contact'|translate}}</button>&nbsp;
+      <button  *ngIf="isInternal" class="btn btn-default" (click)="activeContactRecord()" i18n>{{'set.active.status'|translate}}</button>&nbsp;
+      <button  *ngIf="!isInternal && contactRecordModel.controls.contactDetails.status == 'ACTIVE'" class="btn btn-default" (click)="setStatusToRevise()" [disabled]="!isListVilad" i18n>{{'set.revise.status'|translate}}</button>
+      <button  *ngIf="isInternal" class="btn btn-danger" (click)="deleteContactRecord()" i18n>{{'remove.contact'|translate}}</button>&nbsp;
+      <button  *ngIf="!isInternal && contactRecordModel.controls.contactDetails.status == 'ACTIVE'" class="btn btn-default" (click)="setStatusToRemove()" [disabled]="!isListVilad" i18n>{{'set.remove.status'|translate}}</button>
+      <button  *ngIf="!isInternal && contactRecordModel.controls.contactDetails.status == 'NEW'" class="btn btn-danger" (click)="deleteContactRecord()" i18n>{{'discard.record'|translate}}</button>
       <button class="btn btn-default" (click)="revertContactRecord()" i18n>{{'discard.changes'|translate}}</button>
     </div>
   </div>

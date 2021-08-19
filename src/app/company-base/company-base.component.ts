@@ -58,7 +58,8 @@ export class CompanyBaseComponent implements OnInit {
   public saveXmlLabel = 'save.draft';
   public mailToLabel = 'mailto.label';
   public xslName = 'REP_MDS_CO_2_0.xsl';
-  public showMailToHelpText = false;
+  public showMailToHelpText: boolean;
+  public mailToLink = '';
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private dataLoader: CompanyDataLoaderService,
               private http: HttpClient, private translate: TranslateService) {
@@ -67,6 +68,7 @@ export class CompanyBaseComponent implements OnInit {
     this.countryList = [];
     this.showAdminChanges = false;
     this.showErrors = false;
+    this.showMailToHelpText = false;
     this.fileServices = new FileConversionService();
   }
 
@@ -316,6 +318,6 @@ export class CompanyBaseComponent implements OnInit {
     }
     // todo: add more body text
 
-    return 'mailto:' + emailAddress + '?subject=' + emailSubject + '&body=H' + body;
+    this.mailToLink = 'mailto:' + emailAddress + '?subject=' + emailSubject + '&body=H' + body;
   }
 }

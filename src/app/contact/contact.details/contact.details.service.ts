@@ -14,7 +14,8 @@ export class ContactDetailsService {
   public static statusListExternal: Array<any> = [
     {id: 'NEW', label_en: 'New', label_fr: 'fr_New'},
     {id: 'REVISE', label_en: 'Revise', label_fr: 'fr_Revise'},
-    {id: 'REMOVE', label_en: 'Remove', label_fr: 'fr_Remove'}
+    {id: 'REMOVE', label_en: 'Remove', label_fr: 'fr_Remove'},
+    {id: 'ACTIVE', label_en: 'Active', label_fr: 'fr_Active'}
   ];
   public static statusListAdd: Array<any> = [
     {id: 'ACTIVE', label_en: 'Active', label_fr: 'fr_Active'}
@@ -51,7 +52,7 @@ export class ContactDetailsService {
   public static getReactiveModel(fb: FormBuilder, isInternal) {
     if (!fb) {return null; }
     const contactIdValidators = isInternal ? [Validators.required, ValidationService.dossierContactIdValidator] : [];
-    const recordProcessedValidator = isInternal ? [Validators.required] : [];
+    // const recordProcessedValidator = isInternal ? [Validators.required] : [];
     return fb.group({
       contactId: [null, contactIdValidators],
       status: 'NEW',
@@ -66,8 +67,8 @@ export class ContactDetailsService {
       phoneNumber: ['', [Validators.required, Validators.minLength(10), ValidationService.phoneNumberValidator]],
       phoneExtension: '',
       email: [null, [Validators.required, ValidationService.emailValidator]],
-      routingId: '',
-      recordProcessed: [null, recordProcessedValidator]
+      routingId: ''
+      // recordProcessed: [null, recordProcessedValidator]
     });
   }
 
@@ -82,7 +83,7 @@ export class ContactDetailsService {
         contact_id: '',
         status: 'NEW',
         status_text: '',
-        hc_status: '',
+        // hc_status: '',
         // salutation: '',
         first_name: '',
         initials: '',
@@ -154,7 +155,7 @@ export class ContactDetailsService {
     contactModel.phone_extension = formRecord.controls.phoneExtension.value;
     contactModel.email = formRecord.controls.email.value;
     contactModel.RoutingID = formRecord.controls.routingId.value;
-    contactModel.hc_status = formRecord.controls.recordProcessed.value ? GlobalsService.YES : GlobalsService.NO;
+    // contactModel.hc_status = formRecord.controls.recordProcessed.value ? GlobalsService.YES : GlobalsService.NO;
   }
 
   public static mapDataModelToFormModel(contactModel, formRecord: FormGroup) {
@@ -194,10 +195,10 @@ export class ContactDetailsService {
     formRecord.controls.phoneExtension.setValue(contactModel.phone_extension);
     formRecord.controls.email.setValue(contactModel.email);
     formRecord.controls.routingId.setValue(contactModel.RoutingID);
-    if (contactModel.hc_status) {
-      const hcs = contactModel.hc_status === GlobalsService.YES ? true : false;
-      formRecord.controls.recordProcessed.setValue(hcs);
-    }
+    // if (contactModel.hc_status) {
+    //   const hcs = contactModel.hc_status === GlobalsService.YES ? true : false;
+    //   formRecord.controls.recordProcessed.setValue(hcs);
+    // }
   }
 
   public static getRecordId(record: FormGroup) {

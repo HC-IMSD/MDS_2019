@@ -162,7 +162,7 @@
         </button>
       </div>
       <div class="form-group col-md-4" *ngIf="!isInternalSite">
-        <a class="btn btn-primary btn-lg active" [href] = "mailto()"
+        <a class="btn btn-primary btn-lg active" [href] = "mailToLink" (click)="mailto()"
            [class.disabled]="isExternalAndNoError()" i18n>
           {{mailToLabel|translate}}
         </a>
@@ -176,10 +176,10 @@
         <p>{{'mailto.02'|translate}}</p>
         <p>{{'mailto.03'|translate}}</p>
         <br>
-        <b><p *ngIf="genInfoModel.are_licenses_transfered  != GlobalsService.YES">
+        <b><p *ngIf="genInfoModel.are_licenses_transfered  != 'yes'">
           {{'mailto.04'|translate}}
         </p>
-          <p *ngIf="this.genInfoModel.are_licenses_transfered  === GlobalsService.YES">
+          <p *ngIf="this.genInfoModel.are_licenses_transfered  === 'yes'">
             {{'mailto.04a'|translate}}
           </p>
           <p>{{'mailto.05'|translate}}</p>
