@@ -26,7 +26,6 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Input() isInternal: boolean;
   @Input() lang;
   @Input() helpTextSequences;
-  @Input() statusCode: number;
   @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
@@ -101,10 +100,6 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
         this.contactFormLocalModel = ContactDetailsService.getReactiveModel(this._fb, this.isInternal);
         this.contactFormLocalModel.markAsPristine();
       }
-    }
-
-    if (changes['statusCode'] && changes['statusCode'].currentValue) {
-      this.contactFormLocalModel.controls.status.setValue(ContactDetailsService.statusListExternal[changes['statusCode'].currentValue]);
     }
 
     if (changes['showErrors']) {

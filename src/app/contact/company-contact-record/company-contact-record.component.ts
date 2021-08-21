@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ContactDetailsComponent} from '../contact.details/contact.details.component';
-// import {ContactDetailsService} from '../contact.details/contact.details.service';
+import {ContactDetailsService} from '../contact.details/contact.details.service';
 import {CompanyContactRecordService} from './company-contact-record.service';
 import {ErrorSummaryComponent} from '../../error-msg/error-summary/error-summary.component';
 import {ControlMessagesComponent} from '../../error-msg/control-messages.component/control-messages.component';
@@ -52,7 +52,6 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   public showErrSummary: boolean;
   public errorSummaryChild: ErrorSummaryComponent = null;
   public headingLevel = 'h4';
-  public statusCode: number;
 
   constructor(private _fb: FormBuilder,  private cdr: ChangeDetectorRef) {
     this.showErrors = false;
@@ -193,21 +192,21 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    * Deletes the contact reocord with the selected id from both the model and the form
    */
   public setStatusToRevise(): void {
-    this.statusCode = 1;
+    (<FormGroup>this.contactRecordModel.controls.contactDetails).controls.status.setValue(ContactDetailsService.statusListExternal[1].id);
     this.saveContactRecord();
   }
   /***
    * Deletes the contact reocord with the selected id from both the model and the form
    */
   public setStatusToRemove(): void {
-    this.statusCode = 2;
+    (<FormGroup>this.contactRecordModel.controls.contactDetails).controls.status.setValue(ContactDetailsService.statusListExternal[2].id);
     this.saveContactRecord();
   }
   /***
    * Deletes the contact reocord with the selected id from both the model and the form
    */
   public activeContactRecord(): void {
-    this.statusCode = 3;
+    (<FormGroup>this.contactRecordModel.controls.contactDetails).controls.status.setValue(ContactDetailsService.statusListExternal[3].id);
     this.saveContactRecord();
   }
 
