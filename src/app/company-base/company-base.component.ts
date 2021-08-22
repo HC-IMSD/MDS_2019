@@ -312,9 +312,9 @@ export class CompanyBaseComponent implements OnInit {
     let emailAddress;
     let body = 'NOTE: THE CO IS NOT AUTOMATICALLY ATTACHED. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
     if (this.genInfoModel.are_licenses_transfered  === GlobalsService.YES) {
-      emailAddress = 'MD_licensing@email.com';
+      emailAddress = 'hc.devicelicensing-homologationinstruments.sc@canada.ca';
     } else {
-      emailAddress = 'faxback@email.com';
+      emailAddress = 'hc.qs.mdb.sc@canada.ca';
     }
     // todo: add more body text
 
