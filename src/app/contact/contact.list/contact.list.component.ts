@@ -310,7 +310,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     if (this.errorSummaryChild) {
       emitErrors.push(this.errorSummaryChild);
     }
-    if (!this.isInternal && this.dataModel.length === 0) { // && this.errorList.length === 0
+    if (!this.isInternal && this._noNonRemoveRecords(this.dataModel)) { // && this.errorList.length === 0
       const oerr = new ErrorSummaryComponent(null);
       oerr.index = 0;
       oerr.tableId = 'contactListTable';
@@ -381,4 +381,20 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     return (this.showErrors && this.errorList.length > 0);
   }
 
+  /**
+   * check if there is any record in dataList whose status is not remove
+   * @param id
+   */
+  private _noNonRemoveRecords(dataList): boolean {
+    if (dataList && dataList.length > 0) {
+      for (const index in dataList) {
+        if (dataList[index].status._id !== 'REMOVE') {return false; }
+      }
+      // dataList.forEach(record => {
+      //   if (record.status._id !== 'Remove') {return false; }
+      // });
+    }
+
+    return true;
+  }
 }

@@ -1,4 +1,4 @@
-<div class="container-fluid brdr-bttm" [formGroup]="contactRecordModel" *ngIf="contactRecordModel">
+<div class="container-fluid" [formGroup]="contactRecordModel" *ngIf="contactRecordModel">
   <h4>{{'heading.contactDetails'| translate}}&nbsp;{{sequenceNum}}</h4>
   <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="heading.contactRecord"
@@ -12,10 +12,11 @@
     <div class="btn-group-sm col-xs-12 text-left">
       <button class="btn btn-primary" (click)="saveContactRecord()" i18n>{{'save.contact'|translate}}</button>&nbsp;
       <button  *ngIf="isInternal" class="btn btn-default" (click)="activeContactRecord()" i18n>{{'set.active.status'|translate}}</button>&nbsp;
-      <button  *ngIf="!isInternal && contactRecordModel.controls.contactDetails.controls.status == 'ACTIVE'" class="btn btn-default" (click)="setStatusToRevise()" [disabled]="!isListVilad" i18n>{{'set.revise.status'|translate}}</button>
+      <button  *ngIf="isExternalActiveContact()" class="btn btn-default" (click)="setStatusToRevise()" [disabled]="!isListVilad" i18n>{{'set.revise.status'|translate}}</button>
       <button  *ngIf="isInternal" class="btn btn-danger" (click)="deleteContactRecord()" i18n>{{'remove.contact'|translate}}</button>&nbsp;
-      <button  *ngIf="!isInternal && contactRecordModel.controls.contactDetails.controls.status == 'ACTIVE'" class="btn btn-default" (click)="setStatusToRemove()" [disabled]="!isListVilad" i18n>{{'set.remove.status'|translate}}</button>
-      <button  *ngIf="!isInternal && contactRecordModel.controls.contactDetails.controls.status == 'NEW'" class="btn btn-danger" (click)="deleteContactRecord()" i18n>{{'discard.record'|translate}}</button>
+      <button  *ngIf="isExternalActiveContact()" class="btn btn-default" (click)="setStatusToRemove()" [disabled]="!isListVilad" i18n>{{'set.remove.status'|translate}}</button>
+      <button  *ngIf="isExternalNewContact()" class="btn btn-danger" (click)="deleteContactRecord()" i18n>{{'discard.record'|translate}}</button>
+      <span   *ngIf="!isInternal">&nbsp;&nbsp;&nbsp;&nbsp;</span>
       <button class="btn btn-default" (click)="revertContactRecord()" i18n>{{'discard.changes'|translate}}</button>
     </div>
   </div>
@@ -27,6 +28,6 @@
       <!--</div>-->
     <!--</div>-->
   <!--</div>-->
-
+<hr class="brdr-bttm">
   <!--pre>{{contactRecordModel.value |json}}</pre-->
 </div>

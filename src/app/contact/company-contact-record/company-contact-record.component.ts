@@ -193,7 +193,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    */
   public setStatusToRevise(): void {
     (<FormGroup>this.contactRecordModel.controls.contactDetails).controls.status.setValue(ContactDetailsService.statusListExternal[1].id);
-    this.saveContactRecord();
+    //this.saveContactRecord();
   }
   /***
    * Deletes the contact reocord with the selected id from both the model and the form
@@ -237,5 +237,20 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    */
   public showErrorSummary(): boolean {
     return (this.showErrSummary && this.errorList.length > 0);
+  }
+
+  /**
+   * show revise and remove contact button
+   */
+  public isExternalActiveContact(): boolean {
+    const conRecord = <FormGroup>this.contactRecordModel.controls.contactDetails;
+    return (!this.isInternal && conRecord.controls.status.value == 'ACTIVE');
+  }
+
+  /**
+   * show delete contact button
+   */
+  public isExternalNewContact(): boolean {
+    return (!this.isInternal && (<FormGroup>this.contactRecordModel.controls.contactDetails).controls.status.value == 'NEW');
   }
 }
