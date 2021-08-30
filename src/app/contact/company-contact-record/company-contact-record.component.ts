@@ -206,7 +206,10 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    * Deletes the contact reocord with the selected id from both the model and the form
    */
   public activeContactRecord(): void {
-    (<FormGroup>this.contactRecordModel.controls.contactDetails).controls.status.setValue(ContactDetailsService.statusListExternal[3].id);
+    const conRecord = <FormGroup>this.contactRecordModel.controls.contactDetails;
+    if (conRecord.controls.status.value != 'ACTIVE') {
+      conRecord.controls.status.setValue(ContactDetailsService.statusListExternal[3].id);
+    }
     this.saveContactRecord();
   }
 
@@ -248,9 +251,24 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * show delete contact button
+   * internal site show active contact button
+   */
+  public isInternalActiveContact(): boolean {
+    const conRecord = <FormGroup>this.contactRecordModel.controls.contactDetails;
+    return (this.isInternal && conRecord.controls.status.value != 'REMOVE');
+  }
+
+  /**
+   * External site show delete contact button
    */
   public isExternalNewContact(): boolean {
     return (!this.isInternal && (<FormGroup>this.contactRecordModel.controls.contactDetails).controls.status.value == 'NEW');
+  }
+
+  /**
+   * Internal site show delete contact button
+   */
+  public isInternalDeleteContact(): boolean {
+    return (this.isInternal && (<FormGroup>this.contactRecordModel.controls.contactDetails).controls.status.value == 'REMOVE');
   }
 }

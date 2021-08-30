@@ -291,7 +291,8 @@ export class CompanyBaseComponent implements OnInit {
       return 'draft-com-' + version[0] + '-' + version[1];
     }
   }
-/*
+
+  /*
  * update adminChanges to show the text info in the adminChanges component
  */
   private _updateAdminChanges() {
@@ -311,13 +312,26 @@ export class CompanyBaseComponent implements OnInit {
     const emailSubject = 'Draft CO XML - ' + this.addressModel.company_name;
     let emailAddress;
     let body = 'NOTE: THE CO IS NOT AUTOMATICALLY ATTACHED. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
-    if (this.genInfoModel.are_licenses_transfered  === GlobalsService.YES) {
-      emailAddress = 'hc.devicelicensing-homologationinstruments.sc@canada.ca';
-    } else {
+    if (this.genInfoModel.are_licenses_transfered  === GlobalsService.YES ||
+      this.genInfoModel.amend_reasons.manufacturer_name_change === GlobalsService.YES ||
+      this.genInfoModel.amend_reasons.manufacturer_address_change === GlobalsService.YES ||
+      this.genInfoModel.amend_reasons.facility_change === GlobalsService.YES) {
       emailAddress = 'hc.qs.mdb.sc@canada.ca';
+    } else {
+      emailAddress = 'hc.devicelicensing-homologationinstruments.sc@canada.ca';
     }
     // todo: add more body text
 
     this.mailToLink = 'mailto:' + emailAddress + '?subject=' + emailSubject + '&body=H' + body;
+  }
+
+  /*
+   * update adminChanges to show the text info in the adminChanges component
+*/
+  public mailtoQS() {
+    return (this.genInfoModel.are_licenses_transfered  === GlobalsService.YES ||
+            this.genInfoModel.amend_reasons.manufacturer_name_change === GlobalsService.YES ||
+            this.genInfoModel.amend_reasons.manufacturer_address_change === GlobalsService.YES ||
+            this.genInfoModel.amend_reasons.facility_change === GlobalsService.YES);
   }
 }

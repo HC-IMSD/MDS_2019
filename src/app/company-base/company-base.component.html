@@ -176,10 +176,10 @@
         <p>{{'mailto.02'|translate}}</p>
         <p>{{'mailto.03'|translate}}</p>
         <br>
-        <b><p *ngIf="genInfoModel.are_licenses_transfered  != 'yes'">
+        <b><p *ngIf="!mailtoQS()">
           {{'mailto.04'|translate}}
         </p>
-          <p *ngIf="this.genInfoModel.are_licenses_transfered  === 'yes'">
+          <p *ngIf="mailtoQS()">
             {{'mailto.04a'|translate}}
           </p>
           <p>{{'mailto.05'|translate}}</p>
