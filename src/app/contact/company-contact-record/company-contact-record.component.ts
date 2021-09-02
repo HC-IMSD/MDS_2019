@@ -251,9 +251,9 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   /**
    * show revise and remove contact button
    */
-  public isExternalActiveContact(): boolean {
+  public isExternalNotNewContact(): boolean {
     const conRecord = <FormGroup>this.contactRecordModel.controls.contactDetails;
-    return (!this.isInternal && conRecord.controls.status.value == 'ACTIVE');
+    return (!this.isInternal && conRecord.controls.status.value != 'NEW');
   }
 
   /**
