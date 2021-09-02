@@ -192,14 +192,20 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    * Deletes the contact reocord with the selected id from both the model and the form
    */
   public setStatusToRevise(): void {
-    (<FormGroup>this.contactRecordModel.controls.contactDetails).controls.status.setValue(ContactDetailsService.statusListExternal[1].id);
-    //this.saveContactRecord();
+    const conRecord = <FormGroup>this.contactRecordModel.controls.contactDetails;
+    if (conRecord.controls.status.value != ContactDetailsService.statusListExternal[1].id) {
+      conRecord.controls.status.setValue(ContactDetailsService.statusListExternal[1].id);
+    }
+    this.saveContactRecord();
   }
   /***
    * Deletes the contact reocord with the selected id from both the model and the form
    */
   public setStatusToRemove(): void {
-    (<FormGroup>this.contactRecordModel.controls.contactDetails).controls.status.setValue(ContactDetailsService.statusListExternal[2].id);
+    const conRecord = <FormGroup>this.contactRecordModel.controls.contactDetails;
+    if (conRecord.controls.status.value != ContactDetailsService.statusListExternal[2].id) {
+      conRecord.controls.status.setValue(ContactDetailsService.statusListExternal[2].id);
+    }
     this.saveContactRecord();
   }
   /***
@@ -207,7 +213,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    */
   public activeContactRecord(): void {
     const conRecord = <FormGroup>this.contactRecordModel.controls.contactDetails;
-    if (conRecord.controls.status.value != 'ACTIVE') {
+    if (conRecord.controls.status.value != ContactDetailsService.statusListExternal[3].id) {
       conRecord.controls.status.setValue(ContactDetailsService.statusListExternal[3].id);
     }
     this.saveContactRecord();
