@@ -187,7 +187,7 @@ export class ExpanderComponent implements OnChanges {
     //    console.warn('select table row did not meet conditions');
     //   return;
     // }
-    if ( ! this.disableExpand && this.isValid ) {
+    if ( ! this.disableExpand ) { // && this.isValid
       this.selectTableRowNoCheck(index);
     }
   }
