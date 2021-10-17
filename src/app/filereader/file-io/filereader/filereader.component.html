@@ -18,4 +18,11 @@
     <p><br/><span *ngIf="showFileLoadStatus">{{status | translate}}</span></p>
   </div>
 </div>
+<div class="row" *ngIf="showAmendNote">
+  <div class="col-sm-0">
+  </div>
+  <div class="col-sm-8 alert alert-info" aria-live='polite'>
+    <span>{{'amend.note' | translate}}</span>
+  </div>
+</div>
 </section>

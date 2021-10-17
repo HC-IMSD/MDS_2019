@@ -226,6 +226,7 @@ export class CompanyBaseComponent implements OnInit {
         manufacturer_name_change: '',
         manufacturer_address_change: '',
         facility_change: '',
+        contact_change: '',
         other_change: '',
         other_details: ''
       };
