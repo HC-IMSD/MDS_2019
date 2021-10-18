@@ -49,36 +49,36 @@
       <!--</div>-->
     <!--</div>-->
     <div class="row">
-      <div class="form-group col-sm-5" >
-        <label for="firstName" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'first.name'|translate}}</span>
+      <div class="form-group col-sm-12" >
+        <label for="fullName" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{'full.name'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="contactFormLocalModel.controls.firstName.invalid"
+          <control-messages *ngIf="contactFormLocalModel.controls.fullName.invalid"
                             [showError]="showFieldErrors"
-                            [control]="contactFormLocalModel.controls.firstName"
-                            controlId="firstName" label="first.name" parentId="contactDetails"
+                            [control]="contactFormLocalModel.controls.fullName"
+                            controlId="fullName" label="full.name" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="firstName" id="firstName" class="form-control full-width" maxlength="20" [formControl]="contactFormLocalModel.controls.firstName"/>
+          <input name="fullName" id="fullName" class="form-control full-width" maxlength="45" [formControl]="contactFormLocalModel.controls.fullName"/>
         </label>
       </div>
-      <div class="form-group col-sm-2" >
-        <label for="initials" class="full-width">
-          <span class="field-name" i18n>{{'initials'|translate}}</span>
-          <input name="initials" id="initials" class="form-control full-width" maxlength="5" [formControl]="contactFormLocalModel.controls.initials"/>
-        </label>
-      </div>
-      <div class="form-group col-sm-5" >
-        <label for="lastName" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'last.name'|translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="contactFormLocalModel.controls.lastName.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="contactFormLocalModel.controls.lastName"
-                            controlId="lastName" label="last.name" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
-          <input name="lastName" id="lastName" class="form-control full-width" maxlength="20" [formControl]="contactFormLocalModel.controls.lastName"/>
-        </label>
-      </div>
+      <!--<div class="form-group col-sm-2" >-->
+        <!--<label for="initials" class="full-width">-->
+          <!--<span class="field-name" i18n>{{'initials'|translate}}</span>-->
+          <!--<input name="initials" id="initials" class="form-control full-width" maxlength="5" [formControl]="contactFormLocalModel.controls.initials"/>-->
+        <!--</label>-->
+      <!--</div>-->
+      <!--<div class="form-group col-sm-5" >-->
+        <!--<label for="lastName" class="required full-width" aria-required="true">-->
+          <!--<span class="field-name" i18n>{{'last.name'|translate}}</span>-->
+          <!--<strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>-->
+          <!--<control-messages *ngIf="contactFormLocalModel.controls.lastName.invalid"-->
+                            <!--[showError]="showFieldErrors"-->
+                            <!--[control]="contactFormLocalModel.controls.lastName"-->
+                            <!--controlId="lastName" label="last.name" parentId="contactDetails"-->
+                            <!--parentLabel="REP Contact"></control-messages>-->
+          <!--<input name="lastName" id="lastName" class="form-control full-width" maxlength="20" [formControl]="contactFormLocalModel.controls.lastName"/>-->
+        <!--</label>-->
+      <!--</div>-->
     </div>
     <div class="row">
       <div class="form-group col-sm-6" >
@@ -105,7 +105,7 @@
                             [control]="contactFormLocalModel.controls.jobTitle"
                             controlId="jobTitle" label="job.title" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="jobTitle" id="jobTitle" class="form-control full-width" maxlength="40" [formControl]="contactFormLocalModel.controls.jobTitle"/>
+          <input name="jobTitle" id="jobTitle" class="form-control full-width" maxlength="45" [formControl]="contactFormLocalModel.controls.jobTitle"/>
         </label>
       </div>
     </div>

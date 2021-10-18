@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 
+import {GlobalsService} from '../../globals/globals.service';
+
 @Component({
   selector: 'expander-component',
   templateUrl: './expander.component.html',
@@ -44,6 +46,7 @@ export class ExpanderComponent implements OnChanges {
   @Input() deleteRecord: number;
   @Input() collapseAll: number;
   @Input() loadFileIndicator: boolean;
+  @Input() xmlStatus;
 
   @Output() expandedRow = new EventEmitter();
 
@@ -125,6 +128,11 @@ export class ExpanderComponent implements OnChanges {
     }
     if (changes['collapseAll']) {
       this.collapseTableRows();
+    }
+    if (changes['xmlStatus']) {
+      if (changes['xmlStatus'].currentValue === GlobalsService.FINAL) {
+        this.collapseTableRows();
+      }
     }
   }
 

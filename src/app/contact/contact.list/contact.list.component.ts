@@ -26,6 +26,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   @Input() public showErrors: boolean;
   @Input() public loadFileIndicator;
   @Input() public isInternal: boolean;
+  @Input() public xmlStatus;
   @Input() lang;
   @Input() helpTextSequences;
   @Output() public errors = new EventEmitter();

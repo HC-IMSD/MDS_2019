@@ -131,7 +131,7 @@ export class CompanyBaseService {
     const helpTextInx = {
       loadFileInx: 0,
       compREPInx: 0,
-      busNumInx: 0,
+      // busNumInx: 0,
       conStatInx: 0,
       routIdInx: 0,
       primaryConInx: 0,

@@ -101,7 +101,7 @@
                 <div class="panel-body">
                   <contact-list  (errors)="processContactErrors($event)" [isInternal]="isInternalSite"
                                  [loadFileIndicator]="loadFileIndicator" [lang]="lang"
-                                 [helpTextSequences]="helpIndex"
+                                 [helpTextSequences]="helpIndex" [xmlStatus]="genInfoModel.status"
                                  [showErrors]="showErrors" [contactModel]="contactModel"></contact-list>
                 </div>
               </section>
