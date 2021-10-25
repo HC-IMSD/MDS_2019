@@ -165,6 +165,9 @@
   "help.status.01": "fr_New - To add a  new contact.",
   "help.status.02": "fr_Revise - To request a revision to an active contact.",
   "help.status.03": "fr_Remove - To request the deactivation of an active contact.",
+  "help.status.04": "fr_Active - Active contact for the company",
+  "help.des.renewal": "fr_The party that should be contacted/notified annually for license renewal.",
+  "help.des.finance": "fr_The party that should be contacted for any questions or issues related to fees.",
   "help.routing.id.01": "fr_The routing identifier is a unique identifier within the Electronic Submissions Gateway (ESG) for each account, used to identify the specific gateway account, whether it uses the Applicability Statement 2 (AS2) or WebTrader interfaces.",
   "help.routing.id.01a": "fr_Health Canada plans to use the routing identifier in the near future to send documents back to companies using the ESG. Companies will be notified before Health Canada begins implementing this new process. In the meantime, this field is optional, and the input routing identifier will only be stored in our internal databases for now.",
   "help.routing.id.04": "fr_For any further questions on the routing identifier, please contact the Food and Drug Administration Help Desk at ",
@@ -179,5 +182,8 @@
   "mailto.04a": "fr_To: Quality Systems (hc.qs.mdb.sc@canada.ca)",
   "mailto.05": "fr_Subject: Draft CO XML",
   "mailto.06": "fr_Body: The attached file is the draft CO XML",
-  "mailto.07": "fr_Attachment: The draft CO XML."
+  "mailto.07": "fr_Attachment: The draft CO XML.",
+  "contact.designation": "fr_Company contact designation (for manufacturer only)",
+  "des.renewal": "fr_Designated renewal contact (for manufacturer only)",
+  "des.finance": "fr_Designated finance contact (for manufacturer only)"
 }

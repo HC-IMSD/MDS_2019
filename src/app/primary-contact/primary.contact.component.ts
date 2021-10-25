@@ -22,22 +22,23 @@ export class PrimaryContactComponent implements OnInit, OnChanges, AfterViewInit
   public primContactFormLocalModel: FormGroup;
   @Input('group') public primContactFormRecord: FormGroup;
   @Input() detailsChanged: number;
-  @Input() showErrors: boolean;
+  // @Input() showErrors: boolean;
   @Input() primContactModel;
   @Input() lang;
+  @Input() activeContactList;
   @Input() helpTextSequences;
-  @Output() primContactErrorList = new EventEmitter(true);
+  // @Output() primContactErrorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  public showFieldErrors = false;
-  public yesNoList: Array<any> = [];
+  // public showFieldErrors = false;
+  // public yesNoList: Array<any> = [];
   private detailsService: PrimaryContactService;
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef) {
-    this.showFieldErrors = false;
-    this.showErrors = false;
+    // this.showFieldErrors = false;
+    // this.showErrors = false;
     this.detailsService = new PrimaryContactService();
-    this.yesNoList = this.detailsService.getYesNoList();
+    // this.yesNoList = this.detailsService.getYesNoList();
   }
 
   ngOnInit() {
@@ -50,24 +51,24 @@ export class PrimaryContactComponent implements OnInit, OnChanges, AfterViewInit
   ngAfterViewInit() {
     this.msgList.changes.subscribe(errorObjs => {
       let temp = [];
-      this._updateErrorList(errorObjs);
+      // this._updateErrorList(errorObjs);
     });
     this.msgList.notifyOnChanges();
 
   }
 
-  private _updateErrorList(errorObjs) {
-    let temp = [];
-    if (errorObjs) {
-      errorObjs.forEach(
-        error => {
-          temp.push(error);
-        }
-      );
-    }
-    this.primContactErrorList.emit(temp);
-
-  }
+  // private _updateErrorList(errorObjs) {
+  //   let temp = [];
+  //   if (errorObjs) {
+  //     errorObjs.forEach(
+  //       error => {
+  //         temp.push(error);
+  //       }
+  //     );
+  //   }
+  //   this.primContactErrorList.emit(temp);
+  //
+  // }
 
   ngDoCheck() {
     /*  this.isValid();
@@ -87,18 +88,18 @@ export class PrimaryContactComponent implements OnInit, OnChanges, AfterViewInit
         this.primContactFormLocalModel.markAsPristine();
       }
     }
-    if (changes['showErrors']) {
-
-      this.showFieldErrors = changes['showErrors'].currentValue;
-      let temp = [];
-      if (this.msgList) {
-        this.msgList.forEach(item => {
-          temp.push(item);
-          // console.log(item);
-        });
-      }
-      this.primContactErrorList.emit(temp);
-    }
+    // if (changes['showErrors']) {
+    //
+    //   this.showFieldErrors = changes['showErrors'].currentValue;
+    //   let temp = [];
+    //   if (this.msgList) {
+    //     this.msgList.forEach(item => {
+    //       temp.push(item);
+    //       // console.log(item);
+    //     });
+    //   }
+    //   this.primContactErrorList.emit(temp);
+    // }
     if (changes['primContactFormLocalModel']) {
       console.log('**********the primary contact changed');
       this.primContactFormRecord = this.primContactFormLocalModel;
@@ -126,30 +127,30 @@ export class PrimaryContactComponent implements OnInit, OnChanges, AfterViewInit
       this.primContactModel);
   }
 
-  by3rdParty() {
-    if (this.primContactFormLocalModel.controls.isThirdParty.value &&
-      this.primContactFormLocalModel.controls.isThirdParty.value === GlobalsService.YES) {
-      return true;
-    } else {
-      this.primContactFormLocalModel.controls.repContactCompanyId.setValue(null);
-      this.primContactFormLocalModel.controls.repContactCompanyId.markAsUntouched();
-      this.primContactFormLocalModel.controls.repContactId.setValue(null);
-      this.primContactFormLocalModel.controls.repContactId.markAsUntouched();
-      this.primContactFormLocalModel.controls.repRoutingId.setValue(null);
-      this.primContactFormLocalModel.controls.repRoutingId.markAsUntouched();
-    }
-    return false;
-  }
+  // by3rdParty() {
+  //   if (this.primContactFormLocalModel.controls.isThirdParty.value &&
+  //     this.primContactFormLocalModel.controls.isThirdParty.value === GlobalsService.YES) {
+  //     return true;
+  //   } else {
+  //     this.primContactFormLocalModel.controls.repContactCompanyId.setValue(null);
+  //     this.primContactFormLocalModel.controls.repContactCompanyId.markAsUntouched();
+  //     this.primContactFormLocalModel.controls.repContactId.setValue(null);
+  //     this.primContactFormLocalModel.controls.repContactId.markAsUntouched();
+  //     this.primContactFormLocalModel.controls.repRoutingId.setValue(null);
+  //     this.primContactFormLocalModel.controls.repRoutingId.markAsUntouched();
+  //   }
+  //   return false;
+  // }
 
-  notBy3rdParty() {
-    if (this.primContactFormLocalModel.controls.isThirdParty.value &&
-      this.primContactFormLocalModel.controls.isThirdParty.value === GlobalsService.NO) {
-      return true;
-    } else {
-      this.primContactFormLocalModel.controls.repContactName.setValue(null);
-      this.primContactFormLocalModel.controls.repContactName.markAsUntouched();
-    }
-    return false;
-  }
+  // notBy3rdParty() {
+  //   if (this.primContactFormLocalModel.controls.isThirdParty.value &&
+  //     this.primContactFormLocalModel.controls.isThirdParty.value === GlobalsService.NO) {
+  //     return true;
+  //   } else {
+  //     this.primContactFormLocalModel.controls.repContactName.setValue(null);
+  //     this.primContactFormLocalModel.controls.repContactName.markAsUntouched();
+  //   }
+  //   return false;
+  // }
 }
 

@@ -2,75 +2,31 @@
   <div [formGroup]="primContactFormLocalModel">
     <div class="row">
       <div class="form-group col-xs-12" >
-        <label for="isThirdParty" class="full-width">
-          <span class="field-name">{{'is.3rd.party' |translate}}
-              <sup id="co6-rf">
-                <a class="fn-lnk" href="#co6"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.is3rdPartyInx}}</a>
+        <label for="renewalContactName" class="full-width">
+          <span class="field-name">{{'des.renewal' |translate}}
+              <sup id="co5-rf">
+                <a class="fn-lnk" href="#co5"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.desRenewalInx}}</a>
               </sup>
           </span>
-          <select id="isThirdParty" class="form-control" (blur)="onblur()" [formControl]="primContactFormLocalModel.controls.isThirdParty">
+          <select id="renewalContactName" class="form-control" (blur)="onblur()" [formControl]="primContactFormLocalModel.controls.renewalContactName">
             <option label=" " value=""></option>
-            <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+            <option *ngFor="let opt of activeContactList" [ngValue]="opt"> {{opt}}</option>
           </select>
         </label>
       </div>
     </div>
-    <div class="row" *ngIf="by3rdParty()">
-      <div class="form-group col-xs-6 minWidth200" >
-        <label for="repContactCompanyId" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'company.id.contact'|translate}} {{'minNumber6'|translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="primContactFormLocalModel.controls.repContactCompanyId.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="primContactFormLocalModel.controls.repContactCompanyId"
-                            controlId="repContactCompanyId" label="company.id.contact" parentId="companyDetails"
-                            parentLabel="REP Company"></control-messages>
-          <input id="repContactCompanyId" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="primContactFormLocalModel.controls.repContactCompanyId" maxlength="6"/>
-        </label>
-      </div>
-      <div class="form-group col-xs-6 minWidth200" >
-        <label for="repContactId" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'contact.id.contact'|translate}} {{'minNumber5'|translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="primContactFormLocalModel.controls.repContactId.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="primContactFormLocalModel.controls.repContactId"
-                            controlId="repContactId" label="contact.id.contact" parentId="companyDetails"
-                            parentLabel="REP Company"></control-messages>
-          <input id="repContactId" class="form-control full-width" (blur)="onblur()"
-            [formControl]="primContactFormLocalModel.controls.repContactId" maxlength="5"/>
-        </label>
-      </div>
-    </div>
-    <div class="row" *ngIf="by3rdParty()">
-      <div class="form-group col-sm-6 minWidth200" >
-        <label for="repRoutingId">
-          <span class="field-name">{{'routing.id.rep.contact' |translate}}</span>
-          <sup id="co6a-rf">
-            <a class="fn-lnk" href="#co6a"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.repRoutIdInx}}</a>
-          </sup>
-          <input name="repRoutingId" id="repRoutingId" class="form-control full-width"
-                 [formControl]="primContactFormLocalModel.controls.repRoutingId" (blur)="onblur()" maxlength="64"/>
-        </label>
-      </div>
-    </div>
-    <div class="row" *ngIf="notBy3rdParty()">
+    <div class="row">
       <div class="form-group col-xs-12" >
-        <label for="repContactName" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'contact.name'|translate}}
-              <sup id="co7-rf">
-                <a class="fn-lnk" href="#co7"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.conNameInx}}</a>
+        <label for="financeContactName" class="full-width">
+          <span class="field-name">{{'des.finance' |translate}}
+              <sup id="co6-rf">
+                <a class="fn-lnk" href="#co6"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.desFinanceInx}}</a>
               </sup>
           </span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="primContactFormLocalModel.controls.repContactName.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="primContactFormLocalModel.controls.repContactName"
-                            controlId="repContactName" label="contact.name" parentId="companyDetails"
-                            parentLabel="REP Company"></control-messages>
-          <input id="repContactName" class="form-control full-width"  (blur)="onblur()"
-                 [formControl]="primContactFormLocalModel.controls.repContactName" maxlength="40"/>
+          <select id="financeContactName" class="form-control" (blur)="onblur()" [formControl]="primContactFormLocalModel.controls.financeContactName">
+            <option label=" " value=""></option>
+            <option *ngFor="let opt of activeContactList" [ngValue]="opt"> {{opt}}</option>
+          </select>
         </label>
       </div>
     </div>

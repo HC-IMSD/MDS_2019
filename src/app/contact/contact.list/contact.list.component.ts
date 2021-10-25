@@ -30,6 +30,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   @Input() lang;
   @Input() helpTextSequences;
   @Output() public errors = new EventEmitter();
+  @Output() public contactsUpdated = new EventEmitter();
 
   @ViewChild(CompanyContactRecordComponent, {static: true}) companyContactChild: CompanyContactRecordComponent;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
@@ -52,15 +53,15 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
       width: '10'
     },
     {
-      label: 'First Name',
-      binding: 'first_name',
-      width: '20'
+      label: 'Full Name',
+      binding: 'full_name',
+      width: '40'
     },
-    {
-      label: 'Last Name',
-      binding: 'last_name',
-      width: '20'
-    },
+    // {
+    //   label: 'Last Name',
+    //   binding: 'last_name',
+    //   width: '20'
+    // },
     {
       label: 'Job Title',
       binding: 'job_title',
@@ -248,7 +249,6 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
       document.location.href = '#status';
     }
     this.showErrors = false;
-
   }
 
   /**
@@ -263,6 +263,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     if (!this.isInternal) {
       document.location.href = '#addContactBtn';
     }
+    this.contactsUpdated.emit(this.dataModel);
   }
 
   /**
@@ -365,6 +366,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   public deleteContact(id): void {
     this._deleteContactInternal(id);
     document.location.href = '#addContactBtn';
+    this.contactsUpdated.emit(this.dataModel);
   }
 
   /**

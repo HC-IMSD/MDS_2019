@@ -134,9 +134,9 @@ export class CompanyBaseService {
       // busNumInx: 0,
       conStatInx: 0,
       routIdInx: 0,
-      primaryConInx: 0,
-      is3rdPartyInx: 0,
-      repRoutIdInx: 0,
+      desRenewalInx: 0,
+      desFinanceInx: 0,
+      // repRoutIdInx: 0,
       conNameInx: 0,
       licenseNumsInx: 0
     };

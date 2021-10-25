@@ -30,11 +30,8 @@ export class PrimaryContactService {
       return null;
     }
     return fb.group({
-      isThirdParty: '',
-      repContactCompanyId: [null, [Validators.required, ValidationService.primaryCompanyIdValidator]],
-      repContactId: [null, [Validators.required, ValidationService.primaryContactIdValidator]],
-      repRoutingId: '',
-      repContactName: [null, Validators.required]
+      renewalContactName: '',
+      financeContactName: ''
     });
   }
 
@@ -46,30 +43,21 @@ export class PrimaryContactService {
 
     return (
       {
-        is_third_party: '',
-        rep_contact_company_id: '',
-        rep_contact_id: '',
-        routing_id: '',
-        rep_contact_name: ''
+        renewal_contact_name: '',
+        finance_contact_name: ''
       }
     );
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, primContactModel) {
-    primContactModel.is_third_party = formRecord.controls.isThirdParty.value;
-    primContactModel.rep_contact_company_id = formRecord.controls.repContactCompanyId.value;
-    primContactModel.rep_contact_id = formRecord.controls.repContactId.value;
-    primContactModel.routing_id = formRecord.controls.repRoutingId.value;
-    primContactModel.rep_contact_name = formRecord.controls.repContactName.value;
+    primContactModel.renewal_contact_name = formRecord.controls.renewalContactName.value;
+    primContactModel.finance_contact_name = formRecord.controls.financeContactName.value;
   }
 
   public static mapDataModelToFormModel(primContactModel, formRecord: FormGroup) {
     if (primContactModel) {
-      formRecord.controls.isThirdParty.setValue(primContactModel.is_third_party);
-      formRecord.controls.repContactCompanyId.setValue(primContactModel.rep_contact_company_id);
-      formRecord.controls.repContactId.setValue(primContactModel.rep_contact_id);
-      formRecord.controls.repRoutingId.setValue(primContactModel.routing_id);
-      formRecord.controls.repContactName.setValue(primContactModel.rep_contact_name);
+      formRecord.controls.renewalContactName.setValue(primContactModel.renewal_contact_name);
+      formRecord.controls.financeContactName.setValue(primContactModel.finance_contact_name);
     }
   }
 
