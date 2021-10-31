@@ -101,12 +101,21 @@ export class PrimaryContactComponent implements OnInit, OnChanges, AfterViewInit
     //   this.primContactErrorList.emit(temp);
     // }
     if (changes['primContactFormLocalModel']) {
-      console.log('**********the primary contact changed');
+      // console.log('**********the primary contact changed');
       this.primContactFormRecord = this.primContactFormLocalModel;
     }
     if (changes['primContactModel']) {
       this.primContactModel = changes['primContactModel'].currentValue;
       PrimaryContactService.mapDataModelToFormModel(this.primContactModel, (<FormGroup>this.primContactFormLocalModel));
+    }
+    if (changes['activeContactList']) {
+      if (this.primContactFormLocalModel.controls.renewalContactName &&
+        !changes['activeContactList'].currentValue.includes(this.primContactFormLocalModel.controls.renewalContactName.value)) {
+        this.primContactFormLocalModel.controls.renewalContactName.setValue('');
+      }if (this.primContactFormLocalModel.controls.financeContactName &&
+        !changes['activeContactList'].currentValue.includes(this.primContactFormLocalModel.controls.financeContactName.value)) {
+        this.primContactFormLocalModel.controls.financeContactName.setValue('');
+      }
     }
   }
 
@@ -127,30 +136,5 @@ export class PrimaryContactComponent implements OnInit, OnChanges, AfterViewInit
       this.primContactModel);
   }
 
-  // by3rdParty() {
-  //   if (this.primContactFormLocalModel.controls.isThirdParty.value &&
-  //     this.primContactFormLocalModel.controls.isThirdParty.value === GlobalsService.YES) {
-  //     return true;
-  //   } else {
-  //     this.primContactFormLocalModel.controls.repContactCompanyId.setValue(null);
-  //     this.primContactFormLocalModel.controls.repContactCompanyId.markAsUntouched();
-  //     this.primContactFormLocalModel.controls.repContactId.setValue(null);
-  //     this.primContactFormLocalModel.controls.repContactId.markAsUntouched();
-  //     this.primContactFormLocalModel.controls.repRoutingId.setValue(null);
-  //     this.primContactFormLocalModel.controls.repRoutingId.markAsUntouched();
-  //   }
-  //   return false;
-  // }
-
-  // notBy3rdParty() {
-  //   if (this.primContactFormLocalModel.controls.isThirdParty.value &&
-  //     this.primContactFormLocalModel.controls.isThirdParty.value === GlobalsService.NO) {
-  //     return true;
-  //   } else {
-  //     this.primContactFormLocalModel.controls.repContactName.setValue(null);
-  //     this.primContactFormLocalModel.controls.repContactName.markAsUntouched();
-  //   }
-  //   return false;
-  // }
 }
 

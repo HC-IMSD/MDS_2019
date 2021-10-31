@@ -105,10 +105,8 @@ export class CompanyBaseService {
 
     return (
       {
-        is_third_party: '',
-        rep_contact_company_id: '',
-        rep_contact_id: '',
-        rep_contact_name: ''
+        renewal_contact_name: '',
+        finance_contact_name: ''
       }
     );
   }

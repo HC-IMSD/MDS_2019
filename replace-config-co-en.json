@@ -1,5 +1,5 @@
 {
   "files": ["./dist/prod/company/en/index.html","./dist/prod/company_internal/en/index_internal.html"],
   "from": ["<!--build:mainHeading--><!--endbuild-->","<!--build:mainTitle-->","<!--build:langHtml--><!--endbuild-->"],
-  "to": ["Company Template: Regulatory Enrolment Process (REP)<br>(Version 2.0.5)","Company Template: Regulatory Enrolment Process - Canada.ca","../fr/index.html"]
+  "to": ["Company Template: Regulatory Enrolment Process (REP)<br>(Version 3.0.0)","Company Template: Regulatory Enrolment Process - Canada.ca","../fr/index.html"]
 }

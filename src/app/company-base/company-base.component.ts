@@ -57,7 +57,7 @@ export class CompanyBaseComponent implements OnInit {
   public fileServices: FileConversionService;
   public saveXmlLabel = 'save.draft';
   public mailToLabel = 'mailto.label';
-  public xslName = 'REP_MDS_CO_2_0.xsl';
+  public xslName = 'REP_MDS_CO_3_0.xsl';
   public showMailToHelpText: boolean;
   public mailToLink = '';
   public activeContacts = [];
@@ -257,6 +257,7 @@ export class CompanyBaseComponent implements OnInit {
     const cont = fileData.data.DEVICE_COMPANY_ENROL.contacts.contact;
     if (cont) {
       this.contactModel = (cont instanceof Array) ? cont : [cont];
+      this.contactModelUpdated(this.contactModel);
     } else {
       this.contactModel = [];
     }
@@ -300,7 +301,7 @@ export class CompanyBaseComponent implements OnInit {
     // const version: Array<any> = this.genInfoModel.enrol_version.split('.');
     const today = new Date();
     const pipe = new DatePipe('en-US');
-    const date_generated = pipe.transform(today, 'yyyyMMdd');
+    const date_generated = pipe.transform(today, 'yyyyMMddHHmm');
     if (this.isInternalSite) {
       return 'final-com-' + this.genInfoModel.company_id + '-dategenerated' + date_generated;
     } else if (this.genInfoModel.status === GlobalsService.AMEND) {
@@ -355,8 +356,14 @@ export class CompanyBaseComponent implements OnInit {
   }
 
   contactModelUpdated(contacts) {
-    this.activeContacts = contacts.filter(contact =>
-      (contact[status] === 'NEW' || contact[status] === 'REVISE' || contact[status] === 'ACTIVE'));
+    const cntList = contacts.filter(contact =>
+      (contact.status._id === 'NEW' || contact.status._id === 'REVISE' || contact.status._id === 'ACTIVE'));
+    this.activeContacts = [];
+    if (cntList) {
+      cntList.forEach((contact: any) => {
+        this.activeContacts.push(contact.full_name);
+      });
+    }
     this.hasContact = (this.activeContacts && this.activeContacts.length > 0);
   }
 }

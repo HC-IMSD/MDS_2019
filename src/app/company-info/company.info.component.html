@@ -1,7 +1,7 @@
 <div>
   <div [formGroup]="generalInfoFormLocalModel">
     <div class="row">
-      <div class="form-group col-xs-3 minWidth200" >
+      <div class="form-group col-xs-4 minWidth200" >
         <label for="formStatus">
           <span class="field-name">{{'appl.status' |translate}}</span>
           <input name="formStatus" id="formStatus" class="form-control full-width" [readonly]="true"
@@ -15,14 +15,14 @@
                  <!--[formControl]="generalInfoFormLocalModel.controls.enrolVersion" (blur)="onblur()" />-->
         <!--</label>-->
       <!--</div>-->
-      <div class="form-group col-xs-3 minWidth200" >
+      <div class="form-group col-xs-4 minWidth200" >
         <label for="lastSavedDate">
           <span class="field-name">{{'date.saved' |translate}}</span>
           <input name="lastSavedDate" id="lastSavedDate" class="form-control full-width" [readonly]="disableAmend()"
                  [formControl]="generalInfoFormLocalModel.controls.lastSavedDate" (blur)="onblur()" />
         </label>
       </div>
-      <div class="form-group col-xs-3 minWidth200">
+      <div class="form-group col-xs-4 minWidth200">
         <label for="companyId" [ngClass]="{'required':isInternal}" aria-required="true">
           <span class="field-name" i18n>{{'company.id' |translate}}</span>
           <strong class="required" *ngIf="isInternal" i18n>{{'commmon.required.bracket'|translate}}</strong>
