@@ -21,7 +21,7 @@ export class CompanyBaseService {
     }
     return fb.group({
       status: '',
-      enrolVersion: 0.0,
+      // enrolVersion: 0.0,
       lastSavedDate: '',
       companyId: ['', [Validators.required, Validators.min(5)]]
     });
@@ -71,6 +71,7 @@ export class CompanyBaseService {
           manufacturer_name_change: '',
           manufacturer_address_change: '',
           facility_change: '',
+          contact_change: '',
           other_change: '',
           other_details: ''
         },
@@ -130,12 +131,12 @@ export class CompanyBaseService {
     const helpTextInx = {
       loadFileInx: 0,
       compREPInx: 0,
-      busNumInx: 0,
+      // busNumInx: 0,
       conStatInx: 0,
       routIdInx: 0,
-      primaryConInx: 0,
-      is3rdPartyInx: 0,
-      repRoutIdInx: 0,
+      desRenewalInx: 0,
+      desFinanceInx: 0,
+      // repRoutIdInx: 0,
       conNameInx: 0,
       licenseNumsInx: 0
     };

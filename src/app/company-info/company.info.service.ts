@@ -25,13 +25,14 @@ export class CompanyInfoService {
     if (!fb) {return null; }
     return fb.group({
       formStatus: GlobalsService.NEW,
-      enrolVersion: '0.0',
+      // enrolVersion: '0.0',
       lastSavedDate: '',
       companyId: ['', [Validators.required, ValidationService.companyIdValidator]],
       amendReason: [null, Validators.required],
       nameChange: [false, []],
       addressChange: [false, []],
       facilityChange: [false, []],
+      contactChange: [false, []],
       otherChange: [false, []],
       otherDetails: ['', [Validators.required]],
       areLicensesTransfered: ['', [Validators.required]]
@@ -68,6 +69,7 @@ export class CompanyInfoService {
           manufacturer_name_change: '',
           manufacturer_address_change: '',
           facility_change: '',
+          contact_change: '',
           other_change: '',
           other_details: ''
         },
@@ -78,7 +80,7 @@ export class CompanyInfoService {
 
   public static mapFormModelToDataModel(formRecord: FormGroup, generalInfoModel) {
     generalInfoModel.status = formRecord.controls.formStatus.value;
-    generalInfoModel.enrol_version = formRecord.controls.enrolVersion.value;
+    // generalInfoModel.enrol_version = formRecord.controls.enrolVersion.value;
     generalInfoModel.last_saved_date = formRecord.controls.lastSavedDate.value;
     if (formRecord.controls.companyId.value) {
       generalInfoModel.company_id = 'K' + formRecord.controls.companyId.value;
@@ -87,6 +89,7 @@ export class CompanyInfoService {
     generalInfoModel.amend_reasons.manufacturer_address_change =
       formRecord.controls.addressChange.value ? GlobalsService.YES : GlobalsService.NO;
     generalInfoModel.amend_reasons.facility_change = formRecord.controls.facilityChange.value ? GlobalsService.YES : GlobalsService.NO;
+    generalInfoModel.amend_reasons.contact_change = formRecord.controls.contactChange.value ? GlobalsService.YES : GlobalsService.NO;
     generalInfoModel.amend_reasons.other_change = formRecord.controls.otherChange.value ? GlobalsService.YES : GlobalsService.NO;
     generalInfoModel.amend_reasons.other_details = formRecord.controls.otherDetails.value;
     generalInfoModel.are_licenses_transfered = formRecord.controls.areLicensesTransfered.value;
@@ -94,7 +97,7 @@ export class CompanyInfoService {
 
   public static mapDataModelToFormModel(generalInfoModel, formRecord: FormGroup) {
     formRecord.controls.formStatus.setValue(generalInfoModel.status);
-    formRecord.controls.enrolVersion.setValue(generalInfoModel.enrol_version);
+    // formRecord.controls.enrolVersion.setValue(generalInfoModel.enrol_version);
     formRecord.controls.lastSavedDate.setValue(generalInfoModel.last_saved_date);
     if (generalInfoModel.company_id) {
       formRecord.controls.companyId.setValue(generalInfoModel.company_id.slice(1));
@@ -105,6 +108,8 @@ export class CompanyInfoService {
     formRecord.controls.addressChange.setValue(addc);
     const facc = generalInfoModel.amend_reasons.facility_change === GlobalsService.YES ? true : false;
     formRecord.controls.facilityChange.setValue(facc);
+    const conc = generalInfoModel.amend_reasons.contact_change === GlobalsService.YES ? true : false;
+    formRecord.controls.contactChange.setValue(conc);
     const othc = generalInfoModel.amend_reasons.other_change === GlobalsService.YES ? true : false;
     formRecord.controls.otherChange.setValue(othc);
     formRecord.controls.amendReason.setValue((namec || addc || facc || othc) ? 'reasonFilled' : null);

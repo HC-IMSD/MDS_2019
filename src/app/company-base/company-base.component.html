@@ -101,7 +101,7 @@
                 <div class="panel-body">
                   <contact-list  (errors)="processContactErrors($event)" [isInternal]="isInternalSite"
                                  [loadFileIndicator]="loadFileIndicator" [lang]="lang"
-                                 [helpTextSequences]="helpIndex"
+                                 [helpTextSequences]="helpIndex" [xmlStatus]="genInfoModel.status"
                                  [showErrors]="showErrors" [contactModel]="contactModel"></contact-list>
                 </div>
               </section>
@@ -110,21 +110,22 @@
         </section>
       </div>
 
-      <div>
+      <div *ngIf="hasContact">
         <section class="panel  panel-default">
           <header class="panel-heading clearfix">
-            <h3 class="panel-title">{{'primary.contact'|translate}}
-              <sup id="co5-rf">
-                <a class="fn-lnk" href="#co5"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex.primaryConInx}}</a>
-              </sup>
+            <h3 class="panel-title">{{'contact.designation'|translate}}
+              <!--<sup id="co5-rf">-->
+                <!--<a class="fn-lnk" href="#co5"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex.primaryConInx}}</a>-->
+              <!--</sup>-->
             </h3>
           </header>
           <div class="panel-body">
-            <primary-contact [showErrors]="showErrors" [lang]="lang"
+            <primary-contact [lang]="lang"
                              [detailsChanged]="updateChild"
                              [primContactModel]="primContactModel"
+                             [activeContactList]="activeContacts"
                              [helpTextSequences]="helpIndex"
-                             (primContactErrorList)="processPrimContactErrors($event)"></primary-contact>
+                             (contactsUpdated)="contactModelUpdated($event)"></primary-contact>
           </div>
         </section>
       </div>

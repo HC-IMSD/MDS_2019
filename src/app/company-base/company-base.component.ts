@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, Input, HostListener, ViewEncapsulation, AfterViewInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit,  SimpleChanges, OnChanges, ViewChild, Input, HostListener, ViewEncapsulation, AfterViewInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 // import {TranslateService} from '@ngx-translate/core';
@@ -33,7 +33,7 @@ export class CompanyBaseComponent implements OnInit {
   private _addressErrors = [];
   private _contactErrors = [];
   private _adminChangesErrors = [];
-  private _primContactErrors = [];
+  // private _primContactErrors = [];
   public companyForm: FormGroup;
   public errorList = [];
   public rootTagText = 'DEVICE_COMPANY_ENROL';
@@ -60,6 +60,8 @@ export class CompanyBaseComponent implements OnInit {
   public xslName = 'REP_MDS_CO_2_0.xsl';
   public showMailToHelpText: boolean;
   public mailToLink = '';
+  public activeContacts = [];
+  public hasContact = false;
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private dataLoader: CompanyDataLoaderService,
               private http: HttpClient, private translate: TranslateService) {
@@ -93,13 +95,25 @@ export class CompanyBaseComponent implements OnInit {
     document.location.href = '#main';
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['contactModel']) {
+      this._updateContactList(changes['primContactModel'].currentValue);
+    }
+  }
+
+  private _updateContactList(contacts) {
+    this.activeContacts = contacts.filter(contact =>
+      (contact[status] === 'NEW' || contact[status] === 'REVISE' || contact[status] === 'ACTIVE'));
+    this.hasContact = (this.activeContacts && this.activeContacts.length > 0);
+  }
+
   processErrors() {
     // console.log('@@@@@@@@@@@@ Processing errors in Company base compo
     this.errorList = [];
     // concat the error arrays
     this.errorList = this._genInfoErrors.concat(
       this._addressErrors.concat(this._contactErrors.concat(
-        this._primContactErrors.concat(this._adminChangesErrors))));
+        this._adminChangesErrors)));
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -118,10 +132,10 @@ export class CompanyBaseComponent implements OnInit {
     this.processErrors();
   }
 
-  processPrimContactErrors(errorList) {
-    this._primContactErrors = errorList;
-    this.processErrors();
-  }
+  // processPrimContactErrors(errorList) {
+  //   this._primContactErrors = errorList;
+  //   this.processErrors();
+  // }
 
   processAdminChangesErrors(errorList) {
     this._adminChangesErrors = this.showAdminChanges ? errorList : [];
@@ -226,6 +240,7 @@ export class CompanyBaseComponent implements OnInit {
         manufacturer_name_change: '',
         manufacturer_address_change: '',
         facility_change: '',
+        contact_change: '',
         other_change: '',
         other_details: ''
       };
@@ -282,13 +297,16 @@ export class CompanyBaseComponent implements OnInit {
   }
 
   private _buildfileName() {
-    const version: Array<any> = this.genInfoModel.enrol_version.split('.');
+    // const version: Array<any> = this.genInfoModel.enrol_version.split('.');
+    const today = new Date();
+    const pipe = new DatePipe('en-US');
+    const date_generated = pipe.transform(today, 'yyyyMMdd');
     if (this.isInternalSite) {
-      return 'final-com-' + this.genInfoModel.company_id + '-' + version[0] + '-' + version[1];
+      return 'final-com-' + this.genInfoModel.company_id + '-dategenerated' + date_generated;
     } else if (this.genInfoModel.status === GlobalsService.AMEND) {
-      return 'draft-com-' + this.genInfoModel.company_id + '-' + version[0] + '-' + version[1];
+      return 'draft-com-' + this.genInfoModel.company_id + '-dategenerated' + date_generated;
     } else {
-      return 'draft-com-' + version[0] + '-' + version[1];
+      return 'draft-com-dategenerated' + date_generated;
     }
   }
 
@@ -309,20 +327,21 @@ export class CompanyBaseComponent implements OnInit {
 
   public mailto() {
     this.showMailToHelpText = true;
-    const emailSubject = 'Draft CO XML - ' + this.addressModel.company_name;
+    const emailSubject = 'Draft CO XML - ' + this.addressModel.company_name +
+      (this.genInfoModel.company_id === null) ? '' : this.genInfoModel.company_id;
     let emailAddress;
-    let body = 'NOTE: THE CO IS NOT AUTOMATICALLY ATTACHED. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
+    let body = 'NOTE: The Company XML file is not automatically attached. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
     if (this.genInfoModel.are_licenses_transfered  === GlobalsService.YES ||
       this.genInfoModel.amend_reasons.manufacturer_name_change === GlobalsService.YES ||
       this.genInfoModel.amend_reasons.manufacturer_address_change === GlobalsService.YES ||
       this.genInfoModel.amend_reasons.facility_change === GlobalsService.YES) {
-      emailAddress = 'hc.qs.mdb.sc@canada.ca';
+      emailAddress = 'qs.mdb@hc-sc.gc.ca';
     } else {
-      emailAddress = 'hc.devicelicensing-homologationinstruments.sc@canada.ca';
+      emailAddress = 'devicelicensing-homologationinstruments@hc-sc.gc.ca';
     }
     // todo: add more body text
 
-    this.mailToLink = 'mailto:' + emailAddress + '?subject=' + emailSubject + '&body=H' + body;
+    this.mailToLink = 'mailto:' + emailAddress + '?subject=' + emailSubject + '&body=' + body;
   }
 
   /*
@@ -333,5 +352,11 @@ export class CompanyBaseComponent implements OnInit {
             this.genInfoModel.amend_reasons.manufacturer_name_change === GlobalsService.YES ||
             this.genInfoModel.amend_reasons.manufacturer_address_change === GlobalsService.YES ||
             this.genInfoModel.amend_reasons.facility_change === GlobalsService.YES);
+  }
+
+  contactModelUpdated(contacts) {
+    this.activeContacts = contacts.filter(contact =>
+      (contact[status] === 'NEW' || contact[status] === 'REVISE' || contact[status] === 'ACTIVE'));
+    this.hasContact = (this.activeContacts && this.activeContacts.length > 0);
   }
 }

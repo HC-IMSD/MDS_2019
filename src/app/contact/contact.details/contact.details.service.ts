@@ -58,9 +58,9 @@ export class ContactDetailsService {
       status: 'NEW',
       // hcStatus: [null, Validators.required],
       // salutation: [null, Validators.required],
-      firstName: [null, Validators.required],
-      initials: '',
-      lastName: [null, Validators.required],
+      fullName: [null, Validators.required],
+      // initials: '',
+      // lastName: [null, Validators.required],
       language: '',
       jobTitle: [null, Validators.required],
       faxNumber: ['', [Validators.minLength(10), ValidationService.faxNumberValidator]],
@@ -85,9 +85,9 @@ export class ContactDetailsService {
         status_text: '',
         // hc_status: '',
         // salutation: '',
-        first_name: '',
-        initials: '',
-        last_name: '',
+        full_name: '',
+        // initials: '',
+        // last_name: '',
         language: '',
         job_title: '',
         fax_number: '',
@@ -132,9 +132,9 @@ export class ContactDetailsService {
     // } else {
     //   contactModel.salutation = null;
     // }
-    contactModel.first_name = formRecord.controls.firstName.value;
-    contactModel.initials = formRecord.controls.initials.value;
-    contactModel.last_name = formRecord.controls.lastName.value;
+    contactModel.full_name = formRecord.controls.fullName.value;
+    // contactModel.initials = formRecord.controls.initials.value;
+    // contactModel.last_name = formRecord.controls.lastName.value;
     if (formRecord.controls.language.value) {
       const langList = this._convertListText(this.languageList, this.lang);
       const recordIndex3 = ListService.getRecord(langList, formRecord.controls.language.value, 'id');
@@ -178,9 +178,9 @@ export class ContactDetailsService {
     //   formRecord.controls.salutation.setValue(null);
     // }
 
-    formRecord.controls.firstName.setValue(contactModel.first_name);
-    formRecord.controls.initials.setValue(contactModel.initials);
-    formRecord.controls.lastName.setValue(contactModel.last_name);
+    formRecord.controls.fullName.setValue(contactModel.full_name);
+    // formRecord.controls.initials.setValue(contactModel.initials);
+    // formRecord.controls.lastName.setValue(contactModel.last_name);
     if (contactModel.language) {
       const recordIndex3 = ListService.getRecord(this.languageList, contactModel.language._id, 'id');
       if (recordIndex3 > -1) {

@@ -203,6 +203,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.generalInfoFormLocalModel.controls.nameChange.value ||
       this.generalInfoFormLocalModel.controls.addressChange.value ||
       this.generalInfoFormLocalModel.controls.facilityChange.value ||
+      this.generalInfoFormLocalModel.controls.contactChange.value ||
       this.generalInfoFormLocalModel.controls.otherChange.value) {
       this.generalInfoFormLocalModel.controls.amendReason.setValue('reasonFilled');
     }

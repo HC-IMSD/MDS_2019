@@ -4,6 +4,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {ConvertResults} from '../convert-results';
 import {FileConversionService} from '../file-conversion.service';
 import {FileIoGlobalsService} from '../file-io-globals.service';
+import {GlobalsService} from '../../../globals/globals.service';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class FilereaderComponent implements OnInit {
   public status = FileIoGlobalsService.importSuccess;
   public showFileLoadStatus = false;
   private rootId = '';
+  public showAmendNote = false;
 
   constructor(private translate: TranslateService) {
   }
@@ -60,6 +62,7 @@ export class FilereaderComponent implements OnInit {
         self.status = convertResult.messages[0];
       }
       self.showFileLoadStatus = true;
+      self.showAmendNote = (convertResult.data.DEVICE_COMPANY_ENROL.general_information.status === GlobalsService.FINAL);
       self.complete.emit(convertResult);
     };
     if (file && file.name) {
