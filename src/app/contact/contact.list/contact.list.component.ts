@@ -53,7 +53,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
       width: '10'
     },
     {
-      label: 'Full Name',
+      label: 'Full Name (First and Last)',
       binding: 'full_name',
       width: '40'
     },

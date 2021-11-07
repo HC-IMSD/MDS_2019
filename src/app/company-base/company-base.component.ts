@@ -303,11 +303,11 @@ export class CompanyBaseComponent implements OnInit {
     const pipe = new DatePipe('en-US');
     const date_generated = pipe.transform(today, 'yyyyMMddHHmm');
     if (this.isInternalSite) {
-      return 'final-com-' + this.genInfoModel.company_id + '-dategenerated' + date_generated;
+      return 'final-com-' + this.genInfoModel.company_id + '-' + date_generated;
     } else if (this.genInfoModel.status === GlobalsService.AMEND) {
-      return 'draft-com-' + this.genInfoModel.company_id + '-dategenerated' + date_generated;
+      return 'draft-com-' + this.genInfoModel.company_id + '-' + date_generated;
     } else {
-      return 'draft-com-dategenerated' + date_generated;
+      return 'draft-com-' + date_generated;
     }
   }
 
@@ -329,7 +329,7 @@ export class CompanyBaseComponent implements OnInit {
   public mailto() {
     this.showMailToHelpText = true;
     const emailSubject = 'Draft CO XML - ' + this.addressModel.company_name +
-      (this.genInfoModel.company_id === null) ? '' : this.genInfoModel.company_id;
+      (this.genInfoModel.company_id === null ? '' : this.genInfoModel.company_id);
     let emailAddress;
     let body = 'NOTE: The Company XML file is not automatically attached. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
     if (this.genInfoModel.are_licenses_transfered  === GlobalsService.YES ||
