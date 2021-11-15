@@ -1,0 +1,5 @@
+{
+  "files": ["./dist/prod/company/fr/index.html","./dist/prod/company_internal/fr/index_internal.html"],
+  "from": ["<!--build:mainHeading--><!--endbuild-->","<!--build:mainTitle-->","<!--build:langHtml--><!--endbuild-->","<!--build:internallangHtml--><!--endbuild-->"],
+  "to": ["Modèle de compagnie: Processus d'Inscription Réglementaire<br>(Version 3.0.0)","Modèle de compagnie: Processus d'Inscription Réglementaire - Canada.ca","../en/index.html","../en/index_internal.html"]
+}

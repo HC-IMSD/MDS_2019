@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="no-js lt-ie9" dir="ltr"><![endif]-->
 <!--[if gt IE 8]><!-->
-<html xmlns="http://www.w3.org/1999/xhtml" class="no-js" lang="en" data-th-lang="#{lang}" dir="ltr">
+<html xmlns="http://www.w3.org/1999/xhtml" class="no-js" lang="fr" data-th-lang="#{lang}" dir="ltr">
 <!--<![endif]-->
 <head>
   <meta charset="utf-8" />
@@ -17,17 +17,17 @@
   <meta property="dcterms.issued" title="W3CDTF" content="2019-01-01">
   <meta property="dcterms.modified" title="W3CDTF" content=currentDate()>
   <meta property="dcterms.subject" title="gccore" content="Drugs; Pharmaceuticals, Health care products; Regulatory Enrolment Process">
-  <meta property="dcterms.language" title="ISO639-2/T" content="eng">
+  <meta property="dcterms.language" title="ISO639-2/T" content="fr">
 
   <!-- Web Experience Toolkit (WET) / Boîte à outils deloca l'expérience Web (BOEW)
-         wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+         wet-boew.github.io/wet-boew/License-fr.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
   <title><!--build:mainTitle--></title>
   <meta content="width=device-width,initial-scale=1" name="viewport" />
   <!-- Additional analytics, if required. -->
   <!--/*/ <th:block th:replace="analytics/analytics-header"></th:block> /*/-->
   <!-- Load closure template scripts -->
   <script type="text/javascript" src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_27/cdts/compiled/soyutils.js"></script>
-  <script type="text/javascript" src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_27/cdts/compiled/wet-en.js"></script>
+  <script type="text/javascript" src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_27/cdts/compiled/wet-fr.js"></script>
   <!--<script nomodule="" src="generated/ie-polyfills.min.js"></script> -->
   <script src="./assets/js/rep.js"></script>
   <noscript>
@@ -65,8 +65,8 @@
 
 <div id="def-top">
   <!-- Write closure fall-back static file -->
-  <!-- ./web-boew/cdts/static/top-en.html-->
-  <!--# include virtual="/rep-dev/cdts/static/top-en.html"-->
+  <!-- ./web-boew/cdts/static/top-fr.html-->
+  <!--# include virtual="/rep-dev/cdts/static/top-fr.html"-->
 </div>
 <!-- Write closure template -->
 <script type="text/javascript">
@@ -75,14 +75,14 @@
     cdnEnv: "prod",
     search: true,
     lngLinks: [{
-      lang: "fr",
+      lang: "en",
       href: "<!--build:internallangHtml--><!--endbuild-->",
-      text: "Français"
+      text: "English"
     }],
     showPreContent: false,
-    breadcrumbs: [{title: "Home", href: "https://www.canada.ca/en.html"},
-      {title: "Health Canada", href: "https://www.canada.ca/en/health-canada.html"},
-      {title: "Regulatory Enrolment Process Forms", href: "https://lam-dev.hres.ca/REP-Form/mds_index.html"}]
+    breadcrumbs: [{title: "Canada.ca", href: "https://www.canada.ca/fr.html"},
+      {title: "Santé Canada", href: "https://www.canada.ca/fr/health-canada.html"},
+      {title: "Processus d'inscription réglementaire", href: "https://lam-dev.hres.ca/REP-Form/mds_index.html"}]
   });
 </script>
 
@@ -98,18 +98,17 @@
       <div class=" col-md-12 module-table-contents">
         <section class="panel panel-default">
           <header class="panel-heading clearfix">
-            <h2  class="panel-title">Table of contents</h2>
+            <h2  class="panel-title">Table de matières</h2>
           </header>
           <div class="panel-body">
             <ul>
-              <!-- <li><a class="ui-link" href="#privacy">Privacy Notice Statement</a></li> -->
-              <li><a class="ui-link" href="#privacy">Privacy Notice Statement</a></li>
-              <li><a class="ui-link" href="#security">Security Disclaimer</a></li>
-               <li><a class="ui-link" href="#instructions">Instructions</a></li>
-               <li><a class="ui-link" href="#main">Form</a></li>
-             </ul>
-           </div>
-         </section>
+              <li><a class="ui-link" href="#privacy">Énoncé de confidentialité</a></li>
+              <li><a class="ui-link" href="#security">Avis de non-responsabilité concernant la sécurité</a></li>
+              <li><a class="ui-link" href="#instructions">Instructions</a></li>
+              <li><a class="ui-link" href="#main">Formulaire</a></li>
+            </ul>
+          </div>
+        </section>
        </div>
        <app-root isInternal="yes"></app-root>
        <!-- inject:mainContent--json>
@@ -119,8 +118,8 @@
 
   <div id="def-preFooter">
     <!-- Write closure fall-back static file -->
-    <!-- ./web-boew/cdts/static/preFooter-en.html-->
-    <!--# include virtual="/rep-dev/cdts/static/preFooter-en.html"-->
+    <!-- ./web-boew/cdts/static/preFooter-fr.html-->
+    <!--# include virtual="/rep-dev/cdts/static/preFooter-fr.html"-->
   </div>
 
   <!-- Write closure template -->
@@ -129,7 +128,7 @@
 
     defPreFooter.outerHTML = wet.builder.preFooter({
       cdnEnv: "prod",
-      dateModified: '2020-04-30',
+      dateModified: '2021-11-15',
       showPostContent: true,
       showFeedback:true,
       showShare:true
@@ -138,8 +137,8 @@
 </main>
 <div id="def-footer">
   <!-- Write closure fall-back static file -->
-  <!-- ./web-boew/cdts/static/footer-en.html-->
-  <!--# include virtual="/rep-dev/cdts/static/footer-en.html"-->
+  <!-- ./web-boew/cdts/static/footer-fr.html-->
+  <!--# include virtual="/rep-dev/cdts/static/footer-fr.html"-->
 </div>
 <!-- Write closure template -->
 <script type="text/javascript">
