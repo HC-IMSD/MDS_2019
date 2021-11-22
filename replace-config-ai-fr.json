@@ -1,0 +1,5 @@
+{
+  "files": "./dist/prod/applicationInfo/fr/index.html",
+  "from": ["<!--build:mainHeading--><!--endbuild-->","<!--build:mainTitle-->","<!--build:langHtml--><!--endbuild-->"],
+  "to": ["Information sur l'application: Processus d'inscription réglementaire<br>(Version 2.1.0)","Information sur l'application: Processus d'inscription réglementaire - Canada.ca","../en/index.html"]
+}

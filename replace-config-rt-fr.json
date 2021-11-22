@@ -1,0 +1,5 @@
+{
+  "files": "./dist/prod/transaction/fr/index.html",
+  "from": ["<!--build:mainHeading--><!--endbuild-->","<!--build:mainTitle-->","<!--build:langHtml--><!--endbuild-->"],
+  "to": ["Modèle de transaction réglementaire: Processus d'inscription réglementaire<br>(Version 2.1.0)","Modèle de transaction réglementaire: Processus d'inscription réglementaire - Canada.ca","../en/index.html"]
+}

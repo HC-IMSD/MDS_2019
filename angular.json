@@ -241,6 +241,7 @@
               ]
             },
             "production-fr": {
+              "index": "src/fr/index.html",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -336,6 +337,7 @@
               ]
             },
             "production-fr": {
+              "index": "src/fr/index.html",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
