@@ -135,7 +135,7 @@ export class CompanyBaseService {
       desRenewalInx: 0,
       desFinanceInx: 0,
       // repRoutIdInx: 0,
-      conNameInx: 0,
+      // conNameInx: 0,
       licenseNumsInx: 0
     };
     const keys = Object.keys(helpTextInx);

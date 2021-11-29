@@ -328,7 +328,7 @@ export class CompanyBaseComponent implements OnInit {
 
   public mailto() {
     this.showMailToHelpText = true;
-    const emailSubject = 'Draft CO XML - ' + this.addressModel.company_name +
+    const emailSubject = 'Draft CO XML - ' + this.addressModel.company_name + ' ' +
       (this.genInfoModel.company_id === null ? '' : this.genInfoModel.company_id);
     let emailAddress;
     let body = 'NOTE: The Company XML file is not automatically attached. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';

@@ -116,6 +116,7 @@ export class PrimaryContactComponent implements OnInit, OnChanges, AfterViewInit
         !changes['activeContactList'].currentValue.includes(this.primContactFormLocalModel.controls.financeContactName.value)) {
         this.primContactFormLocalModel.controls.financeContactName.setValue('');
       }
+      this.onblur();
     }
   }
 
