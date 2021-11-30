@@ -168,8 +168,10 @@ export class CompanyBaseComponent implements OnInit {
     return (!this.isInternalSite && this.genInfoModel.status === GlobalsService.FINAL);
   }
 
-  public isExternalAndNoError() {
-    return (this.isInternalSite || (this.errorList && this.errorList.length > 0) || !this.companyContacts.contactListForm.pristine);
+  // disable the mailto link for internal, or when it is external Final or when there are errors for the external
+  public disableMailtoLink() {
+    return (this.isInternalSite || this.genInfoModel.status === GlobalsService.FINAL ||
+      (this.errorList && this.errorList.length > 0) || !this.companyContacts.contactListForm.pristine);
   }
 
   public saveXmlFile() {
