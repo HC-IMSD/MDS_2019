@@ -17,6 +17,7 @@ import {NumbersOnlyModule} from '../app/number-only/number-only.module';
 
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {CommonFeatureModule} from '../app/common/common-feature.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -67,7 +68,10 @@ export class AppModule {
 }
 
 
+
 export function HttpLoaderFactory(http: HttpClient) {
-  // return new TranslateHttpLoader(http);
-  return new TranslateHttpLoader(http, './assets/i18n/transaction/', '.json');
+  return new MultiTranslateHttpLoader(http, [
+    {prefix: './assets/i18n/transaction/', suffix: '.json'},
+    {prefix: './assets/i18n/shared/', suffix: '.json'},
+  ]);
 }

@@ -19,6 +19,7 @@
             "assets": [
               "src/assets/data",
               "src/assets/i18n/company",
+              "src/assets/i18n/shared",
               "src/assets/lib",
               "src/assets/js",
               "src/GCWeb",
@@ -115,6 +116,7 @@
             "assets": [
               "src/assets/data",
               "src/assets/i18n/company",
+              "src/assets/i18n/shared",
               "src/assets/lib",
               "src/assets/js",
               "src/GCWeb",
@@ -211,6 +213,7 @@
             "assets": [
               "src/assets/data",
               "src/assets/i18n/transaction",
+              "src/assets/i18n/shared",
               "src/assets/lib",
               "src/assets/js",
               "src/GCWeb",
@@ -307,6 +310,7 @@
             "assets": [
               "src/assets/data",
               "src/assets/i18n/applicationInfo",
+              "src/assets/i18n/shared",
               "src/assets/lib",
               "src/assets/js",
               "src/GCWeb",

@@ -20,6 +20,7 @@ import {PrimaryContactComponent} from '../app/primary-contact/primary.contact.co
 
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {CommonFeatureModule} from '../app/common/common-feature.module';
 import {TherapeuticModule} from '../app/therapeutic/therapeutic.module';
@@ -74,6 +75,8 @@ export class AppModule {
 
 
 export function HttpLoaderFactory(http: HttpClient) {
-  // return new TranslateHttpLoader(http);
-  return new TranslateHttpLoader(http, './assets/i18n/company/', '.json');
+  return new MultiTranslateHttpLoader(http, [
+    {prefix: './assets/i18n/company/', suffix: '.json'},
+    {prefix: './assets/i18n/shared/', suffix: '.json'},
+  ]);
 }
