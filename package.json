@@ -21,12 +21,21 @@
     "prod-applicationInfo-build": "npm run prod-applicationInfo-build-en & npm run prod-applicationInfo-build-fr",
     "prod-applicationInfo-build-en": "ng run applicationInfo:build --configuration=production-en --outputPath=dist/prod/applicationInfo/en & npm run replace-in-file-ai-en",
     "prod-applicationInfo-build-fr": "ng run applicationInfo:build --configuration=production-fr --outputPath=dist/prod/applicationInfo/fr & npm run replace-in-file-ai-fr",
+
+    "prod-masterFile-build": "npm run prod-masterFile-build-en & npm run prod-masterFile-build-fr",
+    "prod-masterFile-build-en": "ng run masterFile:build --configuration=production-en --outputPath=dist/prod/masterFile/en & npm run replace-in-file-mf-en",
+    "prod-masterFile-build-fr": "ng run masterFile:build --configuration=production-fr --outputPath=dist/prod/masterFile/fr & npm run replace-in-file-mf-fr",
+
     "replace-in-file-co-en": "replace-in-file --configFile=replace-config-co-en.json",
     "replace-in-file-rt-en": "replace-in-file --configFile=replace-config-rt-en.json",
     "replace-in-file-ai-en": "replace-in-file --configFile=replace-config-ai-en.json",
     "replace-in-file-co-fr": "replace-in-file --configFile=replace-config-co-fr.json",
     "replace-in-file-rt-fr": "replace-in-file --configFile=replace-config-rt-fr.json",
     "replace-in-file-ai-fr": "replace-in-file --configFile=replace-config-ai-fr.json",
+
+    "replace-in-file-mf-en": "replace-in-file --configFile=replace-config-mf-en.json",
+    "replace-in-file-mf-fr": "replace-in-file --configFile=replace-config-mf-fr.json",
+
     "compodoc": "./node_modules/.bin/compodoc -p src/tsconfig.json",
     "docs": "npm run docs:build",
     "docs:build": "compodoc -p tsconfig.json -n companyFormTest -d docs --hideGenerator",
@@ -35,7 +44,8 @@
     "serve company": "ng run company:serve",
     "serve company-internal": "ng run company_internal:serve",
     "serve transaction": "ng run transaction:serve",
-    "serve applicationInfo": "ng run applicationInfo:serve"
+    "serve applicationInfo": "ng run applicationInfo:serve",
+    "serve masterFile": "ng run masterFile:serve"
   },
   "private": true,
   "dependencies": {

@@ -1,0 +1,102 @@
+<div class="container-fluid">
+  <form name="MasterFileForm" [formGroup]="MasterFileForm" novalidate>
+    <div>
+      <span id="privacy"></span>
+      <div>
+        <h2 class="panel-title mrgn-tp-sm mrgn-bttm-sm">{{'privacy.statement' | translate}}</h2>
+        <section class="module-attention"><app-privacy-component></app-privacy-component></section>
+      </div>
+      <span id="security"></span>
+      <div>
+        <h2 class="panel-title mrgn-tp-sm mrgn-bttm-sm">{{'security.declaimer' | translate}}</h2>
+        <section class="module-attention">
+          <app-security-component></app-security-component>
+        </section>
+      </div>
+      <aside class="wb-fnote" role="note" id="instructions">
+        <h2>{{'instruction.help'|translate}}</h2>
+        <section><master-file-help-en [helpTextSequences]="helpIndex"></master-file-help-en></section>
+      </aside>
+      <span id="main"></span>
+      <div class="row mrgn-tp-md">
+        <div class="col-md-12">
+          <div class="text-right">
+            <span id="securityInfo" class="fa fa-shield fa-sm"><strong>&nbsp;{{'PROTECTED_B'|translate}}</strong></span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <section class="panel panel-primary mrgn-tp-lg">
+          <header class="panel-heading clearfix">
+            <h2 class="panel-title">{{'master.file.load.file'|translate}}
+              <sup id="tr1-rf">
+                <a class="fn-lnk" href="#tr1"><span class="wb-inv">{{'instruction'|translate}}</span>1</a>
+              </sup>
+            </h2>
+          </header>
+          <div class="panel-body">
+            <div class="row">
+              <filereader (complete)="processFile($event)" [rootTag]="rootTagText"></filereader>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div id="topErrorSummaryId">
+        <error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
+                       headingPreamble="errorSummary.master-file"></error-summary>
+      </div>
+      <div>
+        <section class="panel panel-primary mrgn-tp-lg">
+          <header class="panel-heading clearfix">
+            <h2 class="panel-title">{{'heading.master-file'|translate}}
+              <sup id="tr2-rf">
+                <a class="fn-lnk" href="#tr2"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex.tr2}}</a>
+              </sup>
+            </h2>
+          </header>
+          <div class="panel-body">
+            <master-file-details [showErrors]="showErrors" [lang]="lang" [userList]="userList"
+                              [detailsChanged]="updateChild" [masterFileModel]="masterFileModel"
+                              (isSolicitedFlag)="processIsSolicitedFlag($event)" [helpIndex]="helpIndex"
+                              (detailErrorList)="processDetailErrors($event)"></master-file-details>
+
+          </div>
+          <section class="panel  panel-default" *ngIf="isSolicited()">
+            <header class="panel-heading clearfix">
+              <h3 class="panel-title">{{'heading.requesters'|translate}}</h3>
+            </header>
+            <div class="panel-body">
+              <requester-list  (errors)="processRequesterErrors($event)"  [userList]="userList" [showErrors]="showErrors"
+                               [requesterModel]="requesterModel"></requester-list>
+            </div>
+          </section>
+          <section class="panel panel-default">
+            <header class="panel-heading clearfix">
+              <h3 class="panel-title">{{'fees'|translate}}</h3>
+            </header>
+            <div class="panel-body">
+              <master-file-fee (feeErrorList)="processTransFeeErrors($event)"
+                               [showErrors]="showErrors" [transFeeModel]="transFeeModel"></master-file-fee>
+            </div>
+          </section>
+
+        </section>
+      </div>
+
+    </div>
+    <div class="row btn-group-sm">
+      <div class="form-group col-md-4">
+        <button class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()" i18n>
+          {{'save.working.copy'|translate}}
+        </button>
+      </div>
+      <div class="form-group col-md-4">
+        <button class="btn btn-primary btn-lg active" (click)="saveXmlFile()" i18n>
+          {{'generate.final'|translate}}
+        </button>
+      </div>
+    </div>
+    <!--pre> myForm valid{{myForm.valid}}</pre>
+    <pre> myForm{{myForm.value |json}}</pre-->
+  </form>
+</div>

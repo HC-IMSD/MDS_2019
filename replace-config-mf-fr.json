@@ -1,0 +1,5 @@
+{
+  "files": "./dist/prod/masterFile/fr/index.html",
+  "from": ["<!--build:mainHeading--><!--endbuild-->","<!--build:mainTitle-->","<!--build:langHtml--><!--endbuild-->"],
+  "to": ["Modèle de la fiche maîtresse: Processus d'inscription réglementaire<br>(Version 1.0.0)","Modèle de la fiche maîtresse: Processus d'inscription réglementaire - Canada.ca","../en/index.html"]
+}

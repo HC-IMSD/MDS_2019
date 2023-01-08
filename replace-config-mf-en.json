@@ -1,0 +1,5 @@
+{
+  "files": "./dist/prod/masterFile/en/index.html",
+  "from": ["<!--build:mainHeading--><!--endbuild-->","<!--build:mainTitle-->","<!--build:langHtml--><!--endbuild-->"],
+  "to": ["Master File Template: Regulatory Enrolment Process (REP)<br>(Version 1.0.0)","Master File Template: Regulatory Enrolment Process - Canada.ca","../fr/index.html"]
+}
