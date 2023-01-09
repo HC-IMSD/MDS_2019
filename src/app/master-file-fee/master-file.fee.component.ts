@@ -25,7 +25,7 @@ import {noUndefined} from '@angular/compiler/src/util';
  */
 export class MasterFileFeeComponent implements OnInit, OnChanges, AfterViewInit {
 
-  public transFeeFormLocalModel: FormGroup;
+  public mfFeeFormLocalModel: FormGroup;
   @Input('group') public transFeeFormRecord: FormGroup;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
@@ -50,8 +50,8 @@ export class MasterFileFeeComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   async ngOnInit() {
-    if (!this.transFeeFormLocalModel) {
-      this.transFeeFormLocalModel = this.feeService.getReactiveModel(this._fb);
+    if (!this.mfFeeFormLocalModel) {
+      this.mfFeeFormLocalModel = this.feeService.getReactiveModel(this._fb);
     }
     // if (!this.transFeeModel) {
     //   this.transFeeModel = this.feeService.getEmptyModel();
@@ -91,8 +91,8 @@ export class MasterFileFeeComponent implements OnInit, OnChanges, AfterViewInit 
         this.setToLocalModel();
 
       } else {
-        this.transFeeFormLocalModel = this.feeService.getReactiveModel(this._fb);
-        this.transFeeFormLocalModel.markAsPristine();
+        this.mfFeeFormLocalModel = this.feeService.getReactiveModel(this._fb);
+        this.mfFeeFormLocalModel.markAsPristine();
       }
     }
     if (changes['showErrors']) {
@@ -107,17 +107,17 @@ export class MasterFileFeeComponent implements OnInit, OnChanges, AfterViewInit 
       }
       this.feeErrorList.emit(temp);
     }
-    if (changes['transFeeFormLocalModel']) {
+    if (changes['mfFeeFormLocalModel']) {
       console.log('**********the Master File fees changed');
-      this.transFeeFormRecord = this.transFeeFormLocalModel;
+      this.transFeeFormRecord = this.mfFeeFormLocalModel;
     }
     if (changes['transFeeModel']) {
       const dataModel = changes['transFeeModel'].currentValue;
-      if (!this.transFeeFormLocalModel) {
-        this.transFeeFormLocalModel = this.feeService.getReactiveModel(this._fb);
-        this.transFeeFormLocalModel.markAsPristine();
+      if (!this.mfFeeFormLocalModel) {
+        this.mfFeeFormLocalModel = this.feeService.getReactiveModel(this._fb);
+        this.mfFeeFormLocalModel.markAsPristine();
       }
-      MasterFileFeeService.mapDataModelToFormModel(dataModel, (<FormGroup>this.transFeeFormLocalModel));
+      MasterFileFeeService.mapDataModelToFormModel(dataModel, (<FormGroup>this.mfFeeFormLocalModel));
     }
   }
 
@@ -126,28 +126,28 @@ export class MasterFileFeeComponent implements OnInit, OnChanges, AfterViewInit 
    */
 
   setToLocalModel() {
-    this.transFeeFormLocalModel = this.transFeeFormRecord;
-    if (!this.transFeeFormLocalModel.pristine) {
-      this.transFeeFormLocalModel.markAsPristine();
+    this.mfFeeFormLocalModel = this.transFeeFormRecord;
+    if (!this.mfFeeFormLocalModel.pristine) {
+      this.mfFeeFormLocalModel.markAsPristine();
     }
   }
 
   onblur() {
     // console.log('input is typed');
-    MasterFileFeeService.mapFormModelToDataModel((<FormGroup>this.transFeeFormLocalModel),
+    MasterFileFeeService.mapFormModelToDataModel((<FormGroup>this.mfFeeFormLocalModel),
       this.transFeeModel);
   }
 
 
   hasFeeYes() {
-    if (this.transFeeFormLocalModel.controls.hasFees.value) {
-      if (this.transFeeFormLocalModel.controls.hasFees.value === GlobalsService.YES) {
+    if (this.mfFeeFormLocalModel.controls.hasFees.value) {
+      if (this.mfFeeFormLocalModel.controls.hasFees.value === GlobalsService.YES) {
         return true;
       } else {
-        this.transFeeFormLocalModel.controls.billCompanyId.setValue(null);
-        this.transFeeFormLocalModel.controls.billCompanyId.markAsUntouched();
-        this.transFeeFormLocalModel.controls.billContactId.setValue(null);
-        this.transFeeFormLocalModel.controls.billContactId.markAsUntouched();
+        this.mfFeeFormLocalModel.controls.billCompanyId.setValue(null);
+        this.mfFeeFormLocalModel.controls.billCompanyId.markAsUntouched();
+        this.mfFeeFormLocalModel.controls.billContactId.setValue(null);
+        this.mfFeeFormLocalModel.controls.billContactId.markAsUntouched();
         // todo: add more fields under hasfees here ???
       }
     }
