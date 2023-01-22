@@ -59,6 +59,7 @@
     "@ngx-translate/http-loader": "^3.0.1",
     "@types/file-saver": "^1.3.1",
     "angular2-focus": "^1.1.4",
+    "bootstrap": "^5.2.3",
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.6.12",
     "file-saver": "^1.3.8",
