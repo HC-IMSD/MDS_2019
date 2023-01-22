@@ -11,6 +11,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/dev/company",
             "index": "src/index.html",
             "main": "src/company/main_company.ts",
@@ -32,6 +33,12 @@
           },
           "configurations": {
             "production-en": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -49,6 +56,12 @@
               ]
             },
             "production-fr": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "index": "src/fr/index.html",
               "optimization": true,
               "outputHashing": "all",
@@ -107,6 +120,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/dev/company_internal",
             "index": "src/index_internal.html",
             "main": "src/company/main_company.ts",
@@ -128,6 +142,12 @@
           },
           "configurations": {
             "production-en": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -145,6 +165,12 @@
               ]
             },
             "production-fr": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "index": "src/fr/index_internal.html",
               "optimization": true,
               "outputHashing": "all",
@@ -203,6 +229,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/dev/transaction",
             "index": "src/index.html",
             "main": "src/transaction/main_transaction.ts",
@@ -224,6 +251,12 @@
           },
           "configurations": {
             "production-en": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -241,6 +274,12 @@
               ]
             },
             "production-fr": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "index": "src/fr/index.html",
               "optimization": true,
               "outputHashing": "all",
@@ -299,6 +338,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/dev/masterFile",
             "index": "src/index.html",
             "main": "src/master-file/main_master_file.ts",
@@ -320,6 +360,12 @@
           },
           "configurations": {
             "production-en": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -337,6 +383,12 @@
               ]
             },
             "production-fr": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "index": "src/fr/index.html",
               "optimization": true,
               "outputHashing": "all",
@@ -395,6 +447,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/dev/applicationInfo",
             "index": "src/index.html",
             "main": "src/application-info/main_application_info.ts",
@@ -416,6 +469,12 @@
           },
           "configurations": {
             "production-en": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -433,6 +492,12 @@
               ]
             },
             "production-fr": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "index": "src/fr/index.html",
               "optimization": true,
               "outputHashing": "all",
@@ -488,7 +553,7 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "nga",
-      "styleext": "scss"
+      "style": "scss"
     },
     "@schematics/angular:directive": {
       "prefix": "nga"

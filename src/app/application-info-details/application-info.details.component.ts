@@ -43,7 +43,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   @Output() materialErrorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   @ViewChild(DeviceListComponent, {static: true}) aiDevices: DeviceListComponent;
-  @ViewChild(MaterialListComponent, {static: false}) bioMaterials: MaterialListComponent;
+  @ViewChild(MaterialListComponent) bioMaterials: MaterialListComponent;
 
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert

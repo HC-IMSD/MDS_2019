@@ -26,7 +26,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public errors;
   @Input() isInternal;
   @Input() lang;
-  @ViewChild(RequesterListComponent, {static: false}) requesterListChild: RequesterListComponent;
+  @ViewChild(RequesterListComponent) requesterListChild: RequesterListComponent;
 
   private _masterFileDetailErrors = [];
   private _requesterErrors = [];

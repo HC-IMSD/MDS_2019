@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "module": "esnext",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -29,5 +30,12 @@
     "noUnusedParameters": false,        /* Report errors on unused parameters. */
     "noImplicitReturns": false,         /* Report error when not all code paths in function return a value. */
     "noFallthroughCasesInSwitch": false /* Report errors for fallthrough cases in switch statement. */
-  }
+  },
+  "files": [
+    "src/company/main_company.ts",
+    "polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
 }

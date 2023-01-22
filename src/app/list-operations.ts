@@ -1,10 +1,11 @@
 import {FormArray, FormGroup} from '@angular/forms';
 import {ExpanderComponent} from './common/expander/expander.component';
 import {ErrorSummaryComponent} from './error-msg/error-summary/error-summary.component';
-import {ViewChild} from '@angular/core';
+import { ViewChild, Directive } from '@angular/core';
 import {IMasterDetails} from './master-details';
 
 
+@Directive()
 export abstract class ListOperations {
 
   public prevRow: number;

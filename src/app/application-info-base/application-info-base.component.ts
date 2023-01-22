@@ -25,7 +25,7 @@ export class ApplicationInfoBaseComponent implements OnInit {
   public errors;
   @Input() isInternal;
   @Input() lang;
-  @ViewChild(ApplicationInfoDetailsComponent, {static: false}) aiDetails: ApplicationInfoDetailsComponent;
+  @ViewChild(ApplicationInfoDetailsComponent) aiDetails: ApplicationInfoDetailsComponent;
 
   private _appInfoDetailErrors = [];
   private _deviceErrors = [];
