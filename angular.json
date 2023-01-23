@@ -499,7 +499,6 @@
       }
     }
   },
-  "defaultProject": "company",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "nga",
